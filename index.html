@@ -18,13 +18,14 @@
       <span><strong>KahvilaKoodi</strong><small>Ohjattu näyttöprojekti</small></span>
     </a>
     <nav class="top-nav" aria-label="Päänavigaatio">
+      <a href="#aloitusohje">Näin käytät sivua</a>
       <a href="#toimeksianto">Toimeksianto</a>
       <a href="#polku">Oppimispolku</a>
       <a href="#tyotapa">Työtapa</a>
       <a href="#tekoaly">Tekoäly</a>
       <a href="#todisteet">Näytön todisteet</a>
     </nav>
-    <button class="button button-ghost print-button" type="button" data-print>▣ Tulosta</button>
+    <button class="button button-ghost print-button" type="button" data-print>▣ Tulosta ohjesivu</button>
   </header>
 
   <div class="page-shell" id="alku">
@@ -54,7 +55,7 @@
         <div class="hero-copy reveal">
           <p class="eyebrow eyebrow-accent">Näyttöprojekti · 17.8.–4.12.2026</p>
           <h1 id="hero-title">Rakenna pieni peli.<br><em>Näytä iso osaaminen.</em></h1>
-          <p class="lead">Tee koulun kahvilapeli Unityllä ja C#:lla vaihe vaiheelta: selvitä tarve, suunnittele, ohjelmoi, testaa, julkaise WebGL-versiona ja kokoa näytön todisteet. Tärkeintä ei ole pelin koko vaan ymmärrettävä ja toimiva työprosessi.</p>
+          <p class="lead">Tee koulun kahvilapeli Unityllä ja C#:lla vaihe vaiheelta. Jokainen viikko kertoo, mitä rakennat, miksi se tehdään, miten etenet ja mistä tiedät työn olevan valmis. Kirjoitat projektipäiväkirjaa suoraan tälle sivulle.</p>
           <div class="hero-actions">
             <button class="button button-primary" type="button" data-continue>Aloita oppimispolku</button>
             <a class="button button-secondary" href="downloads/koulun-kahvilapeli-tyopaketti.pdf" download>Lataa paperinen aikataulu</a>
@@ -77,9 +78,46 @@
         </figure>
       </section>
 
+      <section class="start-guide section-pad" id="aloitusohje" aria-labelledby="start-guide-title">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Lue tämä ennen viikkoa 34</p>
+          <h2 id="start-guide-title">Yksi projekti, yksi kirjoituspaikka</h2>
+          <p>Tässä toteutuksessa et täytä samoja asioita erilliseen Word-pohjaan. Sivuston projektipäiväkirja on projektin suunnitelma, työpäiväkirja ja todisteiden hakemisto.</p>
+        </div>
+        <div class="workplace-map reveal" role="list" aria-label="Missä projektin eri osat säilytetään">
+          <article role="listitem"><span>1</span><h3>Rakenna Unityssä</h3><p>Peli ja C#-koodi ovat Unity-projektissa.</p><small>Git-repository eli projektin tiedosto- ja versiohistoria sisältää kansiot <code>Assets</code>, <code>Packages</code> ja <code>ProjectSettings</code>.</small></article>
+          <article role="listitem"><span>2</span><h3>Ohjaa työ Gitillä</h3><p>Tehtävät ovat GitHubin tehtäväkortteja (issueita). Valmiit muutokset näkyvät pieninä tallennettuina muutoksina (committeina).</p><small>Yksi tehtäväkortti = yleensä puolen tai yhden päivän työ.</small></article>
+          <article role="listitem"><span>3</span><h3>Kirjoita tällä sivulla</h3><p>Jokaisen viikon lopussa vastaat kolmeen kysymykseen: mitä ja miten, miksi sekä missä todiste on.</p><small>Kentät tallentuvat vain tähän selaimeen.</small></article>
+          <article role="listitem"><span>4</span><h3>Vie päiväkirja talteen</h3><p>Lataa koko projektipäiväkirja jokaisen viikon lopussa ja korvaa repositorion vanha tiedosto.</p><small>Tiedosto: <code>project-docs/projektipaivakirja.md</code>. <code>docs</code>-kansio varataan myöhemmin julkaistavalle pelille.</small></article>
+        </div>
+        <div class="start-checklist reveal">
+          <div>
+            <p class="eyebrow">Tee kerran projektin alussa</p>
+            <ol>
+              <li>Luo repositoryyn kansio <code>project-docs</code>. Älä luo vielä <code>docs</code>-kansiota.</li>
+              <li>Avaa viikko 34 ja tee yksi tehtävä kerrallaan.</li>
+              <li>Kirjoita viikon lopussa projektipäiväkirjan kolme kenttää.</li>
+              <li>Paina <strong>Lataa koko projektipäiväkirja</strong>, siirrä tiedosto <code>project-docs</code>-kansioon ja tee commit.</li>
+            </ol>
+          </div>
+          <div class="journal-export-card">
+            <strong>Projektipäiväkirja + AI-loki</strong>
+            <p>Vie vastaukset säännöllisesti talteen. Selaimen tallennus ei siirry toiselle laitteelle eikä korvaa Git-todistetta.</p>
+            <button class="button button-primary" type="button" data-export-journal>Lataa koko projektipäiväkirja (.md)</button>
+            <span class="save-status" data-journal-summary aria-live="polite">0 / 15 viikkoa kirjattu</span>
+          </div>
+        </div>
+        <details class="source-role reveal">
+          <summary>Mitä paperinen työpaketti ja alkuperäinen Word-pohja tekevät?</summary>
+          <p><strong>Paperinen työpaketti</strong> on aikataulu ja tarkistuslista tilanteisiin, joissa sivu ei ole auki. Siihen ei tarvitse kirjoittaa samoja vastauksia uudelleen.</p>
+          <p><strong>Alkuperäinen Word-pohja</strong> on tämän oppimispolun lähdeaineisto. Sen aiheet on tuotu sivuston viikkotehtäviin ja projektipäiväkirjaan. Täytä Word-pohja erikseen vain, jos opettaja antaa siitä erillisen palautusohjeen.</p>
+        </details>
+        <p class="browser-state-note reveal"><strong>Muista:</strong> sivuston rastit ja kirjoituskentät ovat oma työmuistisi. Ne tallentuvat vain tähän selaimeen, eivätkä ne siirry opettajalle. Rasti ei ole palautus tai näyttötodiste. Rastita vasta, kun työ on testattu ja todiste on Git-repositoryssa.</p>
+      </section>
+
       <section class="project-brief section-pad reveal" id="toimeksianto" aria-labelledby="brief-title">
         <div class="brief-main">
-          <p class="eyebrow">Alkuperäinen toimeksianto · versio 1.0</p>
+          <p class="eyebrow">Alkuperäinen asiakastoimeksianto · annettu 17.8.2026</p>
           <h2 id="brief-title">Koulun kahvilapeli</h2>
           <div class="full-assignment">
             <p>Haluan pienen PC:llä tai selaimessa toimivan pelin, jossa pelaaja työskentelee koulun kahvilassa. Asiakkaita saapuu tiskille ja he tilaavat 1–3 tuotetta. Pelaajan tehtävänä on toimittaa oikea tilaus mahdollisimman nopeasti.</p>
@@ -96,7 +134,7 @@
               <li>yksi <code>CafeGame</code>-scene eli pelin työtila</li>
               <li>Canvas-UI-alue: <code>MenuPanel</code>, <code>GamePanel</code> ja <code>ResultPanel</code></li>
               <li>tuotteet erillisessä JSON-tiedostossa</li>
-              <li>P0-päätös: viiden parhaan tuloksen lista</li>
+              <li>P0 eli pakollinen perusversio: viiden parhaan tuloksen lista</li>
               <li>lopuksi Unity WebGL -build GitHub Pagesiin</li>
             </ul>
             <p>Toimeksiannon PC/selaimessa-vaihtoehdosta tässä polussa on valittu selain. Käytä oppilaitoksen määrittämää Unity-versiota koko projektin ajan.</p>
@@ -136,15 +174,15 @@
       <section class="kickoff section-pad" aria-labelledby="kickoff-title">
         <div class="section-heading reveal">
           <p class="eyebrow">Projekti käyntiin</p>
-          <h2 id="kickoff-title">Ensimmäiset viisi työpäivää</h2>
-          <p>Älä aloita laajasta koodaamisesta. Tee ensin päätökset ja yksi pieni pelattava polku.</p>
+          <h2 id="kickoff-title">Ensimmäisen vaiheen kokonaiskuva</h2>
+          <p>Tämä ei ole erillinen tehtävälista. Samat työvaiheet tehdään viikkokorteissa 34–36. Tee ensin päätökset ja yksi pieni pelattava polku.</p>
         </div>
         <ol class="day-path">
           <li class="reveal"><span>Päivä 1</span><strong>Tarve</strong><p>Lue toimeksianto. Kirjoita 8 kysymystä ja pidä aloituskeskustelu.</p></li>
-          <li class="reveal" data-delay="1"><span>Päivä 2</span><strong>Rajaus</strong><p>Sovi alusta, säännöt, kohderyhmä, P0-ominaisuudet ja valmis kun -ehdot.</p></li>
+          <li class="reveal" data-delay="1"><span>Päivä 2</span><strong>Rajaus</strong><p>Sovi testiselaimet, pelisäännöt, kohderyhmä, P0-ominaisuudet ja valmis kun -ehdot.</p></li>
           <li class="reveal" data-delay="2"><span>Päivä 3</span><strong>Unity-perusta</strong><p>Luo Unity Hubissa 2D-projekti, käynnistä testiscene ja tee WebGL-testibuild. Perusta Git-repository.</p></li>
           <li class="reveal" data-delay="3"><span>Päivä 4</span><strong>Suunnittele</strong><p>Tee backlog, UI-mockup ja jaa koodi selkeisiin vastuisiin.</p></li>
-          <li class="reveal" data-delay="4"><span>Päivä 5</span><strong>Pystyleikkaus</strong><p>Tee polku valikosta yhteen tilaukseen, pisteeseen ja pelin loppuun.</p></li>
+          <li class="reveal" data-delay="4"><span>Päivä 5</span><strong>Pelattava kokonaisuus</strong><p>Tee polku valikosta yhteen tilaukseen, pisteeseen ja pelin loppuun.</p></li>
         </ol>
       </section>
 
@@ -152,7 +190,7 @@
         <div class="section-heading reveal">
           <p class="eyebrow">Oppimispolku</p>
           <h2 id="path-title">Viikko kerrallaan valmiiksi</h2>
-          <p>Avaa viikko, tee tehtävät järjestyksessä ja merkitse ne valmiiksi. Eteneminen tallentuu tähän selaimeen.</p>
+          <p>Avaa vain nykyinen viikko. Lue ensin tavoite ja syy, tee ohjeen vaiheet järjestyksessä, testaa valmis kun -ehto ja täytä lopuksi viikon projektipäiväkirja.</p>
         </div>
 
         <div class="phase-block" id="vaihe-a">
@@ -170,14 +208,14 @@
                 <p>Lopullinen peli pitää julkaista niin, että voin itse kokeilla sitä.</p>
               </div>
               <label><input type="checkbox" data-task="34-2"> <span>Asenna sovittu Unity-versio Unity Hubissa, luo 2D-projekti ja varmista toimiva WebGL-testibuild.</span></label>
-              <label><input type="checkbox" data-task="34-3"> <span>Perusta repository, README, .gitignore ja docs-kansio.</span></label>
+              <label><input type="checkbox" data-task="34-3"> <span>Perusta Git-repository, README, .gitignore ja project-docs-kansio.</span></label>
               <div class="lesson-instructions">
                 <p class="lesson-label"><span>Ohjattu työ</span> Näin etenet</p>
                 <ol>
                   <li><strong>Merkitse vaatimukset.</strong> Alleviivaa toimeksiannosta pakolliset ominaisuudet ja kirjoita epäselvät kohdat kysymyksiksi.</li>
                   <li><strong>Pidä 15 minuutin aloituskeskustelu.</strong> Kirjaa jokainen vastaus päätökseksi, avoimeksi asiaksi tai oletukseksi.</li>
                   <li><strong>Tee tyhjä tekninen testi.</strong> Luo projekti, käynnistä se ja tee yksi julkaistava testibuild ennen pelilogiikkaa.</li>
-                  <li><strong>Tallenna lähtötilanne.</strong> Lisää README, oikea .gitignore ja docs-kansio. Tee commit, jonka viesti kertoo projektin perustamisesta.</li>
+                  <li><strong>Tallenna lähtötilanne.</strong> Lisää README, oikea .gitignore ja <code>project-docs</code>-kansio. Tee commit, jonka viesti kertoo projektin perustamisesta.</li>
                 </ol>
                 <p class="checkpoint"><strong>Ennen kuin jatkat:</strong> toinen henkilö pystyy avaamaan repositoryn ja ymmärtää README:stä, mitä olet tekemässä.</p>
               </div>
@@ -188,9 +226,9 @@
           <details class="week-card" id="week-35" data-week="35">
             <summary><span class="week-number">35</span><span class="week-title"><small>24.–28.8.</small><strong>Rajaus ja suunnitelmat</strong></span><span class="week-status">0 / 3</span></summary>
             <div class="week-content">
-              <label><input type="checkbox" data-task="35-1"> <span>Täytä dokumentointipohjan osat 1–4 ensimmäiseen versioon.</span></label>
-              <label><input type="checkbox" data-task="35-2"> <span>Tee P0/P1/P2-backlog, työmääräarviot ja valmis kun -ehdot.</span></label>
-              <label><input type="checkbox" data-task="35-3"> <span>Piirrä UI-mockup ja suunnittele Unityn scene, Canvas-paneelit, C#-skriptit, JSON ja tallennus.</span></label>
+              <label><input type="checkbox" data-task="35-1"> <span>Kirjoita tämän sivun projektipäiväkirjaan tavoite, käyttäjä, oma rooli, rajaus ja toteutustapa.</span></label>
+              <label><input type="checkbox" data-task="35-2"> <span>Tee priorisoitu tehtävälista (P0/P1/P2-backlog), työmääräarviot ja valmis kun -ehdot.</span></label>
+              <label><input type="checkbox" data-task="35-3"> <span>Piirrä käyttöliittymäluonnos (UI-mockup) ja suunnittele Unityn scene, Canvas-paneelit, C#-skriptit, JSON ja tallennus.</span></label>
               <div class="lesson-instructions">
                 <p class="lesson-label"><span>Ohjattu työ</span> Näin etenet</p>
                 <ol>
@@ -206,7 +244,7 @@
           </details>
 
           <details class="week-card" id="week-36" data-week="36">
-            <summary><span class="week-number">36</span><span class="week-title"><small>31.8.–4.9.</small><strong>Ensimmäinen pystyleikkaus</strong></span><span class="week-status">0 / 3</span></summary>
+            <summary><span class="week-number">36</span><span class="week-title"><small>31.8.–4.9.</small><strong>Ensimmäinen pelattava kokonaisuus</strong></span><span class="week-status">0 / 3</span></summary>
             <div class="week-content">
               <label><input type="checkbox" data-task="36-1"> <span>Tee Unityn Canvasille MenuPanel, GamePanel ja ResultPanel väliaikaisella grafiikalla.</span></label>
               <label><input type="checkbox" data-task="36-2"> <span>Toteuta yksi asiakas, yksi tilaus, oikea toimitus ja piste.</span></label>
@@ -463,24 +501,24 @@
           </details>
 
           <details class="week-card" id="week-49" data-week="49">
-            <summary><span class="week-number">49</span><span class="week-title"><small>30.11.–4.12.</small><strong>Dokumentointi, itsearviointi ja luovutus</strong></span><span class="week-status">0 / 4</span></summary>
+            <summary><span class="week-number">49</span><span class="week-title"><small>30.11.–4.12.</small><strong>Näyttö, itsearviointi ja luovutus</strong></span><span class="week-status">0 / 4</span></summary>
             <div class="week-content">
-              <label><input type="checkbox" data-task="49-1"> <span>Täytä dokumentointipohjan osat 7–8 ja tarkista kaikki aiemmat osat.</span></label>
+              <label><input type="checkbox" data-task="49-1"> <span>Tarkista kaikkien viikkojen projektipäiväkirja ja vie valmis tiedosto repositorion project-docs-kansioon.</span></label>
               <label><input type="checkbox" data-task="49-2"> <span>Täytä osaamisvaatimusten näyttömatriisiin linkit tai todisteet.</span></label>
               <label><input type="checkbox" data-task="49-3"> <span>Harjoittele demo ja selitä koodi, bugi, tallennus, Git ja tekoälyn käyttö.</span></label>
-              <label><input type="checkbox" data-task="49-4"> <span>Luovuta peli, repository ja dokumentit viimeistään pe 4.12.2026.</span></label>
+              <label><input type="checkbox" data-task="49-4"> <span>Luovuta peli, repository, projektipäiväkirja ja todisteet viimeistään pe 4.12.2026.</span></label>
               <div class="lesson-instructions">
                 <p class="lesson-label"><span>Ohjattu työ</span> Näin etenet</p>
                 <ol>
                   <li><strong>Jäädytä lopullinen versio.</strong> Valitse näytössä esitettävä build äläkä lisää siihen enää toimintoja.</li>
-                  <li><strong>Yhdistä todisteet vaatimuksiin.</strong> Lisää kaikille 25 kohdalle täsmällinen linkki, commit, kuva, loki tai dokumentin kohta.</li>
-                  <li><strong>Täytä loput dokumentit.</strong> Tarkista testiloki, katselmoinnit, julkaisu, AI-loki ja rehellinen itsearviointi.</li>
+                  <li><strong>Yhdistä todisteet vaatimuksiin.</strong> Lisää kaikille 25 kohdalle täsmällinen linkki, commit, kuva, testi tai projektipäiväkirjan viikon numero.</li>
+                  <li><strong>Vie päiväkirja talteen.</strong> Tarkista viikkovastaukset, testit, katselmoinnit, julkaisu, AI-loki ja rehellinen itsearviointi. Lataa yksi Markdown-tiedosto <code>project-docs</code>-kansioon.</li>
                   <li><strong>Harjoittele 8–10 minuutin demo.</strong> Näytä peli, yksi tekninen ratkaisu, yksi korjattu bugi, Git-historia ja tekoälyn tarkistettu käyttö.</li>
                   <li><strong>Tee ristiintarkistus.</strong> Anna toisen henkilön avata linkit ja palautuspaketti ennen lopullista luovutusta.</li>
                 </ol>
-                <p class="checkpoint"><strong>Valmis:</strong> peli, repository, dokumentit ja todisteet avautuvat ilman suullista lisäohjetta.</p>
+                <p class="checkpoint"><strong>Valmis:</strong> peli, repository, projektipäiväkirja ja todisteet avautuvat ilman suullista lisäohjetta.</p>
               </div>
-              <p class="evidence"><strong>Näytä:</strong> peli, repository, valmis työpaketti, näyttömatriisi, AI-loki ja demo.</p>
+              <p class="evidence"><strong>Näytä:</strong> peli, repository, <code>project-docs/projektipaivakirja.md</code>, näyttömatriisi, AI-loki ja demo.</p>
             </div>
           </details>
         </div>
@@ -540,7 +578,7 @@
 
         <div class="ai-log reveal">
           <div class="log-heading"><div><p class="eyebrow">Oma AI-loki</p><h3>Kirjaa merkittävä tekoälyapu heti</h3></div><span data-log-count>0 merkintää</span></div>
-          <p class="ai-log-warning"><strong>Huomaa:</strong> selaimeen tallentuva loki on työmuisti, ei yksin näyttötodiste. Lataa se viikoittain ja lisää tiedosto repositoryn <code>docs</code>-kansioon.</p>
+          <p class="ai-log-warning"><strong>Huomaa:</strong> selaimeen tallentuva loki on työmuisti, ei yksin näyttötodiste. Se tulee mukaan koko projektipäiväkirjan lataukseen. Voit ladata myös pelkän AI-lokin ja tallentaa sen <code>project-docs</code>-kansioon.</p>
           <form data-ai-form>
             <label>Päivä ja työkalu<input name="tool" required placeholder="17.8. / ChatGPT"></label>
             <label>Mihin pyysit apua?<input name="question" required placeholder="Virheilmoituksen syyt"></label>
@@ -551,7 +589,7 @@
             <button class="button button-primary" type="submit">Lisää lokiin</button>
           </form>
           <div class="ai-log-actions">
-            <button class="button button-secondary" type="button" data-export-log>Lataa AI-loki (.md)</button>
+            <button class="button button-secondary" type="button" data-export-log>Lataa vain AI-loki (.md)</button>
             <small>Älä syötä henkilötietoja, salaisuuksia tai asiakkaan luottamuksellista aineistoa.</small>
           </div>
           <div class="log-entries" data-ai-entries aria-live="polite"><p class="empty-state">Ei merkintöjä vielä.</p></div>
@@ -609,24 +647,24 @@
         <div class="final-heading reveal"><p class="eyebrow">Viimeinen viikko</p><h2 id="final-title">Viisi päivää maaliin</h2><p>Uusia ominaisuuksia ei enää lisätä. Nyt varmistetaan, että osaaminen näkyy.</p></div>
         <ol class="final-days reveal">
           <li><span>Ma 30.11.</span><strong>Koodijäädytys</strong><small>Viimeinen hyväksytty build.</small></li>
-          <li><span>Ti 1.12.</span><strong>Todisteet</strong><small>Lokit, linkit ja dokumentit.</small></li>
+          <li><span>Ti 1.12.</span><strong>Todisteet</strong><small>Päiväkirja, testit ja linkit.</small></li>
           <li><span>Ke 2.12.</span><strong>Harjoittelu</strong><small>8–10 min demo ja itsearviointi.</small></li>
           <li><span>To 3.12.</span><strong>Puskuri</strong><small>Tarkistus toisen henkilön kanssa.</small></li>
-          <li class="deadline-day"><span>Pe 4.12.</span><strong>Luovutus</strong><small>Peli, repository, dokumentit ja näyttö.</small></li>
+          <li class="deadline-day"><span>Pe 4.12.</span><strong>Luovutus</strong><small>Peli, repository, projektipäiväkirja ja näyttö.</small></li>
         </ol>
       </section>
 
       <section class="downloads section-pad" aria-labelledby="downloads-title">
-        <div><p class="eyebrow">Paperinen työpaketti</p><h2 id="downloads-title">Ota koko suunnitelma mukaan</h2><p>Työpaketissa ovat tulostettava viikkoaikataulu, AI-loki, testausohjeet, osaamisvaatimukset ja luovutuksen tarkistuslista.</p></div>
+        <div><p class="eyebrow">Paperinen aikataulu</p><h2 id="downloads-title">Ota tarkistuslista mukaan</h2><p>Paperinen paketti auttaa seuraamaan aikataulua ja tarkistamaan näytön vaatimukset. Varsinainen projektipäiväkirja kirjoitetaan tällä sivulla ja viedään repositorion <code>project-docs</code>-kansioon.</p></div>
         <div class="download-actions">
           <a class="button button-primary" href="downloads/koulun-kahvilapeli-tyopaketti.pdf" download>Lataa PDF</a>
           <a class="button button-secondary" href="downloads/koulun-kahvilapeli-tyopaketti.docx" download>Lataa Word</a>
           <button class="button button-ghost" type="button" data-reset>Nollaa oma eteneminen</button>
         </div>
         <details class="source-downloads">
-          <summary>Alkuperäiset pohjat ja lähdeaineisto</summary>
+          <summary>Opettajan lähdeaineisto · ei erillistä täyttämistä ilman ohjetta</summary>
           <div>
-            <a href="downloads/nayton-dokumentointipohjat.docx" download>Täytettävät näytön dokumentointipohjat</a>
+            <a href="downloads/nayton-dokumentointipohjat.docx" download>Alkuperäinen dokumentointipohja</a>
             <a href="downloads/nayttosuunnitelma-peliohjelmointi.docx" download>Alkuperäinen näyttösuunnitelma</a>
             <a href="downloads/peli-ideat.docx" download>Alkuperäiset peli-ideat</a>
           </div>

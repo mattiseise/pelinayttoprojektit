@@ -4,41 +4,79 @@
   const STORAGE_KEY = "kahvilakoodi-progress-v1";
   const EVIDENCE_KEY = "kahvilakoodi-evidence-v1";
   const LOG_KEY = "kahvilakoodi-ai-log-v1";
+  const JOURNAL_KEY = "kahvilakoodi-journal-v1";
   const taskBoxes = [...document.querySelectorAll("[data-task]")];
   const evidenceBoxes = [...document.querySelectorAll("[data-evidence]")];
   const weekCards = [...document.querySelectorAll(".week-card")];
 
   const weekGuidance = {
     34: {
-      connection: "Gameplay loop alkaa asiakkaan tarpeesta: ennen koodaamista päätät, mitä kahvilassa tapahtuu tilauksen saapumisesta tulosruutuun.",
+      connection: "Pelin toimintakierto (gameplay loop) alkaa asiakkaan tarpeesta: ennen koodaamista päätät, mitä kahvilassa tapahtuu tilauksen saapumisesta tulosruutuun.",
+      deliverable: "Tarvekartoitus, käynnistyvä Unity 2D -projekti, WebGL-testibuild ja Git-repository.",
+      why: "Jos avoimet asiat jäävät oletuksiksi, voit rakentaa väärän pelin. Varhainen testibuild varmistaa, että valittu Unity-versio ja WebGL toimivat ennen varsinaista koodausta.",
+      done: "Asiakkaan vastaukset, avoimet asiat ja oletukset on eroteltu. Toinen henkilö löytää repositoryn README:stä projektin tavoitteen, ja WebGL-testibuild käynnistyy.",
+      record: "Kirjoita Vko 34 -merkintään keskustelun päivä, osallistujien roolit, 8 kysymystä vastauksineen, avoimet asiat, Unity-versio, ensimmäisen commitin tunniste ja testibuildin paikka.",
       skills: ["asiakastarve", "Unity 2D", "Git"],
       steps: [
         ["Selvitä tarve", "Merkitse toimeksiannon pakolliset asiat, laadi vähintään 8 päätökseen johtavaa kysymystä ja kirjaa asiakaskeskustelun vastaukset, avoimet asiat ja oletukset."],
         ["Tee Unity-testi", "Luo Unity Hubissa 2D-projekti, CafeGame-scene ja WebGL-testibuild. Kirjaa käytetty Unity-versio."],
-        ["Perusta Git", "Lisää README, docs-kansio ja Unity-.gitignore. Gitissä ovat Assets, Packages ja ProjectSettings; Library jää pois. Tee ensimmäinen commit ja push."]
+        ["Perusta Git", "Lisää README, project-docs-kansio ja Unity-.gitignore. Gitissä ovat Assets, Packages ja ProjectSettings; Library jää pois. Tee ensimmäinen commit ja push."]
       ],
+      help: {
+        title: "Luo Unity-projekti, ensimmäinen scene ja Git-repository",
+        tree: "CafeGame/\n├─ Assets/\n│  └─ Scenes/CafeGame.unity\n├─ Packages/\n├─ ProjectSettings/\n├─ project-docs/\n│  └─ projektipaivakirja.md\n├─ .gitignore\n└─ README.md\n\nBuilds/ jätetään Gitin ulkopuolelle testivaiheessa.",
+        actions: [
+          "Avaa Unity Hub → Projects → New project. Valitse oppilaitoksen Unity-versio ja 2D Core. Anna nimeksi CafeGame ja paina Create project.",
+          "Unityssä valitse File → Save As. Luo Assets-kansioon Scenes-kansio ja tallenna scene nimellä CafeGame.unity.",
+          "Valitse File → Build Profiles (vanhemmassa Unityssä Build Settings) → Web → Switch Platform → Add Open Scenes → Build. Tallenna testi paikalliseen Builds/Test-kansioon.",
+          "Luo GitHubiin tyhjä repository. Lisää Unitylle tarkoitettu .gitignore, jotta Library-, Temp- ja Builds-kansiot eivät mene versionhallintaan.",
+          "Varmista ennen ensimmäistä committia, että Assets, Packages, ProjectSettings, project-docs, README.md ja .gitignore näkyvät Gitin muutoksissa. Tee commit ja push."
+        ],
+        code: "ENSIMMÄISEN COMMITIN TARKISTUS\n[ ] Assets mukana\n[ ] Packages mukana\n[ ] ProjectSettings mukana\n[ ] project-docs mukana\n[ ] README.md kertoo pelin tavoitteen\n[ ] Library, Temp ja Builds eivät ole mukana\n[ ] commit näkyy GitHubissa",
+        test: "Sulje Unity. Kloonaa repository toiseen kansioon tai pyydä ohjaajaa avaamaan se. Unity luo puuttuvan Library-kansion itse, CafeGame-scene avautuu ja WebGL-testibuild voidaan tehdä."
+      },
       example: "Kysymys: Miten top 5 -listan tasatilanteet järjestetään? Vastaus: [asiakkaan vastaus]. Päätös: [oma tiivistys].",
       notEnough: "Kahdeksan lähes samaa tekoälykysymystä tai itse keksityt asiakkaan vastaukset eivät osoita asiakastarpeen selvittämistä."
     },
     35: {
       excerpt: "Pelissä pitää olla aloitusvalikko, itse peli, pistelasku ja pelin päättymisnäkymä.",
-      connection: "Nyt muutat toimeksiannon näkyväksi Unity-suunnitelmaksi: Canvas-näkymät, gameplay loop, C#-vastuut, tehtävät ja valmiin työn ehdot.",
+      connection: "Nyt muutat toimeksiannon näkyväksi Unity-suunnitelmaksi: Canvas-näkymät, pelin toimintakierto, C#-vastuut, tehtävät ja valmiin työn ehdot.",
+      deliverable: "Hyväksytty pakollinen perusversio, pieni backlog, käyttöliittymäluonnos ja Unityn tekninen rakennekuva.",
+      why: "Rajaus estää projektia kasvamasta liian suureksi. Kun jokaisella tehtävällä on selvä valmis kun -ehto, tiedät mitä seuraavaksi tehdään ja milloin työ voidaan testata.",
+      done: "Pakollinen perusversio on hyväksytty. Jokaisella P0-tehtävällä on 0,5–1 päivän arvio ja havaittava valmis kun -ehto. Mockupissa näkyvät valikko, peli ja tulos.",
+      record: "Kirjoita Vko 35 -merkintään tavoite, käyttäjä, oma rooli, rajaus, valitut teknologiat, hyväksyjän rooli ja päivä. Lisää linkit backlogiin, mockupiin ja rakennekuvaan.",
       skills: ["rajaus", "Unity UI", "työn pilkkominen"],
       resources: [
-        ["Avaa dokumentointipohja", "downloads/nayton-dokumentointipohjat.docx", true],
         ["Avaa koko toimeksianto", "#toimeksianto", false]
       ],
       steps: [
-        ["Täytä suunnitelman osat 1–4", "Kirjaa tavoite, käyttäjä, oma rooli, rajaus, toteutustapa ja ensimmäinen versio teknisestä suunnitelmasta omin sanoin."],
+        ["Kirjoita projektin perusta", "Täytä tämän viikon projektipäiväkirjaan tavoite, käyttäjä, oma rooli, rajaus ja toteutustapa omin sanoin."],
         ["Tee pieni backlog", "Kirjoita jokainen kahvilapelin P0-toiminto omaksi 0,5–1 päivän issueksi. Lisää prioriteetti ja havaittava valmis kun -ehto."],
-        ["Piirrä Unity-ratkaisu", "Luonnostele kolme Canvas-paneelia ja gameplay loop. Jaa C#-vastuut GameManager-, OrderManager-, ProductDatabase-, UIController- ja SaveService-skripteille."]
+        ["Piirrä Unity-ratkaisu", "Luonnostele kolme Canvas-paneelia ja pelin toimintakierto. Jaa C#-vastuut GameManager-, OrderManager-, ProductDatabase-, UIController- ja SaveService-skripteille."]
       ],
+      help: {
+        title: "Tee issue, mockup ja vastuurakenne",
+        tree: "project-docs/evidence/week-35/\n├─ mockup.png\n└─ unity-rakenne.png\n\nCafeGame-scene\n├─ GameManager\n├─ OrderManager\n├─ ProductDatabase\n├─ UIController\n└─ SaveService",
+        actions: [
+          "Kirjoita ensin projektipäiväkirjaan käyttäjä, tavoite, rajaus ja pakollinen perusversio. Käytä asiakkaan vastauksia; älä keksi avoimia päätöksiä.",
+          "Avaa GitHubissa repository → Issues → New issue. Tee yksi issue jokaisesta pakollisesta toiminnosta. Kirjoita otsikko verbillä, esimerkiksi Näytä asiakkaan tilaus.",
+          "Lisää issueen työmääräarvio ja valmis kun -ehto, jonka toinen ihminen voi testata. Jaa yli päivän mittainen issue pienemmäksi.",
+          "Piirrä valikko, peli ja tulos paperille tai piirto-ohjelmalla. Merkitse näkyviin tilaus, tuotteet, aika, pisteet, palaute ja painikkeet. Tallenna kuva annettuun project-docs-polkuun.",
+          "Piirrä toinen kuva C#-vastuista. Kirjoita jokaisen laatikon alle yksi vastuu ja nuoli siihen osaan, jolle tieto annetaan. Pyydä hyväksyntä ennen koodaamista."
+        ],
+        code: "ISSUE-POHJA\nOtsikko: [verbi + näkyvä toiminto]\n\nMiksi tämä tarvitaan:\n[linkki toimeksiannon vaatimukseen]\n\nToteutan:\n[rajattu muutos]\n\nValmis kun:\n[havaittava testitulos]\n\nArvio:\n[0,5 tai 1 työpäivä]",
+        test: "Valitse yksi P0-issue sattumalta. Toinen henkilö pystyy kertomaan sen tekstin perusteella, mitä peliin muuttuu, miten tulos testataan ja milloin tehtävä on valmis."
+      },
       example: "Issue: Näytä asiakkaan tilaus / P0 / 4 h / Valmis kun 1–3 tuotetta näkyy peliruudulla ennen pelaajan valintaa.",
       notEnough: "Tehtävä nimeltä “Tee peli” tai perustelematon tekoälyn arkkitehtuurikuva ei ole toteutuskelpoinen suunnitelma."
     },
     36: {
       excerpt: "Pelaajan tehtävänä on toimittaa oikea tilaus mahdollisimman nopeasti.",
-      connection: "Rakennat Unityyn gameplay loopin ensimmäisen pystyleikkauksen. Tässä versiossa yksi kiinteä kahvitilaus riittää todistamaan koko polun; lopullinen 1–3 tuotteen tilaus tulee seuraavaksi.",
+      connection: "Rakennat Unityyn pelin toimintakierron ensimmäisen päästä päähän toimivan version. Yksi kiinteä kahvitilaus riittää nyt todistamaan koko polun; lopullinen 1–3 tuotteen tilaus tulee seuraavaksi.",
+      deliverable: "Ensimmäinen pelattava WebGL-versio, jossa polku toimii valikosta yhden tilauksen kautta tulosruutuun.",
+      why: "Pieni päästä päähän toimiva versio paljastaa scene-, Canvas- ja painikekytkentöjen ongelmat aikaisin. Sen päälle on turvallisempi lisätä loput ominaisuudet.",
+      done: "Aloita → Kahvi → Toimita → pisteet → aika loppuu → tulos toimii WebGL-buildissa ilman, että muutat Unity Editorissa objekteja kesken pelin.",
+      record: "Kirjoita Vko 36 -merkintään buildin tunniste, viisi testikierrosta ja tulokset. Lisää yhtenäinen video tai muu todiste koko pelipolusta sekä commit- ja testitunnisteet.",
       skills: ["Unity Canvas", "pelitilat", "ensimmäinen testi"],
       steps: [
         ["Rakenna Canvas-paneelit", "Tee CafeGame-sceneen MenuPanel, GamePanel ja ResultPanel. GameManager näyttää kerrallaan vain oikean paneelin."],
@@ -59,11 +97,15 @@
         test: "Play-painalluksen jälkeen näkyy vain valikko. Aloita näyttää vain pelin ja EndGame vain tuloksen. Sama toimii WebGL-buildissa."
       },
       example: "Hyväksymistesti: Aloita → Kahvi → Toimita → pistemäärä 10 → aika 0 → tulosruudulla 10.",
-      notEnough: "Kolme irrallista ruutukaappausta tai editorissa käsin vaihdettu pelitila ei vielä ole pelattava pystyleikkaus."
+      notEnough: "Kolme irrallista ruutukaappausta tai editorissa käsin vaihdettu pelitila ei vielä ole päästä päähän pelattava kokonaisuus."
     },
     37: {
       excerpt: "Tuotteiden tiedot eivät saa olla kovakoodattuna pelilogiikkaan, vaan niiden pitää tulla erillisestä tietolähteestä.",
-      connection: "Gameplay loopin tilaus syntyy nyt Unityyn tuodusta JSON-datasta. Kahvi, tee ja sämpylä eivät enää asu C#-tilauskoodissa.",
+      connection: "Pelin toimintakierron tilaus syntyy nyt Unityyn tuodusta JSON-datasta. Kahvi, tee ja sämpylä eivät enää ole kirjoitettuina suoraan C#-tilauskoodiin.",
+      deliverable: "products.json, ProductDatabase.cs, 1–3 tuotteen tilauslogiikka ja virhetilanteiden käsittely.",
+      why: "Erillinen tietolähde tekee tuotteiden muuttamisesta helppoa ja osoittaa, että osaat siirtää dataa tiedostosta C#-olioiksi ilman käyttöliittymän ja pelisääntöjen sekoittamista.",
+      done: "Kahvin pistearvon muuttaminen JSONissa näkyy pelissä ilman C#-muutosta. Puuttuva tai rikkinäinen JSON näyttää hallitun virheen eikä riko koko peliä.",
+      record: "Kirjoita Vko 37 -merkintään JSON-tiedoston polku, tiedon kulku JSON → ProductDatabase → OrderManager → UI, commit-linkki ja puuttuvan sekä rikkinäisen datan testitulokset.",
       skills: ["TextAsset + JSON", "C#-logiikka", "virheenkäsittely"],
       steps: [
         ["Tee tuotedata", "Lisää products.json-tiedostoon vähintään id, nimi ja pistearvo. Liitä tiedosto Inspectorissa (komponenttien asetuspaneeli) ProductDatabase-skriptin TextAsset-kenttään."],
@@ -88,7 +130,11 @@
     },
     38: {
       excerpt: "Pelissä pitää olla aloitusvalikko, itse peli, pistelasku ja pelin päättymisnäkymä.",
-      connection: "Viimeistelet Unity-gameplay loopin palautteen: kahvilapelaaja näkee TextMeshPro-kentissä heti, oliko toimitus oikea, paljonko pisteitä tuli ja milloin vuoro päättyy.",
+      connection: "Viimeistelet pelin toimintakierron palautteen: kahvilapelaaja näkee TextMeshPro-kentissä heti, oliko toimitus oikea, paljonko pisteitä tuli ja milloin vuoro päättyy.",
+      deliverable: "Kirjatut pelisäännöt sekä toimivat pisteet, ajastin, palaute ja pelin päättyminen.",
+      why: "Pelaaja voi tehdä päätöksiä vain, jos peli kertoo tavoitteen, ajan ja toiminnan tuloksen. Rajatestit estävät tuplapisteet ja virheellisen lopetuksen.",
+      done: "Peli päättyy kerran ajan loppuessa, nopea kaksoispainallus ei anna kahta tulosta ja uusi peli nollaa ajan sekä pisteet.",
+      record: "Kirjoita Vko 38 -merkintään oikean ja väärän toimituksen pisteet, kierrosaika ja päättymisehto. Lisää build- tai commit-tunniste sekä vähintään kolme nimettyä rajatestiä tuloksineen.",
       skills: ["C#-pelisäännöt", "TextMeshPro UI", "rajatapaukset"],
       steps: [
         ["Kirjoita kahvilan säännöt", "Päätä ennen koodausta oikean ja väärän toimituksen pisteet, kierrosaika ja tarkka pelin päättymisehto."],
@@ -113,7 +159,11 @@
     },
     39: {
       excerpt: "Vaikeustason pitää kasvaa pelin edetessä.",
-      connection: "Unityn gameplay loop pysyy samana, mutta kahvilan kiire kasvaa hallitusti. Pelaajan pitää huomata vaikeutuminen ilman äkillistä sattumanvaraista hyppyä.",
+      connection: "Unityn pelin toimintakierto pysyy samana, mutta kahvilan kiire kasvaa hallitusti. Pelaajan pitää huomata vaikeutuminen ilman äkillistä sattumanvaraista hyppyä.",
+      deliverable: "Kahden vaikeusmallin vertailu, perusteltu päätös ja kolmen tason säädettävä vaikeuskäyrä.",
+      why: "Vertailu osoittaa, ettet valinnut ratkaisua sattumalta. Yhdestä paikasta säädettävät arvot helpottavat tasapainotusta ja tekevät muutoksista testattavia.",
+      done: "Valittu malli on perusteltu. Sovitut pistemäärät tuottavat joka kerta oikean tilauskoon ja asiakasajan ilman uutta if-ketjua jokaiselle tasolle.",
+      record: "Kirjoita Vko 39 -merkintään vaihtoehdot A ja B, vertailuperusteet, keskustelukumppanin rooli, valittu ratkaisu ja raja-arvojen testitulokset commit-linkkeineen.",
       skills: ["vaihtoehtojen vertailu", "vaikeuskäyrä", "pelitilat"],
       steps: [
         ["Vertaa ja valitse", "Vertaa toisen henkilön kanssa vaihtoehtoa A (enemmän tuotteita) ja B (vähemmän aikaa) selkeyden, säädettävyyden ja testattavuuden perusteella. Kirjaa päätös."],
@@ -139,10 +189,14 @@
     40: {
       excerpt: "Pelaajan parhaat tulokset pitää tallentaa.",
       connection: "Kun kahvilavuoro päättyy, viiden parhaan tuloksen lista tallentuu Unityn PlayerPrefsiin ja näkyy vielä WebGL-pelin uudelleenkäynnistyksen jälkeen.",
+      deliverable: "Toimiva top 5 -tallennus, nimimerkin validointi ja ratkaisun rajoitusten perustelu.",
+      why: "Toimeksianto vaatii pysyvän tuloksen. Samalla osoitat, että osaat valita pieneen selaimessa toimivaan peliin sopivan tallennustavan ja käsitellä epäluotettavaa syötettä.",
+      done: "Kuudesta tuloksesta näkyy vain viisi parasta vielä sivun uudelleenavauksen jälkeen. Tyhjä tallennus, tasapisteet ja liian pitkä nimimerkki on testattu.",
+      record: "Kirjoita Vko 40 -merkintään, miksi ScoreList tallennetaan JSON-merkkijonona PlayerPrefsiin, mitä ratkaisu ei suojaa ja mitä dataa ei tallenneta. Lisää commit ja nimetyt WebGL-testit.",
       skills: ["PlayerPrefs", "validointi", "tietoturva"],
       steps: [
         ["Tallenna top 5", "ScoreList sisältää enintään viisi ScoreEntry-riviä. Järjestä lista pisteillä, poista kuudenneksi jäävä ja lataa lista seuraavalla käynnistyksellä."],
-        ["Perustele ratkaisu", "Kirjaa tekniseen suunnitelmaan, miksi ScoreList tallennetaan JSON-merkkijonona PlayerPrefsiin, missä selain säilyttää tiedon ja mitä rajoituksia ratkaisulla on."],
+        ["Perustele ratkaisu", "Kirjoita tämän viikon projektipäiväkirjan Miksi-kenttään, miksi ScoreList tallennetaan JSON-merkkijonona PlayerPrefsiin, missä selain säilyttää tiedon ja mitä rajoituksia ratkaisulla on."],
         ["Validoi ja testaa", "Rajaa nimimerkki, käsittele puuttuva tallennus ja testaa tyhjä lista, kuudes tulos, tasapisteet sekä WebGL-uudelleenkäynnistys."]
       ],
       help: {
@@ -163,7 +217,11 @@
     },
     41: {
       excerpt: "Haluan nähdä pelistä toimivan version vähintään kerran ennen lopullista versiota, jotta voin pyytää muutoksia.",
-      connection: "Asiakas pelaa nyt kahvilapelin oikean gameplay loopin. Sinä tarkkailet, missä tilaus, tuotteiden valinta tai palaute jää epäselväksi.",
+      connection: "Asiakas pelaa nyt kahvilapelin oikean toimintakierron. Sinä tarkkailet, missä tilaus, tuotteiden valinta tai palaute jää epäselväksi.",
+      deliverable: "Asiakkaan kokeilema väliversio, katselmointimuistio ja yksi hyväksytty muutostehtävä.",
+      why: "Palaute tarvitaan ennen viimeistelyä, jotta muutokselle jää aikaa. Asiakkaan alkuperäisen havainnon erottaminen omasta tulkinnastasi tekee päätöksestä luotettavan.",
+      done: "Asiakas on pelannut buildin alusta loppuun. Muistiossa näkyvät alkuperäinen palaute, oma tulkinta, päätös, hyväksyjä ja yksi rajattu issue.",
+      record: "Kirjoita Vko 41 -merkintään buildin tunniste, katselmoinnin päivä, osallistujien roolit, asiakkaan sanat, oma tulkinta ja linkki hyväksyttyyn muutostehtävään.",
       skills: ["asiakasviestintä", "katselmointi", "priorisointi"],
       steps: [
         ["Valmistele WebGL-kokeiluversio", "Buildissa toimivat valikko, 1–3 tuotteen tilaus, toimitus, pisteet, vaikeus, tulos ja PlayerPrefs-tallennus."],
@@ -175,12 +233,16 @@
     },
     43: {
       excerpt: "Haluan myös nähdä pelistä toimivan version vähintään kerran ennen lopullista versiota, jotta voin pyytää muutoksia.",
-      connection: "Toteutat asiakkaan valitseman muutoksen Unity-projektissa niin, että alkuperäinen gameplay loop säilyy toimivana.",
+      connection: "Toteutat asiakkaan valitseman muutoksen Unity-projektissa niin, että alkuperäinen pelin toimintakierto säilyy toimivana.",
+      deliverable: "Asiakaspalautteeseen jäljitettävä, katselmoitu ja testattu muutos omassa Git-haarassa.",
+      why: "Erillinen Git-haara pitää toimivan main-version turvassa ja näyttää, miten palaute muuttui tehtäväksi, koodiksi, testiksi ja hyväksytyksi muutokseksi.",
+      done: "Muutos täyttää hyväksymisehdon, vanha pelipolku toimii, katselmointiin on vastattu ja muutos on yhdistetty main-haaraan.",
+      record: "Kirjoita Vko 43 -merkintään ketju: asiakaspalaute → issue → Git-haara → pull request tai merge → commit → hyväksymistesti. Lisää täsmälliset linkit.",
       skills: ["issue", "feature-branch", "katselmointi"],
       steps: [
         ["Kirjoita muutos pelitehtäväksi", "Liitä asiakkaan palaute issueen ja kerro, mitä kahvilapelin näkymää tai toimintoa muutetaan."],
         ["Toteuta erillään", "Aloita toimivasta mainista, tee pieniä committeja feature-branchiin ja testaa tilaus–toimitus–pisteet jokaisen ehjän muutoksen jälkeen."],
-        ["Katselmoi ja yhdistä", "Pyydä ihmiseltä kommentti, vastaa siihen ja yhdistä vasta, kun hyväksymisehto sekä vanha gameplay loop läpäisevät testin."]
+        ["Katselmoi ja yhdistä", "Pyydä ihmiseltä kommentti, vastaa siihen ja yhdistä vasta, kun hyväksymisehto sekä vanha pelin toimintakierto läpäisevät testin."]
       ],
       example: "Issue: Suurenna tilauskortti. Valmis kun uusi käyttäjä löytää tilauksen 5 sekunnissa. PR sisältää muutoksen ja testin.",
       notEnough: "Suuri suora muutos mainiin tai yksi massacommit katkaisee yhteyden palautteen, toteutuksen ja testin välillä."
@@ -188,6 +250,10 @@
     44: {
       excerpt: "Lopullinen peli pitää julkaista niin, että voin itse kokeilla sitä.",
       connection: "Unity-kahvilapelin täytyy kertoa tavoitteensa ilman opettajan vieressä antamia ohjeita. Siksi testaat juuri Canvasin tilausta, tuotepainikkeita, Toimita-painiketta ja palautetta.",
+      deliverable: "Lyhyt käytettävyystesti, kaksi perusteltua UI-muutosta ja uusintatesti.",
+      why: "Julkaistu peli ei saa vaatia tekijää neuvomaan vieressä. Havainnointi paljastaa epäselvyydet, joita oma pelaaminen ei enää huomaa.",
+      done: "Toinen käyttäjä löytää tavoitteen ja pelaa yhden tilauksen loppuun ilman suullista ohjetta. Kahdelle muutokselle näkyy ennen- ja jälkeen-tilanne.",
+      record: "Kirjoita Vko 44 -merkintään annettu pelitehtävä, alkuperäiset havainnot, tehdyt kaksi muutosta ja uusintatestin tulos. Lisää ennen/jälkeen-kuvat ja commit-linkki.",
       skills: ["Unity UI", "Canvas-palaute", "käyttäjätesti"],
       steps: [
         ["Anna oikea pelitehtävä", "Pyydä vertaista aloittamaan peli, toimittamaan yksi tilaus ja tarkistamaan tulos ilman suullista ohjetta."],
@@ -199,10 +265,13 @@
     },
     45: {
       excerpt: "Pelissä pitää olla aloitusvalikko, itse peli, pistelasku ja pelin päättymisnäkymä.",
-      connection: "Testaat Unity WebGL -buildin koko gameplay loopin järjestelmällisesti: aloitus, tilaus, valinta, toimitus, pisteet, aika, vaikeus, PlayerPrefs ja uusi peli.",
+      connection: "Testaat Unity WebGL -buildin koko toimintakierron järjestelmällisesti: aloitus, tilaus, valinta, toimitus, pisteet, aika, vaikeus, PlayerPrefs ja uusi peli.",
+      deliverable: "Vähintään 12 testitapauksen testausmatriisi ja kolme täydellistä virheenkorjausketjua.",
+      why: "Järjestelmällinen testaus näyttää, että peli toimii myös rajoilla ja virhetilanteissa. Korjausketju todistaa, että osaat löytää syyn etkä vain peittää oiretta.",
+      done: "Kaikissa 12 testissä näkyvät build, lähtötila, toiminta, odotus, havainto ja tulos. Kolmessa ketjussa näkyvät havainto, syy, korjauscommit ja onnistunut uusintatesti.",
+      record: "Kirjoita Vko 45 -merkintään testit T01–T12 ja linkki testausmatriisiin. Nimeä kolme ketjua muodossa havainto tai merkitty vikatehtävä → syy → commit → uusintatesti.",
       skills: ["testitapaus", "debuggaus", "regressiotesti = vanhan toiminnan uusintatesti"],
       resources: [
-        ["Lataa testausloki ja työpaketti", "downloads/koulun-kahvilapeli-tyopaketti.docx", true],
         ["Avaa näytön todisteet", "#todisteet", false]
       ],
       steps: [
@@ -216,10 +285,14 @@
     46: {
       excerpt: "Tuotteiden tiedot eivät saa olla kovakoodattuna pelilogiikkaan, vaan niiden pitää tulla erillisestä tietolähteestä.",
       connection: "Selkeytät nyt Unity-projektin C#-koodia: tilauksen luonti, pisteiden lasku ja Canvasin päivitys eivät saa olla yhtenä pitkänä MonoBehaviour-metodina.",
+      deliverable: "Yksi rajattu refaktorointi, sitä ympäröivät testit ja ihmisen tekemä koodikatselmointi.",
+      why: "Selkeästi nimetyt ja rajatut vastuut helpottavat virheiden löytämistä sekä myöhempiä muutoksia. Testi varmistaa, ettei rakenteen parantaminen muuta pelin toimintaa.",
+      done: "Sama nimetty testi läpäisee ennen ja jälkeen refaktoroinnin. Katselmointikommenttiin on vastattu ja pystyt selittämään ratkaisun ilman tekoälyn vastausta.",
+      record: "Kirjoita Vko 46 -merkintään havaittu laatuhaitta, ennen/jälkeen-muutos, testitunniste, katselmoijan rooli, saatu kommentti ja oma vastaus. Lisää diffi- tai commit-linkki.",
       skills: ["C#-ylläpidettävyys", "refaktorointi", "koodikatselmointi"],
       steps: [
         ["Valitse yksi oikea laatuhaitta", "Etsi C#-skripteistä toisto, epäselvä nimi, pitkä Update-metodi tai MonoBehaviour, joka hoitaa sekä tilauksen, pisteet että UI:n."],
-        ["Refaktoroi toimintaa muuttamatta", "Tee yksi rajattu muutos ja aja sama gameplay loop -testi ennen ja jälkeen."],
+        ["Refaktoroi toimintaa muuttamatta", "Tee yksi rajattu muutos ja aja sama pelin toimintakierron testi ennen ja jälkeen."],
         ["Selitä ratkaisu", "Pyydä ihmisen katselmointi ja selitä yksi oma sekä yksi tekoälyavusteinen kohta omin sanoin."]
       ],
       example: "Ennen: a() laskee pisteet. Jälkeen: CalculateOrderScore() kertoo nimestä, mitä kahvilapelin sääntöä metodi toteuttaa.",
@@ -227,7 +300,11 @@
     },
     47: {
       excerpt: "Lopullinen peli pitää julkaista niin, että voin itse kokeilla sitä.",
-      connection: "Release candidate 1 eli RC1 on Unity WebGL -pelin ensimmäinen julkaisuehdokas: koko gameplay loop testataan selaimessa sellaisena kuin se aiotaan julkaista.",
+      connection: "Release candidate 1 eli RC1 on Unity WebGL -pelin ensimmäinen julkaisuehdokas: koko pelin toimintakierto testataan selaimessa sellaisena kuin se aiotaan julkaista.",
+      deliverable: "Jäädytetty RC1-build, kahden henkilön testipalaute ja päätetty julkaisun korjauslista.",
+      why: "Ominaisuusjäädytys estää uusia muutoksia rikkomasta lähes valmista peliä. Palautteen luokittelu kohdistaa ajan vain julkaisuun vaikuttaviin virheisiin.",
+      done: "RC1 on sidottu yhteen committiin. Asiakas ja toinen käyttäjä ovat testanneet sen, ja jokaisella havainnolla on vakavuus, toistettavuus sekä päätös.",
+      record: "Kirjoita Vko 47 -merkintään RC1-tagi ja commit, testaajien roolit, heidän havaintonsa sekä päätös: korjataan nyt, tunnettu puute tai myöhemmin.",
       skills: ["release candidate", "palautteen luokittelu", "julkaisupäätös"],
       steps: [
         ["Nimeä RC1", "Tee yhdestä main-commitista Unity WebGL -build, jossa valikko, kahvilavuoro, tulos ja PlayerPrefs-tallennus toimivat."],
@@ -239,7 +316,11 @@
     },
     48: {
       excerpt: "Lopullinen peli pitää julkaista niin, että voin itse kokeilla sitä.",
-      connection: "Unity-kahvilapelin gameplay loop siirtyy nyt Editorista GitHub Pagesiin. Testaat julkaistua WebGL-versiota, et Play Modea.",
+      connection: "Unity-kahvilapelin toimintakierto siirtyy nyt Editorista GitHub Pagesiin. Testaat julkaistua WebGL-versiota, et Play Modea.",
+      deliverable: "GitHub Pagesissa toimiva Unity WebGL v1.0, käyttöohje ja tunnettujen puutteiden lista.",
+      why: "Asiakkaan pitää pystyä avaamaan peli itse. Vain julkisen linkin testaaminen osoittaa, että buildin tiedostot, palvelimen asetukset ja tallennus toimivat oikeassa ympäristössä.",
+      done: "v1.0-tagin commit vastaa julkaistua versiota. Toinen henkilö avaa linkin toisella selaimella tai laitteella ja pelaa yhden kierroksen ohjeen avulla.",
+      record: "Kirjoita Vko 48 -merkintään ketju v1.0-tagi → commit → julkaisulinkki. Lisää testattu selain tai laite, testaajan rooli, testitulos ja tunnetut puutteet.",
       skills: ["Unity WebGL", "GitHub Pages", "käyttöohje"],
       steps: [
         ["Rakenna puhtaasta mainista", "Vaihda Unityn Build Profiles -näkymässä WebGL-alustaan (vanhemmassa versiossa Build Settings). Tee v1.0-tagi ja build repositoryn docs-kansioon."],
@@ -269,19 +350,21 @@
     49: {
       excerpt: "Lopullinen peli pitää julkaista niin, että voin itse kokeilla sitä.",
       connection: "Et enää muuta Unity-projektin gameplayta. Yhdistät jokaisen kahvilapelin vaatimuksen täsmälliseen C#-tiedostoon, testiin, buildiin ja Git-todisteeseen.",
+      deliverable: "Valmis projektipäiväkirja, näyttömatriisi, itsearviointi, jäädytetty v1.0 ja harjoiteltu demo.",
+      why: "Arvioija voi arvioida vain näkyvän ja löydettävän osaamisen. Täsmälliset linkit säästävät aikaa ja osoittavat, miten vaatimus muuttui suunnitelmaksi, toteutukseksi ja testiksi.",
+      done: "Jokaisella arviointikohdalla on avautuva täsmälinkki tai tunniste. Projektipäiväkirja ja AI-loki ovat repositoryssa, ja demo käyttää samaa jäädytettyä v1.0-versiota.",
+      record: "Kirjoita Vko 49 -merkintään itsearviointi: kolme vahvuutta todisteineen ja yksi seuraava kehitysaskel. Lisää linkit näyttömatriisiin, AI-lokiin, v1.0-versioon ja demon runkoon.",
       skills: ["näyttömatriisi", "itsearviointi", "demo"],
       resources: [
-        ["Lataa täytettävä työpaketti", "downloads/koulun-kahvilapeli-tyopaketti.docx", true],
-        ["Avaa dokumentointipohja", "downloads/nayton-dokumentointipohjat.docx", true],
         ["Avaa näyttömatriisi", "#todisteet", false],
         ["Avaa ja lataa AI-loki", "#tekoaly", false]
       ],
       steps: [
-        ["Viimeistele dokumentit", "Jäädytä v1.0, täytä dokumentointipohjan osat 7–8, tarkista aiemmat osat ja kirjoita itsearviointi omiin todisteisiin nojaten."],
+        ["Viimeistele päiväkirja", "Jäädytä v1.0, tarkista jokaisen viikon merkintä, lataa koko projektipäiväkirja project-docs-kansioon ja kirjoita itsearviointi omiin todisteisiin nojaten."],
         ["Tee syvälinkit", "Liitä jokainen näyttömatriisin vaatimus suoraan issueen, C#-tiedostoon, commitiin, testiriviin tai palautepäätökseen."],
-        ["Harjoittele ja luovuta", "Näytä 8–10 minuutissa gameplay loop, JSON, tallennus, bugikorjaus, Git ja AI-loki. Anna toisen henkilön avata palautus ennen 4.12."]
+        ["Harjoittele ja luovuta", "Näytä 8–10 minuutissa pelin toimintakierto, JSON, tallennus, bugikorjaus, Git ja AI-loki. Anna toisen henkilön avata palautus ennen 4.12."]
       ],
-      example: "P3 Toimintojen testaus → docs/testaus.md, rivit T05–T16 → build v1.0 → tarkka linkki.",
+      example: "P3 Toimintojen testaus → project-docs/projektipaivakirja.md#vko-45 → testit T05–T16 → build v1.0 → tarkka linkki.",
       notEnough: "Pelkkä rastitettu matriisi, repositoryn etusivulinkki tai tekoälyn kirjoittama kokemuksellinen itsearviointi ei riitä."
     }
   };
@@ -302,18 +385,27 @@
         context.innerHTML = `
           <div class="assignment-context-heading"><span>Toimeksianto tässä vaiheessa</span><a href="#toimeksianto">Koko toimeksianto ↑</a></div>
           <p class="assignment-excerpt">“${guide.excerpt}”</p>
-          <p class="game-connection"><strong>Kahvilapelissä nyt:</strong> ${guide.connection}</p>
+          <p class="game-connection"><strong>Tämän viikon tavoite:</strong> ${guide.connection}</p>
+          <div class="week-purpose-grid">
+            <article><span>Mitä valmistuu</span><p>${guide.deliverable}</p></article>
+            <article><span>Miksi tämä tehdään</span><p>${guide.why}</p></article>
+          </div>
           <ul class="skill-tags" aria-label="Tällä viikolla näkyvä osaaminen">${guide.skills.map((skill) => `<li>${skill}</li>`).join("")}</ul>`;
         content.insertBefore(context, firstTask);
       } else {
         const taskAssignment = content.querySelector(".task-assignment");
         taskAssignment?.insertAdjacentHTML("beforeend", `
-          <p class="game-connection"><strong>Kahvilapelissä nyt:</strong> ${guide.connection}</p>
+          <p class="game-connection"><strong>Tämän viikon tavoite:</strong> ${guide.connection}</p>
+          <div class="week-purpose-grid">
+            <article><span>Mitä valmistuu</span><p>${guide.deliverable}</p></article>
+            <article><span>Miksi tämä tehdään</span><p>${guide.why}</p></article>
+          </div>
           <ul class="skill-tags" aria-label="Tällä viikolla näkyvä osaaminen">${guide.skills.map((skill) => `<li>${skill}</li>`).join("")}</ul>`);
       }
 
-      lesson.querySelector(".lesson-label").innerHTML = "<span>3 askelta</span> Tee tämä kahvilapelissä";
+      lesson.querySelector(".lesson-label").innerHTML = `<span>${guide.steps.length} askelta</span> Tee näin, yksi askel kerrallaan`;
       lesson.querySelector("ol").innerHTML = guide.steps.map(([title, description]) => `<li><strong>${title}</strong>${description}</li>`).join("");
+      lesson.querySelector(".checkpoint").innerHTML = `<strong>Valmis kun:</strong> ${guide.done}`;
 
       if (guide.resources?.length) {
         const resources = document.createElement("nav");
@@ -332,7 +424,7 @@
           <div class="unity-help-content">
             <div class="unity-help-tree"><p class="help-label">Luo tämä rakenne</p><pre><code>${escapeText(guide.help.tree)}</code></pre></div>
             <div class="unity-help-actions"><p class="help-label">Kytke näin</p><ol>${guide.help.actions.map((action) => `<li>${escapeText(action)}</li>`).join("")}</ol></div>
-            <div class="unity-help-code"><p class="help-label">Täydennä runko – TODO-kohdat ovat sinun työsi</p><pre><code>${escapeText(guide.help.code)}</code></pre></div>
+            <div class="unity-help-code"><p class="help-label">Käytä tätä työpohjaa tai tarkistuslistaa</p><pre><code>${escapeText(guide.help.code)}</code></pre></div>
             <p class="unity-help-test"><strong>Tarkistustesti:</strong> ${escapeText(guide.help.test)}</p>
             ${helpLinks}
           </div>`;
@@ -345,7 +437,37 @@
         <article class="expected-example"><p class="expectation-label">Esimerkki odotetusta tarkkuudesta · älä kopioi sisältöä</p><p>${guide.example}</p></article>
         <article class="not-enough"><p class="expectation-label">Tämä ei vielä riitä</p><p>${guide.notEnough}</p></article>`;
       content.insertBefore(expectations, evidence);
-      evidence.querySelector("strong").textContent = "Näyttöön talteen ennen rastia:";
+
+      const journal = document.createElement("section");
+      journal.className = "week-journal";
+      journal.dataset.weekJournal = card.dataset.week;
+      journal.innerHTML = `
+        <div class="journal-heading">
+          <div><p class="expectation-label">Kirjoita tähän ennen kuin rastitat viikon valmiiksi</p><h4>Projektipäiväkirja · viikko ${card.dataset.week}</h4></div>
+          <span data-journal-status>Ei vielä kirjattu</span>
+        </div>
+        <p class="journal-record"><strong>Tallenna nämä tiedot:</strong> ${guide.record}</p>
+        <div class="journal-fields">
+          <label>Mitä teit ja miten?
+            <textarea rows="4" data-journal-field="work" placeholder="Kerro konkreettiset Unity-objektit, C#-tiedostot, Git-tehtävät ja testit."></textarea>
+          </label>
+          <label>Miksi teit näin?
+            <textarea rows="4" data-journal-field="reason" placeholder="Kerro päätös, vaihtoehdot, perustelu ja mitä opit."></textarea>
+          </label>
+          <label>Todisteen täsmällinen paikka
+            <input type="text" data-journal-field="evidence" placeholder="Esim. commit-linkki, issue #12, testi T05 tai project-docs/evidence/week-${card.dataset.week}/kuva.png">
+          </label>
+          <label>Seuraava pieni askel
+            <input type="text" data-journal-field="next" placeholder="Mikä on ensimmäinen asia, josta jatkat seuraavalla kerralla?">
+          </label>
+        </div>
+        <div class="journal-actions">
+          <button class="button button-secondary" type="button" data-export-week="${card.dataset.week}">Lataa vain tämä viikko (.md)</button>
+          <button class="button button-ghost" type="button" data-export-journal>Lataa koko projektipäiväkirja</button>
+        </div>`;
+      expectations.insertAdjacentElement("afterend", journal);
+
+      evidence.querySelector("strong").textContent = "Todiste Git-repositoryyn ennen rastia:";
     });
   }
 
@@ -364,6 +486,124 @@
 
   const savedEvidence = readStorage(EVIDENCE_KEY, {});
   evidenceBoxes.forEach((box) => { box.checked = Boolean(savedEvidence[box.dataset.evidence]); });
+
+  let journalEntries = readStorage(JOURNAL_KEY, {});
+
+  function journalEntryIsComplete(entry = {}) {
+    return [entry.work, entry.reason, entry.evidence].every((value) => String(value || "").trim().length > 0);
+  }
+
+  function weekTitle(week) {
+    return document.querySelector(`#week-${week} .week-title strong`)?.textContent?.trim() || `Viikko ${week}`;
+  }
+
+  function updateJournalStatus() {
+    let completeCount = 0;
+    document.querySelectorAll("[data-week-journal]").forEach((journal) => {
+      const week = journal.dataset.weekJournal;
+      const entry = journalEntries[week] || {};
+      const complete = journalEntryIsComplete(entry);
+      const hasText = Object.values(entry).some((value) => String(value || "").trim());
+      if (complete) completeCount += 1;
+      const status = journal.querySelector("[data-journal-status]");
+      if (status) {
+        status.textContent = complete ? "Pääkentät kirjattu" : (hasText ? "Kesken – täydennä 3 pääkenttää" : "Ei vielä kirjattu");
+        status.classList.toggle("complete", complete);
+      }
+    });
+    document.querySelectorAll("[data-journal-summary]").forEach((summary) => {
+      summary.textContent = `${completeCount} / ${weekCards.length} viikkoa kirjattu`;
+    });
+  }
+
+  function saveJournalField(field) {
+    const journal = field.closest("[data-week-journal]");
+    if (!journal) return;
+    const week = journal.dataset.weekJournal;
+    journalEntries[week] = {
+      ...(journalEntries[week] || {}),
+      [field.dataset.journalField]: field.value,
+      updatedAt: new Date().toISOString()
+    };
+    writeStorage(JOURNAL_KEY, journalEntries);
+    updateJournalStatus();
+    updateProgress();
+  }
+
+  function weekMarkdown(week) {
+    const entry = journalEntries[week] || {};
+    const guide = weekGuidance[week];
+    return [
+      `## Vko ${week} – ${weekTitle(week)}`,
+      "",
+      `**Viikon tuotos:** ${guide?.deliverable || ""}`,
+      "",
+      "### Mitä tein ja miten?",
+      String(entry.work || "Ei vielä kirjattu."),
+      "",
+      "### Miksi tein näin?",
+      String(entry.reason || "Ei vielä kirjattu."),
+      "",
+      "### Todisteen täsmällinen paikka",
+      String(entry.evidence || "Ei vielä kirjattu."),
+      "",
+      "### Seuraava pieni askel",
+      String(entry.next || "Ei vielä kirjattu."),
+      ""
+    ].join("\n");
+  }
+
+  function aiLogMarkdown() {
+    const entries = readStorage(LOG_KEY, []);
+    if (!entries.length) return "## AI-loki\n\nEi merkintöjä.\n";
+    return ["## AI-loki", "", ...entries.flatMap((entry, index) => [
+      `### ${index + 1}. ${entry.tool}`,
+      `- **Tehtävä tai kysymys:** ${entry.question}`,
+      `- **Käytin, muutin tai hylkäsin:** ${entry.used}`,
+      `- **Tarkistus ja oppi:** ${entry.checked}`,
+      `- **Todisteviite:** ${entry.reference || "ei viitettä"}`,
+      entry.privacy ? "- **Tietosuojavahvistus:** En syöttänyt henkilötietoja, salaisuuksia tai luottamuksellista aineistoa." : "- **Tietosuojavahvistus:** vahvistamatta (vanha merkintä)",
+      ""
+    ])].join("\n");
+  }
+
+  function downloadMarkdown(filename, documentText) {
+    const url = URL.createObjectURL(new Blob([documentText], { type: "text/markdown;charset=utf-8" }));
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
+  function exportJournal() {
+    const weeks = Object.keys(weekGuidance);
+    const documentText = [
+      "# KahvilaKoodi – projektipäiväkirja",
+      "",
+      "Tallenna tämä tiedosto polkuun `project-docs/projektipaivakirja.md` ja tee commit jokaisen viikon lopussa.",
+      "",
+      ...weeks.map((week) => weekMarkdown(week)),
+      aiLogMarkdown()
+    ].join("\n");
+    downloadMarkdown("projektipaivakirja.md", documentText);
+  }
+
+  function initJournal() {
+    document.querySelectorAll("[data-journal-field]").forEach((field) => {
+      const week = field.closest("[data-week-journal]")?.dataset.weekJournal;
+      field.value = journalEntries[week]?.[field.dataset.journalField] || "";
+      field.addEventListener("input", () => saveJournalField(field));
+    });
+    document.querySelectorAll("[data-export-week]").forEach((button) => button.addEventListener("click", () => {
+      const week = button.dataset.exportWeek;
+      downloadMarkdown(`projektipaivakirja-vko-${week}.md`, `# KahvilaKoodi – viikko ${week}\n\n${weekMarkdown(week)}`);
+    }));
+    document.querySelectorAll("[data-export-journal]").forEach((button) => button.addEventListener("click", exportJournal));
+    updateJournalStatus();
+  }
 
   function isoWeek(date) {
     const copy = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
@@ -419,6 +659,7 @@
       const complete = boxes.filter((box) => box.checked).length;
       card.querySelector(".week-status").textContent = `${complete} / ${boxes.length}`;
       card.classList.toggle("complete", complete === boxes.length);
+      card.classList.toggle("journal-missing", complete === boxes.length && !journalEntryIsComplete(journalEntries[card.dataset.week]));
       const weekLink = document.querySelector(`[data-week-link="${card.dataset.week}"]`);
       if (weekLink) weekLink.classList.toggle("done", complete === boxes.length);
     });
@@ -435,7 +676,16 @@
     updateProgress();
   }
 
-  taskBoxes.forEach((box) => box.addEventListener("change", saveTasks));
+  taskBoxes.forEach((box) => box.addEventListener("change", () => {
+    saveTasks();
+    if (!box.checked) return;
+    const card = box.closest(".week-card");
+    const status = card?.querySelector("[data-journal-status]");
+    if (status && !journalEntryIsComplete(journalEntries[card.dataset.week])) {
+      status.textContent = "Muista projektipäiväkirjan 3 pääkenttää";
+      status.classList.add("attention");
+    }
+  }));
 
   function updateEvidence() {
     const state = Object.fromEntries(evidenceBoxes.map((box) => [box.dataset.evidence, box.checked]));
@@ -458,13 +708,17 @@
   document.querySelectorAll("[data-print]").forEach((button) => button.addEventListener("click", () => window.print()));
 
   document.querySelector("[data-reset]")?.addEventListener("click", () => {
-    if (!window.confirm("Nollataanko tehtävät, näytön todisteet ja AI-loki tässä selaimessa?")) return;
+    if (!window.confirm("Nollataanko tehtävät, projektipäiväkirja, näytön todisteet ja AI-loki tästä selaimesta? Lataa projektipäiväkirja ensin, jos haluat säilyttää vastaukset.")) return;
     localStorage.removeItem(STORAGE_KEY);
     localStorage.removeItem(EVIDENCE_KEY);
     localStorage.removeItem(LOG_KEY);
+    localStorage.removeItem(JOURNAL_KEY);
+    journalEntries = {};
     taskBoxes.forEach((box) => { box.checked = false; });
     evidenceBoxes.forEach((box) => { box.checked = false; });
+    document.querySelectorAll("[data-journal-field]").forEach((field) => { field.value = ""; });
     renderLog();
+    updateJournalStatus();
     updateProgress();
     updateEvidence();
   });
@@ -530,14 +784,7 @@
       ""
     ].join("\n")).join("\n") : "Ei merkintöjä.\n";
     const documentText = `# KahvilaKoodi – AI-loki\n\n${rows}`;
-    const url = URL.createObjectURL(new Blob([documentText], { type: "text/markdown;charset=utf-8" }));
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "AI-loki.md";
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+    downloadMarkdown("AI-loki.md", documentText);
   });
 
   function markCurrentWeek() {
@@ -567,6 +814,7 @@
   }
 
   enhanceWeekCards();
+  initJournal();
   buildWeekNavigation();
   markCurrentWeek();
   updateProgress();
