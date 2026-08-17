@@ -17,44 +17,44 @@
       kicker: "Viikon pelifeature",
       connectionLabel: "Näin feature rakentuu:",
       deliverableLabel: "Peliin valmistuu",
-      skillsLabel: "Featuren tekniikka — tämä osaaminen arvioidaan näytössä"
+      skillsLabel: "Featuren tekniikka: arvioidaan näytössä"
     },
     pohjustus: {
       kicker: "Pelin pohjustus",
       connectionLabel: "Näin viikko vie peliä eteenpäin:",
       deliverableLabel: "Tällä viikolla valmistuu",
-      skillsLabel: "Viikon tekniikka — tämä osaaminen arvioidaan näytössä"
+      skillsLabel: "Viikon tekniikka: arvioidaan näytössä"
     },
     katselmointi: {
       kicker: "Katselmointi: asiakas pelaa",
       connectionLabel: "Näin viikko vie peliä eteenpäin:",
       deliverableLabel: "Tällä viikolla valmistuu",
-      skillsLabel: "Viikon tekniikka — tämä osaaminen arvioidaan näytössä"
+      skillsLabel: "Viikon tekniikka: arvioidaan näytössä"
     },
     laatu: {
       kicker: "Pelin laatu",
       connectionLabel: "Näin viikko vie peliä eteenpäin:",
       deliverableLabel: "Tällä viikolla valmistuu",
-      skillsLabel: "Viikon tekniikka — tämä osaaminen arvioidaan näytössä"
+      skillsLabel: "Viikon tekniikka: arvioidaan näytössä"
     },
     julkaisu: {
       kicker: "Pelin julkaisu",
       connectionLabel: "Näin viikko vie peliä eteenpäin:",
       deliverableLabel: "Tällä viikolla valmistuu",
-      skillsLabel: "Viikon tekniikka — tämä osaaminen arvioidaan näytössä"
+      skillsLabel: "Viikon tekniikka: arvioidaan näytössä"
     },
     naytto: {
       kicker: "Näyttöviikko",
       connectionLabel: "Näin viikko vie näytön maaliin:",
       deliverableLabel: "Tällä viikolla valmistuu",
-      skillsLabel: "Viikon tekniikka — tämä osaaminen arvioidaan näytössä"
+      skillsLabel: "Viikon tekniikka: arvioidaan näytössä"
     }
   };
 
   const weekGuidance = {
     34: {
       type: "pohjustus",
-      feature: "Tämän viikon jälkeen tiedät, millainen kahvilapeli tehdään ja kenelle — ja tyhjä peli käynnistyy selaimessa asti.",
+      feature: "Viikon jälkeen tiedät, millainen peli tehdään ja kenelle. Tyhjä peli käynnistyy selaimessa.",
       connection: "Pelin toimintakierto (gameplay loop) alkaa asiakkaan tarpeesta: ennen koodaamista päätät, mitä kahvilassa tapahtuu tilauksen saapumisesta tulosruutuun.",
       deliverable: "Tarvekartoitus, käynnistyvä Unity 2D -projekti, WebGL-testibuild ja Git-repository.",
       why: "Jos avoimet asiat jäävät oletuksiksi, voit rakentaa väärän pelin. Varhainen testibuild varmistaa, että valittu Unity-versio ja WebGL toimivat ennen varsinaista koodausta.",
@@ -88,7 +88,7 @@
     },
     35: {
       type: "pohjustus",
-      feature: "Tämän viikon jälkeen peli on olemassa paperilla: kolme ruutua ja featuret tekojärjestyksessä, asiakkaan hyväksyminä.",
+      feature: "Viikon jälkeen peli on paperilla: kolme ruutua ja featuret tekojärjestyksessä. Asiakas on hyväksynyt rajauksen.",
       excerpt: "Pelissä pitää olla aloitusvalikko, itse peli, pistelasku ja pelin päättymisnäkymä.",
       connection: "Nyt muutat toimeksiannon näkyväksi Unity-suunnitelmaksi: Canvas-näkymät, pelin toimintakierto, C#-vastuut, tehtävät ja valmiin työn ehdot.",
       deliverable: "Hyväksytty pakollinen perusversio, pieni backlog, käyttöliittymäluonnos ja Unityn tekninen rakennekuva.",
@@ -163,7 +163,7 @@
     },
     37: {
       type: "feature",
-      feature: "Tilaukset arvotaan oikeasta tuotelistasta — ja kahvilan valikoimaa voi muuttaa koskematta koodiin.",
+      feature: "Tilaukset arvotaan tuotelistasta. Valikoimaa voi muuttaa koskematta koodiin.",
       excerpt: "Tuotteiden tiedot eivät saa olla kovakoodattuna pelilogiikkaan, vaan niiden pitää tulla erillisestä tietolähteestä.",
       connection: "Pelin toimintakierron tilaus syntyy nyt Unityyn tuodusta JSON-datasta. Kahvi, tee ja sämpylä eivät enää ole kirjoitettuina suoraan C#-tilauskoodiin.",
       deliverable: "products.json, ProductDatabase.cs, 1–3 tuotteen tilauslogiikka ja virhetilanteiden käsittely.",
@@ -197,7 +197,7 @@
     },
     38: {
       type: "feature",
-      feature: "Kahvilaan tulee kiire: kello tikittää, pisteet juoksevat ja peli kertoo heti, menikö toimitus oikein.",
+      feature: "Peliin tulevat kello, pisteet ja välitön palaute toimituksesta.",
       excerpt: "Pelissä pitää olla aloitusvalikko, itse peli, pistelasku ja pelin päättymisnäkymä.",
       connection: "Viimeistelet pelin toimintakierron palautteen: kahvilapelaaja näkee TextMeshPro-kentissä heti, oliko toimitus oikea, paljonko pisteitä tuli ja milloin vuoro päättyy.",
       deliverable: "Kirjatut pelisäännöt sekä toimivat pisteet, ajastin, palaute ja pelin päättyminen.",
@@ -223,7 +223,7 @@
         code: "// Lisää tiedoston alkuun: using TMPro;\n// Lisää seuraavat viikon 36 GameManager-luokan sisään.\n// Säilytä menuPanel-, gamePanel- ja resultPanel-kentät.\n[SerializeField] private TMP_Text timeText;\nprivate float timeLeft = 60f;\nprivate bool isPlaying;\n\nprivate void Update()\n{\n    if (!isPlaying) return;\n    timeLeft -= Time.deltaTime;\n    // TODO: päivitä timeText pyöristetyllä ajalla\n    if (timeLeft <= 0f) EndGame();\n}\n\n// Täydennä viikon 36 SubmitOrder-metodia:\n// TODO: estä toinen painallus käsittelyn aikana\n// TODO: kysy OrderManagerilta, oliko toimitus oikein\n// TODO: muuta pisteitä ja näytä palaute\n\n// Täydennä EndGame-metodia:\n// TODO: aseta isPlaying = false ennen ResultPanelin näyttämistä",
         test: "Aseta testissä aika arvoon 0,1 s ja paina Toimita nopeasti kahdesti. ResultPanel avautuu kerran ja pisteet muuttuvat enintään kerran.",
         images: [
-          ["assets/unity/vko38-game-view.png", "Unityn Game-näkymä: kahvilavuoro käynnissä väliaikaisella grafiikalla — tilaus, aika, pisteet, Kahvi- ja Toimita-painikkeet sekä palauteteksti.", "Game view: tilaus, aika, pisteet ja palaute riittävät — grafiikka viimeistellään myöhemmin."]
+          ["assets/unity/vko38-game-view.png", "Unityn Game-näkymä: kahvilavuoro käynnissä väliaikaisella grafiikalla. Näkyvissä tilaus, aika, pisteet, Kahvi- ja Toimita-painikkeet sekä palauteteksti.", "Game view: tilaus, aika, pisteet ja palaute riittävät. Grafiikka viimeistellään myöhemmin."]
         ]
       },
       example: "Oikea tilaus +10; väärä −5; aika 60 s; peli päättyy kerran, kun aika = 0.",
@@ -231,7 +231,7 @@
     },
     39: {
       type: "feature",
-      feature: "Peli vaikeutuu pelaajan tahdissa: mitä paremmin pelaat, sitä isommat tilaukset ja kireämmät ajat — ilman äkkihyppyjä.",
+      feature: "Peli vaikeutuu pistemäärän mukaan: isommat tilaukset ja lyhyemmät ajat, ei äkkihyppyjä.",
       excerpt: "Vaikeustason pitää kasvaa pelin edetessä.",
       connection: "Unityn pelin toimintakierto pysyy samana, mutta kahvilan kiire kasvaa hallitusti. Pelaajan pitää huomata vaikeutuminen ilman äkillistä sattumanvaraista hyppyä.",
       deliverable: "Kahden vaikeusmallin vertailu, perusteltu päätös ja kolmen tason säädettävä vaikeuskäyrä.",
@@ -262,7 +262,7 @@
     },
     40: {
       type: "feature",
-      feature: "Peli saa muistin: viisi parasta tulosta nimimerkkeineen säilyy, vaikka pelin sulkee ja avaa uudelleen.",
+      feature: "Viisi parasta tulosta ja nimimerkit säilyvät, vaikka pelin sulkee ja avaa uudelleen.",
       excerpt: "Pelaajan parhaat tulokset pitää tallentaa.",
       connection: "Kun kahvilavuoro päättyy, viiden parhaan tuloksen lista tallentuu Unityn PlayerPrefsiin ja näkyy vielä WebGL-pelin uudelleenkäynnistyksen jälkeen.",
       deliverable: "Toimiva top 5 -tallennus, nimimerkin validointi ja ratkaisun rajoitusten perustelu.",
@@ -296,7 +296,7 @@
     },
     41: {
       type: "katselmointi",
-      feature: "Asiakas pelaa peliäsi ensimmäistä kertaa ja kertoo, miltä kahvilavuoro tuntuu. Yksi muutos sovitaan.",
+      feature: "Asiakas pelaa peliä ensimmäistä kertaa ja antaa palautteen. Yksi muutos sovitaan.",
       excerpt: "Haluan nähdä pelistä toimivan version vähintään kerran ennen lopullista versiota, jotta voin pyytää muutoksia.",
       connection: "Asiakas pelaa nyt kahvilapelin oikean toimintakierron. Sinä tarkkailet, missä tilaus, tuotteiden valinta tai palaute jää epäselväksi.",
       deliverable: "Asiakkaan kokeilema väliversio, katselmointimuistio ja yksi hyväksytty muutostehtävä.",
@@ -314,7 +314,7 @@
     },
     43: {
       type: "feature",
-      feature: "Asiakkaan pyytämä muutos on pelattavana — ja vanha peli toimii silti.",
+      feature: "Asiakkaan pyytämä muutos on pelattavana. Vanha toiminnallisuus toimii edelleen.",
       excerpt: "Haluan myös nähdä pelistä toimivan version vähintään kerran ennen lopullista versiota, jotta voin pyytää muutoksia.",
       connection: "Toteutat asiakkaan valitseman muutoksen Unity-projektissa niin, että alkuperäinen pelin toimintakierto säilyy toimivana.",
       deliverable: "Asiakaspalautteeseen jäljitettävä, katselmoitu ja testattu muutos omassa Git-haarassa.",
@@ -354,7 +354,7 @@
     },
     45: {
       type: "laatu",
-      feature: "Peli kestää pelaamista: aika nollaan, tuplaklikit ja rikottu tuotelista eivät kaada sitä.",
+      feature: "Peli ei kaadu rajatapauksissa: aika nollaan, tuplaklikit ja rikottu tuotelista on testattu.",
       excerpt: "Pelissä pitää olla aloitusvalikko, itse peli, pistelasku ja pelin päättymisnäkymä.",
       connection: "Testaat Unity WebGL -buildin koko toimintakierron järjestelmällisesti: aloitus, tilaus, valinta, toimitus, pisteet, aika, vaikeus, PlayerPrefs ja uusi peli.",
       deliverable: "Vähintään 12 testitapauksen testausmatriisi ja kolme täydellistä virheenkorjausketjua.",
@@ -375,7 +375,7 @@
     },
     46: {
       type: "laatu",
-      feature: "Peli näyttää pelaajalle samalta, mutta koodin ymmärtää nyt toinenkin kehittäjä — ja sinä osaat selittää sen.",
+      feature: "Peli toimii kuten ennen. Koodi on selkeämpi, ja osaat selittää ratkaisut.",
       excerpt: "Tuotteiden tiedot eivät saa olla kovakoodattuna pelilogiikkaan, vaan niiden pitää tulla erillisestä tietolähteestä.",
       connection: "Selkeytät nyt Unity-projektin C#-koodia: tilauksen luonti, pisteiden lasku ja Canvasin päivitys eivät saa olla yhtenä pitkänä MonoBehaviour-metodina.",
       deliverable: "Yksi rajattu refaktorointi, sitä ympäröivät testit ja ihmisen tekemä koodikatselmointi.",
@@ -411,7 +411,7 @@
     },
     48: {
       type: "julkaisu",
-      feature: "Peli on netissä: linkki toimii kenen tahansa koneella, ja asiakas voi kokeilla peliä itse.",
+      feature: "Peli on julkaistu. Linkki toimii muillakin koneilla, ja asiakas voi kokeilla peliä itse.",
       excerpt: "Lopullinen peli pitää julkaista niin, että voin itse kokeilla sitä.",
       connection: "Unity-kahvilapelin toimintakierto siirtyy nyt Editorista GitHub Pagesiin. Testaat julkaistua WebGL-versiota, et Play Modea.",
       deliverable: "GitHub Pagesissa toimiva Unity WebGL v1.0, käyttöohje ja tunnettujen puutteiden lista.",
@@ -768,13 +768,13 @@
       "",
       "1. Ensimmäinen pelattava kierros (vko 36)",
       "2. Kahvilan oikea tuotelista (vko 37)",
-      "3. Kiireen tuntu: kello, pisteet ja palaute (vko 38)",
+      "3. Kello, pisteet ja palaute (vko 38)",
       "4. Kasvava kiire (vko 39)",
-      "5. Top 5 -lista, joka muistaa (vko 40)",
+      "5. Top 5 -tuloslista (vko 40)",
       "6. Asiakkaan toivoma parannus (vko 43 — sisältö selviää katselmoinnissa vkolla 41)",
       "7. Peli ohjaa pelaajaa itse (vko 44)",
       "",
-      "Huomautus: tämä lista ei ole valmis suunnitelma — featurejen pilkkominen 0,5–1 päivän issueiksi ja P0/P1/P2-priorisointi on omaa työtä (tehtävä 35-2).",
+      "Huomautus: tämä lista ei ole valmis suunnitelma. Featurejen pilkkominen 0,5–1 päivän issueiksi ja P0/P1/P2-priorisointi on omaa työtä (tehtävä 35-2).",
       "",
       "## 7. Teknologia",
       "",
@@ -786,7 +786,7 @@
       "",
       "---",
       "",
-      "Tallenna tämä tiedosto polkuun `project-docs/gdd.md` ja tee commit. Päivitä tiedostoa, kun asiakas vastaa avoimiin asioihin — GDD on elävä dokumentti.",
+      "Tallenna tämä tiedosto polkuun `project-docs/gdd.md` ja tee commit. Päivitä tiedostoa, kun asiakas vastaa avoimiin asioihin.",
       ""
     ].join("\n");
   }
@@ -818,7 +818,7 @@
     const holder = document.querySelector("[data-week-links]");
     if (!holder) return;
     const weekNames = {
-      34: "Lähtölaukaus",
+      34: "Aloitus",
       35: "Pelin suunnitelma",
       36: "Pelattava kierros",
       37: "Kahvilan tuotelista",

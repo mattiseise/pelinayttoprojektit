@@ -1,6 +1,6 @@
 # KahvilaKoodi – ohjattu näyttöprojekti
 
-Selainpohjainen pelipolku koulun kahvilapelin toteuttamiseen näyttöprojektina. Rakenne etenee **pelifeature edellä**: jokainen viikko tuottaa peliin pelaajalle näkyvän ominaisuuden (tai muun havaittavan lopputuloksen), ja featuren tekninen toteutus — Unity, C#, JSON, PlayerPrefs, Git, WebGL — on se osaaminen, joka näytössä arvioidaan.
+Selainpohjainen pelipolku koulun kahvilapelin toteuttamiseen näyttöprojektina. Viikot etenevät **pelifeature edellä**: jokainen viikko tuottaa peliin näkyvän ominaisuuden tai muun konkreettisen tuloksen. Featuren tekniikka (Unity, C#, JSON, PlayerPrefs, Git, WebGL) arvioidaan näytössä.
 
 Sivusto sisältää viikot 34–49, syysloman viikolla 42, 4.12.2026 päättyvän aikataulun, GDD-generaattorin (esitäytetty Game Design Document, jonka omat päätökset opiskelija tekee itse ja lataa gdd.md-tiedostona), vastuullisen tekoälyn käyttöohjeet, AI-lokin, testauksen vähimmäistavoitteet, näytön todisteiden tarkistuslistat ja suositukset ilmaisiin grafiikkalähteisiin (spritet ja taustat).
 

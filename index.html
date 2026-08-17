@@ -36,7 +36,7 @@
         <div class="progress-ring" aria-hidden="true"><strong data-progress-number>0%</strong></div>
         <p class="progress-copy" data-progress-copy>0 / 46 tehtävää valmiina</p>
         <div class="linear-progress" aria-hidden="true"><span data-progress-bar></span></div>
-        <p class="progress-note">Rastit ovat oma työmuistisi — näytön todisteet syntyvät Git-repositoryyn.</p>
+        <p class="progress-note">Rastit ovat omaa työmuistiasi. Todisteet viedään Git-repositoryyn.</p>
         <button class="button button-primary button-full" type="button" data-continue>Aloita pelin rakentaminen</button>
       </div>
 
@@ -56,8 +56,8 @@
       <section class="hero section-pad" aria-labelledby="hero-title">
         <div class="hero-copy reveal">
           <p class="eyebrow eyebrow-accent">Näyttöprojekti · 17.8.–4.12.2026</p>
-          <h1 id="hero-title">Rakenna pieni peli.<br><em>Näytä iso osaaminen.</em></h1>
-          <p class="lead">Rakennat koulun kahvilapelin Unityllä ja C#:lla feature kerrallaan — feature on pelaajalle näkyvä pelin ominaisuus. Ensin syntyy pelattava kierros, sitten tuotelista, kiire, kasvava vaikeus ja top 5 -lista. Jokainen feature opettaa juuri sen tekniikan, joka näytössä arvioidaan. Kirjoitat projektipäiväkirjaa suoraan tälle sivulle.</p>
+          <h1 id="hero-title">Tee peli.<br><em>Näytä osaamisesi.</em></h1>
+          <p class="lead">Teet koulun kahvilapelin Unityllä ja C#:lla feature kerrallaan. Feature on pelaajalle näkyvä pelin ominaisuus. Järjestys: pelattava kierros, tuotelista, kello ja pisteet, kasvava vaikeus, top 5 -lista. Jokaisen featuren tekniikka arvioidaan näytössä. Projektipäiväkirja kirjoitetaan tälle sivulle.</p>
           <div class="hero-actions">
             <button class="button button-primary" type="button" data-continue>Aloita pelin rakentaminen</button>
             <a class="button button-secondary" href="downloads/koulun-kahvilapeli-tyopaketti.pdf" download>Lataa paperinen aikataulu</a>
@@ -185,13 +185,13 @@
       <section class="gdd-section section-pad" id="gdd" aria-labelledby="gdd-title">
         <div class="section-heading reveal">
           <p class="eyebrow">Pelin suunnitteludokumentti</p>
-          <h2 id="gdd-title">Tee pelistä omasi: GDD</h2>
-          <p>GDD eli Game Design Document on pelin suunnitteludokumentti, jota oikeat pelitiimit käyttävät. Pohja on esitäytetty toimeksiannosta — sinä teet omat päätökset, ja valmis GDD latautuu gdd.md-tiedostona repositoriotasi varten.</p>
-          <p class="gdd-timing"><strong>Ajoitus:</strong> täytä tämä viikolla 35 aloituskeskustelun jälkeen — omat päätökset tarvitsevat viikon 34 asiakasvastaukset.</p>
+          <h2 id="gdd-title">GDD: pelin suunnitteludokumentti</h2>
+          <p>GDD (Game Design Document) on pelialan suunnitteludokumentti. Pohja on esitäytetty toimeksiannosta. Sinä teet omat päätökset ja lataat valmiin gdd.md-tiedoston repositorioosi.</p>
+          <p class="gdd-timing"><strong>Ajoitus:</strong> täytä viikolla 35 aloituskeskustelun jälkeen. Omat päätökset vaativat viikon 34 asiakasvastaukset.</p>
         </div>
         <figure class="gdd-visual reveal">
           <div class="image-stage"><img src="assets/gdd-suunnittelu.jpg" width="1128" height="540" alt="Opiskelija luonnostelee kynällä paperille pelin kolmea ruutua: valikko, kahvilavuoro ja tulosruutu."></div>
-          <figcaption><strong>GDD alkaa luonnoksista:</strong> kolme ruutua paperille ennen ensimmäistäkään koodiriviä.</figcaption>
+          <figcaption><strong>GDD alkaa luonnoksista:</strong> kolme ruutua paperille ennen koodia.</figcaption>
         </figure>
         <div class="gdd-layout">
           <div class="gdd-prefilled reveal" aria-label="GDD:n esitäytetty pohja">
@@ -203,9 +203,9 @@
               <ol>
                 <li>Ensimmäinen pelattava kierros <small>vko 36</small></li>
                 <li>Kahvilan oikea tuotelista <small>vko 37</small></li>
-                <li>Kiireen tuntu: kello, pisteet ja palaute <small>vko 38</small></li>
+                <li>Kello, pisteet ja palaute <small>vko 38</small></li>
                 <li>Kasvava kiire <small>vko 39</small></li>
-                <li>Top 5 -lista, joka muistaa <small>vko 40</small></li>
+                <li>Top 5 -tuloslista <small>vko 40</small></li>
                 <li>Asiakkaan toivoma parannus <small>vko 43 · sisältö selviää katselmoinnissa vkolla 41</small></li>
                 <li>Peli ohjaa pelaajaa itse <small>vko 44</small></li>
               </ol>
@@ -221,12 +221,12 @@
                 <li>Miten viiden parhaan tuloksen tasatilanteet järjestetään?</li>
                 <li>Kuka hyväksyy rajauksen ja väliversion?</li>
               </ul>
-              <small class="gdd-open-note">EI PÄÄTETÄ ITSE — kirjaa asiakkaan vastaus tai jätä avoimeksi. Älä keksi vastauksia itse tai tekoälyllä.</small>
+              <small class="gdd-open-note">EI PÄÄTETÄ ITSE. Kirjaa asiakkaan vastaus tai jätä avoimeksi. Älä keksi vastauksia itse tai tekoälyllä.</small>
             </article>
           </div>
           <form class="gdd-form reveal" data-gdd-form data-delay="1">
             <div class="gdd-form-heading">
-              <div><p class="eyebrow">Omat päätökset</p><h3>Nämä päätökset ovat pelisi säännöt</h3><p>Palaat niihin viikoilla 36, 38 ja 44 — arvot testautuvat omassa pelissäsi.</p></div>
+              <div><p class="eyebrow">Omat päätökset</p><h3>Nämä päätökset ovat pelisi säännöt</h3><p>Palaat näihin viikoilla 36, 38 ja 44. Arvot testataan omassa pelissä.</p></div>
               <span data-gdd-status>Ei vielä aloitettu</span>
             </div>
             <fieldset>
@@ -237,11 +237,11 @@
               </div>
             </fieldset>
             <fieldset>
-              <legend>B · Omat päätökset — sinä omistat nämä</legend>
+              <legend>B · Omat päätökset: sinä omistat nämä</legend>
               <div class="gdd-fields">
                 <label class="gdd-wide">Tavoite ja oma roolini omin sanoin
                   <textarea rows="3" data-gdd-field="goal" placeholder="Mitä peli tavoittelee ja kenelle? Mikä on sinun roolisi tässä projektissa?"></textarea>
-                  <small>Käytä viikon 34 asiakasvastauksia — jos kohderyhmä on vielä avoin, mainitse se.</small>
+                  <small>Käytä viikon 34 asiakasvastauksia. Jos kohderyhmä on avoin, mainitse se.</small>
                 </label>
                 <label>Visuaalinen tyyli
                   <select data-gdd-field="style">
@@ -262,20 +262,20 @@
               <p class="gdd-calibration"><strong>Ei riitä:</strong> ”koska se näyttää hyvältä” tai tekoälyn yleisperustelu ilman kytkentää omaan peliin. <strong>Riittää:</strong> ”Valitsin pikseligrafiikan, koska Kenneyn CC0-paketissa on valmiit kahvilaesineet ja tyyli toimii pienellä ruudulla välituntipelaajille.”</p>
             </fieldset>
             <fieldset>
-              <legend>C · Kirjaa asiakkaan vastaus — asiakas omistaa tämän</legend>
+              <legend>C · Asiakkaan vastaus: asiakas omistaa tämän</legend>
               <div class="gdd-fields">
                 <label>Kierroksen pituus sekunteina
                   <input type="number" data-gdd-field="roundSeconds" min="10" placeholder="esim. 90 — tyhjä = vielä avoin">
                 </label>
                 <label>Sovittu pvm ja kenen kanssa<input type="text" data-gdd-field="roundAgreed" placeholder="esim. 24.8. / asiakas"></label>
               </div>
-              <small class="gdd-field-note">Tämä sovitaan asiakkaan kanssa (ks. avoimet asiat). Jos arvoa ei vielä ole, jätä tyhjäksi — GDD merkitsee asian avoimeksi.</small>
+              <small class="gdd-field-note">Tämä sovitaan asiakkaan kanssa (ks. avoimet asiat). Jos arvoa ei vielä ole, jätä tyhjäksi, niin GDD merkitsee asian avoimeksi.</small>
             </fieldset>
             <div class="gdd-actions">
               <button class="button button-primary" type="button" data-gdd-export>Lataa gdd.md</button>
-              <small>Tallenna tiedosto polkuun <code>project-docs/gdd.md</code> ja tee commit. Päivitä, kun asiakas vastaa avoimiin asioihin — GDD on elävä dokumentti.</small>
+              <small>Tallenna tiedosto polkuun <code>project-docs/gdd.md</code> ja tee commit. Päivitä, kun asiakas vastaa avoimiin asioihin.</small>
             </div>
-            <p class="gdd-ai-note"><strong>Muista:</strong> nämä ovat sinun pelisi päätöksiä — älä anna tekoälyn päättää puolestasi. Asiakkaan omistamia asioita ei päätetä itse eikä tekoälyllä. Jos käytit tekoälyä ideointiin, kirjaa se AI-lokiin.</p>
+            <p class="gdd-ai-note"><strong>Muista:</strong> älä anna tekoälyn päättää puolestasi. Asiakkaan omistamia asioita ei päätetä itse eikä tekoälyllä. Jos käytit tekoälyä ideointiin, kirjaa se AI-lokiin.</p>
           </form>
         </div>
       </section>
@@ -299,19 +299,19 @@
         <div class="section-heading reveal">
           <p class="eyebrow">Pelipolku</p>
           <h2 id="path-title">Peli valmistuu feature kerrallaan</h2>
-          <p>Avaa vain nykyinen viikko. Lue ensin viikon kärki: mitä peliin syntyy ja mitä tekniikkaa sen rakentaminen opettaa — juuri se tekniikka arvioidaan näytössä. Tee ohjeen vaiheet järjestyksessä, testaa valmis kun -ehto ja täytä lopuksi viikon projektipäiväkirja.</p>
+          <p>Avaa vain nykyinen viikko. Lue ensin viikon kärki: mitä peliin syntyy ja mitä tekniikkaa opit. Sama tekniikka arvioidaan näytössä. Tee vaiheet järjestyksessä, testaa valmis kun -ehto ja täytä viikon projektipäiväkirja.</p>
         </div>
 
         <figure class="path-visual reveal">
           <div class="image-stage"><img src="assets/feature-kaari.jpg" width="1129" height="369" alt="Neljä numeroitua vaihetta: tyhjä harmaa ruutu, ensimmäinen asiakas ja kahvi, kello ja pisteet, valmis peli kannettavan ruudulla."></div>
-          <figcaption><strong>Peli kasvaa feature kerrallaan:</strong> tyhjästä ruudusta pelattavaan kierrokseen, kiireeseen ja julkaistuun peliin.</figcaption>
+          <figcaption><strong>Pelin vaiheet:</strong> tyhjä ruutu → pelattava kierros → kello ja pisteet → julkaistu peli.</figcaption>
         </figure>
 
         <div class="phase-block" id="vaihe-a">
           <div class="phase-heading"><span>A</span><div><p>Viikot 34–37</p><h3>Pelin ydin: idea, ensimmäinen pelattava kierros ja oikea tuotelista</h3></div></div>
 
           <details class="week-card" id="week-34" data-week="34" open>
-            <summary><span class="week-number">34</span><span class="week-title"><small>17.–21.8.</small><strong>Lähtölaukaus: peli-idea ja työkalut</strong></span><span class="week-status">0 / 3</span></summary>
+            <summary><span class="week-number">34</span><span class="week-title"><small>17.–21.8.</small><strong>Aloitus: peli-idea ja työkalut</strong></span><span class="week-status">0 / 3</span></summary>
             <div class="week-content">
               <label><input type="checkbox" data-task="34-1"> <span>Lue toimeksianto, laadi vähintään 8 kysymystä ja pidä aloituskeskustelu.</span></label>
               <div class="task-assignment" aria-labelledby="task-assignment-title">
@@ -340,7 +340,7 @@
           <details class="week-card" id="week-35" data-week="35">
             <summary><span class="week-number">35</span><span class="week-title"><small>24.–28.8.</small><strong>Pelin suunnitelma: ruudut ja feature-lista</strong></span><span class="week-status">0 / 3</span></summary>
             <div class="week-content">
-              <label><input type="checkbox" data-task="35-1"> <span>Täytä GDD:n omat päätökset tällä sivulla — kirjoita tavoite ja oma roolisi omin sanoin — ja vie ladattu gdd.md repositorion project-docs-kansioon.</span></label>
+              <label><input type="checkbox" data-task="35-1"> <span>Täytä GDD:n omat päätökset tällä sivulla (mm. tavoite ja oma rooli omin sanoin) ja vie ladattu gdd.md repositorion project-docs-kansioon.</span></label>
               <label><input type="checkbox" data-task="35-2"> <span>Tee priorisoitu tehtävälista (P0/P1/P2-backlog), työmääräarviot ja valmis kun -ehdot.</span></label>
               <label><input type="checkbox" data-task="35-3"> <span>Piirrä käyttöliittymäluonnos (UI-mockup) ja suunnittele Unityn scene, Canvas-paneelit, C#-skriptit, JSON ja tallennus.</span></label>
               <div class="lesson-instructions">
@@ -399,10 +399,10 @@
         </div>
 
         <div class="phase-block" id="vaihe-b">
-          <div class="phase-heading"><span>B</span><div><p>Viikot 38–41</p><h3>Pelistä peli: kiire, kasvava vaikeus, top 5 — ja asiakas pelaa</h3></div></div>
+          <div class="phase-heading"><span>B</span><div><p>Viikot 38–41</p><h3>Pelin featuret: kiire, kasvava vaikeus, top 5 ja asiakaskatselmointi</h3></div></div>
 
           <details class="week-card" id="week-38" data-week="38">
-            <summary><span class="week-number">38</span><span class="week-title"><small>14.–18.9.</small><strong>Feature 3 · Kiireen tuntu: kello, pisteet ja palaute</strong></span><span class="week-status">0 / 3</span></summary>
+            <summary><span class="week-number">38</span><span class="week-title"><small>14.–18.9.</small><strong>Feature 3 · Kello, pisteet ja palaute</strong></span><span class="week-status">0 / 3</span></summary>
             <div class="week-content">
               <label><input type="checkbox" data-task="38-1"> <span>Tuo kahvilaan kiire: toteuta C#:lla pisteytys, Time.deltaTime-ajastin ja pelin päättymisehdot.</span></label>
               <label><input type="checkbox" data-task="38-2"> <span>Näytä tilaus, aika, pisteet sekä onnistumisen ja virheen palaute.</span></label>
@@ -442,7 +442,7 @@
           </details>
 
           <details class="week-card" id="week-40" data-week="40">
-            <summary><span class="week-number">40</span><span class="week-title"><small>28.9.–2.10.</small><strong>Feature 5 · Top 5 -lista, joka muistaa</strong></span><span class="week-status">0 / 3</span></summary>
+            <summary><span class="week-number">40</span><span class="week-title"><small>28.9.–2.10.</small><strong>Feature 5 · Top 5 -tuloslista</strong></span><span class="week-status">0 / 3</span></summary>
             <div class="week-content">
               <label><input type="checkbox" data-task="40-1"> <span>Tee peliin top 5 -lista: tallenna ja lataa Unityn pienellä PlayerPrefs-avain–arvo-tallennuksella viisi parasta tulosta ja nimimerkkiä.</span></label>
               <label><input type="checkbox" data-task="40-2"> <span>Perustele tiedostomuoto ja tallennuspaikka teknisessä suunnitelmassa.</span></label>
@@ -488,7 +488,7 @@
         </article>
 
         <div class="phase-block" id="vaihe-c">
-          <div class="phase-heading"><span>C</span><div><p>Viikot 43–46</p><h3>Peli valmiiksi: asiakkaan toive, hiottu kokemus ja kestävä laatu</h3></div></div>
+          <div class="phase-heading"><span>C</span><div><p>Viikot 43–46</p><h3>Peli valmiiksi: palautemuutos, käytettävyys, testaus ja koodin laatu</h3></div></div>
 
           <details class="week-card" id="week-43" data-week="43">
             <summary><span class="week-number">43</span><span class="week-title"><small>19.–23.10.</small><strong>Feature 6 · Asiakkaan toivoma parannus</strong></span><span class="week-status">0 / 3</span></summary>
@@ -572,7 +572,7 @@
         </div>
 
         <div class="phase-block" id="vaihe-d">
-          <div class="phase-heading"><span>D</span><div><p>Viikot 47–49</p><h3>Peli julki ja näyttö maaliin</h3></div></div>
+          <div class="phase-heading"><span>D</span><div><p>Viikot 47–49</p><h3>Julkaisu ja näyttö</h3></div></div>
 
           <details class="week-card" id="week-47" data-week="47">
             <summary><span class="week-number">47</span><span class="week-title"><small>16.–20.11.</small><strong>Pelin julkaisu · RC1 testipelattavana</strong></span><span class="week-status">0 / 3</span></summary>
@@ -595,7 +595,7 @@
           </details>
 
           <details class="week-card" id="week-48" data-week="48">
-            <summary><span class="week-number">48</span><span class="week-title"><small>23.–27.11.</small><strong>Pelin julkaisu · v1.0 maailmalle</strong></span><span class="week-status">0 / 3</span></summary>
+            <summary><span class="week-number">48</span><span class="week-title"><small>23.–27.11.</small><strong>Pelin julkaisu · v1.0 julki</strong></span><span class="week-status">0 / 3</span></summary>
             <div class="week-content">
               <label><input type="checkbox" data-task="48-1"> <span>Korjaa vain julkaisemisen estävät ja selvästi tärkeät virheet.</span></label>
               <label><input type="checkbox" data-task="48-2"> <span>Tee puhdas Unity WebGL -build, v1.0-tagi ja julkaise build GitHub Pagesiin.</span></label>
@@ -615,7 +615,7 @@
           </details>
 
           <details class="week-card" id="week-49" data-week="49">
-            <summary><span class="week-number">49</span><span class="week-title"><small>30.11.–4.12.</small><strong>Näyttö · Peli todistaa osaamisen</strong></span><span class="week-status">0 / 4</span></summary>
+            <summary><span class="week-number">49</span><span class="week-title"><small>30.11.–4.12.</small><strong>Näyttö · Todisteet ja luovutus</strong></span><span class="week-status">0 / 4</span></summary>
             <div class="week-content">
               <label><input type="checkbox" data-task="49-1"> <span>Tarkista kaikkien viikkojen projektipäiväkirja ja vie valmis tiedosto repositorion project-docs-kansioon.</span></label>
               <label><input type="checkbox" data-task="49-2"> <span>Täytä osaamisvaatimusten näyttömatriisiin linkit tai todisteet.</span></label>
@@ -641,7 +641,7 @@
       <section class="work-method section-pad" id="tyotapa" aria-labelledby="method-title">
         <div class="section-heading reveal">
           <p class="eyebrow">Jokainen työskentelykerta</p>
-          <h2 id="method-title">Sama turvallinen kuuden askeleen rytmi</h2>
+          <h2 id="method-title">Kuusi askelta joka kerralla</h2>
         </div>
         <ol class="workflow-loop reveal">
           <li><span>1</span><strong>Valitse</strong><small>yksi pieni tehtävä</small></li>
@@ -676,7 +676,7 @@
       <section class="ai-section section-pad" id="tekoaly" aria-labelledby="ai-title">
         <div class="ai-heading reveal">
           <p class="eyebrow eyebrow-accent">Tekoäly on sallittu apuväline</p>
-          <h2 id="ai-title">Sinä teet päätökset.<br>Tekoäly auttaa ajattelemaan.</h2>
+          <h2 id="ai-title">Sinä teet päätökset.<br>Tekoäly on apuväline.</h2>
           <p>Saat käyttää tekoälyä ideointiin, selityksiin, virheiden tutkimiseen, testitapausten ehdottamiseen ja tekstin selkeyttämiseen. Jokainen projektiin jäävä ratkaisu on silti sinun vastuullasi.</p>
         </div>
         <figure class="ai-visual reveal" data-delay="1">
@@ -758,7 +758,7 @@
       </section>
 
       <section class="final-week section-pad" aria-labelledby="final-title">
-        <div class="final-heading reveal"><p class="eyebrow">Viimeinen viikko</p><h2 id="final-title">Viisi päivää maaliin</h2><p>Uusia ominaisuuksia ei enää lisätä. Nyt varmistetaan, että osaaminen näkyy.</p></div>
+        <div class="final-heading reveal"><p class="eyebrow">Viimeinen viikko</p><h2 id="final-title">Viimeiset viisi päivää</h2><p>Uusia ominaisuuksia ei enää lisätä. Nyt varmistetaan, että osaaminen näkyy.</p></div>
         <ol class="final-days reveal">
           <li><span>Ma 30.11.</span><strong>Koodijäädytys</strong><small>Viimeinen hyväksytty build.</small></li>
           <li><span>Ti 1.12.</span><strong>Todisteet</strong><small>Päiväkirja, testit ja linkit.</small></li>
