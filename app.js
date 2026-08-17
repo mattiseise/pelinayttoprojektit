@@ -129,7 +129,7 @@
       deliverable: "Ensimmäinen pelattava WebGL-versio, jossa polku toimii valikosta yhden tilauksen kautta tulosruutuun.",
       why: "Pieni päästä päähän toimiva versio paljastaa scene-, Canvas- ja painikekytkentöjen ongelmat aikaisin. Sen päälle on turvallisempi lisätä loput ominaisuudet.",
       done: "Aloita → Kahvi → Toimita → pisteet → aika loppuu → tulos toimii WebGL-buildissa ilman, että muutat Unity Editorissa objekteja kesken pelin.",
-      record: "Kirjoita Vko 36 -merkintään buildin tunniste, viisi testikierrosta ja tulokset. Lisää yhtenäinen video tai muu todiste koko pelipolusta sekä commit- ja testitunnisteet.",
+      record: "Kirjoita Vko 36 -merkintään buildin tunniste, viisi testikierrosta ja tulokset. Lisää yhtenäinen video tai muu työnäyte koko pelipolusta sekä commit- ja testitunnisteet.",
       skills: ["Unity Canvas", "pelitilat", "ensimmäinen testi"],
       resources: [
         ["Kenney.nl – ilmaiset CC0-spritet: hahmot, esineet ja UI", "https://kenney.nl/assets", false],
@@ -363,7 +363,7 @@
       record: "Kirjoita Vko 45 -merkintään testit T01–T12 ja linkki testausmatriisiin. Nimeä kolme ketjua muodossa havainto tai merkitty vikatehtävä → syy → commit → uusintatesti.",
       skills: ["testitapaus", "debuggaus", "regressiotesti = vanhan toiminnan uusintatesti"],
       resources: [
-        ["Avaa näytön todisteet", "#todisteet", false]
+        ["Avaa näyttöaineisto", "#todisteet", false]
       ],
       steps: [
         ["Kirjoita 12 testiä ennen ajoa", "Jaa ne normaaliin kahvilavuoroon, rajoihin kuten aika 0 sekä puuttuvaan tai rikkinäiseen dataan."],
@@ -452,18 +452,18 @@
       type: "naytto",
       feature: "Peli, repository ja projektipäiväkirja todistavat osaamisesi ilman suullista selitystä.",
       excerpt: "Lopullinen peli pitää julkaista niin, että voin itse kokeilla sitä.",
-      connection: "Et enää muuta Unity-projektin gameplayta. Yhdistät jokaisen kahvilapelin vaatimuksen täsmälliseen C#-tiedostoon, testiin, buildiin ja Git-todisteeseen.",
+      connection: "Et enää muuta Unity-projektin gameplayta. Yhdistät jokaisen kahvilapelin vaatimuksen täsmälliseen C#-tiedostoon, testiin, buildiin ja Gitin työnäytteeseen.",
       deliverable: "Valmis projektipäiväkirja, näyttömatriisi, itsearviointi, jäädytetty v1.0 ja harjoiteltu demo.",
       why: "Arvioija voi arvioida vain näkyvän ja löydettävän osaamisen. Täsmälliset linkit säästävät aikaa ja osoittavat, miten vaatimus muuttui suunnitelmaksi, toteutukseksi ja testiksi.",
       done: "Jokaisella arviointikohdalla on avautuva täsmälinkki tai tunniste. Projektipäiväkirja ja AI-loki ovat repositoryssa, ja demo käyttää samaa jäädytettyä v1.0-versiota.",
-      record: "Kirjoita Vko 49 -merkintään itsearviointi: kolme vahvuutta todisteineen ja yksi seuraava kehitysaskel. Lisää linkit näyttömatriisiin, AI-lokiin, v1.0-versioon ja demon runkoon.",
+      record: "Kirjoita Vko 49 -merkintään itsearviointi: kolme vahvuutta työnäytteineen ja yksi seuraava kehitysaskel. Lisää linkit näyttömatriisiin, AI-lokiin, v1.0-versioon ja demon runkoon.",
       skills: ["näyttömatriisi", "itsearviointi", "demo"],
       resources: [
         ["Avaa näyttömatriisi", "#todisteet", false],
         ["Avaa ja lataa AI-loki", "#tekoaly", false]
       ],
       steps: [
-        ["Viimeistele päiväkirja", "Jäädytä v1.0, tarkista jokaisen viikon merkintä, lataa koko projektipäiväkirja project-docs-kansioon ja kirjoita itsearviointi omiin todisteisiin nojaten."],
+        ["Viimeistele päiväkirja", "Jäädytä v1.0, tarkista jokaisen viikon merkintä, lataa koko projektipäiväkirja project-docs-kansioon ja kirjoita itsearviointi omaan aineistoon nojaten."],
         ["Tee syvälinkit", "Liitä jokainen näyttömatriisin vaatimus suoraan issueen, C#-tiedostoon, commitiin, testiriviin tai palautepäätökseen."],
         ["Harjoittele ja luovuta", "Näytä 8–10 minuutissa pelin toimintakierto, JSON, tallennus, bugikorjaus, Git ja AI-loki. Anna toisen henkilön avata palautus ennen 4.12."]
       ],
@@ -553,7 +553,7 @@
           <label>Miksi teit näin?
             <textarea rows="4" data-journal-field="reason" placeholder="Kerro päätös, vaihtoehdot, perustelu ja mitä opit."></textarea>
           </label>
-          <label>Todisteen täsmällinen paikka
+          <label>Työnäytteen täsmällinen sijainti
             <input type="text" data-journal-field="evidence" placeholder="Esim. commit-linkki, issue #12, testi T05 tai project-docs/evidence/week-${card.dataset.week}/kuva.png">
           </label>
           <label>Seuraava pieni askel
@@ -566,7 +566,7 @@
         </div>`;
       expectations.insertAdjacentElement("afterend", journal);
 
-      evidence.querySelector("strong").textContent = "Todiste Git-repositoryyn ennen rastia:";
+      evidence.querySelector("strong").textContent = "Työnäyte Git-repositoryyn ennen rastia:";
     });
   }
 
@@ -645,7 +645,7 @@
       "### Miksi tein näin?",
       String(entry.reason || "Ei vielä kirjattu."),
       "",
-      "### Todisteen täsmällinen paikka",
+      "### Työnäytteen täsmällinen sijainti",
       String(entry.evidence || "Ei vielä kirjattu."),
       "",
       "### Seuraava pieni askel",
@@ -662,7 +662,7 @@
       `- **Tehtävä tai kysymys:** ${entry.question}`,
       `- **Käytin, muutin tai hylkäsin:** ${entry.used}`,
       `- **Tarkistus ja oppi:** ${entry.checked}`,
-      `- **Todisteviite:** ${entry.reference || "ei viitettä"}`,
+      `- **Aineistoviite:** ${entry.reference || "ei viitettä"}`,
       entry.privacy ? "- **Tietosuojavahvistus:** En syöttänyt henkilötietoja, salaisuuksia tai luottamuksellista aineistoa." : "- **Tietosuojavahvistus:** vahvistamatta (vanha merkintä)",
       ""
     ])].join("\n");
@@ -835,14 +835,35 @@
       48: "Julkaisu v1.0",
       49: "Näyttö ja luovutus"
     };
+    const phaseStarts = {
+      34: { key: "a", label: "Pelin ydin" },
+      38: { key: "b", label: "Pelin featuret" },
+      43: { key: "c", label: "Peli valmiiksi" },
+      47: { key: "d", label: "Julkaisu ja näyttö" }
+    };
+    function phaseKey(week) {
+      if (week >= 47) return "d";
+      if (week >= 43) return "c";
+      if (week >= 38) return "b";
+      return "a";
+    }
     for (let week = 34; week <= 49; week += 1) {
+      const phaseStart = phaseStarts[week];
+      if (phaseStart) {
+        const heading = document.createElement("p");
+        heading.className = `week-nav-phase phase-${phaseStart.key}`;
+        heading.innerHTML = `<span>${phaseStart.key.toUpperCase()}</span>${phaseStart.label}`;
+        holder.appendChild(heading);
+      }
       const link = document.createElement("a");
       link.href = `#week-${week}`;
       link.className = "week-link";
       link.dataset.weekLink = String(week);
-      link.innerHTML = `<span class="week-nav-node">${week}</span><span class="week-nav-copy"><small>Viikko ${week}</small><strong>${weekNames[week]}</strong></span><span class="week-nav-check" aria-hidden="true">✓</span>`;
-      link.setAttribute("aria-label", week === 42 ? "Viikko 42, syysloma" : `Viikko ${week}`);
+      const smallLabel = week === 42 ? `Viikko ${week}` : `${phaseKey(week).toUpperCase()} · Viikko ${week}`;
+      link.innerHTML = `<span class="week-nav-node">${week}</span><span class="week-nav-copy"><small>${smallLabel}</small><strong>${weekNames[week]}</strong></span><span class="week-nav-check" aria-hidden="true">✓</span>`;
+      link.setAttribute("aria-label", week === 42 ? "Viikko 42, syysloma" : `Viikko ${week}, vaihe ${phaseKey(week).toUpperCase()}`);
       if (week === 42) link.classList.add("holiday");
+      else link.classList.add(`phase-${phaseKey(week)}`);
       holder.appendChild(link);
     }
   }
@@ -921,7 +942,7 @@
   document.querySelectorAll("[data-print]").forEach((button) => button.addEventListener("click", () => window.print()));
 
   document.querySelector("[data-reset]")?.addEventListener("click", () => {
-    if (!window.confirm("Nollataanko tehtävät, projektipäiväkirja, GDD, näytön todisteet ja AI-loki tästä selaimesta? Lataa projektipäiväkirja ja gdd.md ensin, jos haluat säilyttää vastaukset.")) return;
+    if (!window.confirm("Nollataanko tehtävät, projektipäiväkirja, GDD, näyttöaineiston rastit ja AI-loki tästä selaimesta? Lataa projektipäiväkirja ja gdd.md ensin, jos haluat säilyttää vastaukset.")) return;
     localStorage.removeItem(STORAGE_KEY);
     localStorage.removeItem(EVIDENCE_KEY);
     localStorage.removeItem(LOG_KEY);
@@ -963,7 +984,7 @@
         <strong>${escapeText(entry.tool)}</strong>
         <span>${escapeText(entry.question)}</span>
         <span>${escapeText(entry.used)}</span>
-        <span>${escapeText(entry.checked)}<small class="log-reference">Todiste: ${escapeText(entry.reference || "ei viitettä")}</small></span>
+        <span>${escapeText(entry.checked)}<small class="log-reference">Aineisto: ${escapeText(entry.reference || "ei viitettä")}</small></span>
         <button type="button" data-remove-log="${index}" aria-label="Poista lokimerkintä">Poista</button>
       </article>`).join("");
     logHolder.querySelectorAll("[data-remove-log]").forEach((button) => button.addEventListener("click", () => {
@@ -996,7 +1017,7 @@
       `- **Tehtävä tai kysymys:** ${entry.question}`,
       `- **Käytin, muutin tai hylkäsin:** ${entry.used}`,
       `- **Tarkistus ja oppi:** ${entry.checked}`,
-      `- **Todisteviite:** ${entry.reference || "ei viitettä"}`,
+      `- **Aineistoviite:** ${entry.reference || "ei viitettä"}`,
       entry.privacy ? "- **Tietosuojavahvistus:** En syöttänyt henkilötietoja, salaisuuksia tai luottamuksellista aineistoa." : "- **Tietosuojavahvistus:** vahvistamatta (vanha merkintä)",
       ""
     ].join("\n")).join("\n") : "Ei merkintöjä.\n";

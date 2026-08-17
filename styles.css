@@ -12,6 +12,10 @@
   --gold: #ffb800;
   --gold-pale: #fff7dc;
   --line: #e6e6e6;
+  --phase-a: #0d9488;
+  --phase-b: #d97706;
+  --phase-c: #7c3aed;
+  --phase-d: #db2777;
   --shadow: 0 10px 30px rgba(20, 20, 20, .10);
   --radius: 10px;
   --content: 1520px;
@@ -301,6 +305,7 @@ input[type="checkbox"]:checked::after { content: "✓"; display: grid; place-ite
 .matrix { margin: .8rem 0; border: 1px solid var(--line); border-radius: 16px; background: white; }
 .matrix summary { padding: 1.2rem; color: var(--navy); cursor: pointer; font-weight: 900; }
 .matrix-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1rem; padding: 0 1.2rem 1.2rem; }
+.matrix-group { grid-column: 1 / -1; margin: 1rem 0 0; color: #73859f; font-size: .68rem; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; }
 .matrix-list label { display: grid; grid-template-columns: auto 1fr; gap: .7rem; align-items: start; padding: .75rem 0; border-top: 1px solid var(--line); cursor: pointer; font-size: .85rem; }
 .matrix-list strong { display: block; color: var(--navy); }
 
@@ -449,6 +454,16 @@ footer a { margin-left: auto; color: white; font-weight: 800; }
   font-size: .7rem;
   font-weight: 800;
 }
+.week-nav-phase { display: flex; align-items: center; gap: .5rem; margin: 0; padding: .95rem 1.1rem .45rem; border-bottom: 1px solid #e6e6e6; color: #4c4c4c; font-size: .66rem; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; }
+.week-nav-phase span { display: grid; place-items: center; width: 20px; height: 20px; border-radius: 6px; color: white; font-size: .62rem; }
+.week-nav-phase.phase-a span { background: var(--phase-a); }
+.week-nav-phase.phase-b span { background: var(--phase-b); }
+.week-nav-phase.phase-c span { background: var(--phase-c); }
+.week-nav-phase.phase-d span { background: var(--phase-d); }
+.week-link.phase-a .week-nav-node { border-color: var(--phase-a); color: var(--phase-a); }
+.week-link.phase-b .week-nav-node { border-color: var(--phase-b); color: var(--phase-b); }
+.week-link.phase-c .week-nav-node { border-color: var(--phase-c); color: var(--phase-c); }
+.week-link.phase-d .week-nav-node { border-color: var(--phase-d); color: var(--phase-d); }
 .week-link.current .week-nav-node { color: white; border-color: var(--coral); background: var(--coral); }
 .week-link.done .week-nav-node { color: white; border-color: #7bbc20; background: #7bbc20; }
 .week-nav-copy { min-width: 0; }
@@ -580,6 +595,14 @@ h1 { max-width: 920px; font-size: clamp(3.2rem, 6vw, 6.8rem); }
   background: var(--coral);
   box-shadow: none;
 }
+#vaihe-a .phase-heading > span { background: var(--phase-a); }
+#vaihe-b .phase-heading > span { background: var(--phase-b); }
+#vaihe-c .phase-heading > span { background: var(--phase-c); }
+#vaihe-d .phase-heading > span { background: var(--phase-d); }
+#vaihe-a.phase-block::before { background: var(--phase-a); }
+#vaihe-b.phase-block::before { background: var(--phase-b); }
+#vaihe-c.phase-block::before { background: var(--phase-c); }
+#vaihe-d.phase-block::before { background: var(--phase-d); }
 .phase-heading p { color: #73859f; }
 .week-card {
   border: 1px solid #d9d9d9;
