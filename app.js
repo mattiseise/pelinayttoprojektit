@@ -5,12 +5,56 @@
   const EVIDENCE_KEY = "kahvilakoodi-evidence-v1";
   const LOG_KEY = "kahvilakoodi-ai-log-v1";
   const JOURNAL_KEY = "kahvilakoodi-journal-v1";
+  const GDD_KEY = "kahvilakoodi-gdd-v1";
   const taskBoxes = [...document.querySelectorAll("[data-task]")];
   const evidenceBoxes = [...document.querySelectorAll("[data-evidence]")];
   const weekCards = [...document.querySelectorAll(".week-card")];
 
+  // Viikkotyyppien kehystekstit: feature-viikot puhuvat pelifeaturesta,
+  // muut viikot viikon havaittavasta lopputuloksesta (pedagoginen runko §4).
+  const weekFraming = {
+    feature: {
+      kicker: "Viikon pelifeature",
+      connectionLabel: "Näin feature rakentuu:",
+      deliverableLabel: "Peliin valmistuu",
+      skillsLabel: "Featuren tekniikka — tämä osaaminen arvioidaan näytössä"
+    },
+    pohjustus: {
+      kicker: "Pelin pohjustus",
+      connectionLabel: "Näin viikko vie peliä eteenpäin:",
+      deliverableLabel: "Tällä viikolla valmistuu",
+      skillsLabel: "Viikon tekniikka — tämä osaaminen arvioidaan näytössä"
+    },
+    katselmointi: {
+      kicker: "Katselmointi: asiakas pelaa",
+      connectionLabel: "Näin viikko vie peliä eteenpäin:",
+      deliverableLabel: "Tällä viikolla valmistuu",
+      skillsLabel: "Viikon tekniikka — tämä osaaminen arvioidaan näytössä"
+    },
+    laatu: {
+      kicker: "Pelin laatu",
+      connectionLabel: "Näin viikko vie peliä eteenpäin:",
+      deliverableLabel: "Tällä viikolla valmistuu",
+      skillsLabel: "Viikon tekniikka — tämä osaaminen arvioidaan näytössä"
+    },
+    julkaisu: {
+      kicker: "Pelin julkaisu",
+      connectionLabel: "Näin viikko vie peliä eteenpäin:",
+      deliverableLabel: "Tällä viikolla valmistuu",
+      skillsLabel: "Viikon tekniikka — tämä osaaminen arvioidaan näytössä"
+    },
+    naytto: {
+      kicker: "Näyttöviikko",
+      connectionLabel: "Näin viikko vie näytön maaliin:",
+      deliverableLabel: "Tällä viikolla valmistuu",
+      skillsLabel: "Viikon tekniikka — tämä osaaminen arvioidaan näytössä"
+    }
+  };
+
   const weekGuidance = {
     34: {
+      type: "pohjustus",
+      feature: "Tämän viikon jälkeen tiedät, millainen kahvilapeli tehdään ja kenelle — ja tyhjä peli käynnistyy selaimessa asti.",
       connection: "Pelin toimintakierto (gameplay loop) alkaa asiakkaan tarpeesta: ennen koodaamista päätät, mitä kahvilassa tapahtuu tilauksen saapumisesta tulosruutuun.",
       deliverable: "Tarvekartoitus, käynnistyvä Unity 2D -projekti, WebGL-testibuild ja Git-repository.",
       why: "Jos avoimet asiat jäävät oletuksiksi, voit rakentaa väärän pelin. Varhainen testibuild varmistaa, että valittu Unity-versio ja WebGL toimivat ennen varsinaista koodausta.",
@@ -33,24 +77,31 @@
           "Varmista ennen ensimmäistä committia, että Assets, Packages, ProjectSettings, project-docs, README.md ja .gitignore näkyvät Gitin muutoksissa. Tee commit ja push."
         ],
         code: "ENSIMMÄISEN COMMITIN TARKISTUS\n[ ] Assets mukana\n[ ] Packages mukana\n[ ] ProjectSettings mukana\n[ ] project-docs mukana\n[ ] README.md kertoo pelin tavoitteen\n[ ] Library, Temp ja Builds eivät ole mukana\n[ ] commit näkyy GitHubissa",
-        test: "Sulje Unity. Kloonaa repository toiseen kansioon tai pyydä ohjaajaa avaamaan se. Unity luo puuttuvan Library-kansion itse, CafeGame-scene avautuu ja WebGL-testibuild voidaan tehdä."
+        test: "Sulje Unity. Kloonaa repository toiseen kansioon tai pyydä ohjaajaa avaamaan se. Unity luo puuttuvan Library-kansion itse, CafeGame-scene avautuu ja WebGL-testibuild voidaan tehdä.",
+        images: [
+          ["assets/unity/vko34-hub-uusi-projekti.png", "Unity Hubin New project -näkymä: Universal 2D -templaatti valittuna, projektin nimi CafeGame ja sijainti D-asemalla.", "Unity Hub: New project → Universal 2D → nimi CafeGame → Create project."],
+          ["assets/unity/vko34-build-profiles-web.png", "Unityn Platform Browser -ikkuna, jossa Web-alusta on valittuna ja Add Build Profile -painike näkyvissä.", "Build Profiles → Add Build Profile → Web. Uusi profiili vaihtaa alustan Webiin."]
+        ]
       },
       example: "Kysymys: Miten top 5 -listan tasatilanteet järjestetään? Vastaus: [asiakkaan vastaus]. Päätös: [oma tiivistys].",
       notEnough: "Kahdeksan lähes samaa tekoälykysymystä tai itse keksityt asiakkaan vastaukset eivät osoita asiakastarpeen selvittämistä."
     },
     35: {
+      type: "pohjustus",
+      feature: "Tämän viikon jälkeen peli on olemassa paperilla: kolme ruutua ja featuret tekojärjestyksessä, asiakkaan hyväksyminä.",
       excerpt: "Pelissä pitää olla aloitusvalikko, itse peli, pistelasku ja pelin päättymisnäkymä.",
       connection: "Nyt muutat toimeksiannon näkyväksi Unity-suunnitelmaksi: Canvas-näkymät, pelin toimintakierto, C#-vastuut, tehtävät ja valmiin työn ehdot.",
       deliverable: "Hyväksytty pakollinen perusversio, pieni backlog, käyttöliittymäluonnos ja Unityn tekninen rakennekuva.",
       why: "Rajaus estää projektia kasvamasta liian suureksi. Kun jokaisella tehtävällä on selvä valmis kun -ehto, tiedät mitä seuraavaksi tehdään ja milloin työ voidaan testata.",
       done: "Pakollinen perusversio on hyväksytty. Jokaisella P0-tehtävällä on 0,5–1 päivän arvio ja havaittava valmis kun -ehto. Mockupissa näkyvät valikko, peli ja tulos.",
-      record: "Kirjoita Vko 35 -merkintään tavoite, käyttäjä, oma rooli, rajaus, valitut teknologiat, hyväksyjän rooli ja päivä. Lisää linkit backlogiin, mockupiin ja rakennekuvaan.",
+      record: "Kirjoita Vko 35 -merkintään, mitkä GDD-päätökset teit ja miksi, hyväksyjän rooli ja päivä sekä mitkä asiat jäivät asiakkaalle avoimiksi. Lisää linkit gdd.md-tiedostoon, backlogiin, mockupiin ja rakennekuvaan.",
       skills: ["rajaus", "Unity UI", "työn pilkkominen"],
       resources: [
+        ["Täytä GDD tällä sivulla", "#gdd", false],
         ["Avaa koko toimeksianto", "#toimeksianto", false]
       ],
       steps: [
-        ["Kirjoita projektin perusta", "Täytä tämän viikon projektipäiväkirjaan tavoite, käyttäjä, oma rooli, rajaus ja toteutustapa omin sanoin."],
+        ["Täytä GDD", "Täytä GDD:n omat päätökset tällä sivulla: kirjoita tavoite ja oma roolisi omin sanoin, nimeä peli, valitse tyyli ja grafiikan lähde lisensseineen ja päätä pisteytys perusteluineen. Lataa gdd.md ja vie se project-docs-kansioon."],
         ["Tee pieni backlog", "Kirjoita jokainen kahvilapelin P0-toiminto omaksi 0,5–1 päivän issueksi. Lisää prioriteetti ja havaittava valmis kun -ehto."],
         ["Piirrä Unity-ratkaisu", "Luonnostele kolme Canvas-paneelia ja pelin toimintakierto. Jaa C#-vastuut GameManager-, OrderManager-, ProductDatabase-, UIController- ja SaveService-skripteille."]
       ],
@@ -71,6 +122,8 @@
       notEnough: "Tehtävä nimeltä “Tee peli” tai perustelematon tekoälyn arkkitehtuurikuva ei ole toteutuskelpoinen suunnitelma."
     },
     36: {
+      type: "feature",
+      feature: "Peliä voi pelata ensimmäistä kertaa: Aloita → asiakas tilaa kahvin → toimitat → piste → tulosruutu.",
       excerpt: "Pelaajan tehtävänä on toimittaa oikea tilaus mahdollisimman nopeasti.",
       connection: "Rakennat Unityyn pelin toimintakierron ensimmäisen päästä päähän toimivan version. Yksi kiinteä kahvitilaus riittää nyt todistamaan koko polun; lopullinen 1–3 tuotteen tilaus tulee seuraavaksi.",
       deliverable: "Ensimmäinen pelattava WebGL-versio, jossa polku toimii valikosta yhden tilauksen kautta tulosruutuun.",
@@ -78,6 +131,11 @@
       done: "Aloita → Kahvi → Toimita → pisteet → aika loppuu → tulos toimii WebGL-buildissa ilman, että muutat Unity Editorissa objekteja kesken pelin.",
       record: "Kirjoita Vko 36 -merkintään buildin tunniste, viisi testikierrosta ja tulokset. Lisää yhtenäinen video tai muu todiste koko pelipolusta sekä commit- ja testitunnisteet.",
       skills: ["Unity Canvas", "pelitilat", "ensimmäinen testi"],
+      resources: [
+        ["Kenney.nl – ilmaiset CC0-spritet: hahmot, esineet ja UI", "https://kenney.nl/assets", false],
+        ["OpenGameArt – 2D-hahmot ja taustat (tarkista lisenssi)", "https://opengameart.org/", false],
+        ["Piskel – piirrä omat spritet selaimessa", "https://www.piskelapp.com/", false]
+      ],
       steps: [
         ["Rakenna Canvas-paneelit", "Tee CafeGame-sceneen MenuPanel, GamePanel ja ResultPanel. GameManager näyttää kerrallaan vain oikean paneelin."],
         ["Yhdistä yksi kierros", "Kytke Unity Button -tapahtumat: Aloita → valitse Kahvi → Toimita → +10 → aika 0 → tulos."],
@@ -94,12 +152,18 @@
           "Pidä alussa vain MenuPanel aktiivisena. Tallenna scene nimellä CafeGame."
         ],
         code: "using UnityEngine;\n\npublic class GameManager : MonoBehaviour\n{\n    [SerializeField] private GameObject menuPanel;\n    [SerializeField] private GameObject gamePanel;\n    [SerializeField] private GameObject resultPanel;\n\n    public void StartGame()\n    {\n        // TODO: nollaa pisteet ja aika\n        // TODO: näytä vain gamePanel\n    }\n\n    public void SubmitOrder()\n    {\n        // TODO viikolla 38: tarkista tilaus ja muuta pisteitä\n    }\n\n    public void EndGame()\n    {\n        // TODO: näytä vain resultPanel\n    }\n\n    public void RestartGame()\n    {\n        // TODO: palauta alkutila ja kutsu StartGame\n    }\n}",
-        test: "Play-painalluksen jälkeen näkyy vain valikko. Aloita näyttää vain pelin ja EndGame vain tuloksen. Sama toimii WebGL-buildissa."
+        test: "Play-painalluksen jälkeen näkyy vain valikko. Aloita näyttää vain pelin ja EndGame vain tuloksen. Sama toimii WebGL-buildissa.",
+        images: [
+          ["assets/unity/vko36-hierarchy-paneelit.png", "Unityn Hierarchy-paneeli: CafeGame-scene, jossa GameManager, ProductDatabase sekä Canvasin alla MenuPanel, GamePanel ja ResultPanel.", "Hierarchy tämän viikon jälkeen: GameManager ja Canvasin kolme paneelia."],
+          ["assets/unity/vko36-button-onclick.png", "Unityn Inspector: StartButtonin Button-komponentti, jonka On Click -listassa on GameManager ja StartGame-metodi.", "StartButtonin On Click -lista: GameManager → StartGame."]
+        ]
       },
       example: "Hyväksymistesti: Aloita → Kahvi → Toimita → pistemäärä 10 → aika 0 → tulosruudulla 10.",
       notEnough: "Kolme irrallista ruutukaappausta tai editorissa käsin vaihdettu pelitila ei vielä ole päästä päähän pelattava kokonaisuus."
     },
     37: {
+      type: "feature",
+      feature: "Tilaukset arvotaan oikeasta tuotelistasta — ja kahvilan valikoimaa voi muuttaa koskematta koodiin.",
       excerpt: "Tuotteiden tiedot eivät saa olla kovakoodattuna pelilogiikkaan, vaan niiden pitää tulla erillisestä tietolähteestä.",
       connection: "Pelin toimintakierron tilaus syntyy nyt Unityyn tuodusta JSON-datasta. Kahvi, tee ja sämpylä eivät enää ole kirjoitettuina suoraan C#-tilauskoodiin.",
       deliverable: "products.json, ProductDatabase.cs, 1–3 tuotteen tilauslogiikka ja virhetilanteiden käsittely.",
@@ -123,12 +187,17 @@
           "Anna OrderManagerin arpoa listasta 1–3 tuotetta; älä arvo tai kirjoita tuotenimiä UIControllerissa."
         ],
         code: "using UnityEngine;\n\n[System.Serializable]\npublic class ProductData\n{\n    public string id;\n    public string name;\n    public int points;\n}\n\n[System.Serializable]\npublic class ProductList\n{\n    public ProductData[] products;\n}\n\npublic class ProductDatabase : MonoBehaviour\n{\n    [SerializeField] private TextAsset productsJson;\n\n    public ProductList LoadProducts()\n    {\n        // TODO: tarkista puuttuva TextAsset\n        return JsonUtility.FromJson<ProductList>(productsJson.text);\n    }\n}",
-        test: "Muuta kahvin points-arvo JSONissa 10:stä 15:een. Muutoksen pitää näkyä pelissä ilman C#-tiedoston muokkausta."
+        test: "Muuta kahvin points-arvo JSONissa 10:stä 15:een. Muutoksen pitää näkyä pelissä ilman C#-tiedoston muokkausta.",
+        images: [
+          ["assets/unity/vko37-textasset-inspector.png", "Unityn Inspector: ProductDatabase-skripti, jonka Products Json -kenttään on raahattu products-TextAsset.", "products.json raahattuna ProductDatabase-skriptin TextAsset-kenttään."]
+        ]
       },
       example: "{ \"products\": [{ \"id\": \"kahvi\", \"name\": \"Kahvi\", \"points\": 10 }] } → JsonUtility → ProductDatabase → OrderManager → UI.",
       notEnough: "JSON-tiedosto ei riitä, jos kahvi ja pistearvo ovat edelleen myös pelilogiikkaan kovakoodattuina."
     },
     38: {
+      type: "feature",
+      feature: "Kahvilaan tulee kiire: kello tikittää, pisteet juoksevat ja peli kertoo heti, menikö toimitus oikein.",
       excerpt: "Pelissä pitää olla aloitusvalikko, itse peli, pistelasku ja pelin päättymisnäkymä.",
       connection: "Viimeistelet pelin toimintakierron palautteen: kahvilapelaaja näkee TextMeshPro-kentissä heti, oliko toimitus oikea, paljonko pisteitä tuli ja milloin vuoro päättyy.",
       deliverable: "Kirjatut pelisäännöt sekä toimivat pisteet, ajastin, palaute ja pelin päättyminen.",
@@ -152,12 +221,17 @@
           "Poista Submit-painike hetkeksi käytöstä toimituksen käsittelyn ajaksi, jotta kaksoisklikkaus ei anna kahta tulosta."
         ],
         code: "// Lisää tiedoston alkuun: using TMPro;\n// Lisää seuraavat viikon 36 GameManager-luokan sisään.\n// Säilytä menuPanel-, gamePanel- ja resultPanel-kentät.\n[SerializeField] private TMP_Text timeText;\nprivate float timeLeft = 60f;\nprivate bool isPlaying;\n\nprivate void Update()\n{\n    if (!isPlaying) return;\n    timeLeft -= Time.deltaTime;\n    // TODO: päivitä timeText pyöristetyllä ajalla\n    if (timeLeft <= 0f) EndGame();\n}\n\n// Täydennä viikon 36 SubmitOrder-metodia:\n// TODO: estä toinen painallus käsittelyn aikana\n// TODO: kysy OrderManagerilta, oliko toimitus oikein\n// TODO: muuta pisteitä ja näytä palaute\n\n// Täydennä EndGame-metodia:\n// TODO: aseta isPlaying = false ennen ResultPanelin näyttämistä",
-        test: "Aseta testissä aika arvoon 0,1 s ja paina Toimita nopeasti kahdesti. ResultPanel avautuu kerran ja pisteet muuttuvat enintään kerran."
+        test: "Aseta testissä aika arvoon 0,1 s ja paina Toimita nopeasti kahdesti. ResultPanel avautuu kerran ja pisteet muuttuvat enintään kerran.",
+        images: [
+          ["assets/unity/vko38-game-view.png", "Unityn Game-näkymä: kahvilavuoro käynnissä väliaikaisella grafiikalla — tilaus, aika, pisteet, Kahvi- ja Toimita-painikkeet sekä palauteteksti.", "Game view: tilaus, aika, pisteet ja palaute riittävät — grafiikka viimeistellään myöhemmin."]
+        ]
       },
       example: "Oikea tilaus +10; väärä −5; aika 60 s; peli päättyy kerran, kun aika = 0.",
       notEnough: "Pelivideo yksin ei osoita, että pistelogiikka toimii rajoilla tai että uusi peli nollaa vanhan tuloksen."
     },
     39: {
+      type: "feature",
+      feature: "Peli vaikeutuu pelaajan tahdissa: mitä paremmin pelaat, sitä isommat tilaukset ja kireämmät ajat — ilman äkkihyppyjä.",
       excerpt: "Vaikeustason pitää kasvaa pelin edetessä.",
       connection: "Unityn pelin toimintakierto pysyy samana, mutta kahvilan kiire kasvaa hallitusti. Pelaajan pitää huomata vaikeutuminen ilman äkillistä sattumanvaraista hyppyä.",
       deliverable: "Kahden vaikeusmallin vertailu, perusteltu päätös ja kolmen tason säädettävä vaikeuskäyrä.",
@@ -187,6 +261,8 @@
       notEnough: "Tekoälyn valitsema vaikeusmalli ilman kahden vaihtoehdon vertailua ja omaa pelitestiä ei osoita perusteltua päätöstä."
     },
     40: {
+      type: "feature",
+      feature: "Peli saa muistin: viisi parasta tulosta nimimerkkeineen säilyy, vaikka pelin sulkee ja avaa uudelleen.",
       excerpt: "Pelaajan parhaat tulokset pitää tallentaa.",
       connection: "Kun kahvilavuoro päättyy, viiden parhaan tuloksen lista tallentuu Unityn PlayerPrefsiin ja näkyy vielä WebGL-pelin uudelleenkäynnistyksen jälkeen.",
       deliverable: "Toimiva top 5 -tallennus, nimimerkin validointi ja ratkaisun rajoitusten perustelu.",
@@ -210,12 +286,17 @@
           "Näytä viisi riviä ResultPanelissa ja testaa WebGL-buildissa, ei vain Play Modessa."
         ],
         code: "using System.Collections.Generic;\nusing UnityEngine;\n\n[System.Serializable]\npublic class ScoreEntry\n{\n    public string nickname;\n    public int score;\n}\n\n[System.Serializable]\npublic class ScoreList\n{\n    public List<ScoreEntry> entries = new List<ScoreEntry>();\n}\n\npublic class SaveService : MonoBehaviour\n{\n    private ScoreList scoreList = new ScoreList();\n\n    public void SaveScore(string nickname, int score)\n    {\n        // TODO: validoi nimimerkki\n        // TODO: lisää, järjestä ja pidä viisi parasta\n        PlayerPrefs.SetString(\"HighScores\", JsonUtility.ToJson(scoreList));\n        PlayerPrefs.Save();\n    }\n\n    public ScoreList LoadScores()\n    {\n        // TODO: jos avainta ei ole, palauta tyhjä ScoreList\n        // TODO: muunna tallennettu JSON takaisin ScoreListiksi\n        return new ScoreList();\n    }\n}",
-        test: "Tallenna kuusi eri tulosta, sulje välilehti ja avaa peli uudelleen. Vain viisi parasta näkyy samassa järjestyksessä."
+        test: "Tallenna kuusi eri tulosta, sulje välilehti ja avaa peli uudelleen. Vain viisi parasta näkyy samassa järjestyksessä.",
+        images: [
+          ["assets/unity/vko40-resultpanel.png", "Unityn Game-näkymä ResultPanelista: lopputulos, nimimerkkikenttä, Tallenna tulos -painike ja viiden parhaan tuloksen lista.", "ResultPanel: nimimerkki, tallennus ja top 5 -lista."]
+        ]
       },
       example: "ScoreList → JsonUtility.ToJson → PlayerPrefs.SetString(\"HighScores\", json) → käynnistä uudelleen → sama top 5 näkyy.",
       notEnough: "Inspectorissa tai koodissa näkyvä arvo ei osoita pysyvää latausta. Älä tallenna tai syötä tekoälylle salasanoja, avaimia tai henkilötietoja."
     },
     41: {
+      type: "katselmointi",
+      feature: "Asiakas pelaa peliäsi ensimmäistä kertaa ja kertoo, miltä kahvilavuoro tuntuu. Yksi muutos sovitaan.",
       excerpt: "Haluan nähdä pelistä toimivan version vähintään kerran ennen lopullista versiota, jotta voin pyytää muutoksia.",
       connection: "Asiakas pelaa nyt kahvilapelin oikean toimintakierron. Sinä tarkkailet, missä tilaus, tuotteiden valinta tai palaute jää epäselväksi.",
       deliverable: "Asiakkaan kokeilema väliversio, katselmointimuistio ja yksi hyväksytty muutostehtävä.",
@@ -232,6 +313,8 @@
       notEnough: "Itse tai tekoälyllä keksitty asiakaspalaute ei ole katselmointi. Tallenna asiakkaan alkuperäinen havainto erikseen omasta tulkinnastasi."
     },
     43: {
+      type: "feature",
+      feature: "Asiakkaan pyytämä muutos on pelattavana — ja vanha peli toimii silti.",
       excerpt: "Haluan myös nähdä pelistä toimivan version vähintään kerran ennen lopullista versiota, jotta voin pyytää muutoksia.",
       connection: "Toteutat asiakkaan valitseman muutoksen Unity-projektissa niin, että alkuperäinen pelin toimintakierto säilyy toimivana.",
       deliverable: "Asiakaspalautteeseen jäljitettävä, katselmoitu ja testattu muutos omassa Git-haarassa.",
@@ -248,6 +331,8 @@
       notEnough: "Suuri suora muutos mainiin tai yksi massacommit katkaisee yhteyden palautteen, toteutuksen ja testin välillä."
     },
     44: {
+      type: "feature",
+      feature: "Uusi pelaaja ymmärtää tavoitteen ja pelaa kierroksen ilman, että kukaan neuvoo vieressä.",
       excerpt: "Lopullinen peli pitää julkaista niin, että voin itse kokeilla sitä.",
       connection: "Unity-kahvilapelin täytyy kertoa tavoitteensa ilman opettajan vieressä antamia ohjeita. Siksi testaat juuri Canvasin tilausta, tuotepainikkeita, Toimita-painiketta ja palautetta.",
       deliverable: "Lyhyt käytettävyystesti, kaksi perusteltua UI-muutosta ja uusintatesti.",
@@ -255,6 +340,10 @@
       done: "Toinen käyttäjä löytää tavoitteen ja pelaa yhden tilauksen loppuun ilman suullista ohjetta. Kahdelle muutokselle näkyy ennen- ja jälkeen-tilanne.",
       record: "Kirjoita Vko 44 -merkintään annettu pelitehtävä, alkuperäiset havainnot, tehdyt kaksi muutosta ja uusintatestin tulos. Lisää ennen/jälkeen-kuvat ja commit-linkki.",
       skills: ["Unity UI", "Canvas-palaute", "käyttäjätesti"],
+      resources: [
+        ["Kenney.nl – UI-paketit ja ikonit (CC0)", "https://kenney.nl/assets", false],
+        ["Game-icons.net – tuhansia ikoneita (CC BY, mainitse tekijä)", "https://game-icons.net/", false]
+      ],
       steps: [
         ["Anna oikea pelitehtävä", "Pyydä vertaista aloittamaan peli, toimittamaan yksi tilaus ja tarkistamaan tulos ilman suullista ohjetta."],
         ["Kirjaa havainto ennen ratkaisua", "Merkitse esimerkiksi epäröinti, väärä painallus tai kohta, jossa tilaus jäi huomaamatta."],
@@ -264,6 +353,8 @@
       notEnough: "Oma mielipide “UI näyttää hyvältä” tai vain kosmeettinen värinvaihto ei ole käytettävyystesti."
     },
     45: {
+      type: "laatu",
+      feature: "Peli kestää pelaamista: aika nollaan, tuplaklikit ja rikottu tuotelista eivät kaada sitä.",
       excerpt: "Pelissä pitää olla aloitusvalikko, itse peli, pistelasku ja pelin päättymisnäkymä.",
       connection: "Testaat Unity WebGL -buildin koko toimintakierron järjestelmällisesti: aloitus, tilaus, valinta, toimitus, pisteet, aika, vaikeus, PlayerPrefs ja uusi peli.",
       deliverable: "Vähintään 12 testitapauksen testausmatriisi ja kolme täydellistä virheenkorjausketjua.",
@@ -283,6 +374,8 @@
       notEnough: "Tekoälyn ehdottamaa testiä ei saa merkitä ajetuksi eikä bugia löytyneeksi ilman omaa testiajoa."
     },
     46: {
+      type: "laatu",
+      feature: "Peli näyttää pelaajalle samalta, mutta koodin ymmärtää nyt toinenkin kehittäjä — ja sinä osaat selittää sen.",
       excerpt: "Tuotteiden tiedot eivät saa olla kovakoodattuna pelilogiikkaan, vaan niiden pitää tulla erillisestä tietolähteestä.",
       connection: "Selkeytät nyt Unity-projektin C#-koodia: tilauksen luonti, pisteiden lasku ja Canvasin päivitys eivät saa olla yhtenä pitkänä MonoBehaviour-metodina.",
       deliverable: "Yksi rajattu refaktorointi, sitä ympäröivät testit ja ihmisen tekemä koodikatselmointi.",
@@ -299,6 +392,8 @@
       notEnough: "Pelkkä automaattinen muotoilu tai koko tiedoston tekoälyuudelleenkirjoitus ei osoita perusteltua refaktorointia."
     },
     47: {
+      type: "julkaisu",
+      feature: "Koko peli on pelattavana täsmälleen siinä muodossa, jossa se julkaistaan. Uusia ominaisuuksia ei enää lisätä.",
       excerpt: "Lopullinen peli pitää julkaista niin, että voin itse kokeilla sitä.",
       connection: "Release candidate 1 eli RC1 on Unity WebGL -pelin ensimmäinen julkaisuehdokas: koko pelin toimintakierto testataan selaimessa sellaisena kuin se aiotaan julkaista.",
       deliverable: "Jäädytetty RC1-build, kahden henkilön testipalaute ja päätetty julkaisun korjauslista.",
@@ -315,6 +410,8 @@
       notEnough: "Opiskelija tai tekoäly ei voi esiintyä kahtena testaajana, eikä ominaisuusjäädytyksen jälkeen lisätä uusia peliominaisuuksia."
     },
     48: {
+      type: "julkaisu",
+      feature: "Peli on netissä: linkki toimii kenen tahansa koneella, ja asiakas voi kokeilla peliä itse.",
       excerpt: "Lopullinen peli pitää julkaista niin, että voin itse kokeilla sitä.",
       connection: "Unity-kahvilapelin toimintakierto siirtyy nyt Editorista GitHub Pagesiin. Testaat julkaistua WebGL-versiota, et Play Modea.",
       deliverable: "GitHub Pagesissa toimiva Unity WebGL v1.0, käyttöohje ja tunnettujen puutteiden lista.",
@@ -339,6 +436,9 @@
         ],
         code: "Julkaisun tarkistuslista\n[ ] WebGL valittu\n[ ] CafeGame mukana scene-listassa\n[ ] Decompression Fallback käytössä\n[ ] docs/.nojekyll mukana\n[ ] docs/index.html + Build + TemplateData Gitissä\n[ ] Pages: main /docs\n[ ] julkaistu linkki testattu toisella selaimella",
         test: "Avaa julkaistu linkki yksityisessä selainikkunassa. Pelaa yksi kierros, päivitä sivu ja tarkista top 5. Jos build ei lataudu, tarkista ensin tiedostopolut ja selaimen Console.",
+        images: [
+          ["assets/unity/vko48-decompression-fallback.png", "Unityn Player Settings, Settings for Web: Publishing Settings avattuna ja Decompression Fallback -valinta käytössä.", "Player Settings → Web → Publishing Settings: Decompression Fallback päälle ensimmäisessä julkaisussa."]
+        ],
         links: [
           ["Unity: Web-julkaisun asetukset", "https://docs.unity3d.com/6000.0/Documentation/Manual/webgl-deploying.html"],
           ["GitHub: Pages-julkaisulähde", "https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site"]
@@ -348,6 +448,8 @@
       notEnough: "Editorikuva tai “toimii omalla koneella” ei osoita, että asiakas pystyy avaamaan julkaistun pelin."
     },
     49: {
+      type: "naytto",
+      feature: "Peli, repository ja projektipäiväkirja todistavat osaamisesi ilman suullista selitystä.",
       excerpt: "Lopullinen peli pitää julkaista niin, että voin itse kokeilla sitä.",
       connection: "Et enää muuta Unity-projektin gameplayta. Yhdistät jokaisen kahvilapelin vaatimuksen täsmälliseen C#-tiedostoon, testiin, buildiin ja Git-todisteeseen.",
       deliverable: "Valmis projektipäiväkirja, näyttömatriisi, itsearviointi, jäädytetty v1.0 ja harjoiteltu demo.",
@@ -379,29 +481,23 @@
       const evidence = content?.querySelector(".evidence");
       if (!content || !firstTask || !lesson || !evidence) return;
 
-      if (guide.excerpt) {
-        const context = document.createElement("section");
-        context.className = "assignment-context";
-        context.innerHTML = `
+      const framing = weekFraming[guide.type] || weekFraming.feature;
+      const context = document.createElement("section");
+      context.className = "assignment-context";
+      const excerptBlock = guide.excerpt ? `
           <div class="assignment-context-heading"><span>Toimeksianto tässä vaiheessa</span><a href="#toimeksianto">Koko toimeksianto ↑</a></div>
-          <p class="assignment-excerpt">“${guide.excerpt}”</p>
-          <p class="game-connection"><strong>Tämän viikon tavoite:</strong> ${guide.connection}</p>
+          <p class="assignment-excerpt">“${guide.excerpt}”</p>` : "";
+      context.innerHTML = `
+          <p class="feature-statement"><span>${framing.kicker}</span>${guide.feature}</p>
+          ${excerptBlock}
+          <p class="game-connection"><strong>${framing.connectionLabel}</strong> ${guide.connection}</p>
           <div class="week-purpose-grid">
-            <article><span>Mitä valmistuu</span><p>${guide.deliverable}</p></article>
+            <article><span>${framing.deliverableLabel}</span><p>${guide.deliverable}</p></article>
             <article><span>Miksi tämä tehdään</span><p>${guide.why}</p></article>
           </div>
-          <ul class="skill-tags" aria-label="Tällä viikolla näkyvä osaaminen">${guide.skills.map((skill) => `<li>${skill}</li>`).join("")}</ul>`;
-        content.insertBefore(context, firstTask);
-      } else {
-        const taskAssignment = content.querySelector(".task-assignment");
-        taskAssignment?.insertAdjacentHTML("beforeend", `
-          <p class="game-connection"><strong>Tämän viikon tavoite:</strong> ${guide.connection}</p>
-          <div class="week-purpose-grid">
-            <article><span>Mitä valmistuu</span><p>${guide.deliverable}</p></article>
-            <article><span>Miksi tämä tehdään</span><p>${guide.why}</p></article>
-          </div>
-          <ul class="skill-tags" aria-label="Tällä viikolla näkyvä osaaminen">${guide.skills.map((skill) => `<li>${skill}</li>`).join("")}</ul>`);
-      }
+          <p class="skill-tags-label">${framing.skillsLabel}</p>
+          <ul class="skill-tags" aria-label="${framing.skillsLabel}">${guide.skills.map((skill) => `<li>${skill}</li>`).join("")}</ul>`;
+      content.insertBefore(context, firstTask);
 
       lesson.querySelector(".lesson-label").innerHTML = `<span>${guide.steps.length} askelta</span> Tee näin, yksi askel kerrallaan`;
       lesson.querySelector("ol").innerHTML = guide.steps.map(([title, description]) => `<li><strong>${title}</strong>${description}</li>`).join("");
@@ -419,6 +515,7 @@
         const help = document.createElement("details");
         help.className = "unity-help";
         const helpLinks = guide.help.links?.length ? `<p class="unity-help-links">${guide.help.links.map(([label, url]) => `<a href="${url}" target="_blank" rel="noreferrer">${label} ↗</a>`).join("")}</p>` : "";
+        const helpImages = guide.help.images?.length ? `<div class="unity-help-images">${guide.help.images.map(([src, alt, caption]) => `<figure><img src="${src}" alt="${escapeText(alt)}" loading="lazy">${caption ? `<figcaption>${escapeText(caption)}</figcaption>` : ""}</figure>`).join("")}</div>` : "";
         help.innerHTML = `
           <summary>Tarvitsen toteutusapua Unityyn <small>${guide.help.title}</small></summary>
           <div class="unity-help-content">
@@ -426,6 +523,7 @@
             <div class="unity-help-actions"><p class="help-label">Kytke näin</p><ol>${guide.help.actions.map((action) => `<li>${escapeText(action)}</li>`).join("")}</ol></div>
             <div class="unity-help-code"><p class="help-label">Käytä tätä työpohjaa tai tarkistuslistaa</p><pre><code>${escapeText(guide.help.code)}</code></pre></div>
             <p class="unity-help-test"><strong>Tarkistustesti:</strong> ${escapeText(guide.help.test)}</p>
+            ${helpImages}
             ${helpLinks}
           </div>`;
         lesson.insertAdjacentElement("afterend", help);
@@ -536,6 +634,8 @@
     return [
       `## Vko ${week} – ${weekTitle(week)}`,
       "",
+      `**Viikon kärki:** ${guide?.feature || ""}`,
+      "",
       `**Viikon tuotos:** ${guide?.deliverable || ""}`,
       "",
       "### Mitä tein ja miten?",
@@ -605,6 +705,107 @@
     updateJournalStatus();
   }
 
+  let gddData = readStorage(GDD_KEY, {});
+  const gddRequired = ["name", "author", "goal", "style", "graphics", "scoreRight", "scoreWrong", "reasoning"];
+
+  function gddFilled(fieldName) {
+    return String(gddData[fieldName] || "").trim().length > 0;
+  }
+
+  function gddValue(fieldName, fallback = "_(ei vielä täytetty)_") {
+    return gddFilled(fieldName) ? String(gddData[fieldName]).trim() : fallback;
+  }
+
+  function updateGddStatus() {
+    const status = document.querySelector("[data-gdd-status]");
+    if (!status) return;
+    const done = gddRequired.filter(gddFilled).length;
+    status.textContent = done === 0 ? "Ei vielä aloitettu" : (done < gddRequired.length ? `Kesken — ${done} / ${gddRequired.length} kenttää täytetty` : "GDD valmis ✓");
+    status.classList.toggle("complete", done === gddRequired.length);
+  }
+
+  function gddMarkdown() {
+    const roundLine = gddFilled("roundSeconds")
+      ? `Kierroksen pituus: ${String(gddData.roundSeconds).trim()} sekuntia (sovittu asiakkaan kanssa${gddFilled("roundAgreed") ? ` — ${String(gddData.roundAgreed).trim()}` : ""})`
+      : "Kierroksen pituus: EI VIELÄ SOVITTU — avoin asia";
+    return [
+      `# GDD – ${gddValue("name", "_(pelin nimi puuttuu)_")}`,
+      "",
+      `Tekijä: ${gddValue("author")} · Päivitetty: ${new Date().toLocaleDateString("fi-FI")} · Pohja: KahvilaKoodi-toimeksianto 17.8.2026`,
+      "",
+      "## 1. Konsepti",
+      "",
+      "Koulun kahvilapeli selaimeen: asiakkaita saapuu tiskille, he tilaavat 1–3 tuotetta ja pelaaja toimittaa oikean tilauksen mahdollisimman nopeasti.",
+      "",
+      "## 2. Tavoite ja tekijän rooli omin sanoin",
+      "",
+      gddValue("goal"),
+      "",
+      "## 3. Ydinsilmukka",
+      "",
+      "Tilaus → valinta → toimitus → pisteet → uusi asiakas.",
+      "",
+      "## 4. Omat suunnittelupäätökset",
+      "",
+      `- **Visuaalinen tyyli:** ${gddValue("style")}`,
+      `- **Grafiikan hankinta ja lisenssi:** ${gddValue("graphics")}`,
+      `- **Pisteytys:** oikea toimitus +${gddValue("scoreRight", "_?_")} p · väärä toimitus −${gddValue("scoreWrong", "_?_")} p`,
+      "",
+      "### Perustelut",
+      "",
+      gddValue("reasoning"),
+      "",
+      "## 5. Asiakkaan kanssa sovittavat asiat",
+      "",
+      `- ${roundLine}`,
+      "- Millä selaimilla ja laitteilla WebGL-versio testataan? — kirjaa vastaus tai jätä avoimeksi",
+      "- Kenelle peli tehdään? — kirjaa vastaus tai jätä avoimeksi",
+      "- Miten viiden parhaan tuloksen tasatilanteet järjestetään? — kirjaa vastaus tai jätä avoimeksi",
+      "- Kuka hyväksyy rajauksen ja väliversion? — kirjaa vastaus tai jätä avoimeksi",
+      "",
+      "## 6. Featuret tekojärjestyksessä",
+      "",
+      "1. Ensimmäinen pelattava kierros (vko 36)",
+      "2. Kahvilan oikea tuotelista (vko 37)",
+      "3. Kiireen tuntu: kello, pisteet ja palaute (vko 38)",
+      "4. Kasvava kiire (vko 39)",
+      "5. Top 5 -lista, joka muistaa (vko 40)",
+      "6. Asiakkaan toivoma parannus (vko 43 — sisältö selviää katselmoinnissa vkolla 41)",
+      "7. Peli ohjaa pelaajaa itse (vko 44)",
+      "",
+      "Huomautus: tämä lista ei ole valmis suunnitelma — featurejen pilkkominen 0,5–1 päivän issueiksi ja P0/P1/P2-priorisointi on omaa työtä (tehtävä 35-2).",
+      "",
+      "## 7. Teknologia",
+      "",
+      "Unity 2D + C#, tuotteet erillisessä products.json-tiedostossa (TextAsset + JsonUtility), tallennus PlayerPrefsillä, julkaisu Unity WebGL -buildina GitHub Pagesiin.",
+      "",
+      "## 8. Rajaus – mitä ei tehdä",
+      "",
+      "Ei verkkomoninpeliä, käyttäjätilejä, oikeita maksuja eikä laajaa 3D-maailmaa. Ensin toimiva P0-versio.",
+      "",
+      "---",
+      "",
+      "Tallenna tämä tiedosto polkuun `project-docs/gdd.md` ja tee commit. Päivitä tiedostoa, kun asiakas vastaa avoimiin asioihin — GDD on elävä dokumentti.",
+      ""
+    ].join("\n");
+  }
+
+  function initGdd() {
+    const form = document.querySelector("[data-gdd-form]");
+    if (!form) return;
+    form.addEventListener("submit", (event) => event.preventDefault());
+    form.querySelectorAll("[data-gdd-field]").forEach((field) => {
+      field.value = gddData[field.dataset.gddField] || "";
+      field.addEventListener("input", () => {
+        gddData[field.dataset.gddField] = field.value;
+        writeStorage(GDD_KEY, gddData);
+        updateGddStatus();
+      });
+    });
+    document.querySelectorAll("[data-gdd-export]").forEach((button) => button.addEventListener("click", () => downloadMarkdown("gdd.md", gddMarkdown())));
+    updateGddStatus();
+  }
+
   function isoWeek(date) {
     const copy = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
     copy.setUTCDate(copy.getUTCDate() + 4 - (copy.getUTCDay() || 7));
@@ -616,21 +817,21 @@
     const holder = document.querySelector("[data-week-links]");
     if (!holder) return;
     const weekNames = {
-      34: "Käynnistys ja tarve",
-      35: "Rajaus ja suunnitelma",
-      36: "Ensimmäinen pelipolku",
-      37: "Tuotedata ja tilaukset",
-      38: "Pisteet, aika ja palaute",
-      39: "Vaikeus ja pelitilat",
-      40: "Tallennus ja tietoturva",
-      41: "Asiakaskatselmointi",
+      34: "Lähtölaukaus",
+      35: "Pelin suunnitelma",
+      36: "Pelattava kierros",
+      37: "Kahvilan tuotelista",
+      38: "Kello ja pisteet",
+      39: "Kasvava kiire",
+      40: "Top 5 -lista",
+      41: "Asiakas pelaa",
       42: "Syysloma",
-      43: "Palautemuutos",
-      44: "Käyttöliittymä",
-      45: "Järjestelmällinen testaus",
+      43: "Asiakkaan toive",
+      44: "Peli ohjaa pelaajaa",
+      45: "Peli kestää pelaamista",
       46: "Koodin laatu",
-      47: "Julkaisuehdokas",
-      48: "Versio 1.0",
+      47: "Julkaisuehdokas RC1",
+      48: "Julkaisu v1.0",
       49: "Näyttö ja luovutus"
     };
     for (let week = 34; week <= 49; week += 1) {
@@ -666,7 +867,7 @@
 
     const firstIncomplete = taskBoxes.find((box) => !box.checked);
     document.querySelectorAll("[data-continue]").forEach((button) => {
-      button.textContent = firstIncomplete ? (done ? "Jatka seuraavasta tehtävästä" : "Aloita oppimispolku") : "Kaikki tehtävät valmiina";
+      button.textContent = firstIncomplete ? (done ? "Jatka seuraavasta tehtävästä" : "Aloita pelin rakentaminen") : "Kaikki tehtävät valmiina";
     });
   }
 
@@ -696,6 +897,17 @@
   }
   evidenceBoxes.forEach((box) => box.addEventListener("change", updateEvidence));
 
+  function openWeekTarget(hash) {
+    if (!hash || !hash.startsWith("#week-")) return;
+    const target = document.querySelector(hash);
+    if (target instanceof HTMLDetailsElement) target.open = true;
+  }
+  document.addEventListener("click", (event) => {
+    const link = event.target.closest('a[href*="#week-"]');
+    if (link) openWeekTarget(new URL(link.href, window.location.href).hash);
+  });
+  window.addEventListener("hashchange", () => openWeekTarget(window.location.hash));
+
   function continuePath() {
     const firstIncomplete = taskBoxes.find((box) => !box.checked);
     const target = firstIncomplete ? firstIncomplete.closest(".week-card") : document.querySelector("#week-49");
@@ -708,17 +920,21 @@
   document.querySelectorAll("[data-print]").forEach((button) => button.addEventListener("click", () => window.print()));
 
   document.querySelector("[data-reset]")?.addEventListener("click", () => {
-    if (!window.confirm("Nollataanko tehtävät, projektipäiväkirja, näytön todisteet ja AI-loki tästä selaimesta? Lataa projektipäiväkirja ensin, jos haluat säilyttää vastaukset.")) return;
+    if (!window.confirm("Nollataanko tehtävät, projektipäiväkirja, GDD, näytön todisteet ja AI-loki tästä selaimesta? Lataa projektipäiväkirja ja gdd.md ensin, jos haluat säilyttää vastaukset.")) return;
     localStorage.removeItem(STORAGE_KEY);
     localStorage.removeItem(EVIDENCE_KEY);
     localStorage.removeItem(LOG_KEY);
     localStorage.removeItem(JOURNAL_KEY);
+    localStorage.removeItem(GDD_KEY);
     journalEntries = {};
+    gddData = {};
     taskBoxes.forEach((box) => { box.checked = false; });
     evidenceBoxes.forEach((box) => { box.checked = false; });
     document.querySelectorAll("[data-journal-field]").forEach((field) => { field.value = ""; });
+    document.querySelectorAll("[data-gdd-field]").forEach((field) => { field.value = ""; });
     renderLog();
     updateJournalStatus();
+    updateGddStatus();
     updateProgress();
     updateEvidence();
   });
@@ -815,7 +1031,9 @@
 
   enhanceWeekCards();
   initJournal();
+  initGdd();
   buildWeekNavigation();
+  openWeekTarget(window.location.hash);
   markCurrentWeek();
   updateProgress();
   updateEvidence();
