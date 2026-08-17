@@ -29,7 +29,7 @@
   <div class="page-shell" id="alku">
     <aside class="progress-rail" aria-label="Oma eteneminen">
       <div class="progress-card">
-        <p class="eyebrow">Oma eteneminen</p>
+        <p class="eyebrow">Kurssin eteneminen</p>
         <div class="progress-ring" aria-hidden="true"><strong data-progress-number>0%</strong></div>
         <p class="progress-copy" data-progress-copy>0 / 46 tehtävää valmiina</p>
         <div class="linear-progress" aria-hidden="true"><span data-progress-bar></span></div>
@@ -37,7 +37,7 @@
       </div>
 
       <nav class="week-nav" aria-label="Viikot">
-        <p class="eyebrow">Viikot 34–49</p>
+        <p class="eyebrow">Kurssin sisältö</p>
         <div class="week-links" data-week-links></div>
       </nav>
 
@@ -119,6 +119,16 @@
               <label><input type="checkbox" data-task="34-1"> <span>Lue toimeksianto, laadi vähintään 8 kysymystä ja pidä aloituskeskustelu.</span></label>
               <label><input type="checkbox" data-task="34-2"> <span>Valitse sovittu kehitysympäristö, tee testiprojekti ja varmista toimiva build.</span></label>
               <label><input type="checkbox" data-task="34-3"> <span>Perusta repository, README, .gitignore ja docs-kansio.</span></label>
+              <div class="lesson-instructions">
+                <p class="lesson-label"><span>Ohjattu työ</span> Näin etenet</p>
+                <ol>
+                  <li><strong>Merkitse vaatimukset.</strong> Alleviivaa toimeksiannosta pakolliset ominaisuudet ja kirjoita epäselvät kohdat kysymyksiksi.</li>
+                  <li><strong>Pidä 15 minuutin aloituskeskustelu.</strong> Kirjaa jokainen vastaus päätökseksi, avoimeksi asiaksi tai oletukseksi.</li>
+                  <li><strong>Tee tyhjä tekninen testi.</strong> Luo projekti, käynnistä se ja tee yksi julkaistava testibuild ennen pelilogiikkaa.</li>
+                  <li><strong>Tallenna lähtötilanne.</strong> Lisää README, oikea .gitignore ja docs-kansio. Tee commit, jonka viesti kertoo projektin perustamisesta.</li>
+                </ol>
+                <p class="checkpoint"><strong>Ennen kuin jatkat:</strong> toinen henkilö pystyy avaamaan repositoryn ja ymmärtää README:stä, mitä olet tekemässä.</p>
+              </div>
               <p class="evidence"><strong>Näytä:</strong> asiakastarpeen muistiinpano, repository-linkki, ensimmäinen commit ja testibuild.</p>
             </div>
           </details>
@@ -129,6 +139,16 @@
               <label><input type="checkbox" data-task="35-1"> <span>Täytä dokumentointipohjan osat 1–3 ensimmäiseen versioon.</span></label>
               <label><input type="checkbox" data-task="35-2"> <span>Tee P0/P1/P2-backlog, työmääräarviot ja valmis kun -ehdot.</span></label>
               <label><input type="checkbox" data-task="35-3"> <span>Piirrä UI-mockup ja suunnittele koodin osat, tilat, JSON ja tallennus.</span></label>
+              <div class="lesson-instructions">
+                <p class="lesson-label"><span>Ohjattu työ</span> Näin etenet</p>
+                <ol>
+                  <li><strong>Täytä suunnitelma omin sanoin.</strong> Kirjaa tavoite, käyttäjä, oma rooli, teknologiat ja projektin rajat.</li>
+                  <li><strong>Pilko työ issueiksi.</strong> Yhden tehtävän pitää valmistua 0,5–1 työpäivässä. Lisää jokaiselle P0-, P1- tai P2-prioriteetti ja hyväksymisehto.</li>
+                  <li><strong>Piirrä kolme näkymää.</strong> Näytä mockupissa valikko, peli ja tulos sekä tilaus, aika ja pisteet.</li>
+                  <li><strong>Jaa koodi vastuisiin.</strong> Piirrä laatikot pelitilalle, tilauksille, tuotteille, käyttöliittymälle ja tallennukselle. Merkitse niiden väliset yhteydet.</li>
+                </ol>
+                <p class="checkpoint"><strong>Ennen kuin jatkat:</strong> asiakas tai ohjaaja hyväksyy P0-rajauksen, mockupin ja ensimmäisen sprintin tehtävät.</p>
+              </div>
               <p class="evidence"><strong>Näytä:</strong> hyväksytty rajaus, päivätty mockup, tekninen suunnitelma ja backlog.</p>
             </div>
           </details>
@@ -139,6 +159,16 @@
               <label><input type="checkbox" data-task="36-1"> <span>Tee aloitusvalikko, pelinäkymä ja lopetusnäkymä väliaikaisella grafiikalla.</span></label>
               <label><input type="checkbox" data-task="36-2"> <span>Toteuta yksi asiakas, yksi tilaus, oikea toimitus ja piste.</span></label>
               <label><input type="checkbox" data-task="36-3"> <span>Kirjaa ensimmäiset testit ja bugit.</span></label>
+              <div class="lesson-instructions">
+                <p class="lesson-label"><span>Ohjattu työ</span> Näin etenet</p>
+                <ol>
+                  <li><strong>Luo näkymät tai pelitilat.</strong> Aloita valikosta, pelistä ja tuloksesta. Käytä vielä yksinkertaisia paikkamerkkejä.</li>
+                  <li><strong>Tee yksi tilaus käsin.</strong> Näytä yksi asiakas ja yksi ennalta määritetty tuote ilman satunnaisuutta.</li>
+                  <li><strong>Yhdistä koko polku.</strong> Start-painike avaa pelin, oikea valinta lisää pisteen ja ajan päättyminen näyttää tuloksen.</li>
+                  <li><strong>Aja viisi kierrosta.</strong> Kirjaa jokainen katkos tai väärä tulos testauslokiin ennen korjaamista.</li>
+                </ol>
+                <p class="checkpoint"><strong>Ennen kuin jatkat:</strong> peli voidaan pelata valikosta tulosruutuun ilman editorin käsin tekemiä väliaskelia.</p>
+              </div>
               <p class="evidence"><strong>Näytä:</strong> pelattava polku, video tai kuva ja vähintään kaksi testimerkintää.</p>
             </div>
           </details>
@@ -149,6 +179,16 @@
               <label><input type="checkbox" data-task="37-1"> <span>Luo JSON-tuotedata ja toteuta lataus sekä virheenkäsittely.</span></label>
               <label><input type="checkbox" data-task="37-2"> <span>Toteuta 1–3 tuotteen tilaukset ja oikean/väärän toimituksen tarkistus.</span></label>
               <label><input type="checkbox" data-task="37-3"> <span>Pidä toimintalogiikka erillään käyttöliittymästä ja dokumentoi vastuut.</span></label>
+              <div class="lesson-instructions">
+                <p class="lesson-label"><span>Ohjattu työ</span> Näin etenet</p>
+                <ol>
+                  <li><strong>Määritä datan rakenne.</strong> Lisää jokaiselle tuotteelle vähintään tunniste, nimi ja pistearvo.</li>
+                  <li><strong>Tee lataaja.</strong> Muunna JSON pelin käyttämiksi olioiksi ja anna ymmärrettävä virhe puuttuvasta tai rikkinäisestä tiedostosta.</li>
+                  <li><strong>Muodosta tilaus.</strong> Arvo sovittu määrä tuotteita ja säilytä tilaus omassa logiikkaluokassaan.</li>
+                  <li><strong>Vertaa toimitusta.</strong> Testaa oikea lista, väärä tuote, puuttuva tuote ja ylimääräinen tuote.</li>
+                </ol>
+                <p class="checkpoint"><strong>Ennen kuin jatkat:</strong> JSON-tiedoston tuotteen muuttaminen näkyy pelissä ilman ohjelmakoodin muuttamista.</p>
+              </div>
               <p class="evidence"><strong>Näytä:</strong> JSON-esimerkki, latauslogiikan commit sekä testit tyhjälle ja virheelliselle datalle.</p>
             </div>
           </details>
@@ -163,6 +203,16 @@
               <label><input type="checkbox" data-task="38-1"> <span>Toteuta pisteytys, ajastin ja pelin päättymisehdot.</span></label>
               <label><input type="checkbox" data-task="38-2"> <span>Näytä tilaus, aika, pisteet sekä onnistumisen ja virheen palaute.</span></label>
               <label><input type="checkbox" data-task="38-3"> <span>Testaa aika 0, nopea kaksoisklikkaus ja väärä tuote.</span></label>
+              <div class="lesson-instructions">
+                <p class="lesson-label"><span>Ohjattu työ</span> Näin etenet</p>
+                <ol>
+                  <li><strong>Kirjoita säännöt ensin.</strong> Päätä pisteen lisäys, väärän toimituksen seuraus, peliaika ja tarkka päättymisehto.</li>
+                  <li><strong>Pidä tila yhdessä paikassa.</strong> Anna GameManagerin tai vastaavan osan hallita aikaa, pisteitä ja pelin loppua.</li>
+                  <li><strong>Päivitä UI tapahtumista.</strong> Näytä pelaajalle heti onnistuminen, virhe ja jäljellä oleva aika.</li>
+                  <li><strong>Testaa rajat.</strong> Kokeile aikaa 0, kahta nopeaa painallusta, väärää tuotetta ja uutta peliä tulosruudulta.</li>
+                </ol>
+                <p class="checkpoint"><strong>Ennen kuin jatkat:</strong> peli loppuu aina vain kerran, pistemäärä on oikein ja uusi peli nollaa tilan.</p>
+              </div>
               <p class="evidence"><strong>Näytä:</strong> toimiva pelisilmukka, kolme testitapausta ja dokumentoitu bugikorjaus.</p>
             </div>
           </details>
@@ -173,6 +223,16 @@
               <label><input type="checkbox" data-task="39-1"> <span>Toteuta sovittu vaikeuden kasvu ja pidä arvot helposti säädettävinä.</span></label>
               <label><input type="checkbox" data-task="39-2"> <span>Tee selkeät tilat: valikko, peli, tarvittaessa tauko ja tulos.</span></label>
               <label><input type="checkbox" data-task="39-3"> <span>Vertaile toisen henkilön kanssa kahta toteutusvaihtoehtoa ja kirjaa päätös.</span></label>
+              <div class="lesson-instructions">
+                <p class="lesson-label"><span>Ohjattu työ</span> Näin etenet</p>
+                <ol>
+                  <li><strong>Valitse vaikeuskäyrä.</strong> Muuta vain 1–2 asiaa, esimerkiksi aikaa ja tilauksen kokoa. Pidä arvot asetuksissa, ei koodiin hajautettuina.</li>
+                  <li><strong>Rakenna tilasiirtymät.</strong> Määritä, mistä tilasta voi siirtyä toiseen ja mitä silloin nollataan tai säilytetään.</li>
+                  <li><strong>Vertaa kahta ratkaisua.</strong> Esittele vaihtoehdot ohjaajalle tai vertaiselle ja kirjaa valintaperuste.</li>
+                  <li><strong>Pelaa kolme eri pituistä kierrosta.</strong> Tarkista, että muutos tuntuu asteittaiselta eikä hyppää sattumanvaraisesti.</li>
+                </ol>
+                <p class="checkpoint"><strong>Ennen kuin jatkat:</strong> vaikeus kasvaa toistettavasti ja käyttöliittymä toimii vain aktiivisessa pelitilassa.</p>
+              </div>
               <p class="evidence"><strong>Näytä:</strong> vaihtoehtomuistio, vaikeuslogiikan commit ja hyväksytyt testit.</p>
             </div>
           </details>
@@ -183,6 +243,16 @@
               <label><input type="checkbox" data-task="40-1"> <span>Tallenna ja lataa sovittu paras tulos tai tuloslista.</span></label>
               <label><input type="checkbox" data-task="40-2"> <span>Perustele tiedostomuoto ja tallennuspaikka teknisessä suunnitelmassa.</span></label>
               <label><input type="checkbox" data-task="40-3"> <span>Validoi luettu data ja nimimerkki; älä tallenna salaisuuksia.</span></label>
+              <div class="lesson-instructions">
+                <p class="lesson-label"><span>Ohjattu työ</span> Näin etenet</p>
+                <ol>
+                  <li><strong>Päätä tallennettava tieto.</strong> Rajaa versioon 1.0 esimerkiksi paras pistemäärä, nimimerkki ja päivämäärä.</li>
+                  <li><strong>Tee tallennusmalli.</strong> Muunna tieto tallennettavaan muotoon yhdessä paikassa ja dokumentoi tiedoston sijainti.</li>
+                  <li><strong>Lataa turvallisesti.</strong> Luo oletusarvo, jos tiedostoa ei ole, ja käsittele rikkinäinen sisältö kaatamatta peliä.</li>
+                  <li><strong>Validoi syöte.</strong> Rajaa nimimerkin pituus ja merkit. Älä koskaan lisää avaimia tai salasanoja tiedostoon.</li>
+                </ol>
+                <p class="checkpoint"><strong>Ennen kuin jatkat:</strong> tulos säilyy pelin sulkemisen jälkeen ja rikkinäinen tallennus palautuu turvalliseen oletustilaan.</p>
+              </div>
               <p class="evidence"><strong>Näytä:</strong> tallennus uudelleenkäynnistyksen jälkeen sekä kirjatut riskit ja ratkaisut.</p>
             </div>
           </details>
@@ -193,6 +263,16 @@
               <label><input type="checkbox" data-task="41-1"> <span>Tee asiakkaalle kokeiltava build ja valmistele 5–10 minuutin demo.</span></label>
               <label><input type="checkbox" data-task="41-2"> <span>Kerää palaute, selitä ratkaisut ymmärrettävästi ja sovi yksi rajattu muutos.</span></label>
               <label><input type="checkbox" data-task="41-3"> <span>Päivitä backlog, prioriteetit, arviot ja katselmointiloki.</span></label>
+              <div class="lesson-instructions">
+                <p class="lesson-label"><span>Ohjattu työ</span> Näin etenet</p>
+                <ol>
+                  <li><strong>Tee puhdas kokeiluversio.</strong> Käynnistä build ilman editoria ja varmista ohjaus, tallennus ja uudelleenkäynnistys.</li>
+                  <li><strong>Valmistele lyhyt demo.</strong> Näytä tavoite, ydinsilmukka, JSON-data, tallennus ja yksi keskeneräinen asia.</li>
+                  <li><strong>Anna asiakkaan kokeilla.</strong> Älä neuvo heti. Tarkkaile, missä kohdassa käyttö tai säännöt jäävät epäselviksi.</li>
+                  <li><strong>Päätä yksi muutos.</strong> Kirjaa palaute, arvioi työmäärä ja valitse vain rajaukseen sopiva palautemuutos.</li>
+                </ol>
+                <p class="checkpoint"><strong>Ennen kuin jatkat:</strong> katselmointilokissa näkyvät osallistujat, palaute, päätös ja hyväksytty seuraava tehtävä.</p>
+              </div>
               <p class="evidence"><strong>Näytä:</strong> katselmointiloki, palaute, päätetty muutos ja toimiva build.</p>
             </div>
           </details>
@@ -212,6 +292,16 @@
               <label><input type="checkbox" data-task="43-1"> <span>Muuta asiakkaan palaute pieniksi tehtäviksi ja arvioi työmäärä.</span></label>
               <label><input type="checkbox" data-task="43-2"> <span>Toteuta sovittu muutos omassa feature-branchissa.</span></label>
               <label><input type="checkbox" data-task="43-3"> <span>Katselmoi, testaa ja yhdistä muutos toimivaan main-versioon.</span></label>
+              <div class="lesson-instructions">
+                <p class="lesson-label"><span>Ohjattu työ</span> Näin etenet</p>
+                <ol>
+                  <li><strong>Kirjoita palaute issueksi.</strong> Lisää hyväksymisehto, rajaus ja työmääräarvio.</li>
+                  <li><strong>Luo feature-branch.</strong> Aloita uusimmasta toimivasta main-versiosta ja pidä muutos erillään.</li>
+                  <li><strong>Toteuta pieninä committeina.</strong> Testaa jokaisen ehjän muutoksen jälkeen sekä alkuperäinen toiminto että uusi palaute.</li>
+                  <li><strong>Katselmoi ja yhdistä.</strong> Pyydä toinen henkilö lukemaan muutos tai käytä pull requestia ennen mergeä.</li>
+                </ol>
+                <p class="checkpoint"><strong>Ennen kuin jatkat:</strong> main sisältää testatun palautemuutoksen ja branchin tai pull requestin historia on nähtävissä.</p>
+              </div>
               <p class="evidence"><strong>Näytä:</strong> issue, branch/merge tai pull request, testit ja katselmointiloki.</p>
             </div>
           </details>
@@ -222,6 +312,16 @@
               <label><input type="checkbox" data-task="44-1"> <span>Vertaa toteutusta mockupiin ja kirjaa perustellut poikkeamat.</span></label>
               <label><input type="checkbox" data-task="44-2"> <span>Paranna luettavuutta, palautetta, ohjausta ja virhetilanteita.</span></label>
               <label><input type="checkbox" data-task="44-3"> <span>Pyydä vertaiselta lyhyt käytettävyystesti.</span></label>
+              <div class="lesson-instructions">
+                <p class="lesson-label"><span>Ohjattu työ</span> Näin etenet</p>
+                <ol>
+                  <li><strong>Avaa mockup rinnalle.</strong> Merkitse toteutunut, muuttunut ja puuttuva asia. Perustele jokainen tietoinen poikkeama.</li>
+                  <li><strong>Selkeytä tärkein tieto.</strong> Tilaus, aika ja pisteet pitää erottaa yhdellä silmäyksellä. Lisää näkyvä palaute painalluksista.</li>
+                  <li><strong>Tarkista ohjaus.</strong> Testaa hiiri tai näppäimistö, ikkunan eri koko ja tilanne, jossa pelaaja tekee väärän valinnan.</li>
+                  <li><strong>Pidä viiden minuutin käyttäjätesti.</strong> Anna vertaisen pelata ilman ohjetta ja korjaa kaksi suurinta epäselvyyttä.</li>
+                </ol>
+                <p class="checkpoint"><strong>Ennen kuin jatkat:</strong> uusi käyttäjä ymmärtää tavoitteen ja tärkeimmät toiminnot ilman suullista neuvontaa.</p>
+              </div>
               <p class="evidence"><strong>Näytä:</strong> ennen/jälkeen-kuvat, vertaispalaute, päätökset ja korjaukset.</p>
             </div>
           </details>
@@ -232,6 +332,16 @@
               <label><input type="checkbox" data-task="45-1"> <span>Laadi vähintään 12 testitapausta: normaali käyttö, rajatapaukset ja tallennus.</span></label>
               <label><input type="checkbox" data-task="45-2"> <span>Kirjaa vähintään kolme oikeaa bugia syineen, korjauksineen ja uusintatesteineen.</span></label>
               <label><input type="checkbox" data-task="45-3"> <span>Testaa puhdas käynnistys sekä puuttuva tai virheellinen datatiedosto.</span></label>
+              <div class="lesson-instructions">
+                <p class="lesson-label"><span>Ohjattu työ</span> Näin etenet</p>
+                <ol>
+                  <li><strong>Rakenna testimatriisi.</strong> Kirjaa jokaiselle testille lähtötilanne, toiminta ja odotettu tulos ennen ajamista.</li>
+                  <li><strong>Testaa kolme luokkaa.</strong> Mukana pitää olla normaali käyttö, raja-arvot ja virheellinen tai puuttuva data.</li>
+                  <li><strong>Tutki bugi loppuun.</strong> Tallenna havainto, toistamisohje, syy, korjaus ja uusintatestin tulos.</li>
+                  <li><strong>Aja regressiotestit.</strong> Testaa korjausten jälkeen uudelleen myös toiminto, jota et muuttanut.</li>
+                </ol>
+                <p class="checkpoint"><strong>Ennen kuin jatkat:</strong> kaikki 12 testiä on ajettu ja vähintään kolmesta todellisesta bugista on täydellinen korjausketju.</p>
+              </div>
               <p class="evidence"><strong>Näytä:</strong> testausloki, tulokset, bugikorjaukset ja uusintatestit.</p>
             </div>
           </details>
@@ -242,6 +352,16 @@
               <label><input type="checkbox" data-task="46-1"> <span>Poista turha toisto, selkeytä nimet ja rajaa osien vastuut.</span></label>
               <label><input type="checkbox" data-task="46-2"> <span>Pyydä koodikatselmointi ohjaajalta tai vertaiselta ja kirjaa palaute.</span></label>
               <label><input type="checkbox" data-task="46-3"> <span>Varmista, että osaat selittää myös tekoälyn avulla syntyneet ratkaisut.</span></label>
+              <div class="lesson-instructions">
+                <p class="lesson-label"><span>Ohjattu työ</span> Näin etenet</p>
+                <ol>
+                  <li><strong>Etsi kolme laatuhaittaa.</strong> Tarkista toisto, pitkät metodit, epäselvät nimet ja luokka, jolla on liian monta vastuuta.</li>
+                  <li><strong>Refaktoroi yksi asia kerrallaan.</strong> Älä muuta pelin toimintaa. Aja tärkeät testit jokaisen muutoksen jälkeen.</li>
+                  <li><strong>Pidä koodikatselmointi.</strong> Pyydä kommentit ymmärrettävyyteen, vastuisiin ja virhetilanteisiin.</li>
+                  <li><strong>Harjoittele selitys.</strong> Valitse yksi oma ja yksi tekoälyavusteinen ratkaisu ja selitä niiden toiminta ilman koodin lukemista suoraan.</li>
+                </ol>
+                <p class="checkpoint"><strong>Ennen kuin jatkat:</strong> refaktorointi ei muuta testituloksia ja katselmointipalautteeseen on vastattu.</p>
+              </div>
               <p class="evidence"><strong>Näytä:</strong> katselmointimuistio, refaktorointicommit ja rakenteen perustelu.</p>
             </div>
           </details>
@@ -256,6 +376,16 @@
               <label><input type="checkbox" data-task="47-1"> <span>Tee release candidate ja jäädytä uusien ominaisuuksien lisääminen.</span></label>
               <label><input type="checkbox" data-task="47-2"> <span>Anna asiakkaan ja vähintään yhden muun käyttäjän testata peli.</span></label>
               <label><input type="checkbox" data-task="47-3"> <span>Luokittele palaute: korjataan, tunnettu puute tai myöhempään versioon.</span></label>
+              <div class="lesson-instructions">
+                <p class="lesson-label"><span>Ohjattu työ</span> Näin etenet</p>
+                <ol>
+                  <li><strong>Nimeä julkaisuehdokas.</strong> Tee build tunnisteella RC1 ja lopeta uusien ominaisuuksien lisääminen.</li>
+                  <li><strong>Anna tarkka testitehtävä.</strong> Pyydä asiakasta ja toista käyttäjää pelaamaan alusta loppuun sekä kokeilemaan tallennusta.</li>
+                  <li><strong>Kirjaa kaikki palaute.</strong> Älä korjaa lennossa. Merkitse vakavuus, toistettavuus ja vaikutus julkaisuun.</li>
+                  <li><strong>Tee julkaisupäätökset.</strong> Luokittele jokainen havainto: korjataan nyt, tunnettu puute tai myöhempään versioon.</li>
+                </ol>
+                <p class="checkpoint"><strong>Ennen kuin jatkat:</strong> julkaisuun on vain rajattu korjauslista eikä uusia ominaisuuksia ole avoinna.</p>
+              </div>
               <p class="evidence"><strong>Näytä:</strong> RC-build, testipalautteet, päätökset ja viimeinen korjauslista.</p>
             </div>
           </details>
@@ -266,6 +396,16 @@
               <label><input type="checkbox" data-task="48-1"> <span>Korjaa vain julkaisemisen estävät ja selvästi tärkeät virheet.</span></label>
               <label><input type="checkbox" data-task="48-2"> <span>Tee puhdas build, versionumero tai tagi ja julkaise sovittuun ympäristöön.</span></label>
               <label><input type="checkbox" data-task="48-3"> <span>Testaa julkaistu linkki toisella laitteella tai selaimella ja kirjoita käyttöohje.</span></label>
+              <div class="lesson-instructions">
+                <p class="lesson-label"><span>Ohjattu työ</span> Näin etenet</p>
+                <ol>
+                  <li><strong>Korjaa julkaisun estävät virheet.</strong> Aja niille uusintatestit ja lopeta korjaaminen, kun hyväksytty lista on tyhjä.</li>
+                  <li><strong>Tee puhdas build.</strong> Rakenna versio 1.0 uusimmasta mainista ja lisää sama versionumero julkaisuun ja repositoryyn.</li>
+                  <li><strong>Julkaise ja testaa oikea linkki.</strong> Avaa peli toisella laitteella tai selaimella ja testaa aloitus, yksi kierros sekä tallennus.</li>
+                  <li><strong>Viimeistele README.</strong> Lisää asennus tai käynnistys, ohjaus, tunnetut puutteet, teknologiat ja julkaisulinkki.</li>
+                </ol>
+                <p class="checkpoint"><strong>Ennen kuin jatkat:</strong> henkilö, joka ei tunne projektia, pystyy avaamaan ja pelaamaan version 1.0 ohjeen avulla.</p>
+              </div>
               <p class="evidence"><strong>Näytä:</strong> toimiva julkaisulinkki, v1.0/tagi, käyttöohje ja tunnetut puutteet.</p>
             </div>
           </details>
@@ -277,6 +417,17 @@
               <label><input type="checkbox" data-task="49-2"> <span>Täytä osaamisvaatimusten näyttömatriisiin linkit tai todisteet.</span></label>
               <label><input type="checkbox" data-task="49-3"> <span>Harjoittele demo ja selitä koodi, bugi, tallennus, Git ja tekoälyn käyttö.</span></label>
               <label><input type="checkbox" data-task="49-4"> <span>Luovuta peli, repository ja dokumentit viimeistään pe 4.12.2026.</span></label>
+              <div class="lesson-instructions">
+                <p class="lesson-label"><span>Ohjattu työ</span> Näin etenet</p>
+                <ol>
+                  <li><strong>Jäädytä lopullinen versio.</strong> Valitse näytössä esitettävä build äläkä lisää siihen enää toimintoja.</li>
+                  <li><strong>Yhdistä todisteet vaatimuksiin.</strong> Lisää kaikille 25 kohdalle täsmällinen linkki, commit, kuva, loki tai dokumentin kohta.</li>
+                  <li><strong>Täytä loput dokumentit.</strong> Tarkista testiloki, katselmoinnit, julkaisu, AI-loki ja rehellinen itsearviointi.</li>
+                  <li><strong>Harjoittele 8–10 minuutin demo.</strong> Näytä peli, yksi tekninen ratkaisu, yksi korjattu bugi, Git-historia ja tekoälyn tarkistettu käyttö.</li>
+                  <li><strong>Tee ristiintarkistus.</strong> Anna toisen henkilön avata linkit ja palautuspaketti ennen lopullista luovutusta.</li>
+                </ol>
+                <p class="checkpoint"><strong>Valmis:</strong> peli, repository, dokumentit ja todisteet avautuvat ilman suullista lisäohjetta.</p>
+              </div>
               <p class="evidence"><strong>Näytä:</strong> peli, repository, valmis työpaketti, näyttömatriisi, AI-loki ja demo.</p>
             </div>
           </details>

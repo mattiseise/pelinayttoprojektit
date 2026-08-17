@@ -34,12 +34,30 @@
   function buildWeekNavigation() {
     const holder = document.querySelector("[data-week-links]");
     if (!holder) return;
+    const weekNames = {
+      34: "Käynnistys ja tarve",
+      35: "Rajaus ja suunnitelma",
+      36: "Ensimmäinen pelipolku",
+      37: "Tuotedata ja tilaukset",
+      38: "Pisteet, aika ja palaute",
+      39: "Vaikeus ja pelitilat",
+      40: "Tallennus ja tietoturva",
+      41: "Asiakaskatselmointi",
+      42: "Syysloma",
+      43: "Palautemuutos",
+      44: "Käyttöliittymä",
+      45: "Järjestelmällinen testaus",
+      46: "Koodin laatu",
+      47: "Julkaisuehdokas",
+      48: "Versio 1.0",
+      49: "Näyttö ja luovutus"
+    };
     for (let week = 34; week <= 49; week += 1) {
       const link = document.createElement("a");
       link.href = `#week-${week}`;
       link.className = "week-link";
       link.dataset.weekLink = String(week);
-      link.textContent = week;
+      link.innerHTML = `<span class="week-nav-node">${week}</span><span class="week-nav-copy"><small>Viikko ${week}</small><strong>${weekNames[week]}</strong></span><span class="week-nav-check" aria-hidden="true">✓</span>`;
       link.setAttribute("aria-label", week === 42 ? "Viikko 42, syysloma" : `Viikko ${week}`);
       if (week === 42) link.classList.add("holiday");
       holder.appendChild(link);
