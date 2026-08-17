@@ -229,10 +229,10 @@ figcaption { margin-top: .8rem; color: var(--muted); font-size: .85rem; }
 .week-card:hover { border-color: #b7c3cc; }
 .week-card.current { border: 2px solid var(--coral); box-shadow: 0 10px 32px rgba(241,102,73,.12); }
 .week-card.complete { border-color: var(--mint); background: #fbfffd; }
-.week-card summary { display: grid; grid-template-columns: 58px 1fr auto; align-items: center; gap: 1rem; padding: 1rem 1.1rem; cursor: pointer; list-style: none; }
-.week-card summary::-webkit-details-marker { display: none; }
-.week-card summary::after { content: "+"; grid-column: 3; grid-row: 1; margin-left: 4.5rem; color: var(--muted); font-size: 1.4rem; }
-.week-card[open] summary::after { content: "−"; }
+.week-card > summary { display: grid; grid-template-columns: 58px 1fr auto; align-items: center; gap: 1rem; padding: 1rem 1.1rem; cursor: pointer; list-style: none; }
+.week-card > summary::-webkit-details-marker { display: none; }
+.week-card > summary::after { content: "+"; grid-column: 3; grid-row: 1; margin-left: 4.5rem; color: var(--muted); font-size: 1.4rem; }
+.week-card[open] > summary::after { content: "−"; }
 .week-number { grid-column: 1; grid-row: 1; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 13px; color: white; background: var(--navy); font-size: 1.15rem; font-weight: 900; }
 .week-card.complete .week-number { color: var(--navy); background: var(--mint); }
 .week-title { grid-column: 2; grid-row: 1; }
@@ -841,9 +841,9 @@ input[type="checkbox"]:checked { border-color: #7bbc20; background: #7bbc20; }
   .phase-block { padding-left: 0; }
   .phase-block::before { display: none; }
   .phase-heading { margin-left: 0; }
-  .week-card summary { grid-template-columns: 48px 1fr auto; gap: .75rem; }
+  .week-card > summary { grid-template-columns: 48px 1fr auto; gap: .75rem; }
   .week-number { width: 45px; height: 45px; }
-  .week-card summary::after { margin-left: 2.8rem; }
+  .week-card > summary::after { margin-left: 2.8rem; }
   .week-status { padding-right: 1.5rem; }
   .week-content { padding-left: 1.2rem; }
   .lesson-instructions ol, .expectation-grid, .unity-help-content, .week-purpose-grid, .journal-fields, .start-checklist, .gdd-layout, .gdd-fields { grid-template-columns: 1fr; }
