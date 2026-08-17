@@ -437,7 +437,8 @@
         code: "Julkaisun tarkistuslista\n[ ] WebGL valittu\n[ ] CafeGame mukana scene-listassa\n[ ] Decompression Fallback käytössä\n[ ] docs/.nojekyll mukana\n[ ] docs/index.html + Build + TemplateData Gitissä\n[ ] Pages: main /docs\n[ ] julkaistu linkki testattu toisella selaimella",
         test: "Avaa julkaistu linkki yksityisessä selainikkunassa. Pelaa yksi kierros, päivitä sivu ja tarkista top 5. Jos build ei lataudu, tarkista ensin tiedostopolut ja selaimen Console.",
         images: [
-          ["assets/unity/vko48-decompression-fallback.png", "Unityn Player Settings, Settings for Web: Publishing Settings avattuna ja Decompression Fallback -valinta käytössä.", "Player Settings → Web → Publishing Settings: Decompression Fallback päälle ensimmäisessä julkaisussa."]
+          ["assets/unity/vko48-decompression-fallback.png", "Unityn Player Settings, Settings for Web: Publishing Settings avattuna ja Decompression Fallback -valinta käytössä.", "Player Settings → Web → Publishing Settings: Decompression Fallback päälle ensimmäisessä julkaisussa."],
+          ["assets/unity/vko48-github-pages.png", "GitHubin Pages-asetussivu: Source-valintana Deploy from a branch ja Branch-valinnassa main-haara.", "GitHub: Settings → Pages → Deploy from a branch → valitse main ja pelisivustollesi /docs-kansio."]
         ],
         links: [
           ["Unity: Web-julkaisun asetukset", "https://docs.unity3d.com/6000.0/Documentation/Manual/webgl-deploying.html"],
