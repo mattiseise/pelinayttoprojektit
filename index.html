@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0f2747">
-  <meta name="description" content="Koulun kahvilapelin ohjattu oppimispolku viikoille 34–49. Valmis 4.12.2026.">
+  <meta name="description" content="Unityllä ja C#:lla toteutettavan koulun kahvilapelin ohjattu oppimispolku viikoille 34–49. Valmis 4.12.2026.">
   <title>KahvilaKoodi – ohjattu näyttöprojekti</title>
   <link rel="stylesheet" href="styles.css">
   <script src="app.js" defer></script>
@@ -18,6 +18,7 @@
       <span><strong>KahvilaKoodi</strong><small>Ohjattu näyttöprojekti</small></span>
     </a>
     <nav class="top-nav" aria-label="Päänavigaatio">
+      <a href="#toimeksianto">Toimeksianto</a>
       <a href="#polku">Oppimispolku</a>
       <a href="#tyotapa">Työtapa</a>
       <a href="#tekoaly">Tekoäly</a>
@@ -53,7 +54,7 @@
         <div class="hero-copy reveal">
           <p class="eyebrow eyebrow-accent">Näyttöprojekti · 17.8.–4.12.2026</p>
           <h1 id="hero-title">Rakenna pieni peli.<br><em>Näytä iso osaaminen.</em></h1>
-          <p class="lead">Tee koulun kahvilapeli vaihe vaiheelta: selvitä tarve, suunnittele, ohjelmoi, testaa, julkaise ja kokoa näytön todisteet. Tärkeintä ei ole pelin koko vaan ymmärrettävä ja toimiva työprosessi.</p>
+          <p class="lead">Tee koulun kahvilapeli Unityllä ja C#:lla vaihe vaiheelta: selvitä tarve, suunnittele, ohjelmoi, testaa, julkaise WebGL-versiona ja kokoa näytön todisteet. Tärkeintä ei ole pelin koko vaan ymmärrettävä ja toimiva työprosessi.</p>
           <div class="hero-actions">
             <button class="button button-primary" type="button" data-continue>Aloita oppimispolku</button>
             <a class="button button-secondary" href="downloads/koulun-kahvilapeli-tyopaketti.pdf" download>Lataa paperinen aikataulu</a>
@@ -76,15 +77,59 @@
         </figure>
       </section>
 
-      <section class="project-brief section-pad section-narrow reveal" aria-labelledby="brief-title">
-        <div>
-          <p class="eyebrow">Valittu peli-idea</p>
+      <section class="project-brief section-pad reveal" id="toimeksianto" aria-labelledby="brief-title">
+        <div class="brief-main">
+          <p class="eyebrow">Alkuperäinen toimeksianto · versio 1.0</p>
           <h2 id="brief-title">Koulun kahvilapeli</h2>
-          <p>Pelaaja ottaa vastaan 1–3 tuotteen tilauksia ja toimittaa ne oikein ennen ajan loppumista. Tämä pieni ydinsilmukka tuo näkyviin käyttöliittymän, toimintalogiikan, JSON-datan, tallennuksen, Gitin, testauksen, asiakaspalautteen ja julkaisun.</p>
+          <div class="full-assignment">
+            <p>Haluan pienen PC:llä tai selaimessa toimivan pelin, jossa pelaaja työskentelee koulun kahvilassa. Asiakkaita saapuu tiskille ja he tilaavat 1–3 tuotetta. Pelaajan tehtävänä on toimittaa oikea tilaus mahdollisimman nopeasti.</p>
+            <p>Pelissä pitää olla aloitusvalikko, itse peli, pistelasku ja pelin päättymisnäkymä. Vaikeustason pitää kasvaa pelin edetessä. Pelaajan parhaat tulokset pitää tallentaa.</p>
+            <p>Tuotteiden tiedot eivät saa olla kovakoodattuna pelilogiikkaan, vaan niiden pitää tulla erillisestä tietolähteestä. Haluan myös nähdä pelistä toimivan version vähintään kerran ennen lopullista versiota, jotta voin pyytää muutoksia.</p>
+            <p>Lopullinen peli pitää julkaista niin, että voin itse kokeilla sitä.</p>
+          </div>
         </div>
-        <div class="scope-box">
-          <p class="eyebrow">Pidä rajaus</p>
-          <p><strong>Tee ensin toimiva P0-versio.</strong> Verkkopeli, käyttäjätilit, oikeat maksut ja laaja 3D-maailma eivät kuulu tähän projektiin.</p>
+        <div class="brief-aside">
+          <div class="technology-box">
+            <p class="eyebrow">Sovittu toteutustapa</p>
+            <p><strong>Unity 2D + C#</strong></p>
+            <ul>
+              <li>yksi <code>CafeGame</code>-scene eli pelin työtila</li>
+              <li>Canvas-UI-alue: <code>MenuPanel</code>, <code>GamePanel</code> ja <code>ResultPanel</code></li>
+              <li>tuotteet erillisessä JSON-tiedostossa</li>
+              <li>P0-päätös: viiden parhaan tuloksen lista</li>
+              <li>lopuksi Unity WebGL -build GitHub Pagesiin</li>
+            </ul>
+            <p>Toimeksiannon PC/selaimessa-vaihtoehdosta tässä polussa on valittu selain. Käytä oppilaitoksen määrittämää Unity-versiota koko projektin ajan.</p>
+          </div>
+          <div class="scope-box">
+            <p class="eyebrow">Pidä rajaus</p>
+            <p><strong>Tee ensin toimiva P0-versio.</strong> Verkkomoninpeli, käyttäjätilit, oikeat maksut ja laaja 3D-maailma eivät kuulu tähän projektiin.</p>
+          </div>
+          <div class="decision-box">
+            <p class="eyebrow">Sovi asiakkaan kanssa</p>
+            <ul>
+              <li>Millä selaimilla ja laitteilla WebGL-versio testataan?</li>
+              <li>Kenelle peli tehdään ja kuinka pitkä yksi kierros on?</li>
+              <li>Miten viiden parhaan tuloksen tasatilanteet järjestetään?</li>
+              <li>Kuka hyväksyy rajauksen ja väliversion?</li>
+            </ul>
+            <p><strong>Älä keksi vastauksia itse tai tekoälyllä.</strong> Merkitse vastaamattomat kohdat avoimiksi.</p>
+          </div>
+        </div>
+        <div class="traceability-card">
+          <div>
+            <p class="eyebrow">Pidä punainen lanka näkyvissä</p>
+            <h3>Vaatimus → tehtävä → toteutus → testi → todiste</h3>
+          </div>
+          <div class="traceability-example" role="group" aria-label="Esimerkki vaatimuksen jäljitettävyydestä">
+            <span><small>Vaatimus</small>Parhaat tulokset tallennetaan</span>
+            <b aria-hidden="true">→</b>
+            <span><small>Issue</small>Tallenna viisi parasta tulosta</span>
+            <b aria-hidden="true">→</b>
+            <span><small>Valmis kun</small>Top 5 säilyy uudelleenkäynnistyksessä</span>
+            <b aria-hidden="true">→</b>
+            <span><small>Testi ja todiste</small>T40-03 + commit-linkki</span>
+          </div>
         </div>
       </section>
 
@@ -97,7 +142,7 @@
         <ol class="day-path">
           <li class="reveal"><span>Päivä 1</span><strong>Tarve</strong><p>Lue toimeksianto. Kirjoita 8 kysymystä ja pidä aloituskeskustelu.</p></li>
           <li class="reveal" data-delay="1"><span>Päivä 2</span><strong>Rajaus</strong><p>Sovi alusta, säännöt, kohderyhmä, P0-ominaisuudet ja valmis kun -ehdot.</p></li>
-          <li class="reveal" data-delay="2"><span>Päivä 3</span><strong>Perusta</strong><p>Käynnistä testiprojekti. Luo Git-repository, README, .gitignore ja docs-kansio.</p></li>
+          <li class="reveal" data-delay="2"><span>Päivä 3</span><strong>Unity-perusta</strong><p>Luo Unity Hubissa 2D-projekti, käynnistä testiscene ja tee WebGL-testibuild. Perusta Git-repository.</p></li>
           <li class="reveal" data-delay="3"><span>Päivä 4</span><strong>Suunnittele</strong><p>Tee backlog, UI-mockup ja jaa koodi selkeisiin vastuisiin.</p></li>
           <li class="reveal" data-delay="4"><span>Päivä 5</span><strong>Pystyleikkaus</strong><p>Tee polku valikosta yhteen tilaukseen, pisteeseen ja pelin loppuun.</p></li>
         </ol>
@@ -117,7 +162,14 @@
             <summary><span class="week-number">34</span><span class="week-title"><small>17.–21.8.</small><strong>Käynnistys ja asiakastarve</strong></span><span class="week-status">0 / 3</span></summary>
             <div class="week-content">
               <label><input type="checkbox" data-task="34-1"> <span>Lue toimeksianto, laadi vähintään 8 kysymystä ja pidä aloituskeskustelu.</span></label>
-              <label><input type="checkbox" data-task="34-2"> <span>Valitse sovittu kehitysympäristö, tee testiprojekti ja varmista toimiva build.</span></label>
+              <div class="task-assignment" aria-labelledby="task-assignment-title">
+                <div class="assignment-context-heading"><span id="task-assignment-title">Toimeksianto on tässä luettavana</span><a href="#toimeksianto">Avaa myös pääversio ↑</a></div>
+                <p>Haluan pienen PC:llä tai selaimessa toimivan pelin, jossa pelaaja työskentelee koulun kahvilassa. Asiakkaita saapuu tiskille ja he tilaavat 1–3 tuotetta. Pelaajan tehtävänä on toimittaa oikea tilaus mahdollisimman nopeasti.</p>
+                <p>Pelissä pitää olla aloitusvalikko, itse peli, pistelasku ja pelin päättymisnäkymä. Vaikeustason pitää kasvaa pelin edetessä. Pelaajan parhaat tulokset pitää tallentaa.</p>
+                <p>Tuotteiden tiedot eivät saa olla kovakoodattuna pelilogiikkaan, vaan niiden pitää tulla erillisestä tietolähteestä. Haluan myös nähdä pelistä toimivan version vähintään kerran ennen lopullista versiota, jotta voin pyytää muutoksia.</p>
+                <p>Lopullinen peli pitää julkaista niin, että voin itse kokeilla sitä.</p>
+              </div>
+              <label><input type="checkbox" data-task="34-2"> <span>Asenna sovittu Unity-versio Unity Hubissa, luo 2D-projekti ja varmista toimiva WebGL-testibuild.</span></label>
               <label><input type="checkbox" data-task="34-3"> <span>Perusta repository, README, .gitignore ja docs-kansio.</span></label>
               <div class="lesson-instructions">
                 <p class="lesson-label"><span>Ohjattu työ</span> Näin etenet</p>
@@ -136,9 +188,9 @@
           <details class="week-card" id="week-35" data-week="35">
             <summary><span class="week-number">35</span><span class="week-title"><small>24.–28.8.</small><strong>Rajaus ja suunnitelmat</strong></span><span class="week-status">0 / 3</span></summary>
             <div class="week-content">
-              <label><input type="checkbox" data-task="35-1"> <span>Täytä dokumentointipohjan osat 1–3 ensimmäiseen versioon.</span></label>
+              <label><input type="checkbox" data-task="35-1"> <span>Täytä dokumentointipohjan osat 1–4 ensimmäiseen versioon.</span></label>
               <label><input type="checkbox" data-task="35-2"> <span>Tee P0/P1/P2-backlog, työmääräarviot ja valmis kun -ehdot.</span></label>
-              <label><input type="checkbox" data-task="35-3"> <span>Piirrä UI-mockup ja suunnittele koodin osat, tilat, JSON ja tallennus.</span></label>
+              <label><input type="checkbox" data-task="35-3"> <span>Piirrä UI-mockup ja suunnittele Unityn scene, Canvas-paneelit, C#-skriptit, JSON ja tallennus.</span></label>
               <div class="lesson-instructions">
                 <p class="lesson-label"><span>Ohjattu työ</span> Näin etenet</p>
                 <ol>
@@ -156,7 +208,7 @@
           <details class="week-card" id="week-36" data-week="36">
             <summary><span class="week-number">36</span><span class="week-title"><small>31.8.–4.9.</small><strong>Ensimmäinen pystyleikkaus</strong></span><span class="week-status">0 / 3</span></summary>
             <div class="week-content">
-              <label><input type="checkbox" data-task="36-1"> <span>Tee aloitusvalikko, pelinäkymä ja lopetusnäkymä väliaikaisella grafiikalla.</span></label>
+              <label><input type="checkbox" data-task="36-1"> <span>Tee Unityn Canvasille MenuPanel, GamePanel ja ResultPanel väliaikaisella grafiikalla.</span></label>
               <label><input type="checkbox" data-task="36-2"> <span>Toteuta yksi asiakas, yksi tilaus, oikea toimitus ja piste.</span></label>
               <label><input type="checkbox" data-task="36-3"> <span>Kirjaa ensimmäiset testit ja bugit.</span></label>
               <div class="lesson-instructions">
@@ -176,7 +228,7 @@
           <details class="week-card" id="week-37" data-week="37">
             <summary><span class="week-number">37</span><span class="week-title"><small>7.–11.9.</small><strong>Tuotedata ja tilauslogiikka</strong></span><span class="week-status">0 / 3</span></summary>
             <div class="week-content">
-              <label><input type="checkbox" data-task="37-1"> <span>Luo JSON-tuotedata ja toteuta lataus sekä virheenkäsittely.</span></label>
+              <label><input type="checkbox" data-task="37-1"> <span>Luo products.json ja lataa se Unityn TextAsset-tiedostoviitteenä C#-olioiksi JsonUtilitylla.</span></label>
               <label><input type="checkbox" data-task="37-2"> <span>Toteuta 1–3 tuotteen tilaukset ja oikean/väärän toimituksen tarkistus.</span></label>
               <label><input type="checkbox" data-task="37-3"> <span>Pidä toimintalogiikka erillään käyttöliittymästä ja dokumentoi vastuut.</span></label>
               <div class="lesson-instructions">
@@ -200,7 +252,7 @@
           <details class="week-card" id="week-38" data-week="38">
             <summary><span class="week-number">38</span><span class="week-title"><small>14.–18.9.</small><strong>Pisteet, aika ja palaute</strong></span><span class="week-status">0 / 3</span></summary>
             <div class="week-content">
-              <label><input type="checkbox" data-task="38-1"> <span>Toteuta pisteytys, ajastin ja pelin päättymisehdot.</span></label>
+              <label><input type="checkbox" data-task="38-1"> <span>Toteuta C#:lla pisteytys, Time.deltaTime-ajastin ja pelin päättymisehdot.</span></label>
               <label><input type="checkbox" data-task="38-2"> <span>Näytä tilaus, aika, pisteet sekä onnistumisen ja virheen palaute.</span></label>
               <label><input type="checkbox" data-task="38-3"> <span>Testaa aika 0, nopea kaksoisklikkaus ja väärä tuote.</span></label>
               <div class="lesson-instructions">
@@ -240,7 +292,7 @@
           <details class="week-card" id="week-40" data-week="40">
             <summary><span class="week-number">40</span><span class="week-title"><small>28.9.–2.10.</small><strong>Tallennus, tietovarasto ja tietoturva</strong></span><span class="week-status">0 / 3</span></summary>
             <div class="week-content">
-              <label><input type="checkbox" data-task="40-1"> <span>Tallenna ja lataa sovittu paras tulos tai tuloslista.</span></label>
+              <label><input type="checkbox" data-task="40-1"> <span>Tallenna ja lataa Unityn pienellä PlayerPrefs-avain–arvo-tallennuksella viisi parasta tulosta ja nimimerkkiä.</span></label>
               <label><input type="checkbox" data-task="40-2"> <span>Perustele tiedostomuoto ja tallennuspaikka teknisessä suunnitelmassa.</span></label>
               <label><input type="checkbox" data-task="40-3"> <span>Validoi luettu data ja nimimerkki; älä tallenna salaisuuksia.</span></label>
               <div class="lesson-instructions">
@@ -290,7 +342,7 @@
             <summary><span class="week-number">43</span><span class="week-title"><small>19.–23.10.</small><strong>Palautemuutos branchissa</strong></span><span class="week-status">0 / 3</span></summary>
             <div class="week-content">
               <label><input type="checkbox" data-task="43-1"> <span>Muuta asiakkaan palaute pieniksi tehtäviksi ja arvioi työmäärä.</span></label>
-              <label><input type="checkbox" data-task="43-2"> <span>Toteuta sovittu muutos omassa feature-branchissa.</span></label>
+              <label><input type="checkbox" data-task="43-2"> <span>Toteuta sovittu muutos omassa feature-branchissa eli muutokselle rajatussa Git-haarassa.</span></label>
               <label><input type="checkbox" data-task="43-3"> <span>Katselmoi, testaa ja yhdistä muutos toimivaan main-versioon.</span></label>
               <div class="lesson-instructions">
                 <p class="lesson-label"><span>Ohjattu työ</span> Näin etenet</p>
@@ -330,7 +382,7 @@
             <summary><span class="week-number">45</span><span class="week-title"><small>2.–6.11.</small><strong>Järjestelmällinen testaus</strong></span><span class="week-status">0 / 3</span></summary>
             <div class="week-content">
               <label><input type="checkbox" data-task="45-1"> <span>Laadi vähintään 12 testitapausta: normaali käyttö, rajatapaukset ja tallennus.</span></label>
-              <label><input type="checkbox" data-task="45-2"> <span>Kirjaa vähintään kolme oikeaa bugia syineen, korjauksineen ja uusintatesteineen.</span></label>
+              <label><input type="checkbox" data-task="45-2"> <span>Kirjaa kaikki aidosti löytyneet bugit. Osoita kolme täydellistä virheenkorjausketjua; käytä tarvittaessa opettajan erikseen merkitsemiä vikatehtäviä.</span></label>
               <label><input type="checkbox" data-task="45-3"> <span>Testaa puhdas käynnistys sekä puuttuva tai virheellinen datatiedosto.</span></label>
               <div class="lesson-instructions">
                 <p class="lesson-label"><span>Ohjattu työ</span> Näin etenet</p>
@@ -340,7 +392,7 @@
                   <li><strong>Tutki bugi loppuun.</strong> Tallenna havainto, toistamisohje, syy, korjaus ja uusintatestin tulos.</li>
                   <li><strong>Aja regressiotestit.</strong> Testaa korjausten jälkeen uudelleen myös toiminto, jota et muuttanut.</li>
                 </ol>
-                <p class="checkpoint"><strong>Ennen kuin jatkat:</strong> kaikki 12 testiä on ajettu ja vähintään kolmesta todellisesta bugista on täydellinen korjausketju.</p>
+                <p class="checkpoint"><strong>Ennen kuin jatkat:</strong> kaikki 12 testiä on ajettu ja kolmesta aidosta havainnosta tai erikseen merkitystä vikatehtävästä on täydellinen korjausketju.</p>
               </div>
               <p class="evidence"><strong>Näytä:</strong> testausloki, tulokset, bugikorjaukset ja uusintatestit.</p>
             </div>
@@ -394,7 +446,7 @@
             <summary><span class="week-number">48</span><span class="week-title"><small>23.–27.11.</small><strong>Versio 1.0 ja julkaisu</strong></span><span class="week-status">0 / 3</span></summary>
             <div class="week-content">
               <label><input type="checkbox" data-task="48-1"> <span>Korjaa vain julkaisemisen estävät ja selvästi tärkeät virheet.</span></label>
-              <label><input type="checkbox" data-task="48-2"> <span>Tee puhdas build, versionumero tai tagi ja julkaise sovittuun ympäristöön.</span></label>
+              <label><input type="checkbox" data-task="48-2"> <span>Tee puhdas Unity WebGL -build, v1.0-tagi ja julkaise build GitHub Pagesiin.</span></label>
               <label><input type="checkbox" data-task="48-3"> <span>Testaa julkaistu linkki toisella laitteella tai selaimella ja kirjoita käyttöohje.</span></label>
               <div class="lesson-instructions">
                 <p class="lesson-label"><span>Ohjattu työ</span> Näin etenet</p>
@@ -461,7 +513,7 @@
           <p>Testaus ei ole pelkkää pelaamista. Kirjaa odotettu tulos, havaittu tulos, virheen syy, korjaus ja uusintatesti.</p>
           <ul class="check-list">
             <li>Vähintään 12 suunniteltua testitapausta</li>
-            <li>Vähintään 3 oikeaa bugia syineen ja korjauksineen</li>
+            <li>3 täydellistä virheenkorjausketjua aidoista havainnoista tai opettajan merkityistä vikatehtävistä</li>
             <li>Valikot, tilaus, pisteet, aika, vaikeus ja tallennus</li>
             <li>Puuttuva tai virheellinen JSON ja tyhjä tallennus</li>
             <li>Julkaistu versio toisella laitteella tai selaimella</li>
@@ -488,13 +540,20 @@
 
         <div class="ai-log reveal">
           <div class="log-heading"><div><p class="eyebrow">Oma AI-loki</p><h3>Kirjaa merkittävä tekoälyapu heti</h3></div><span data-log-count>0 merkintää</span></div>
+          <p class="ai-log-warning"><strong>Huomaa:</strong> selaimeen tallentuva loki on työmuisti, ei yksin näyttötodiste. Lataa se viikoittain ja lisää tiedosto repositoryn <code>docs</code>-kansioon.</p>
           <form data-ai-form>
             <label>Päivä ja työkalu<input name="tool" required placeholder="17.8. / ChatGPT"></label>
             <label>Mihin pyysit apua?<input name="question" required placeholder="Virheilmoituksen syyt"></label>
-            <label>Mitä käytit tai muutit?<input name="used" required placeholder="Käytin testikysymykset, muutin ratkaisun"></label>
+            <label>Mitä käytit, muutit tai hylkäsit?<input name="used" required placeholder="Käytin testit, muutin koodin, hylkäsin yhden idean"></label>
             <label>Miten tarkistit ja mitä opit?<input name="checked" required placeholder="Testasin itse ja vertasin dokumentaatioon"></label>
+            <label>Todisteviite<input name="reference" required placeholder="Issue #12 / commit abc123 / testi T05"></label>
+            <label class="privacy-confirm"><input type="checkbox" name="privacy" required> Vahvistan, etten syöttänyt henkilötietoja, salaisuuksia tai luottamuksellista aineistoa.</label>
             <button class="button button-primary" type="submit">Lisää lokiin</button>
           </form>
+          <div class="ai-log-actions">
+            <button class="button button-secondary" type="button" data-export-log>Lataa AI-loki (.md)</button>
+            <small>Älä syötä henkilötietoja, salaisuuksia tai asiakkaan luottamuksellista aineistoa.</small>
+          </div>
           <div class="log-entries" data-ai-entries aria-live="polite"><p class="empty-state">Ei merkintöjä vielä.</p></div>
         </div>
       </section>
@@ -512,7 +571,7 @@
           <summary>Ohjelmointi · 11 vaatimusta</summary>
           <div class="matrix-list">
             <label><input type="checkbox" data-evidence="p1"><span><strong>Kehitysympäristö</strong> Editorikuva, build ja repository.</span></label>
-            <label><input type="checkbox" data-evidence="p2"><span><strong>Virheenkorjaus</strong> Kolmen bugin syyt, korjaukset ja uusintatestit.</span></label>
+            <label><input type="checkbox" data-evidence="p2"><span><strong>Virheenkorjaus</strong> Kolme täydellistä ketjua aidoista havainnoista tai opettajan merkityistä vikatehtävistä.</span></label>
             <label><input type="checkbox" data-evidence="p3"><span><strong>Toimintojen testaus</strong> 12 testiä odotettuine ja toteutuneine tuloksineen.</span></label>
             <label><input type="checkbox" data-evidence="p4"><span><strong>Rakenteinen ohjelmointi</strong> Vastuutettu koodirakenne ja katselmointi.</span></label>
             <label><input type="checkbox" data-evidence="p5"><span><strong>Ylläpidettävä koodi</strong> Selkeät nimet, pienet metodit ja refaktorointicommit.</span></label>
