@@ -62,10 +62,36 @@ window.NAYTTOPROJEKTI = {
     44: "Peli ohjaa pelaajaa",
     45: "Peli kestää pelaamista",
     46: "Koodin laatu",
-    47: "Julkaisuehdokas RC1",
+    47: "Ensimmäinen julkaisuehdokas (RC1)",
     48: "Julkaisu v1.0",
     49: "Näyttö ja luovutus"
   },
+
+  /* Sanasto: vain tämän projektin oikeasti käyttämät termit. Renderöidään
+     Termit-näkymään ja viikkojen "Uudet termit" -laatikoihin. Jokainen termi
+     selitetään myös juoksevassa tekstissä siinä kohdassa, jossa se tulee
+     ensimmäisen kerran vastaan; sanasto on kertaus- ja hakuväline. */
+  termisto: [
+    { termi: "repository", nimi: "Projektin koodivarasto Gitissä", selite: "Repository on projektin tiedostojen ja koko muutoshistorian säilytyspaikka. Tässä projektissa se on GitHubissa, ja sieltä löytyvät peliprojekti, project-docs-kansio ja työnäytteet.", viikko: 34 },
+    { termi: "commit", nimi: "Versionhallintaan tallennettu muutos", selite: "Commit on yksi versionhallintaan tallennettu muutoskokonaisuus: mitä muutit ja miksi. Jokaisella commitilla on oma tunniste, johon voit linkittää työnäytteenä.", viikko: 34 },
+    { termi: "build", nimi: "Pelin ajettava julkaisuversio", selite: "Build on Unityn tekemä valmis versio pelistä. Sitä pelataan ilman Unity-editoria, ja juuri sitä asiakas kokeilee.", viikko: 34 },
+    { termi: "WebGL", nimi: "Unityn selainjulkaisu", selite: "WebGL on Unityn julkaisumuoto, joka toimii selaimessa ilman asennusta. WebGL-build on siis selaimessa pelattava julkaisuversio pelistä – tämän projektin lopputuote.", viikko: 34 },
+    { termi: "P0", nimi: "Pakollinen ydin", selite: "P0 on se osa peliä, jonka on pakko valmistua: ilman sitä peliä ei voi luovuttaa asiakkaalle. Tee koko P0 valmiiksi ennen kuin aloitat lisäominaisuuksia.", viikko: 34 },
+    { termi: "P1", nimi: "Tärkeä jatkosisältö", selite: "P1 on ominaisuus, joka tehdään vasta kun koko P0 toimii. Se parantaa peliä, mutta peli on luovutettavissa myös ilman sitä.", viikko: 35 },
+    { termi: "P2", nimi: "Valinnainen lisä", selite: "P2 on ominaisuus, joka voidaan jättää kokonaan pois, jos aika loppuu. Merkitse P2:ksi kaikki, mistä voi luopua ilman että asiakkaan vaatimus jää täyttämättä.", viikko: 35 },
+    { termi: "GDD", nimi: "Game Design Document, pelin suunnitteludokumentti", selite: "GDD kokoaa yhteen tiedostoon pelin konseptin, pelin kulun, omat suunnittelupäätökset, rajauksen ja avoimet asiat. Tässä projektissa se täytetään Suunnitelma-näkymässä ja tallennetaan repositoryyn nimellä gdd.md.", viikko: 35 },
+    { termi: "GitHub-issue", nimi: "Tehtävä, jota seurataan GitHubissa", selite: "GitHub-issue on yksi tehtävä: otsikko, perustelu, rajattu muutos ja valmis kun -ehto. Tässä projektissa yhden issuen työmäärä on 0,5–1 työpäivää.", viikko: 35 },
+    { termi: "backlog", nimi: "Priorisoitu tehtävälista", selite: "Backlog on projektin tehtävälista, jossa jokaisella tehtävällä on prioriteetti (P0, P1 tai P2), työmääräarvio ja valmis kun -ehto. Backlog päivitetään aina, kun asiakas päättää jotain uutta.", viikko: 35 },
+    { termi: "UI", nimi: "User interface, käyttöliittymä", selite: "Käyttöliittymä on se osa peliä, jonka pelaaja näkee ja jota hän käyttää: painikkeet, tekstit ja paneelit. Unityssä ne rakennetaan Canvas-alueelle.", viikko: 35 },
+    { termi: "feature", nimi: "Pelin yksittäinen ominaisuus", selite: "Feature on yksi pelaajalle näkyvä ominaisuus, esimerkiksi pistelasku tai viiden parhaan tuloksen lista. Tässä projektissa featuret tehdään yksi kerrallaan, yleensä yksi viikossa.", viikko: 36 },
+    { termi: "asset", nimi: "Peliin tuotava valmis tiedosto", selite: "Asset on peliin tuotava valmis kuva-, ääni- tai fonttitiedosto, esimerkiksi sprite eli hahmon tai esineen kuva. Kirjaa jokaisesta assetista lähde ja lisenssi.", viikko: 36 },
+    { termi: "JSON", nimi: "Tekstimuoto datalle", selite: "JSON on yksinkertainen tekstimuoto, jossa tieto on nimi–arvo-pareina. Tässä projektissa kahvilan tuotteet ovat products.json-tiedostossa, joten valikoimaa voi muuttaa koskematta koodiin.", viikko: 37 },
+    { termi: "branch", nimi: "Git-haara", selite: "Branch eli haara on rinnakkainen kehityslinja: teet muutoksen omassa haarassa, jolloin toimiva main-haara pysyy ehjänä. Valmis haara yhdistetään eli mergetään takaisin mainiin.", viikko: 43 },
+    { termi: "pull request", nimi: "PR, pyyntö yhdistää haara pääversioon", selite: "Pull request eli PR on GitHubissa tehtävä pyyntö yhdistää oma haara main-haaraan. Se antaa katselmoinnille oman paikan ennen yhdistämistä; pienen muutoksen voi myös yhdistää suoraan ilman PR:ää.", viikko: 43 },
+    { termi: "T01", nimi: "Testitapauksen tunnus", selite: "Testitapaukset numeroidaan juoksevasti: T01 on ensimmäinen testitapaus, T02 toinen. Odotettu tulos kirjataan ennen ajoa, ja tunnuksella viitataan testiin päiväkirjassa ja näyttömatriisissa.", viikko: 45 },
+    { termi: "RC", nimi: "Release candidate, julkaisuehdokas", selite: "Julkaisuehdokas on lähes valmis versio, joka testataan täsmälleen siinä muodossa, jossa se aiotaan julkaista. RC1 on ensimmäinen julkaisuehdokas, eikä siihen enää lisätä uusia ominaisuuksia.", viikko: 47 },
+    { termi: "tagi", nimi: "Versionhallintaan merkitty nimetty versio", selite: "Tagi on yhteen committiin kiinnitetty nimilappu, esimerkiksi RC1 tai v1.0. Tagin avulla löydät myöhemmin täsmälleen sen version, jonka asiakas testasi.", viikko: 47 }
+  ],
 
   /* ---- viikkotyyppien kehystekstit (vanhasta app.js:n weekFraming) ---- */
   kehykset: {
@@ -114,7 +140,7 @@ window.NAYTTOPROJEKTI = {
     vihjeet: {
       work: "Kerro konkreettiset Unity-objektit, C#-tiedostot, Git-tehtävät ja testit.",
       reason: "Kerro päätös, vaihtoehdot, perustelu ja mitä opit.",
-      evidence: "Esim. commit-linkki, issue #12, testi T05 tai project-docs/evidence/week-N/kuva.png."
+      evidence: "Esim. commit-linkki, GitHub-issue #12, testitapaus T05 tai project-docs/evidence/week-N/kuva.png."
     }
   },
 
@@ -172,7 +198,7 @@ window.NAYTTOPROJEKTI = {
         "6. Asiakkaan toivoma parannus (vko 43 — sisältö selviää katselmoinnissa vkolla 41)",
         "7. Peli ohjaa pelaajaa itse (vko 44)",
         "",
-        "Huomautus: tämä lista ei ole valmis suunnitelma. Featurejen pilkkominen 0,5–1 päivän issueiksi ja P0/P1/P2-priorisointi on omaa työtä (tehtävä 35-2).",
+        "Huomautus: tämä lista ei ole valmis suunnitelma. Featurejen pilkkominen 0,5–1 päivän GitHub-issueiksi ja priorisointi on omaa työtä (tehtävä 35-2). P0 on pakollinen ydin, jonka on valmistuttava; P1 on tärkeä jatkosisältö, joka tehdään kun P0 toimii; P2 on valinnainen lisä, joka voidaan jättää pois.",
         "",
         "## 7. Teknologia",
         "",
@@ -194,6 +220,7 @@ window.NAYTTOPROJEKTI = {
   viikkoOhjeet: {
     34: {
       type: "pohjustus",
+      termit: ["repository", "commit", "build", "WebGL", "P0"],
       feature: "Viikon jälkeen tiedät, millainen peli tehdään ja kenelle. Tyhjä peli käynnistyy selaimessa.",
       connection: "Pelin toimintakierto (gameplay loop) alkaa asiakkaan tarpeesta: ennen koodaamista päätät, mitä kahvilassa tapahtuu tilauksen saapumisesta tulosruutuun.",
       deliverable: "Tarvekartoitus, käynnistyvä Unity 2D -projekti, WebGL-testibuild ja Git-repository.",
@@ -204,7 +231,7 @@ window.NAYTTOPROJEKTI = {
       steps: [
         ["Selvitä tarve", "Merkitse toimeksiannon pakolliset asiat, laadi vähintään 8 päätökseen johtavaa kysymystä ja kirjaa asiakaskeskustelun vastaukset, avoimet asiat ja oletukset."],
         ["Tee Unity-testi", "Luo Unity Hubissa 2D-projekti, CafeGame-scene ja WebGL-testibuild. Kirjaa käytetty Unity-versio."],
-        ["Perusta Git", "Lisää README, project-docs-kansio ja Unity-.gitignore. Gitissä ovat Assets, Packages ja ProjectSettings; Library jää pois. Tee ensimmäinen commit ja push."]
+        ["Perusta Git", "Lisää README eli repositoryn esittelytiedosto, project-docs-kansio ja Unity-.gitignore. Gitissä ovat Assets, Packages ja ProjectSettings; Library jää pois. Tee ensimmäinen commit ja push."]
       ],
       help: {
         title: "Luo Unity-projekti, ensimmäinen scene ja Git-repository",
@@ -229,13 +256,14 @@ window.NAYTTOPROJEKTI = {
         ["Päivä 1", "Tarve: Lue toimeksianto. Kirjoita 8 kysymystä ja pidä aloituskeskustelu."],
         ["Päivä 2", "Rajaus: Sovi testiselaimet, pelisäännöt, kohderyhmä, P0-ominaisuudet ja valmis kun -ehdot."],
         ["Päivä 3", "Unity-perusta: Luo Unity Hubissa 2D-projekti, käynnistä testiscene ja tee WebGL-testibuild. Perusta Git-repository."],
-        ["Päivä 4", "Suunnittele: Tee backlog, UI-mockup ja jaa koodi selkeisiin vastuisiin."],
+        ["Päivä 4", "Suunnittele: Tee backlog eli priorisoitu tehtävälista, käyttöliittymäluonnos ja jaa koodi selkeisiin vastuisiin."],
         ["Päivä 5", "Pelattava kokonaisuus: Tee polku valikosta yhteen tilaukseen, pisteeseen ja pelin loppuun."]
       ]
     },
 
     35: {
       type: "pohjustus",
+      termit: ["GDD", "GitHub-issue", "backlog", "P1", "P2", "UI"],
       feature: "Viikon jälkeen peli on paperilla: kolme ruutua ja featuret tekojärjestyksessä. Asiakas on hyväksynyt rajauksen.",
       excerpt: "Pelissä pitää olla aloitusvalikko, itse peli, pistelasku ja pelin päättymisnäkymä.",
       connection: "Nyt muutat toimeksiannon näkyväksi Unity-suunnitelmaksi: Canvas-näkymät, pelin toimintakierto, C#-vastuut, tehtävät ja valmiin työn ehdot.",
@@ -250,11 +278,11 @@ window.NAYTTOPROJEKTI = {
       ],
       steps: [
         ["Täytä GDD", "Täytä GDD:n omat päätökset tällä sivulla: kirjoita tavoite ja oma roolisi omin sanoin, nimeä peli, valitse tyyli ja grafiikan lähde lisensseineen ja päätä pisteytys perusteluineen. Lataa gdd.md ja vie se project-docs-kansioon."],
-        ["Tee pieni backlog", "Kirjoita jokainen kahvilapelin P0-toiminto omaksi 0,5–1 päivän issueksi. Lisää prioriteetti ja havaittava valmis kun -ehto."],
+        ["Tee pieni backlog", "Kirjoita jokainen kahvilapelin P0-toiminto omaksi 0,5–1 päivän GitHub-issueksi. Lisää prioriteetti ja havaittava valmis kun -ehto."],
         ["Piirrä Unity-ratkaisu", "Luonnostele kolme Canvas-paneelia ja pelin toimintakierto. Jaa C#-vastuut GameManager-, OrderManager-, ProductDatabase-, UIController- ja SaveService-skripteille."]
       ],
       help: {
-        title: "Tee issue, mockup ja vastuurakenne",
+        title: "Tee GitHub-issue, mockup ja vastuurakenne",
         tree: "project-docs/evidence/week-35/\n├─ mockup.png\n└─ unity-rakenne.png\n\nCafeGame-scene\n├─ GameManager\n├─ OrderManager\n├─ ProductDatabase\n├─ UIController\n└─ SaveService",
         actions: [
           "Kirjoita ensin projektipäiväkirjaan käyttäjä, tavoite, rajaus ja pakollinen perusversio. Käytä asiakkaan vastauksia; älä keksi avoimia päätöksiä.",
@@ -272,6 +300,7 @@ window.NAYTTOPROJEKTI = {
 
     36: {
       type: "feature",
+      termit: ["feature", "asset"],
       feature: "Peliä voi pelata ensimmäistä kertaa: Aloita → asiakas tilaa kahvin → toimitat → piste → tulosruutu.",
       excerpt: "Pelaajan tehtävänä on toimittaa oikea tilaus mahdollisimman nopeasti.",
       connection: "Rakennat Unityyn pelin toimintakierron ensimmäisen päästä päähän toimivan version. Yksi kiinteä kahvitilaus riittää nyt todistamaan koko polun; lopullinen 1–3 tuotteen tilaus tulee seuraavaksi.",
@@ -281,7 +310,7 @@ window.NAYTTOPROJEKTI = {
       record: "Kirjoita Vko 36 -merkintään buildin tunniste, viisi testikierrosta ja tulokset. Lisää yhtenäinen video tai muu työnäyte koko pelipolusta sekä commit- ja testitunnisteet.",
       skills: ["Unity Canvas", "pelitilat", "ensimmäinen testi"],
       resources: [
-        ["Kenney.nl – ilmaiset CC0-spritet: hahmot, esineet ja UI", "https://kenney.nl/assets", false],
+        ["Kenney.nl – ilmaiset CC0-assetit: hahmot, esineet ja käyttöliittymäkuvat", "https://kenney.nl/assets", false],
         ["OpenGameArt – 2D-hahmot ja taustat (tarkista lisenssi)", "https://opengameart.org/", false],
         ["Piskel – piirrä omat spritet selaimessa", "https://www.piskelapp.com/", false]
       ],
@@ -313,13 +342,14 @@ window.NAYTTOPROJEKTI = {
 
     37: {
       type: "feature",
+      termit: ["JSON"],
       feature: "Tilaukset arvotaan tuotelistasta. Valikoimaa voi muuttaa koskematta koodiin.",
       excerpt: "Tuotteiden tiedot eivät saa olla kovakoodattuna pelilogiikkaan, vaan niiden pitää tulla erillisestä tietolähteestä.",
       connection: "Pelin toimintakierron tilaus syntyy nyt Unityyn tuodusta JSON-datasta. Kahvi, tee ja sämpylä eivät enää ole kirjoitettuina suoraan C#-tilauskoodiin.",
       deliverable: "products.json, ProductDatabase.cs, 1–3 tuotteen tilauslogiikka ja virhetilanteiden käsittely.",
       why: "Erillinen tietolähde tekee tuotteiden muuttamisesta helppoa ja osoittaa, että osaat siirtää dataa tiedostosta C#-olioiksi ilman käyttöliittymän ja pelisääntöjen sekoittamista.",
       done: "Kahvin pistearvon muuttaminen JSONissa näkyy pelissä ilman C#-muutosta. Puuttuva tai rikkinäinen JSON näyttää hallitun virheen eikä riko koko peliä.",
-      record: "Kirjoita Vko 37 -merkintään JSON-tiedoston polku, tiedon kulku JSON → ProductDatabase → OrderManager → UI, commit-linkki ja puuttuvan sekä rikkinäisen datan testitulokset.",
+      record: "Kirjoita Vko 37 -merkintään JSON-tiedoston polku, tiedon kulku JSON → ProductDatabase → OrderManager → käyttöliittymä, commit-linkki ja puuttuvan sekä rikkinäisen datan testitulokset.",
       skills: ["TextAsset + JSON", "C#-logiikka", "virheenkäsittely"],
       steps: [
         ["Tee tuotedata", "Lisää products.json-tiedostoon vähintään id, nimi ja pistearvo. Liitä tiedosto Inspectorissa (komponenttien asetuspaneeli) ProductDatabase-skriptin TextAsset-kenttään."],
@@ -342,7 +372,7 @@ window.NAYTTOPROJEKTI = {
           ["assets/unity/vko37-textasset-inspector.png", "Unityn Inspector: ProductDatabase-skripti, jonka Products Json -kenttään on raahattu products-TextAsset.", "products.json raahattuna ProductDatabase-skriptin TextAsset-kenttään."]
         ]
       },
-      example: "{ \"products\": [{ \"id\": \"kahvi\", \"name\": \"Kahvi\", \"points\": 10 }] } → JsonUtility → ProductDatabase → OrderManager → UI.",
+      example: "{ \"products\": [{ \"id\": \"kahvi\", \"name\": \"Kahvi\", \"points\": 10 }] } → JsonUtility → ProductDatabase → OrderManager → käyttöliittymä.",
       notEnough: "JSON-tiedosto ei riitä, jos kahvi ja pistearvo ovat edelleen myös pelilogiikkaan kovakoodattuina."
     },
 
@@ -362,7 +392,7 @@ window.NAYTTOPROJEKTI = {
         ["Testaa rajat", "Kokeile aikaa 0, kahta nopeaa Toimita-painallusta, väärää tuotetta ja uuden pelin nollausta."]
       ],
       help: {
-        title: "Kytke pisteet, aika ja UI",
+        title: "Kytke pisteet, aika ja käyttöliittymä",
         tree: "GameManager [score, timeLeft, isPlaying]\n├─ OrderManager [CurrentOrder, SubmitOrder]\n└─ UIController\n   ├─ ScoreText (TextMeshPro)\n   ├─ TimeText (TextMeshPro)\n   └─ FeedbackText (TextMeshPro)",
         actions: [
           "Lisää GameManageriin score-, timeLeft- ja isPlaying-kentät. Serialisoitu [SerializeField]-kenttä näkyy Inspectorissa ja sen aloitusarvo tallentuu sceneen.",
@@ -469,20 +499,21 @@ window.NAYTTOPROJEKTI = {
 
     43: {
       type: "feature",
+      termit: ["branch", "pull request"],
       feature: "Asiakkaan pyytämä muutos on pelattavana. Vanha toiminnallisuus toimii edelleen.",
       excerpt: "Haluan myös nähdä pelistä toimivan version vähintään kerran ennen lopullista versiota, jotta voin pyytää muutoksia.",
       connection: "Toteutat asiakkaan valitseman muutoksen Unity-projektissa niin, että alkuperäinen pelin toimintakierto säilyy toimivana.",
       deliverable: "Asiakaspalautteeseen jäljitettävä, katselmoitu ja testattu muutos omassa Git-haarassa.",
-      why: "Erillinen Git-haara pitää toimivan main-version turvassa ja näyttää, miten palaute muuttui tehtäväksi, koodiksi, testiksi ja hyväksytyksi muutokseksi.",
+      why: "Erillinen Git-haara eli branch pitää toimivan main-haaran eli pääversion turvassa ja näyttää, miten palaute muuttui tehtäväksi, koodiksi, testiksi ja hyväksytyksi muutokseksi.",
       done: "Muutos täyttää hyväksymisehdon, vanha pelipolku toimii, katselmointiin on vastattu ja muutos on yhdistetty main-haaraan.",
-      record: "Kirjoita Vko 43 -merkintään ketju: asiakaspalaute → issue → Git-haara → pull request tai merge → commit → hyväksymistesti. Lisää täsmälliset linkit.",
-      skills: ["issue", "feature-branch", "katselmointi"],
+      record: "Kirjoita Vko 43 -merkintään ketju: asiakaspalaute → GitHub-issue → Git-haara → pull request (PR) tai suora yhdistäminen eli merge → commit → hyväksymistesti. Lisää täsmälliset linkit.",
+      skills: ["GitHub-issue", "feature-branch", "katselmointi"],
       steps: [
-        ["Kirjoita muutos pelitehtäväksi", "Liitä asiakkaan palaute issueen ja kerro, mitä kahvilapelin näkymää tai toimintoa muutetaan."],
+        ["Kirjoita muutos pelitehtäväksi", "Liitä asiakkaan palaute GitHub-issueen ja kerro, mitä kahvilapelin näkymää tai toimintoa muutetaan."],
         ["Toteuta erillään", "Aloita toimivasta mainista, tee pieniä committeja feature-branchiin ja testaa tilaus–toimitus–pisteet jokaisen ehjän muutoksen jälkeen."],
-        ["Katselmoi ja yhdistä", "Pyydä ihmiseltä kommentti, vastaa siihen ja yhdistä vasta, kun hyväksymisehto sekä vanha pelin toimintakierto läpäisevät testin."]
+        ["Katselmoi ja yhdistä", "Pyydä ihmiseltä kommentti, vastaa siihen ja yhdistä eli mergeä muutos mainiin vasta, kun hyväksymisehto sekä vanha pelin toimintakierto läpäisevät testin."]
       ],
-      example: "Issue: Suurenna tilauskortti. Valmis kun uusi käyttäjä löytää tilauksen 5 sekunnissa. PR sisältää muutoksen ja testin.",
+      example: "GitHub-issue: Suurenna tilauskortti. Valmis kun uusi käyttäjä löytää tilauksen 5 sekunnissa. Pull request (PR) sisältää muutoksen ja testin.",
       notEnough: "Suuri suora muutos mainiin tai yksi massacommit katkaisee yhteyden palautteen, toteutuksen ja testin välillä."
     },
 
@@ -491,43 +522,44 @@ window.NAYTTOPROJEKTI = {
       feature: "Uusi pelaaja ymmärtää tavoitteen ja pelaa kierroksen ilman, että kukaan neuvoo vieressä.",
       excerpt: "Lopullinen peli pitää julkaista niin, että voin itse kokeilla sitä.",
       connection: "Unity-kahvilapelin täytyy kertoa tavoitteensa ilman opettajan vieressä antamia ohjeita. Siksi testaat juuri Canvasin tilausta, tuotepainikkeita, Toimita-painiketta ja palautetta.",
-      deliverable: "Lyhyt käytettävyystesti, kaksi perusteltua UI-muutosta ja uusintatesti.",
+      deliverable: "Lyhyt käytettävyystesti, kaksi perusteltua käyttöliittymämuutosta ja uusintatesti.",
       why: "Julkaistu peli ei saa vaatia tekijää neuvomaan vieressä. Havainnointi paljastaa epäselvyydet, joita oma pelaaminen ei enää huomaa.",
       done: "Toinen käyttäjä löytää tavoitteen ja pelaa yhden tilauksen loppuun ilman suullista ohjetta. Kahdelle muutokselle näkyy ennen- ja jälkeen-tilanne.",
       record: "Kirjoita Vko 44 -merkintään annettu pelitehtävä, alkuperäiset havainnot, tehdyt kaksi muutosta ja uusintatestin tulos. Lisää ennen/jälkeen-kuvat ja commit-linkki.",
       skills: ["Unity UI", "Canvas-palaute", "käyttäjätesti"],
       resources: [
-        ["Kenney.nl – UI-paketit ja ikonit (CC0)", "https://kenney.nl/assets", false],
+        ["Kenney.nl – käyttöliittymäpaketit ja ikonit (CC0)", "https://kenney.nl/assets", false],
         ["Game-icons.net – tuhansia ikoneita (CC BY, mainitse tekijä)", "https://game-icons.net/", false]
       ],
       steps: [
         ["Anna oikea pelitehtävä", "Pyydä vertaista aloittamaan peli, toimittamaan yksi tilaus ja tarkistamaan tulos ilman suullista ohjetta."],
         ["Kirjaa havainto ennen ratkaisua", "Merkitse esimerkiksi epäröinti, väärä painallus tai kohta, jossa tilaus jäi huomaamatta."],
-        ["Korjaa ja testaa uudelleen", "Tee kaksi tärkeintä muutosta kahvilapelin UI:hin ja toista sama tehtävä toisella käyttäjällä."]
+        ["Korjaa ja testaa uudelleen", "Tee kaksi tärkeintä muutosta kahvilapelin käyttöliittymään ja toista sama tehtävä toisella käyttäjällä."]
       ],
       example: "Havainto: käyttäjä ei löytänyt Aloita-painiketta → kontrasti ja paikka muutettiin → uusintatestissä löytyi ilman vihjettä.",
-      notEnough: "Oma mielipide “UI näyttää hyvältä” tai vain kosmeettinen värinvaihto ei ole käytettävyystesti."
+      notEnough: "Oma mielipide “käyttöliittymä näyttää hyvältä” tai vain kosmeettinen värinvaihto ei ole käytettävyystesti."
     },
 
     45: {
       type: "laatu",
+      termit: ["T01"],
       feature: "Peli ei kaadu rajatapauksissa: aika nollaan, tuplaklikit ja rikottu tuotelista on testattu.",
       excerpt: "Pelissä pitää olla aloitusvalikko, itse peli, pistelasku ja pelin päättymisnäkymä.",
       connection: "Testaat Unity WebGL -buildin koko toimintakierron järjestelmällisesti: aloitus, tilaus, valinta, toimitus, pisteet, aika, vaikeus, PlayerPrefs ja uusi peli.",
       deliverable: "Vähintään 12 testitapauksen testausmatriisi ja kolme täydellistä virheenkorjausketjua.",
       why: "Järjestelmällinen testaus näyttää, että peli toimii myös rajoilla ja virhetilanteissa. Korjausketju todistaa, että osaat löytää syyn etkä vain peittää oiretta.",
-      done: "Kaikissa 12 testissä näkyvät build, lähtötila, toiminta, odotus, havainto ja tulos. Kolmessa ketjussa näkyvät havainto, syy, korjauscommit ja onnistunut uusintatesti.",
-      record: "Kirjoita Vko 45 -merkintään testit T01–T12 ja linkki testausmatriisiin. Nimeä kolme ketjua muodossa havainto tai merkitty vikatehtävä → syy → commit → uusintatesti.",
-      skills: ["testitapaus", "debuggaus", "regressiotesti = vanhan toiminnan uusintatesti"],
+      done: "Kaikissa 12 testitapauksessa näkyvät build, lähtötila, toiminta, odotus, havainto ja tulos. Kolmessa ketjussa näkyvät havainto, syy, korjauscommit ja onnistunut uusintatesti.",
+      record: "Kirjoita Vko 45 -merkintään testitapaukset T01–T12 ja linkki testausmatriisiin. Nimeä kolme ketjua muodossa havainto tai merkitty vikatehtävä → syy → commit → uusintatesti.",
+      skills: ["testitapaus", "virheenkorjaus", "regressiotesti = vanhan toiminnan uusintatesti"],
       resources: [
         ["Avaa näyttöaineisto", "#view-naytto", false]
       ],
       steps: [
-        ["Kirjoita 12 testiä ennen ajoa", "Jaa ne normaaliin kahvilavuoroon, rajoihin kuten aika 0 sekä puuttuvaan tai rikkinäiseen dataan."],
+        ["Kirjoita 12 testitapausta ennen ajoa", "Jaa ne normaaliin kahvilavuoroon, rajoihin kuten aika 0 sekä puuttuvaan tai rikkinäiseen dataan."],
         ["Tutki aito havainto", "Kirjaa build, lähtötila, toistamisohje, odotus, havainto, syy ja korjaus. Älä keksi bugeja jälkikäteen."],
         ["Riko ja aja uudelleen", "Irrota products.json, käytä rikkinäistä JSONia ja tyhjennä PlayerPrefs. Testaa korjauksen jälkeen myös vähintään yksi viereinen toiminto."]
       ],
-      example: "T05 / aika 0 / odotus: tulos näkyy kerran / havainto: näkyi kahdesti / ei läpäissyt / korjauscommit [linkki].",
+      example: "Testitapaus T05 / aika 0 / odotus: tulos näkyy kerran / havainto: näkyi kahdesti / ei läpäissyt / korjauscommit [linkki].",
       notEnough: "Tekoälyn ehdottamaa testiä ei saa merkitä ajetuksi eikä bugia löytyneeksi ilman omaa testiajoa."
     },
 
@@ -536,13 +568,13 @@ window.NAYTTOPROJEKTI = {
       feature: "Peli toimii kuten ennen. Koodi on selkeämpi, ja osaat selittää ratkaisut.",
       excerpt: "Tuotteiden tiedot eivät saa olla kovakoodattuna pelilogiikkaan, vaan niiden pitää tulla erillisestä tietolähteestä.",
       connection: "Selkeytät nyt Unity-projektin C#-koodia: tilauksen luonti, pisteiden lasku ja Canvasin päivitys eivät saa olla yhtenä pitkänä MonoBehaviour-metodina.",
-      deliverable: "Yksi rajattu refaktorointi, sitä ympäröivät testit ja ihmisen tekemä koodikatselmointi.",
+      deliverable: "Yksi rajattu refaktorointi eli koodin rakenteen selkeytys pelin toimintaa muuttamatta, sitä ympäröivät testit ja ihmisen tekemä koodikatselmointi.",
       why: "Selkeästi nimetyt ja rajatut vastuut helpottavat virheiden löytämistä sekä myöhempiä muutoksia. Testi varmistaa, ettei rakenteen parantaminen muuta pelin toimintaa.",
       done: "Sama nimetty testi läpäisee ennen ja jälkeen refaktoroinnin. Katselmointikommenttiin on vastattu ja pystyt selittämään ratkaisun ilman tekoälyn vastausta.",
       record: "Kirjoita Vko 46 -merkintään havaittu laatuhaitta, ennen/jälkeen-muutos, testitunniste, katselmoijan rooli, saatu kommentti ja oma vastaus. Lisää diffi- tai commit-linkki.",
       skills: ["C#-ylläpidettävyys", "refaktorointi", "koodikatselmointi"],
       steps: [
-        ["Valitse yksi oikea laatuhaitta", "Etsi C#-skripteistä toisto, epäselvä nimi, pitkä Update-metodi tai MonoBehaviour, joka hoitaa sekä tilauksen, pisteet että UI:n."],
+        ["Valitse yksi oikea laatuhaitta", "Etsi C#-skripteistä toisto, epäselvä nimi, pitkä Update-metodi tai MonoBehaviour, joka hoitaa sekä tilauksen, pisteet että käyttöliittymän."],
         ["Refaktoroi toimintaa muuttamatta", "Tee yksi rajattu muutos ja aja sama pelin toimintakierron testi ennen ja jälkeen."],
         ["Selitä ratkaisu", "Pyydä ihmisen katselmointi ja selitä yksi oma sekä yksi tekoälyavusteinen kohta omin sanoin."]
       ],
@@ -552,20 +584,21 @@ window.NAYTTOPROJEKTI = {
 
     47: {
       type: "julkaisu",
+      termit: ["RC", "tagi"],
       feature: "Koko peli on pelattavana täsmälleen siinä muodossa, jossa se julkaistaan. Uusia ominaisuuksia ei enää lisätä.",
       excerpt: "Lopullinen peli pitää julkaista niin, että voin itse kokeilla sitä.",
-      connection: "Release candidate 1 eli RC1 on Unity WebGL -pelin ensimmäinen julkaisuehdokas: koko pelin toimintakierto testataan selaimessa sellaisena kuin se aiotaan julkaista.",
+      connection: "RC1 on lyhenne sanoista release candidate 1 eli ensimmäinen julkaisuehdokas: koko pelin toimintakierto testataan selaimessa täsmälleen sellaisena kuin se aiotaan julkaista.",
       deliverable: "Jäädytetty RC1-build, kahden henkilön testipalaute ja päätetty julkaisun korjauslista.",
       why: "Ominaisuusjäädytys estää uusia muutoksia rikkomasta lähes valmista peliä. Palautteen luokittelu kohdistaa ajan vain julkaisuun vaikuttaviin virheisiin.",
       done: "RC1 on sidottu yhteen committiin. Asiakas ja toinen käyttäjä ovat testanneet sen, ja jokaisella havainnolla on vakavuus, toistettavuus sekä päätös.",
-      record: "Kirjoita Vko 47 -merkintään RC1-tagi ja commit, testaajien roolit, heidän havaintonsa sekä päätös: korjataan nyt, tunnettu puute tai myöhemmin.",
+      record: "Kirjoita Vko 47 -merkintään RC1-tagi eli versionhallintaan merkitty nimetty versio ja sen commit, testaajien roolit, heidän havaintonsa sekä päätös: korjataan nyt, tunnettu puute tai myöhemmin.",
       skills: ["release candidate", "palautteen luokittelu", "julkaisupäätös"],
       steps: [
-        ["Nimeä RC1", "Tee yhdestä main-commitista Unity WebGL -build, jossa valikko, kahvilavuoro, tulos ja PlayerPrefs-tallennus toimivat."],
+        ["Nimeä RC1", "Tee yhdestä main-haaran commitista Unity WebGL -build, jossa valikko, kahvilavuoro, tulos ja PlayerPrefs-tallennus toimivat."],
         ["Anna kahden ihmisen testata", "Asiakas ja toinen käyttäjä pelaavat alusta loppuun sekä sulkevat ja avaavat pelin tallennuksen tarkistamiseksi."],
         ["Tee julkaisupäätös", "Kirjaa jokaiselle havainnolle vakavuus, toistettavuus ja päätös: korjataan, tunnettu puute tai myöhemmin."]
       ],
-      example: "Pisteet eivät nollaudu / vakava / toistuu aina / korjataan ennen julkaisua / testi T47-04.",
+      example: "Pisteet eivät nollaudu / vakava / toistuu aina / korjataan ennen julkaisua / testitapaus T14.",
       notEnough: "Opiskelija tai tekoäly ei voi esiintyä kahtena testaajana, eikä ominaisuusjäädytyksen jälkeen lisätä uusia peliominaisuuksia."
     },
 
@@ -592,7 +625,7 @@ window.NAYTTOPROJEKTI = {
           "Avaa Player Settings → Web → Publishing Settings. GitHub Pagesissa et voi itse asettaa palvelimen pakkausotsakkeita, joten ota Decompression Fallback käyttöön ensimmäisessä julkaisussa.",
           "Tee build repositoryn docs-kansioon ja lisää sinne tyhjä .nojekyll-tiedosto. Varmista, että docs/index.html, Build ja TemplateData ovat mukana Gitissä.",
           "Avaa GitHubissa Settings → Pages → Deploy from a branch → main → /docs ja tallenna.",
-          "Odota julkaisua, avaa annettu https-linkki ja tarkista selaimen konsolista, ettei latauksessa tule 404- tai purkuvirhettä."
+          "Odota julkaisua, avaa annettu https-linkki ja tarkista selaimen konsolista, ettei latauksessa tule 404-virhettä (tiedostoa ei löydy) tai purkuvirhettä."
         ],
         code: "Julkaisun tarkistuslista\n[ ] WebGL valittu\n[ ] CafeGame mukana scene-listassa\n[ ] Decompression Fallback käytössä\n[ ] docs/.nojekyll mukana\n[ ] docs/index.html + Build + TemplateData Gitissä\n[ ] Pages: main /docs\n[ ] julkaistu linkki testattu toisella selaimella",
         test: "Avaa julkaistu linkki yksityisessä selainikkunassa. Pelaa yksi kierros, päivitä sivu ja tarkista top 5. Jos build ei lataudu, tarkista ensin tiedostopolut ja selaimen Console.",
@@ -626,9 +659,9 @@ window.NAYTTOPROJEKTI = {
       steps: [
         ["Viimeistele päiväkirja", "Jäädytä v1.0, tarkista jokaisen viikon merkintä, lataa koko projektipäiväkirja project-docs-kansioon ja kirjoita itsearviointi omaan aineistoon nojaten."],
         ["Tee syvälinkit", "Liitä jokainen näyttömatriisin vaatimus suoraan issueen, C#-tiedostoon, commitiin, testiriviin tai palautepäätökseen."],
-        ["Harjoittele ja luovuta", "Näytä 8–10 minuutissa pelin toimintakierto, JSON, tallennus, bugikorjaus, Git ja AI-loki. Anna toisen henkilön avata palautus ennen 4.12."]
+        ["Harjoittele ja luovuta", "Näytä 8–10 minuutissa pelin toimintakierto, JSON-tuotelista, tallennus, bugikorjaus, Git ja AI-loki. Anna toisen henkilön avata palautus ennen 4.12."]
       ],
-      example: "P3 Toimintojen testaus → project-docs/projektipaivakirja.md#vko-45 → testit T05–T16 → build v1.0 → tarkka linkki.",
+      example: "Näyttömatriisin kohta Toimintojen testaus → project-docs/projektipaivakirja.md#vko-45 → testitapaukset T05–T16 → build v1.0 → tarkka linkki.",
       notEnough: "Pelkkä rastitettu matriisi, repositoryn etusivulinkki tai tekoälyn kirjoittama kokemuksellinen itsearviointi ei riitä.",
       paivat: [
         ["Ma 30.11.", "Koodijäädytys: Viimeinen hyväksytty build."],
