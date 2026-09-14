@@ -457,3 +457,10 @@ figure.view-figure figcaption strong { color: var(--ink); display: block; margin
 .glossary-compact .glossary-item { padding: 9px 0; }
 .glossary-compact .glossary-item:first-child { padding-top: 6px; }
 @media (max-width: 640px) { .glossary-item { grid-template-columns: 1fr; gap: 2px; } }
+
+/* ---- Kalibrointi: riittävä vs. riittämätön (viikkoOhjeet.example / notEnough) ---- */
+.expectation-grid { margin-top: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.expectation-grid .card p:last-child { margin-top: 6px; font-size: 14px; }
+.expectation-grid .expected-example { border-left: 3px solid var(--accent); }
+.expectation-grid .not-enough { border-left: 3px solid #b8412c; background: color-mix(in srgb, #b8412c 5%, var(--card-bg)); }
+@media (max-width: 860px) { .expectation-grid { grid-template-columns: 1fr; } }

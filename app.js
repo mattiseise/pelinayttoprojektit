@@ -9,6 +9,7 @@
  * Rakenne, jota tämä moottori odottaa index.html:ltä, on kuvattu tarkasti
  * tiedostossa /root/work/layout-rakenne.md (tämän layoutuudistuksen pilotti).
  *
+ * v2.3: example/notEnough (kalibrointikortit) renderöidään viikkokorttiin ennen Valmis kun -korttia.
  * v2.2: takahipsut sisältötekstissä → <code>; välilehden otsikko seuraa valittua viikkoa.
  * v2.1: sanasto. sisalto.js:n `termisto` renderöidään näkymään
  * data-view="termit" ([data-termisto]) ja viikon `termit`-lista viikkokortin
@@ -108,7 +109,10 @@
     glossaryWeekChip: (w) => `viikko ${w}`,
     glossaryWeekChipAria: (w) => `Termi tulee vastaan ensimmäisen kerran viikolla ${w}`,
     glossaryCount: (n) => `${n} termiä`,
-    glossaryEmpty: "Tässä projektissa ei ole erillistä sanastoa."
+    glossaryEmpty: "Tässä projektissa ei ole erillistä sanastoa.",
+    /* Kalibrointi: riittävä ja riittämätön suoritus (viikkoOhjeet[w].example / notEnough). */
+    exampleLabel: "Esimerkki odotetusta tarkkuudesta · älä kopioi sisältöä",
+    notEnoughLabel: "Tämä ei vielä riitä"
   };
   const UI = Object.assign({}, UI_OLETUS, P.tekstit || {});
   const t = (key, ...args) => {
@@ -292,6 +296,25 @@
       fillList(days.querySelector("[data-day-grid]"), guide.paivat, ([nimi, teksti], i) =>
         `<div class="card"><div class="day-n">${escapeText(t("dayLabel", i + 1))}</div><strong>${escapeText(nimi)}</strong><p>${richText(teksti)}</p></div>`);
       days.hidden = false;
+    }
+
+    /* Kalibrointi (pedagoginen runko § 10): riittävä ja riittämätön vastaus
+       rinnakkain ennen "Valmis kun" -korttia. Luodaan tarvittaessa, jotta
+       index.html ei tarvitse paikanpitäjää. */
+    if (guide.example || guide.notEnough) {
+      let grid = card.querySelector("[data-week-expectations]");
+      if (!grid) {
+        grid = document.createElement("div");
+        grid.className = "expectation-grid";
+        grid.setAttribute("data-week-expectations", "");
+        const outcome = card.querySelector(".outcome-grid");
+        if (outcome) outcome.insertAdjacentElement("beforebegin", grid);
+        else card.querySelector("[data-week-journal]")?.insertAdjacentElement("beforebegin", grid);
+      }
+      grid.innerHTML = `
+        <div class="card expected-example"><p class="section-label section-label-accent">${escapeText(t("exampleLabel"))}</p><p>${richText(guide.example || "")}</p></div>
+        <div class="card not-enough"><p class="section-label">${escapeText(t("notEnoughLabel"))}</p><p>${richText(guide.notEnough || "")}</p></div>`;
+      grid.hidden = false;
     }
 
     const checkpoint = card.querySelector(".checkpoint");
