@@ -276,6 +276,103 @@ if (!html.includes('data-week-links')) err('index.html: sivupalkin viikkonavigaa
 if (!/id="sivupalkki"/.test(html)) err('index.html: sivupalkin id="sivupalkki" puuttuu (mobiilivalikko tarvitsee sen)');
 if (!html.includes('data-sidebar-toggle')) warn('index.html: mobiilin valikkonappi (data-sidebar-toggle) puuttuu');
 
+/* ---------- 13. pedagoginen termistö ----------
+ * Sivun pitää opettaa käyttämänsä ammattikieli, ei olettaa sitä tunnetuksi.
+ * Tarkistus on kevyt ja mekaaninen — se ei ymmärrä kieltä, vaan etsii tunnetut
+ * riskitermit (lyhenteet, kirjain+numero-tunnukset) opiskelijalle näkyvästä
+ * tekstistä ja vaatii, että
+ *   a) termi on projektin sanastossa (P.termisto), ja
+ *   b) termin ENSIMMÄINEN opiskelijalle näkyvä käyttö joko selittää sen samassa
+ *      lohkossa tai viikon `termit`-lista nostaa sen "Uudet termit" -laatikkoon.
+ * Lukujärjestys: Näin käytät sivua → Toimeksianto → Työtapa → Suunnitelma →
+ * viikot nousevassa järjestyksessä. Muut näkymät (galleria, päiväkirja,
+ * AI-loki, näyttömatriisi, sanasto) tarkistetaan vain sanaston kattavuuden osalta.
+ * Varoitus on parempi kuin automaattinen tekstinmuutos: tunnusperheet
+ * (P0/P1/P2, T01…, RC) ovat virheitä, muut lyhenteet huomautuksia.
+ */
+const termisto = Array.isArray(P.termisto) ? P.termisto : [];
+const termiAvaimet = new Set(termisto.map((g) => String(g.termi || "").toLowerCase()));
+termisto.forEach((g, i) => {
+  if (!g || !g.termi || !g.selite) err(`termisto[${i}]: termi ja selite ovat pakollisia`);
+  if (g && g.viikko != null && !workWeeks.includes(Number(g.viikko))) err(`termisto: termin '${g.termi}' viikko ${g.viikko} ei ole työviikko`);
+});
+const termiDupes = termisto.map((g) => String(g.termi || "").toLowerCase()).filter((k, i, a) => a.indexOf(k) !== i);
+if (termiDupes.length) err(`termisto: termi toistuu: ${[...new Set(termiDupes)].join(", ")}`);
+const hasTermitView = /<section class="view" data-view="termit"/.test(html);
+const hasTermistoHolder = html.includes("data-termisto");
+if (termisto.length && (!hasTermitView || !hasTermistoHolder)) err('index.html: sisalto.js:ssä on termisto, mutta näkymä data-view="termit" tai [data-termisto] puuttuu');
+if (!termisto.length && (hasTermitView || hasTermistoHolder)) warn("index.html: sanastonäkymä on olemassa, mutta sisalto.js:n termisto on tyhjä");
+workWeeks.forEach((w) => {
+  (P.viikkoOhjeet[w]?.termit || []).forEach((k) => {
+    if (!termiAvaimet.has(String(k).toLowerCase())) err(`viikko ${w}: termit-listan '${k}' puuttuu termistosta`);
+  });
+});
+
+/* Opiskelijalle näkyvä teksti lohkoina lukujärjestyksessä. */
+const stripHtml = (s) => s.replace(/<!--[\s\S]*?-->/g, "").replace(/<[^>]+>/g, " ").replace(/&amp;/g, "&").replace(/&nbsp;/g, " ").replace(/\s+/g, " ");
+const viewBlock = (name) => {
+  const m = html.match(new RegExp(`<section class="view" data-view="${name}"[\\s\\S]*?<\\/section>\\s*(?=<!--|<section class="view"|<\\/main>)`));
+  return m ? stripHtml(m[0]) : "";
+};
+const stringsOf = (v, out = []) => {
+  if (typeof v === "string") out.push(v);
+  else if (Array.isArray(v)) v.forEach((x) => stringsOf(x, out));
+  else if (v && typeof v === "object") Object.values(v).forEach((x) => stringsOf(x, out));
+  return out;
+};
+let planText = "";
+try { planText = P.suunnitelma?.markdown ? P.suunnitelma.markdown({ arvo: () => "", onTäytetty: () => false, raaka: {}, pvm: "" }) : ""; } catch (_) { /* raportoitu kohdassa 7 */ }
+const lohkot = [
+  { nimi: "Näin käytät sivua", teksti: viewBlock("kaytto") },
+  { nimi: "Toimeksianto", teksti: viewBlock("toimeksianto") },
+  { nimi: "Työtapa", teksti: viewBlock("tyotapa") },
+  { nimi: "Suunnitelma", teksti: `${viewBlock("suunnitelma")} ${planText}` },
+  ...workWeeks.map((w) => {
+    const card = html.match(new RegExp(`<article class="week-card" id="week-${w}"[\\s\\S]*?<\\/article>`));
+    const g = P.viikkoOhjeet[w] || {};
+    const guideText = stringsOf({ ...g, termit: undefined }).join(" ");
+    return { nimi: `viikko ${w}`, viikko: w, teksti: `${card ? stripHtml(card[0]) : ""} ${guideText}`, termit: (g.termit || []).map((k) => String(k).toLowerCase()) };
+  })
+];
+const muuTeksti = ["galleria", "paivakirja", "ailoki", "naytto"].map(viewBlock).join(" ")
+  + " " + stringsOf({ tekstit: P.tekstit, lataukset: P.lataukset, paivakirja: P.paivakirja, kehykset: P.kehykset, viikkoNimet: P.viikkoNimet, vaiheet: P.vaiheet }).join(" ");
+const kaikkiTeksti = lohkot.map((l) => l.teksti).join(" ") + " " + muuTeksti;
+
+/* Riskitermiperheet. `re` löytää käytön, `termi` tarkistaa sanaston,
+   `maarittely` hyväksyy ensimmäisen käytön samassa lohkossa. */
+const A = (acr, maarittely) => ({
+  nimi: acr, re: new RegExp(`(?<![\\w-])${acr}(?![\\w])`, "g"), termi: (k) => k === acr.toLowerCase(),
+  maarittely: maarittely || new RegExp(`\\(${acr}\\)|${acr}\\)|${acr}\\s*[=:]|${acr}\\s+(?:eli|tarkoittaa|on|means|is|stands for)\\b`, "i"),
+  vakava: false
+});
+const PERHEET = [
+  { nimi: "testitapaustunnus (T01…)", re: /(?<![\w-])T\d{2}(?![\w])/g, termi: (k) => /^t\d{2}/.test(k), maarittely: /testitapau|test case|numbered test|numeroi/i, vakava: true },
+  { nimi: "P0", re: /(?<![\w-])P0(?![\w])/g, termi: (k) => k === "p0", maarittely: /P0\)|\(P0|P0\s*(?:=|eli|tarkoittaa|on|means|is)|pakollinen ydin|must-have|minimum content|pakollinen perus/i, vakava: true },
+  { nimi: "P1", re: /(?<![\w-])P1(?![\w])/g, termi: (k) => k === "p1", maarittely: /P1\)|\(P1|P1\s*(?:=|eli|tarkoittaa|on|means|is)/i, vakava: true },
+  { nimi: "P2", re: /(?<![\w-])P2(?![\w])/g, termi: (k) => k === "p2", maarittely: /P2\)|\(P2|P2\s*(?:=|eli|tarkoittaa|on|means|is)/i, vakava: true },
+  { nimi: "RC (release candidate)", re: /(?<![\w-])RC\d?(?![\w])/g, termi: (k) => /^rc/.test(k), maarittely: /release candidate|julkaisuehdok/i, vakava: true },
+  { nimi: "PR (pull request)", re: /(?<![\w-])PR(?![\w])/g, termi: (k) => k === "pr" || k === "pull request", maarittely: /pull request/i, vakava: false,
+    huomio: "jos pull requestit eivät kuulu projektin työtapaan, poista PR esimerkeistä" },
+  A("MVP", /minimum viable product/i), A("GDD", /game design document/i), A("DFS", /depth-first/i),
+  A("API"), A("CDN"), A("CSV"), A("JSON"), A("JWT"), A("CRUD"), A("REST"), A("SQL"), A("SPA"), A("DOM"), A("ORM"), A("WebGL"), A("UI"), A("UX"), A("CI")
+];
+PERHEET.forEach((f) => {
+  const kaytto = kaikkiTeksti.match(f.re);
+  if (!kaytto) return;
+  const sanastossa = [...termiAvaimet].some(f.termi);
+  const raportoi = f.vakava ? err : warn;
+  if (!sanastossa) {
+    raportoi(`termistö: '${f.nimi}' esiintyy ${kaytto.length}× opiskelijalle näkyvässä tekstissä, mutta ei ole sanastossa (P.termisto)${f.huomio ? ` — ${f.huomio}` : ""}`);
+  }
+  const eka = lohkot.find((l) => f.re.test(l.teksti) && (f.re.lastIndex = 0, true));
+  f.re.lastIndex = 0;
+  if (!eka) return; // vain viitenäkymissä (matriisi, päiväkirja tms.)
+  const selitetty = f.maarittely.test(eka.teksti) || (eka.termit || []).some(f.termi);
+  if (!selitetty) {
+    raportoi(`termistö: '${f.nimi}' tulee ensimmäisen kerran vastaan lohkossa "${eka.nimi}" ilman selitystä — selitä samassa kohdassa${eka.viikko ? ` tai lisää se viikon ${eka.viikko} termit-listaan` : ""}`);
+  }
+});
+
 /* ---------- tulos ---------- */
 const total = allTaskIds.length;
 const matriisiOsa = matrixUsed

@@ -50,7 +50,10 @@ const L_OLETUS = {
   viimeisetPaivatOtsikko: "Viimeiset viisi päivää",
   matriisiOtsikko: (n) => `Näyttömatriisi – ${n} osaamisvaatimusta`,
   matriisiJohdanto: "Rasti vasta, kun vaatimukselle on täsmällinen työnäyte: linkki, commit, kuva, testirivi tai muistio. Sama työnäyte voi kelvata useaan kohtaan.",
-  selainHuomio: "Muista: sivuston rastit ja kentät tallentuvat vain selaimeen. Ne eivät siirry opettajalle eivätkä korvaa Gitissä olevaa työtä."
+  selainHuomio: "Muista: sivuston rastit ja kentät tallentuvat vain selaimeen. Ne eivät siirry opettajalle eivätkä korvaa Gitissä olevaa työtä.",
+  sanastoOtsikko: "Sanasto",
+  sanastoJohdanto: "Projektin tunnukset ja ammattitermit siinä järjestyksessä, jossa ne tulevat vastaan. Jokainen on selitetty myös sivustolla ensimmäisen käytön kohdalla.",
+  sanastoViikko: (w) => `vko ${w}`
 };
 const L = Object.assign({}, L_OLETUS, P.lataukset || {});
 const lt = (key, ...args) => {
@@ -217,6 +220,19 @@ if (tpViimeisetPaivat.length) {
   tp.push(pageBreak());
   tp.push(h1(lt("viimeisetPaivatOtsikko")));
   tpViimeisetPaivat.forEach(([d, t], i) => tp.push(p(`${d}  ·  ${t}`, { bold: i === tpViimeisetPaivat.length - 1, after: 80 })));
+}
+
+/* Sanasto samasta sisalto.js:n termisto-kentästä kuin sivustolla. */
+const glossary = (Array.isArray(P.termisto) ? P.termisto : []).filter((g) => g && g.termi);
+if (glossary.length) {
+  tp.push(pageBreak());
+  tp.push(h1(lt("sanastoOtsikko")));
+  tp.push(p(lt("sanastoJohdanto"), { color: GREY }));
+  const gw = widths([22, 78]);
+  tp.push(table(gw, glossary.map((g) => new TableRow({ children: [
+    cell(`${g.termi}${g.viikko != null ? `\n${lt("sanastoViikko", g.viikko)}` : ""}`, { w: gw[0], bold: true, fill: TINT2 }),
+    cell(`${g.nimi ? `${g.nimi}. ` : ""}${g.selite || ""}`, { w: gw[1] }),
+  ]}))));
 }
 
 if (matrices.length) {
@@ -472,6 +488,11 @@ H.push(`</table>${tpDeadline ? `<p class="muted">${esc(lt("palautusHuomio", tpDe
 if (tpViimeisetPaivat.length) {
   H.push(`<h1 class="page">${esc(lt("viimeisetPaivatOtsikko"))}</h1>`);
   tpViimeisetPaivat.forEach(([d, t]) => H.push(`<p class="task"><strong>${esc(d)}</strong> · ${esc(t)}</p>`));
+}
+if (glossary.length) {
+  H.push(`<h1 class="page">${esc(lt("sanastoOtsikko"))}</h1><p class="muted">${esc(lt("sanastoJohdanto"))}</p><table>`);
+  glossary.forEach((g) => H.push(`<tr><td style="width:24%"><strong>${esc(g.termi)}</strong>${g.viikko != null ? `<br><span class="muted">${esc(lt("sanastoViikko", g.viikko))}</span>` : ""}</td><td>${g.nimi ? `<em>${esc(g.nimi)}.</em> ` : ""}${esc(g.selite || "")}</td></tr>`));
+  H.push(`</table>`);
 }
 if (matrices.length) {
   H.push(`<h1 class="page">${esc(lt("matriisiOtsikko", requirementCount))}</h1><p class="muted">${esc(lt("matriisiJohdanto"))}</p>`);

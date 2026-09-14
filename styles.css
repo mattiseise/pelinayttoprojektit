@@ -438,3 +438,22 @@ figure.view-figure figcaption strong { color: var(--ink); display: block; margin
   .app-shell { display: block; }
   .view[hidden] { display: block; }
 }
+
+/* ---- Sanasto (data-view="termit") ja viikon uudet termit (.week-terms) ----
+   Renderöidään app.js:stä sisalto.js:n `termisto`-kentästä. Näkyvä teksti,
+   ei tooltip: merkityksen pitää olla luettavissa myös ruudunlukijalla. */
+.glossary { margin: 0; display: grid; gap: 0; }
+.glossary-item { display: grid; grid-template-columns: minmax(110px, 170px) 1fr; gap: 4px 18px; padding: 14px 0; border-top: 1px solid var(--line-soft); }
+.glossary-item:first-child { border-top: 0; padding-top: 0; }
+.glossary dt { margin: 0; display: flex; flex-direction: column; gap: 2px; }
+.glossary-term { font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; font-size: .95rem; font-weight: 700; color: var(--accent-dark); }
+.glossary-name { font-size: 12px; color: var(--meta); }
+.glossary dd { margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--ink); }
+.glossary-week { display: inline-block; margin-left: .45em; font-size: 12px; color: var(--meta); border: 1px solid var(--line); border-radius: var(--radius-pill); padding: 0 .55em; white-space: nowrap; }
+.glossary-week:hover { color: var(--accent-dark); border-color: var(--line-hover); text-decoration: none; }
+.week-terms { margin-top: 18px; padding: 14px 18px 10px; background: var(--card-bg); border: 1px solid var(--line); border-radius: var(--radius-card); }
+.week-terms-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 4px; }
+.week-terms-head a { font-size: 12px; white-space: nowrap; }
+.glossary-compact .glossary-item { padding: 9px 0; }
+.glossary-compact .glossary-item:first-child { padding-top: 6px; }
+@media (max-width: 640px) { .glossary-item { grid-template-columns: 1fr; gap: 2px; } }

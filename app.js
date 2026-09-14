@@ -8,6 +8,10 @@
  *
  * Rakenne, jota tämä moottori odottaa index.html:ltä, on kuvattu tarkasti
  * tiedostossa /root/work/layout-rakenne.md (tämän layoutuudistuksen pilotti).
+ *
+ * v2.1: sanasto. sisalto.js:n `termisto` renderöidään näkymään
+ * data-view="termit" ([data-termisto]) ja viikon `termit`-lista viikkokortin
+ * "Uudet termit tällä viikolla" -laatikkoon. Ks. skillin references/sisalto-spec.md.
  */
 (function () {
   "use strict";
@@ -96,7 +100,14 @@
     logReferencePrefix: "Aineisto:",
     logRemoveAria: "Poista lokimerkintä",
     logRemove: "Poista",
-    resetConfirm: (plan, files) => `Nollataanko tehtävät, projektipäiväkirja${plan}, rastit ja AI-loki tästä selaimesta? Lataa projektipäiväkirja${files} ensin, jos haluat säilyttää vastaukset.`
+    resetConfirm: (plan, files) => `Nollataanko tehtävät, projektipäiväkirja${plan}, rastit ja AI-loki tästä selaimesta? Lataa projektipäiväkirja${files} ensin, jos haluat säilyttää vastaukset.`,
+    /* Sanasto (P.termisto) ja viikon uudet termit (viikkoOhjeet[w].termit). */
+    glossaryWeekLabel: "Uudet termit tällä viikolla",
+    glossaryWeekLink: "Koko sanasto →",
+    glossaryWeekChip: (w) => `viikko ${w}`,
+    glossaryWeekChipAria: (w) => `Termi tulee vastaan ensimmäisen kerran viikolla ${w}`,
+    glossaryCount: (n) => `${n} termiä`,
+    glossaryEmpty: "Tässä projektissa ei ole erillistä sanastoa."
   };
   const UI = Object.assign({}, UI_OLETUS, P.tekstit || {});
   const t = (key, ...args) => {
@@ -136,7 +147,34 @@
     catch (_) { /* Sivusto toimii myös ilman pysyvää tallennusta. */ }
   }
 
-  const VALID_VIEWS = ["kaytto", "toimeksianto", "tyotapa", "galleria", "viikko", "suunnitelma", "paivakirja", "ailoki", "naytto"];
+  const VALID_VIEWS = ["kaytto", "toimeksianto", "tyotapa", "termit", "galleria", "viikko", "suunnitelma", "paivakirja", "ailoki", "naytto"];
+
+  /* ---------- sanasto ----------
+   * P.termisto = [{ termi, nimi, selite, viikko? }, …]. Projektikohtainen: vain
+   * termit, joita tämä projekti oikeasti käyttää. Sanasto täydentää ensimmäisen
+   * käytön selitystä tekstissä, ei korvaa sitä (ks. skillin pedagoginen sääntö).
+   */
+  const glossary = (Array.isArray(P.termisto) ? P.termisto : []).filter((g) => g && g.termi);
+  const glossaryByTerm = new Map(glossary.map((g) => [String(g.termi).toLowerCase(), g]));
+  const glossaryId = (termi) => `termi-${String(termi).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`;
+
+  function glossaryItemHtml(g, opts = {}) {
+    const chip = opts.weekChip && g.viikko != null
+      ? ` <a class="glossary-week" href="#week-${escapeText(g.viikko)}" aria-label="${escapeText(t("glossaryWeekChipAria", g.viikko))}">${escapeText(t("glossaryWeekChip", g.viikko))}</a>`
+      : "";
+    return `<div class="glossary-item"${opts.withId ? ` id="${glossaryId(g.termi)}"` : ""}>
+        <dt><span class="glossary-term">${escapeText(g.termi)}</span>${g.nimi ? `<span class="glossary-name">${escapeText(g.nimi)}</span>` : ""}</dt>
+        <dd>${escapeText(g.selite || "")}${chip}</dd>
+      </div>`;
+  }
+
+  function renderGlossary() {
+    document.querySelectorAll("[data-glossary-count]").forEach((el) => { el.textContent = glossary.length ? t("glossaryCount", glossary.length) : ""; });
+    const holder = document.querySelector("[data-termisto]");
+    if (!holder) return;
+    if (!glossary.length) { holder.innerHTML = `<p class="empty-state">${escapeText(t("glossaryEmpty"))}</p>`; return; }
+    holder.innerHTML = glossary.map((g) => glossaryItemHtml(g, { weekChip: true, withId: true })).join("");
+  }
   const weekCardEls = [...document.querySelectorAll(".view[data-view='viikko'] .week-card, .view[data-view='viikko'] .holiday-card")];
   const taskWeekCards = [...document.querySelectorAll(".view[data-view='viikko'] .week-card")];
 
@@ -189,6 +227,28 @@
       skills.querySelector("[data-skills-label]").textContent = framing.skillsLabel || t("skillsLabel");
       fillList(skills.querySelector("[data-skills-list]"), guide.skills, (s) => `<li>${escapeText(s)}</li>`);
       skills.hidden = false;
+    }
+
+    /* Viikon uudet termit: sisalto.js:n viikkoOhjeet[w].termit = ["P0", "T01"].
+       Laatikko luodaan tarvittaessa, jotta vanhat index.html:t eivät tarvitse
+       paikanpitäjää. Se näytetään heti kärjen ja tekniikkatagien jälkeen, ennen
+       tehtäviä — termi opitaan ennen kuin sitä tarvitaan. */
+    const termKeys = (guide.termit || []).map((k) => String(k).toLowerCase());
+    const termItems = termKeys.map((k) => glossaryByTerm.get(k)).filter(Boolean);
+    if (termItems.length) {
+      let box = card.querySelector("[data-week-terms]");
+      if (!box) {
+        box = document.createElement("section");
+        box.className = "week-terms";
+        box.setAttribute("data-week-terms", "");
+        const anchor = card.querySelector("[data-week-skills]") || card.querySelector("[data-week-why]") || card.querySelector("[data-week-kicker]");
+        if (anchor) anchor.insertAdjacentElement("afterend", box);
+        else card.querySelector(".view-section")?.insertAdjacentElement("beforebegin", box);
+      }
+      box.setAttribute("aria-label", t("glossaryWeekLabel"));
+      box.innerHTML = `<div class="week-terms-head"><p class="section-label">${escapeText(t("glossaryWeekLabel"))}</p><a href="#view-termit">${escapeText(t("glossaryWeekLink"))}</a></div>
+        <dl class="glossary glossary-compact">${termItems.map((g) => glossaryItemHtml(g)).join("")}</dl>`;
+      box.hidden = false;
     }
 
     const steps = guide.steps || [];
@@ -692,6 +752,7 @@
   updateEvidence();
   renderLog();
   updateGallery();
+  renderGlossary();
   render();
   updateHash();
   window.addEventListener("resize", () => { if (window.matchMedia("(min-width: 861px)").matches) closeMobileSidebar(); });
