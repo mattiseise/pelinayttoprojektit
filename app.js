@@ -9,6 +9,7 @@
  * Rakenne, jota tämä moottori odottaa index.html:ltä, on kuvattu tarkasti
  * tiedostossa /root/work/layout-rakenne.md (tämän layoutuudistuksen pilotti).
  *
+ * v2.2: takahipsut sisältötekstissä → <code>; välilehden otsikko seuraa valittua viikkoa.
  * v2.1: sanasto. sisalto.js:n `termisto` renderöidään näkymään
  * data-view="termit" ([data-termisto]) ja viikon `termit`-lista viikkokortin
  * "Uudet termit tällä viikolla" -laatikkoon. Ks. skillin references/sisalto-spec.md.
@@ -138,6 +139,11 @@
     return div.innerHTML;
   }
 
+  /* Sisältötekstin takahipsut `näin` → <code>näin</code>. Kaikki muu escapataan. */
+  function richText(value) {
+    return escapeText(value).replace(/`([^`\n]+)`/g, "<code>$1</code>");
+  }
+
   function readStorage(key, fallback) {
     try { return JSON.parse(localStorage.getItem(key)) ?? fallback; }
     catch (_) { return fallback; }
@@ -164,7 +170,7 @@
       : "";
     return `<div class="glossary-item"${opts.withId ? ` id="${glossaryId(g.termi)}"` : ""}>
         <dt><span class="glossary-term">${escapeText(g.termi)}</span>${g.nimi ? `<span class="glossary-name">${escapeText(g.nimi)}</span>` : ""}</dt>
-        <dd>${escapeText(g.selite || "")}${chip}</dd>
+        <dd>${richText(g.selite || "")}${chip}</dd>
       </div>`;
   }
 
@@ -198,7 +204,7 @@
     const kicker = card.querySelector("[data-week-kicker]");
     if (kicker) {
       kicker.querySelector("[data-week-kicker-label]").textContent = framing.kicker || t("weekKickerFallback");
-      kicker.querySelector("[data-week-kicker-text]").textContent = guide.feature || "";
+      kicker.querySelector("[data-week-kicker-text]").innerHTML = richText(guide.feature || "");
       kicker.hidden = false;
     }
 
@@ -210,15 +216,15 @@
 
     const connection = card.querySelector("[data-week-connection]");
     if (connection) {
-      connection.innerHTML = `<strong>${escapeText(framing.connectionLabel || t("connectionLabel"))}</strong> ${escapeText(guide.connection || "")}`;
+      connection.innerHTML = `<strong>${escapeText(framing.connectionLabel || t("connectionLabel"))}</strong> ${richText(guide.connection || "")}`;
       connection.hidden = false;
     }
 
     const whyGrid = card.querySelector("[data-week-why]");
     if (whyGrid) {
       whyGrid.querySelector("[data-why-deliverable-label]").textContent = framing.deliverableLabel || t("deliverableLabel");
-      whyGrid.querySelector("[data-why-deliverable-text]").textContent = guide.deliverable || "";
-      whyGrid.querySelector("[data-why-why-text]").textContent = guide.why || "";
+      whyGrid.querySelector("[data-why-deliverable-text]").innerHTML = richText(guide.deliverable || "");
+      whyGrid.querySelector("[data-why-why-text]").innerHTML = richText(guide.why || "");
       whyGrid.hidden = false;
     }
 
@@ -272,9 +278,9 @@
       help.querySelector("[data-help-content]").innerHTML = `
         <p style="font-size:13px;color:var(--muted)"><small>${escapeText(h.title || "")}</small></p>
         <div><p class="help-label">${escapeText(t("helpTreeLabel"))}</p><pre><code>${escapeText(h.tree)}</code></pre></div>
-        <div><p class="help-label">${escapeText(t("helpActionsLabel"))}</p><ol>${(h.actions || []).map((a) => `<li>${escapeText(a)}</li>`).join("")}</ol></div>
+        <div><p class="help-label">${escapeText(t("helpActionsLabel"))}</p><ol>${(h.actions || []).map((a) => `<li>${richText(a)}</li>`).join("")}</ol></div>
         <div><p class="help-label">${escapeText(t("helpCodeLabel"))}</p><pre><code>${escapeText(h.code)}</code></pre></div>
-        <p class="impl-help-test"><strong>${escapeText(t("helpTestLabel"))}</strong> ${escapeText(h.test)}</p>
+        <p class="impl-help-test"><strong>${escapeText(t("helpTestLabel"))}</strong> ${richText(h.test)}</p>
         ${helpImages}${helpLinks}
         <p class="impl-help-note" style="font-size:12px;color:var(--meta)">${escapeText(t("helpNote"))}</p>`;
       help.hidden = false;
@@ -284,15 +290,15 @@
     if (days && (guide.paivat || []).length) {
       days.querySelector(".section-label").textContent = t("dayRhythmLabel");
       fillList(days.querySelector("[data-day-grid]"), guide.paivat, ([nimi, teksti], i) =>
-        `<div class="card"><div class="day-n">${escapeText(t("dayLabel", i + 1))}</div><strong>${escapeText(nimi)}</strong><p>${escapeText(teksti)}</p></div>`);
+        `<div class="card"><div class="day-n">${escapeText(t("dayLabel", i + 1))}</div><strong>${escapeText(nimi)}</strong><p>${richText(teksti)}</p></div>`);
       days.hidden = false;
     }
 
     const checkpoint = card.querySelector(".checkpoint");
-    if (checkpoint) checkpoint.textContent = guide.done || "";
+    if (checkpoint) checkpoint.innerHTML = richText(guide.done || "");
 
     const record = card.querySelector("[data-journal-record]");
-    if (record) record.innerHTML = `<strong>${escapeText(t("journalRecordPrefix"))}</strong> ${escapeText(guide.record || "")}`;
+    if (record) record.innerHTML = `<strong>${escapeText(t("journalRecordPrefix"))}</strong> ${richText(guide.record || "")}`;
   }
 
   function buildWeekPager(card) {
@@ -402,7 +408,9 @@
     document.querySelectorAll(".view").forEach((el) => { el.hidden = el.dataset.view !== state.view; });
     weekCardEls.forEach((el) => { el.hidden = Number(el.dataset.week) !== state.week; });
     syncNavActive();
-    const h1 = document.querySelector(`.view[data-view="${state.view}"] h1`);
+    const h1 = state.view === "viikko"
+      ? document.querySelector(`.view[data-view="viikko"] [data-week="${state.week}"] h1`)
+      : document.querySelector(`.view[data-view="${state.view}"] h1`);
     if (h1) document.title = `${h1.textContent.trim()} – ${P.nimi}`;
   }
 
