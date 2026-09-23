@@ -5,6 +5,12 @@
  * Geneerinen generaattori. Kaikki teksti tulee sisalto.js:stä ja index.html:stä,
  * jotta paperiversio pysyy sivuston kanssa synkassa. Tähän tiedostoon ei
  * kirjoiteta projektikohtaista sisältöä.
+ *
+ * v2.4: jos sisalto.js:ssä on `teema`, työpaketti tehdään kahtena:
+ *   tyopaketti-print.html   → <slug>-tyopaketti.pdf          näytölle, opiskelijan teemassa
+ *   tyopaketti-tuloste.html → <slug>-tyopaketti-tuloste.pdf  tulostettava: vaalea tausta, isokirjainen
+ * ja työpaketin docx on isokirjainen (sama perusfonttikoko). Opettajan
+ * aineisto (näyttösuunnitelma, dokumentointipohjat) pysyy normaalina.
  */
 const fs = require("fs");
 const path = require("path");
@@ -116,22 +122,31 @@ const GREY = "555555";
 const PAGE = { size: { width: 11906, height: 16838 }, margin: { top: 1134, bottom: 1134, left: 1134, right: 1134 } };
 const CW = 11906 - 2 * 1134; // sisältöleveys DXA
 
+/* v2.4: isokirjainen työpaketti, kun projektilla on teema. `iso` on päällä vain
+   työpaketin rakentamisen ajan; opettajan aineisto rakennetaan normaalina. */
+const TEEMA = P.teema && typeof P.teema === "object" ? P.teema : null;
+const TULOSTE = Object.assign({ tausta: "#ffffff", teksti: "#000000", otsikot: "#000000", koko: 18 }, (TEEMA && TEEMA.tuloste) || {});
+const ISO = { font: String((TEEMA && TEEMA.fontti) || "Arial").split(",")[0].replace(/["']/g, "").trim() || "Arial", half: Math.round(Number(TULOSTE.koko) * 2) || 36, ink: String(TULOSTE.teksti).replace("#", "") };
+let iso = false;
+const sz = (half) => (iso ? Math.max(ISO.half, Math.round(half * ISO.half / 21)) : half);
+const col = (c) => (iso && c ? (c === ACCENT ? String(TULOSTE.otsikot).replace("#", "") : ISO.ink) : c);
+
 const p = (text, opts = {}) => new Paragraph({
-  children: [new TextRun({ text, size: opts.size || 21, bold: opts.bold, italics: opts.italics, color: opts.color })],
-  spacing: { after: opts.after ?? 120, before: opts.before ?? 0 },
+  children: [new TextRun({ text, size: sz(opts.size || 21), bold: opts.bold, italics: iso ? false : opts.italics, color: col(opts.color), font: iso ? ISO.font : undefined })],
+  spacing: { after: opts.after ?? 120, before: opts.before ?? 0, line: iso ? 384 : undefined },
   alignment: opts.align,
 });
-const h1 = (text) => new Paragraph({ heading: HeadingLevel.HEADING_1, children: [new TextRun({ text, color: ACCENT, bold: true })], spacing: { before: 320, after: 160 } });
-const h2 = (text, color = ACCENT) => new Paragraph({ heading: HeadingLevel.HEADING_2, children: [new TextRun({ text, color, bold: true })], spacing: { before: 260, after: 120 } });
+const h1 = (text) => new Paragraph({ heading: HeadingLevel.HEADING_1, children: [new TextRun({ text, color: col(ACCENT), bold: true, size: iso ? Math.round(ISO.half * 1.5) : undefined, font: iso ? ISO.font : undefined })], spacing: { before: 320, after: 160 } });
+const h2 = (text, color = ACCENT) => new Paragraph({ heading: HeadingLevel.HEADING_2, children: [new TextRun({ text, color: col(color), bold: true, size: iso ? Math.round(ISO.half * 1.25) : undefined, font: iso ? ISO.font : undefined })], spacing: { before: 260, after: 120 } });
 const box = (text) => p("☐  " + text, { after: 80 });
 const pageBreak = () => new Paragraph({ children: [new PageBreak()] });
 
 function cell(text, { w, bold, fill, size = 19, color } = {}) {
   return new TableCell({
     width: { size: w, type: WidthType.DXA },
-    shading: fill ? { type: ShadingType.CLEAR, fill } : undefined,
+    shading: fill && !iso ? { type: ShadingType.CLEAR, fill } : undefined,
     margins: { top: 60, bottom: 60, left: 100, right: 100 },
-    children: [new Paragraph({ children: [new TextRun({ text, bold, size, color })], spacing: { after: 0 } })],
+    children: [new Paragraph({ children: [new TextRun({ text, bold, size: sz(size), color: col(color), font: iso ? ISO.font : undefined })], spacing: { after: 0 } })],
   });
 }
 function table(colWidths, rows) {
@@ -168,6 +183,7 @@ const tpKansiHuomiot = L.kansiHuomiot || O.kansiHuomiot || [];
 const tpViimeisetPaivat = L.viimeisetPaivat || O.viimeisetPaivat || [];
 
 /* ---------- 1. Työpaketti ---------- */
+iso = Boolean(TEEMA);
 const tp = [];
 tp.push(new Paragraph({ children: [new TextRun({ text: P.nimi, size: 72, bold: true, color: ACCENT })], spacing: { before: 2400, after: 200 }, alignment: AlignmentType.CENTER }));
 tp.push(p(lt("tyopakettiOtsikko"), { size: 28, align: AlignmentType.CENTER, after: 60 }));
@@ -245,6 +261,7 @@ if (matrices.length) {
   });
 }
 tp.push(p(lt("selainHuomio"), { before: 240, italics: true, color: GREY }));
+iso = false;
 
 /* ---------- 2. Ideapankki (valinnainen) ---------- */
 const bank = O.ideapankki;
@@ -419,9 +436,9 @@ if (NS.kohde) {
 }
 
 /* ---------- Tallennus ---------- */
-async function saveDoc(name, children) {
+async function saveDoc(name, children, large = false) {
   const doc = new Document({
-    styles: { default: { document: { run: { font: "Calibri", size: 21 } } } },
+    styles: { default: { document: { run: large ? { font: ISO.font, size: ISO.half } : { font: "Calibri", size: 21 } } } },
     sections: [{ properties: { page: PAGE }, children }],
   });
   const buf = await Packer.toBuffer(doc);
@@ -430,17 +447,21 @@ async function saveDoc(name, children) {
 }
 
 (async () => {
-  await saveDoc(`${P.slug}-tyopaketti.docx`, tp);
+  await saveDoc(`${P.slug}-tyopaketti.docx`, tp, Boolean(TEEMA));
   if (ti.length) await saveDoc(`${bank.tiedosto || "ideapankki"}.docx`, ti);
   await saveDoc(L.dokumentointipohjatTiedosto || "nayton-dokumentointipohjat.docx", dp);
   if (ns.length) await saveDoc(NS.tiedosto || "nayttosuunnitelma.docx", ns);
 })();
 
-/* ---------- Print-HTML samasta datasta (Chrome headless → PDF) ---------- */
+/* ---------- Print-HTML samasta datasta (Chrome headless → PDF) ----------
+   Tyylit: "oletus" (kuten ennen), "teema" (näytölle opiskelijan teemassa) ja
+   "tuloste" (vaalea tausta, isokirjainen). Kaksi jälkimmäistä vain, kun
+   sisalto.js:ssä on teema. Sisältö on kaikissa sama. */
 function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;"); }
-const H = [];
-H.push(`<!doctype html><html lang="${esc(lt("lang"))}"><head><meta charset="utf-8"><title>${esc(P.nimi)} – ${esc(lt("tyopakettiTiedostoOtsikko"))}</title><style>
-@page { size: A4; margin: 16mm; }
+
+function printCss(style) {
+  if (style === "oletus") {
+    return `@page { size: A4; margin: 16mm; }
 body { font-family: -apple-system, 'Segoe UI', sans-serif; font-size: 10pt; line-height: 1.45; color: #1a1a1a; margin: 0; }
 h1 { color: #${ACCENT}; font-size: 17pt; margin: 0 0 8pt; page-break-after: avoid; }
 h2 { color: #${ACCENT}; font-size: 12pt; margin: 14pt 0 5pt; page-break-after: avoid; }
@@ -457,51 +478,95 @@ th { background: #${TINT}; }
 .ev { color: #555; font-size: 9pt; margin: 2pt 0 0; }
 .page { page-break-before: always; }
 .muted { color: #555; }
-.item { font-size: 9pt; margin: 2pt 0; }
+.item { font-size: 9pt; margin: 2pt 0; }`;
+  }
+  /* Teema ja tuloste: sama perusfonttikoko, ei kursiivia, ei pienempää tekstiä. */
+  const T = TEEMA || {};
+  const c = style === "teema"
+    ? { bg: T.tausta || "#000000", ink: T.teksti || "#ffffff", head: T.otsikot || T.teksti || "#ffffff" }
+    : { bg: TULOSTE.tausta, ink: TULOSTE.teksti, head: TULOSTE.otsikot };
+  const koko = `${Number(TULOSTE.koko) || 18}pt`;
+  const font = T.fontti || "Arial, sans-serif";
+  return `@page { size: A4; margin: ${style === "teema" ? "0" : "14mm"}; }
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; background: ${c.bg}; }
+body { font-family: ${font}; font-size: ${koko}; line-height: ${T.rivikorkeus || 1.6}; letter-spacing: ${T.kirjainvali || "1px"}; word-spacing: ${T.sanavali || "0.3rem"};
+  color: ${c.ink}; background: ${c.bg}; margin: 0; ${style === "teema" ? "padding: 14mm;" : ""} }
+* { font-style: normal !important; }
+h1 { color: ${c.head}; font-size: 1.5em; line-height: 1.2; margin: 0 0 .5em; page-break-after: avoid; }
+h2 { color: ${c.head}; font-size: 1.2em; line-height: 1.25; margin: 1em 0 .35em; page-break-after: avoid; }
+p { margin: 0 0 .4em; max-width: 60ch; }
+.cover { padding-top: 40mm; page-break-after: always; }
+.cover h1 { font-size: 2.2em; }
+table { border-collapse: collapse; width: 100%; margin: .4em 0; }
+tr { page-break-inside: avoid; }
+td, th { border: 2px solid ${c.ink}; padding: .25em .4em; text-align: left; vertical-align: top; font-size: 1em; }
+th { font-weight: 700; }
+.wk { margin-bottom: .8em; padding-bottom: .4em; border-bottom: 2px solid ${c.ink}; }
+.feature { margin: 0 0 .3em; }
+.task { margin: .2em 0; }
+.done, .ev { margin: .3em 0 0; }
+.page { page-break-before: always; }
+.muted, .item { }
+strong { font-weight: 700; }`;
+}
+
+function printHtml(style) {
+  const H = [];
+  H.push(`<!doctype html><html lang="${esc(lt("lang"))}"><head><meta charset="utf-8"><title>${esc(P.nimi)} – ${esc(lt("tyopakettiTiedostoOtsikko"))}</title><style>
+${printCss(style)}
 </style></head><body>`);
-H.push(`<div class="cover"><h1>${esc(P.nimi)}</h1><p style="font-size:14pt">${esc(lt("tyopakettiOtsikko"))}</p><p>${esc(tpKansiKuvaus || "")}</p><p style="font-size:12pt"><strong>${esc(tpJakso)}${tpDeadline ? ` · ${esc(lt("luovutus", tpDeadline))}` : ""}</strong></p><p style="max-width:120mm;margin:18pt auto 0">${esc(lt("kansiJohdanto"))}</p>${tpKansiHuomiot.map((n) => `<p style="max-width:120mm;margin:10pt auto 0">${esc(n)}</p>`).join("")}</div>`);
-H.push(`<h1>${esc(lt("aikatauluLyhyt"))}</h1><table><tr><th>${esc(lt("sarakeViikko"))}</th><th>${esc(lt("sarakePvm"))}</th><th>${esc(lt("sarakeAihe"))}</th><th>${esc(lt("sarakeVaihe"))}</th></tr>`);
-walkWeeks(
-  (wk, g, phase) => H.push(`<tr><td><strong>${wk.num}</strong></td><td>${esc(wk.dates)}</td><td>${esc(wk.title)}</td><td>${phase ? esc(phase.tunnus) : "–"}</td></tr>`),
-  (num, hol) => H.push(`<tr><td>${num}</td><td>${esc(hol.dates)}</td><td>${esc(lt("eiProjektityota", hol.title))}</td><td>–</td></tr>`)
-);
-H.push(`</table>${tpDeadline ? `<p class="muted">${esc(lt("palautusHuomio", tpDeadline))}</p>` : ""}`);
-(P.vaiheet || []).forEach((phase) => {
-  H.push(`<h1 class="page">${esc(lt("vaiheOtsikko", phase.tunnus, phase.otsikko))}</h1>`);
-  phase.viikot.forEach((num) => {
-    if (holidays[num]) {
-      const hol = holidays[num];
-      H.push(`<div class="wk"><h2>${esc(lt("viikkoOtsikko", num, hol.dates, hol.title))}</h2><p>${esc(hol.text)}</p></div>`);
-      return;
-    }
-    const wk = weeks.find((w) => w.num === num);
-    if (!wk) return;
-    const g = P.viikkoOhjeet[num] || {};
-    H.push(`<div class="wk"><h2>${esc(lt("viikkoOtsikko", wk.num, wk.dates, wk.title))}</h2>`);
-    if (g.feature) H.push(`<p class="feature">${esc(g.feature)}</p>`);
-    wk.tasks.forEach((t) => H.push(`<p class="task">☐&nbsp; ${esc(t)}</p>`));
-    if (g.done) H.push(`<p class="done"><strong>${esc(lt("valmisKunLabel"))}</strong> ${esc(g.done)}</p>`);
-    if (wk.evidence) H.push(`<p class="ev"><strong>${esc(lt("evidenceLabel"))}</strong> ${esc(wk.evidence)}</p>`);
-    H.push(`</div>`);
+  H.push(`<div class="cover"><h1>${esc(P.nimi)}</h1><p style="font-size:${style === "oletus" ? "14pt" : "1.2em"}">${esc(lt("tyopakettiOtsikko"))}</p><p>${esc(tpKansiKuvaus || "")}</p><p${style === "oletus" ? ' style="font-size:12pt"' : ""}><strong>${esc(tpJakso)}${tpDeadline ? ` · ${esc(lt("luovutus", tpDeadline))}` : ""}</strong></p><p style="${style === "oletus" ? "max-width:120mm;margin:18pt auto 0" : "margin-top:1em"}">${esc(lt("kansiJohdanto"))}</p>${tpKansiHuomiot.map((n) => `<p style="${style === "oletus" ? "max-width:120mm;margin:10pt auto 0" : "margin-top:.6em"}">${esc(n)}</p>`).join("")}</div>`);
+  H.push(`<h1>${esc(lt("aikatauluLyhyt"))}</h1><table><tr><th>${esc(lt("sarakeViikko"))}</th><th>${esc(lt("sarakePvm"))}</th><th>${esc(lt("sarakeAihe"))}</th><th>${esc(lt("sarakeVaihe"))}</th></tr>`);
+  walkWeeks(
+    (wk, g, phase) => H.push(`<tr><td><strong>${wk.num}</strong></td><td>${esc(wk.dates)}</td><td>${esc(wk.title)}</td><td>${phase ? esc(phase.tunnus) : "–"}</td></tr>`),
+    (num, hol) => H.push(`<tr><td>${num}</td><td>${esc(hol.dates)}</td><td>${esc(lt("eiProjektityota", hol.title))}</td><td>–</td></tr>`)
+  );
+  H.push(`</table>${tpDeadline ? `<p class="muted">${esc(lt("palautusHuomio", tpDeadline))}</p>` : ""}`);
+  (P.vaiheet || []).forEach((phase) => {
+    H.push(`<h1 class="page">${esc(lt("vaiheOtsikko", phase.tunnus, phase.otsikko))}</h1>`);
+    phase.viikot.forEach((num) => {
+      if (holidays[num]) {
+        const hol = holidays[num];
+        H.push(`<div class="wk"><h2>${esc(lt("viikkoOtsikko", num, hol.dates, hol.title))}</h2><p>${esc(hol.text)}</p></div>`);
+        return;
+      }
+      const wk = weeks.find((w) => w.num === num);
+      if (!wk) return;
+      const g = P.viikkoOhjeet[num] || {};
+      H.push(`<div class="wk"><h2>${esc(lt("viikkoOtsikko", wk.num, wk.dates, wk.title))}</h2>`);
+      if (g.feature) H.push(`<p class="feature">${esc(g.feature)}</p>`);
+      wk.tasks.forEach((t) => H.push(`<p class="task">☐&nbsp; ${esc(t)}</p>`));
+      if (g.done) H.push(`<p class="done"><strong>${esc(lt("valmisKunLabel"))}</strong> ${esc(g.done)}</p>`);
+      if (wk.evidence) H.push(`<p class="ev"><strong>${esc(lt("evidenceLabel"))}</strong> ${esc(wk.evidence)}</p>`);
+      H.push(`</div>`);
+    });
   });
-});
-if (tpViimeisetPaivat.length) {
-  H.push(`<h1 class="page">${esc(lt("viimeisetPaivatOtsikko"))}</h1>`);
-  tpViimeisetPaivat.forEach(([d, t]) => H.push(`<p class="task"><strong>${esc(d)}</strong> · ${esc(t)}</p>`));
+  if (tpViimeisetPaivat.length) {
+    H.push(`<h1 class="page">${esc(lt("viimeisetPaivatOtsikko"))}</h1>`);
+    tpViimeisetPaivat.forEach(([d, t]) => H.push(`<p class="task"><strong>${esc(d)}</strong> · ${esc(t)}</p>`));
+  }
+  if (glossary.length) {
+    H.push(`<h1 class="page">${esc(lt("sanastoOtsikko"))}</h1><p class="muted">${esc(lt("sanastoJohdanto"))}</p><table>`);
+    glossary.forEach((g) => H.push(`<tr><td style="width:24%"><strong>${esc(g.termi)}</strong>${g.viikko != null ? `<br><span class="muted">${esc(lt("sanastoViikko", g.viikko))}</span>` : ""}</td><td>${g.nimi ? `${style === "oletus" ? "<em>" : "<strong>"}${esc(g.nimi)}.${style === "oletus" ? "</em>" : "</strong>"} ` : ""}${esc(g.selite || "")}</td></tr>`));
+    H.push(`</table>`);
+  }
+  if (matrices.length) {
+    H.push(`<h1 class="page">${esc(lt("matriisiOtsikko", requirementCount))}</h1><p class="muted">${esc(lt("matriisiJohdanto"))}</p>`);
+    matrices.forEach((mat) => {
+      H.push(`<h2>${esc(mat.title)}</h2>`);
+      mat.items.forEach((i) => H.push(`<p class="item">☐&nbsp; <strong>${esc(i.title)}</strong> – ${esc(i.hint)}</p>`));
+    });
+  }
+  H.push(`<p class="muted" style="margin-top:1em">${style === "oletus" ? `<em>${esc(lt("selainHuomio"))}</em>` : esc(lt("selainHuomio"))}</p>`);
+  H.push(`</body></html>`);
+  return H.join("\n");
 }
-if (glossary.length) {
-  H.push(`<h1 class="page">${esc(lt("sanastoOtsikko"))}</h1><p class="muted">${esc(lt("sanastoJohdanto"))}</p><table>`);
-  glossary.forEach((g) => H.push(`<tr><td style="width:24%"><strong>${esc(g.termi)}</strong>${g.viikko != null ? `<br><span class="muted">${esc(lt("sanastoViikko", g.viikko))}</span>` : ""}</td><td>${g.nimi ? `<em>${esc(g.nimi)}.</em> ` : ""}${esc(g.selite || "")}</td></tr>`));
-  H.push(`</table>`);
+
+fs.writeFileSync(path.join(__dirname, "tyopaketti-print.html"), printHtml(TEEMA ? "teema" : "oletus"));
+console.log(`tyopaketti-print.html kirjoitettu${TEEMA ? " (teema, näytölle)" : ""}`);
+if (TEEMA) {
+  fs.writeFileSync(path.join(__dirname, "tyopaketti-tuloste.html"), printHtml("tuloste"));
+  console.log("tyopaketti-tuloste.html kirjoitettu (vaalea, isokirjainen)");
+  console.log(`PDF:t: <chrome> --headless --no-pdf-header-footer --print-to-pdf=downloads/${P.slug}-tyopaketti.pdf tyokalut/tyopaketti-print.html`);
+  console.log(`       <chrome> --headless --no-pdf-header-footer --print-to-pdf=downloads/${P.slug}-tyopaketti-tuloste.pdf tyokalut/tyopaketti-tuloste.html`);
 }
-if (matrices.length) {
-  H.push(`<h1 class="page">${esc(lt("matriisiOtsikko", requirementCount))}</h1><p class="muted">${esc(lt("matriisiJohdanto"))}</p>`);
-  matrices.forEach((mat) => {
-    H.push(`<h2>${esc(mat.title)}</h2>`);
-    mat.items.forEach((i) => H.push(`<p class="item">☐&nbsp; <strong>${esc(i.title)}</strong> – ${esc(i.hint)}</p>`));
-  });
-}
-H.push(`<p class="muted" style="margin-top:10pt"><em>${esc(lt("selainHuomio"))}</em></p>`);
-H.push(`</body></html>`);
-fs.writeFileSync(path.join(__dirname, "tyopaketti-print.html"), H.join("\n"));
-console.log("tyopaketti-print.html kirjoitettu");

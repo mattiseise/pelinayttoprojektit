@@ -7,8 +7,23 @@
  * skeemaan tarvitaan uusi kenttä — korjaa skilliin, ei yksittäiseen projektiin.
  *
  * Rakenne, jota tämä moottori odottaa index.html:ltä, on kuvattu tarkasti
- * tiedostossa /root/work/layout-rakenne.md (tämän layoutuudistuksen pilotti).
+ * tiedostossa skillin references/layout-rakenne.md.
  *
+ * v2.4: opt-in-ominaisuudet, oletuksena pois päältä (muiden projektien ulkoasu ei muutu):
+ *   - `teema`: saavutettava teema (värit, fontti, välistys, rivinpituus, 2 px reunat,
+ *     3 px fokus) ja yksipalstainen asettelu, jossa sivupalkki avautuu valikkona.
+ *     Tilat tekstinä ja symbolina (✓ Valmis, → Nyt, ○ Tulossa). Näkymän vaihto siirtää
+ *     fokuksen otsikkoon. Aktivoituu <html data-teema> -attribuutilla.
+ *   - `sykli` + viikkoOhjeet[w].sykli: työsyklin seurantapalkki, nykyinen askel isona,
+ *     kopioitava viestipohja ("Kopioitu" + aria-live) ja "Olen jumissa" -päätöspuu.
+ *   - kuvaohjeet (`kuvakaappaukset.json`): kuvakaappaus numeroiduin kehyksin ja samat
+ *     vaiheet tekstinä; klikkaus avaa kuvan isona. Puuttuva kuva → paikanpitäjä.
+ *   - `josJumissa`: sama "Jos et tiedä, mitä tehdä" -päätöspuu joka viikkokortissa.
+ *   - `viikkorutiini`: viikon rutiinirastit, jotka eivät lasketa tehtäviin.
+ *   - viikkoOhjeet[w].pohjat: viikon kopioitavat viestipohjat Näin etenet -listan jälkeen.
+ *   - [data-copy]-napit toimivat missä tahansa sivulla.
+ *   Lisäksi: vuodenvaihteen ylittävä `viikot`-lista säilyttää annetun järjestyksen
+ *   (esim. [40, …, 53, 1, …, 9]); päiväkirjan vienti kulkee samassa järjestyksessä.
  * v2.3: example/notEnough (kalibrointikortit) renderöidään viikkokorttiin ennen Valmis kun -korttia.
  * v2.2: takahipsut sisältötekstissä → <code>; välilehden otsikko seuraa valittua viikkoa.
  * v2.1: sanasto. sisalto.js:n `termisto` renderöidään näkymään
@@ -112,7 +127,59 @@
     glossaryEmpty: "Tässä projektissa ei ole erillistä sanastoa.",
     /* Kalibrointi: riittävä ja riittämätön suoritus (viikkoOhjeet[w].example / notEnough). */
     exampleLabel: "Esimerkki odotetusta tarkkuudesta · älä kopioi sisältöä",
-    notEnoughLabel: "Tämä ei vielä riitä"
+    notEnoughLabel: "Tämä ei vielä riitä",
+    planMetaDone: "valmis",
+    planMetaEmpty: "päivittyy",
+    /* v2.4: tilat tekstinä ja symbolina (teema.tilaTekstit). */
+    stateDone: "Valmis",
+    stateCurrent: "Nyt",
+    stateFuture: "Tulossa",
+    stateHoliday: "Loma",
+    stateStepDone: "Tehty",
+    stateSymbolDone: "✓",
+    stateSymbolCurrent: "→",
+    stateSymbolFuture: "○",
+    stateSymbolHoliday: "–",
+    weekNumberShort: (w) => `vk ${w}`,
+    tileSymbolLogged: "✓",
+    tileSymbolCurrent: "→",
+    tileSymbolOpen: "○",
+    /* v2.4: työsykli (P.sykli, viikkoOhjeet[w].sykli). */
+    cycleHeading: "Työsykli",
+    cycleLead: "Tee askeleet järjestyksessä. Yksi kierros on yksi tehtäväkortti.",
+    cycleRound: (n) => `Kierros ${n}`,
+    cycleTrackLabel: "Syklin askeleet",
+    cycleNowLabel: (i, n) => `Seuraava askel · ${i} / ${n}`,
+    cycleTool: "Työkalu:",
+    cycleOwn: "Sinä teet:",
+    cycleWhen: "Askel on valmis, kun",
+    cycleNext: "Tein tämän · seuraava askel →",
+    cyclePrev: "← Edellinen askel",
+    cycleFinish: "Tein tämän · kierros valmis ✓",
+    cycleRoundDoneTitle: (n) => `Kierros ${n} valmis`,
+    cycleRoundDoneText: "Kirjaa tulos päiväkirjaan. Aloita sitten seuraava tehtäväkortti askeleesta 1.",
+    cycleNewRound: (n) => `Aloita kierros ${n} →`,
+    cycleLiveStep: (i, name) => `Askel ${i}: ${name}`,
+    cycleStuck: "Olen jumissa",
+    cycleStuckLead: "Valitse kysymys, joka kuvaa tilannetta. Avaa se ja tee ohjeen mukaan.",
+    copyDefaultTitle: "Kopioi tämä",
+    copyButton: "Kopioi",
+    copyDone: "✓ Kopioitu",
+    copyLive: (title) => `Kopioitu leikepöydälle${title ? `: ${title}` : ""}.`,
+    copyFailed: "Kopiointi ei onnistunut. Valitse teksti ja paina Ctrl + C.",
+    viewLive: (title) => `Avattu: ${title}`,
+    /* v2.4: kuvaohjeet (kuvakaappaukset.json). */
+    kuvaohjeetHeading: "Kuvaohjeet",
+    kuvaohjeWhere: "Missä:",
+    kuvaohjeOpen: "Avaa kuva isona",
+    kuvaohjeClose: "Sulje kuva",
+    kuvaohjePlaceholder: (kuvaa) => `Kuvakaappaus tulossa: ${kuvaa}`,
+    kuvaohjeMeta: (pvm, teema) => [pvm ? `Kuvattu ${pvm}` : "", teema || ""].filter(Boolean).join(" · "),
+    kuvaohjeLoadError: "Kuvaohje ei latautunut. Avaa sivu verkko-osoitteesta, älä tiedostona.",
+    kuvaohjeMissing: (id) => `Kuvaohjetta ${id} ei löydy.`,
+    /* v2.4: joka viikon vakiolohkot (P.josJumissa, P.viikkorutiini). */
+    lostHeading: "Jos et tiedä, mitä tehdä",
+    routineHeading: "Viikkorutiini"
   };
   const UI = Object.assign({}, UI_OLETUS, P.tekstit || {});
   const t = (key, ...args) => {
@@ -132,10 +199,112 @@
   const plan = P.suunnitelma || null;
   const journalCfg = P.paivakirja || {};
   const holidayWeeks = new Set((P.lomaViikot || []).map(Number));
-  const weekList = (P.viikot || []).map(Number).sort((a, b) => a - b);
+  /* Järjestys on sisalto.js:n `viikot`-listan järjestys, ei numerojärjestys:
+     vuodenvaihteen ylittävä jakso on [40, …, 53, 1, …, 9] (v2.4). */
+  const weekList = (P.viikot || []).map(Number);
+  const weekIndex = (w) => weekList.indexOf(Number(w));
   const phases = P.vaiheet || [];
   const compactSidebar = Boolean(P.tiivisSivupalkki);
   const lockFuture = Boolean(P.lukitseTulevat);
+
+  /* ---------- v2.4: saavutettava teema (P.teema, opt-in) ----------
+   * Aktivoituu vain, kun sisalto.js:ssä on `teema`-lohko. Arvot menevät
+   * --teema-*-muuttujiin; styles.css:n html[data-teema] -lohko käyttää niitä.
+   * index.html asettaa attribuutit myös staattisesti (<html data-teema="oma"
+   * data-teema-asettelu="yksi">), jotta sivu ei välähdä oletusteemassa.
+   */
+  const theme = P.teema && typeof P.teema === "object" ? P.teema : null;
+  const TEEMA_VARS = {
+    tausta: "--teema-tausta", pinta: "--teema-pinta", teksti: "--teema-teksti", otsikot: "--teema-otsikot",
+    korostus: "--teema-korostus", korostusTeksti: "--teema-korostus-teksti", kehys: "--teema-kehys",
+    fontti: "--teema-fontti", perusfontti: "--teema-koko", kirjainvali: "--teema-kirjainvali",
+    sanavali: "--teema-sanavali", rivikorkeus: "--teema-rivikorkeus", rivinPituus: "--teema-rivi",
+    reuna: "--teema-reuna", fokus: "--teema-fokus"
+  };
+  if (theme) {
+    const root = document.documentElement;
+    if (!root.dataset.teema) root.dataset.teema = "oma";
+    Object.entries(TEEMA_VARS).forEach(([key, cssVar]) => {
+      if (theme[key] != null && theme[key] !== "") root.style.setProperty(cssVar, String(theme[key]));
+    });
+    if (theme.yksiPalsta !== false) root.dataset.teemaAsettelu = "yksi";
+    const themeColor = document.querySelector('meta[name="theme-color"]');
+    if (themeColor && theme.tausta) themeColor.setAttribute("content", theme.tausta);
+  }
+  const singleColumn = document.documentElement.dataset.teemaAsettelu === "yksi";
+  const stateTexts = Boolean(theme && theme.tilaTekstit !== false);
+  const focusOnViewChange = Boolean(theme && theme.fokusOtsikkoon !== false);
+
+  /* Tila tekstinä ja symbolina: "✓ Valmis", "→ Nyt", "○ Tulossa". Symboli on
+     ruudunlukijalta piilossa, teksti ei. */
+  const STATE_KEYS = {
+    done: ["stateSymbolDone", "stateDone"], step: ["stateSymbolDone", "stateStepDone"],
+    current: ["stateSymbolCurrent", "stateCurrent"], future: ["stateSymbolFuture", "stateFuture"],
+    holiday: ["stateSymbolHoliday", "stateHoliday"]
+  };
+  function stateLabel(kind) {
+    const [sym, text] = STATE_KEYS[kind] || STATE_KEYS.future;
+    return `<span class="week-state week-state-${kind}"><span aria-hidden="true">${escapeText(t(sym))}</span> ${escapeText(t(text))}</span>`;
+  }
+
+  let copySeq = 0; // viestipohjien juokseva tunnus (app.js rakentaa pohjat myös enhanceWeekCardissa)
+
+  /* Ilmoitukset ruudunlukijalle (kopiointi, askeleen vaihto). */
+  function announce(message) {
+    let region = document.getElementById("np-live");
+    if (!region) {
+      region = document.createElement("div");
+      region.id = "np-live";
+      region.className = "sr-only";
+      region.setAttribute("role", "status");
+      region.setAttribute("aria-live", "polite");
+      document.body.appendChild(region);
+    }
+    region.textContent = "";
+    window.setTimeout(() => { region.textContent = message; }, 60);
+  }
+
+  /* Kopiointi leikepöydälle. Toimii myös http-osoitteessa ja vanhoissa selaimissa. */
+  async function copyText(text) {
+    try {
+      if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(text); return true; }
+    } catch (_) { /* kokeillaan vanhaa tapaa */ }
+    try {
+      const area = document.createElement("textarea");
+      area.value = text;
+      area.setAttribute("readonly", "");
+      area.style.position = "fixed";
+      area.style.opacity = "0";
+      document.body.appendChild(area);
+      area.select();
+      const ok = document.execCommand("copy");
+      area.remove();
+      return ok;
+    } catch (_) { return false; }
+  }
+
+  /* [data-copy="elementin-id"] kopioi elementin tekstin. Toimii sekä app.js:n
+     rakentamissa viestipohjissa että index.html:ään käsin kirjoitetuissa. */
+  document.addEventListener("click", async (event) => {
+    const button = event.target.closest("[data-copy]");
+    if (!button) return;
+    const source = document.getElementById(button.dataset.copy);
+    if (!source) return;
+    const ok = await copyText(source.innerText.replace(/ /g, " ").trim());
+    if (!button.dataset.copyLabel) button.dataset.copyLabel = button.textContent;
+    button.textContent = ok ? t("copyDone") : button.dataset.copyLabel;
+    button.classList.toggle("is-copied", ok);
+    announce(ok ? t("copyLive", button.dataset.copyTitle || "") : t("copyFailed"));
+    if (!ok) {
+      /* Leikepöytä estetty: maalataan teksti valmiiksi, jolloin Ctrl + C riittää. */
+      try { source.focus(); window.getSelection().selectAllChildren(source); } catch (_) { /* ei valintaa */ }
+    }
+    window.clearTimeout(Number(button.dataset.copyTimer || 0));
+    button.dataset.copyTimer = String(window.setTimeout(() => {
+      button.textContent = button.dataset.copyLabel;
+      button.classList.remove("is-copied");
+    }, 4000));
+  });
 
   function escapeText(value) {
     const div = document.createElement("div");
@@ -266,6 +435,19 @@
     fillList(card.querySelector("[data-lesson-list]"), steps, ([title, text], i) =>
       `<li><span class="step-n">${i + 1}</span><span><strong>${escapeText(title)}</strong> ${text}</span></li>`);
 
+    /* v2.4: viikon kopioitavat viestipohjat (viikkoOhjeet[w].pohjat = [{ otsikko, teksti }]).
+       Näkyvät Näin etenet -listan jälkeen. Tarkoitettu erityisesti syklittömille viikoille. */
+    if ((guide.pohjat || []).length) {
+      let box = card.querySelector("[data-week-templates]");
+      if (!box) {
+        box = document.createElement("div");
+        box.className = "week-templates";
+        box.setAttribute("data-week-templates", "");
+        card.querySelector("[data-lesson-list]")?.insertAdjacentElement("afterend", box);
+      }
+      box.innerHTML = copyBlockHtml(guide.pohjat, weekFill(Number(week)));
+    }
+
     const resources = card.querySelector("[data-week-resources]");
     if (resources && (guide.resources || []).length) {
       resources.innerHTML = `<strong>${escapeText(t("resourcesLabel"))}</strong>` +
@@ -288,6 +470,23 @@
         ${helpImages}${helpLinks}
         <p class="impl-help-note" style="font-size:12px;color:var(--meta)">${escapeText(t("helpNote"))}</p>`;
       help.hidden = false;
+    }
+
+    /* v2.4: viikon kuvaohjeet (viikkoOhjeet[w].kuvaohjeet = ["tunnus", …]).
+       Osio luodaan Näin etenet -osion jälkeen; sisältö tulee kuvakaappaukset.json:sta. */
+    if ((guide.kuvaohjeet || []).length) {
+      let section = card.querySelector("[data-week-kuvaohjeet]");
+      if (!section) {
+        section = document.createElement("section");
+        section.className = "view-section week-kuvaohjeet";
+        section.setAttribute("data-week-kuvaohjeet", "");
+        const anchor = card.querySelector(".lesson-instructions");
+        if (anchor) anchor.insertAdjacentElement("afterend", section);
+        else card.querySelector(".outcome-grid")?.insertAdjacentElement("beforebegin", section);
+      }
+      section.innerHTML = `<h2>${escapeText(t("kuvaohjeetHeading"))}</h2>` +
+        guide.kuvaohjeet.map((id) => `<div class="kuvaohje-slot" data-kuvaohje="${escapeText(id)}" data-kuvaohje-taso="3"></div>`).join("");
+      section.hidden = false;
     }
 
     const days = card.querySelector("[data-week-days]");
@@ -358,6 +557,318 @@
   let planData = readStorage(PLAN_KEY, {});
   let aiLog = readStorage(LOG_KEY, []);
 
+  /* ---------- v2.4: kuvaohjeet (kuvakaappaukset.json, opt-in) ----------
+   * Kuvakaappaus + samat vaiheet numeroituna tekstinä. Kuva ei ole koskaan
+   * ainoa tiedon kantaja. Data: P.kuvakaappaukset (taulukko) tai tiedosto
+   * kuvakaappaukset.json ({ kuvat: [{ tunnus, otsikko, kuvaa, missa, tiedosto,
+   * leveys, korkeus, alt, kohdat: [{ n, teksti, alue: [x, y, l, k] }], pvm, teema }] }).
+   * alue on prosentteina kuvan leveydestä ja korkeudesta.
+   */
+  let kuvaPromise = null;
+  function loadKuvat() {
+    if (kuvaPromise) return kuvaPromise;
+    const source = Array.isArray(P.kuvakaappaukset)
+      ? Promise.resolve(P.kuvakaappaukset)
+      : fetch(P.kuvakaappauksetPolku || "kuvakaappaukset.json", { cache: "no-cache" })
+        .then((res) => { if (!res.ok) throw new Error(String(res.status)); return res.json(); })
+        .then((data) => (Array.isArray(data) ? data : data.kuvat || []));
+    kuvaPromise = source.then((list) => new Map(list.map((k) => [k.tunnus, k]))).catch(() => null);
+    return kuvaPromise;
+  }
+
+  function kuvaStageHtml(k, full) {
+    const w = Number(k.leveys) || 1600;
+    const h = Number(k.korkeus) || 900;
+    const marks = (k.kohdat || []).filter((c) => Array.isArray(c.alue) && c.alue.length === 4).map((c) => {
+      const [x, y, cw, ch] = c.alue.map(Number);
+      return `<span class="kuvaohje-mark" style="left:${x}%;top:${y}%;width:${cw}%;height:${ch}%" aria-hidden="true"><span class="kuvaohje-mark-n">${escapeText(c.n)}</span></span>`;
+    }).join("");
+    const picture = k.tiedosto
+      ? `<img src="${escapeText(k.tiedosto)}" alt="${escapeText(k.alt || "")}" width="${w}" height="${h}"${full ? "" : " loading=\"lazy\""}>`
+      : `<span class="kuvaohje-placeholder" role="img" aria-label="${escapeText(k.alt || t("kuvaohjePlaceholder", k.kuvaa || k.tunnus))}">${escapeText(t("kuvaohjePlaceholder", k.kuvaa || k.tunnus))}</span>`;
+    return `<span class="kuvaohje-stage${full ? " is-full" : ""}" style="aspect-ratio:${w} / ${h}${full ? `;width:${w}px` : ""}"${full ? "" : " data-kuvaohje-open"}>${picture}${marks}</span>`;
+  }
+
+  function kuvaStepsHtml(k) {
+    return `<ol class="kuvaohje-steps">${(k.kohdat || []).map((c) =>
+      `<li><span class="kuvaohje-n" aria-hidden="true">${escapeText(c.n)}</span><span>${richText(c.teksti || "")}</span></li>`).join("")}</ol>`;
+  }
+
+  function kuvaohjeHtml(k, level) {
+    const hl = Math.min(6, Math.max(2, Number(level) || 3));
+    const meta = t("kuvaohjeMeta", k.pvm, k.teema);
+    return `<figure class="kuvaohje">
+        <h${hl} class="kuvaohje-title">${escapeText(k.otsikko || k.kuvaa || k.tunnus)}</h${hl}>
+        ${k.missa ? `<p class="kuvaohje-where"><strong>${escapeText(t("kuvaohjeWhere"))}</strong> ${richText(k.missa)}</p>` : ""}
+        <div class="kuvaohje-body">
+          <div class="kuvaohje-picture">${kuvaStageHtml(k, false)}
+            <button type="button" class="button button-secondary kuvaohje-open-button" data-kuvaohje-open>${escapeText(t("kuvaohjeOpen"))}</button>
+          </div>
+          ${kuvaStepsHtml(k)}
+        </div>
+        ${meta ? `<figcaption class="kuvaohje-meta">${escapeText(meta)}</figcaption>` : ""}
+      </figure>`;
+  }
+
+  function openKuvaDialog(k, opener) {
+    let dialog = document.getElementById("kuvaohje-dialog");
+    if (!dialog) {
+      dialog = document.createElement("dialog");
+      dialog.id = "kuvaohje-dialog";
+      dialog.className = "kuvaohje-dialog";
+      dialog.setAttribute("aria-labelledby", "kuvaohje-dialog-title");
+      dialog.addEventListener("click", (event) => { if (event.target === dialog) dialog.close(); });
+      document.body.appendChild(dialog);
+    }
+    dialog.innerHTML = `<div class="kuvaohje-dialog-head"><p id="kuvaohje-dialog-title"><strong>${escapeText(k.otsikko || k.kuvaa || k.tunnus)}</strong></p>
+        <button type="button" class="button button-secondary" data-dialog-close>${escapeText(t("kuvaohjeClose"))}</button></div>
+      <div class="kuvaohje-dialog-body">${kuvaStageHtml(k, true)}${kuvaStepsHtml(k)}</div>`;
+    dialog.querySelector("[data-dialog-close]").addEventListener("click", () => dialog.close());
+    dialog.addEventListener("close", () => window.setTimeout(() => opener?.focus?.(), 0), { once: true });
+    bindImageFallback(dialog, k);
+    if (typeof dialog.showModal === "function") dialog.showModal();
+    else dialog.setAttribute("open", "");
+    dialog.querySelector("[data-dialog-close]").focus();
+  }
+
+  /* Kuva puuttuu tai ei lataudu → paikanpitäjä. Numeroidut vaiheet pysyvät. */
+  function bindImageFallback(scope, k) {
+    scope.querySelectorAll(".kuvaohje-stage img").forEach((img) => img.addEventListener("error", () => {
+      const holder = document.createElement("span");
+      holder.className = "kuvaohje-placeholder";
+      holder.setAttribute("role", "img");
+      holder.setAttribute("aria-label", k.alt || t("kuvaohjePlaceholder", k.kuvaa || k.tunnus));
+      holder.textContent = t("kuvaohjePlaceholder", k.kuvaa || k.tunnus);
+      img.replaceWith(holder);
+    }, { once: true }));
+  }
+
+  function renderKuvaohjeet(scope = document) {
+    const slots = [...scope.querySelectorAll("[data-kuvaohje]:not([data-kuvaohje-valmis])")];
+    if (!slots.length) return;
+    loadKuvat().then((map) => slots.forEach((slot) => {
+      slot.setAttribute("data-kuvaohje-valmis", "");
+      const k = map && map.get(slot.dataset.kuvaohje);
+      if (!k) {
+        slot.innerHTML = `<p class="kuvaohje-error">${escapeText(map ? t("kuvaohjeMissing", slot.dataset.kuvaohje) : t("kuvaohjeLoadError"))}</p>`;
+        return;
+      }
+      slot.innerHTML = kuvaohjeHtml(k, slot.dataset.kuvaohjeTaso);
+      bindImageFallback(slot, k);
+      slot.querySelectorAll("[data-kuvaohje-open]").forEach((el) => el.addEventListener("click", () => openKuvaDialog(k, slot.querySelector(".kuvaohje-open-button"))));
+    }));
+  }
+
+  /* ---------- v2.4: työsykli (P.sykli + viikkoOhjeet[w].sykli, opt-in) ----------
+   * P.sykli.askeleet = [{ nimi, paikka, tyokalu, oma, ohje: [..], pohja: {otsikko, teksti} | [{…}, …],
+   *   valmis, jumissa: [{ kysymys, ohje, pohja, jatko: [...] }], kuvaohjeet: [..] }].
+   * Viikko ottaa syklin käyttöön kentällä sykli: true tai objektilla, joka
+   * täydentää askelia numeron mukaan: { pohjat: {1: {...}}, ohjeet: {3: [..]}, oma: {1: "…"},
+   * jumissa: {3: [..]}, kuvaohjeet: {2: [..]}, lisa: {1: "…"} }.
+   * Pohjissa {viikko}, {nimi}, {feature}, {deliverable} ja {done} korvautuvat
+   * viikon tiedoilla. Nykyinen askel ja kierros tallentuvat selaimeen.
+   */
+  const CYCLE_KEY = `${SLUG}-sykli-v1`;
+  const cycleBase = P.sykli && Array.isArray(P.sykli.askeleet) && P.sykli.askeleet.length ? P.sykli : null;
+  let cycleState = readStorage(CYCLE_KEY, {});
+
+  function cycleFor(week) {
+    const g = weekGuidance[week];
+    if (!cycleBase || !g || !g.sykli) return null;
+    const o = g.sykli === true ? {} : g.sykli;
+    const fill = (value) => String(value ?? "").replace(/\{(viikko|nimi|feature|deliverable|done)\}/g, (_, key) =>
+      key === "viikko" ? String(week) : key === "nimi" ? weekTitle(week) : String(g[key] || ""));
+    const at = (field, n) => (o[field] && o[field][n] !== undefined ? o[field][n] : undefined);
+    const steps = cycleBase.askeleet.map((s, i) => {
+      const n = i + 1;
+      return {
+        n,
+        nimi: s.nimi,
+        paikka: s.paikka || "",
+        tyokalu: s.tyokalu || "",
+        oma: at("oma", n) || s.oma || "",
+        ohje: at("ohjeet", n) || s.ohje || [],
+        pohja: at("pohjat", n) !== undefined ? at("pohjat", n) : s.pohja,
+        valmis: s.valmis || "",
+        lisa: at("lisa", n) || "",
+        jumissa: [...(at("jumissa", n) || []), ...(s.jumissa || [])],
+        kuvaohjeet: [...(at("kuvaohjeet", n) || []), ...(s.kuvaohjeet || [])]
+      };
+    });
+    return { steps, fill, otsikko: o.otsikko || cycleBase.otsikko, johdanto: o.johdanto || cycleBase.johdanto };
+  }
+
+  function copyBlockHtml(pohja, fill) {
+    if (!pohja) return "";
+    if (Array.isArray(pohja)) return pohja.map((one) => copyBlockHtml(one, fill)).join("");
+    const p = typeof pohja === "string" ? { teksti: pohja } : pohja;
+    const id = `kopio-${++copySeq}`;
+    const title = p.otsikko || t("copyDefaultTitle");
+    return `<div class="copy-block">
+        <p class="copy-title" id="${id}-otsikko">${escapeText(title)}</p>
+        <pre class="copy-text" id="${id}" tabindex="0" aria-labelledby="${id}-otsikko">${escapeText(fill(p.teksti))}</pre>
+        <button type="button" class="button button-primary copy-button" data-copy="${id}" data-copy-title="${escapeText(title)}">${escapeText(p.nappi || t("copyButton"))}</button>
+      </div>`;
+  }
+
+  function stuckTreeHtml(items, fill) {
+    return `<ul class="stuck-list">${items.map((item) => `<li><details class="stuck-item">
+        <summary>${escapeText(fill(item.kysymys))}</summary>
+        <div class="stuck-answer">${item.ohje ? `<p>${richText(fill(item.ohje))}</p>` : ""}${copyBlockHtml(item.pohja, fill)}${(item.jatko || []).length ? stuckTreeHtml(item.jatko, fill) : ""}</div>
+      </details></li>`).join("")}</ul>`;
+  }
+
+  function renderCycle(card, focusNow) {
+    const week = Number(card.dataset.week);
+    const cycle = cycleFor(week);
+    if (!cycle) return;
+    let box = card.querySelector("[data-week-cycle]");
+    if (!box) {
+      box = document.createElement("section");
+      box.setAttribute("data-week-cycle", "");
+      const anchor = card.querySelector("[data-week-kicker]") || card.querySelector(".view-title");
+      anchor.insertAdjacentElement("afterend", box);
+    }
+    box.className = "week-cycle";
+    box.hidden = false;
+    const total = cycle.steps.length;
+    const saved = cycleState[week] || {};
+    const round = Math.max(1, Number(saved.round) || 1);
+    const current = Math.min(Math.max(1, Number(saved.step) || 1), total + 1);
+    const headId = `sykli-otsikko-${week}`;
+    box.setAttribute("aria-labelledby", headId);
+
+    const track = cycle.steps.map((s) => {
+      const kind = s.n < current ? "step" : (s.n === current ? "current" : "future");
+      return `<li class="cycle-step is-${kind === "step" ? "done" : kind}"><button type="button" data-cycle-go="${s.n}"${s.n === current ? ' aria-current="step"' : ""}>
+          <span class="cycle-step-n">${s.n}</span><span class="cycle-step-name">${escapeText(s.nimi)}</span>${stateLabel(kind)}</button></li>`;
+    }).join("");
+
+    let now;
+    if (current > total) {
+      now = `<div class="cycle-now is-complete">
+          <h3 class="cycle-now-title" tabindex="-1">${escapeText(t("stateSymbolDone"))} ${escapeText(t("cycleRoundDoneTitle", round))}</h3>
+          <p class="cycle-now-text">${escapeText(t("cycleRoundDoneText"))}</p>
+          <div class="cycle-actions">
+            <button type="button" class="button button-secondary" data-cycle-prev>${escapeText(t("cyclePrev"))}</button>
+            <button type="button" class="button button-primary" data-cycle-round>${escapeText(t("cycleNewRound", round + 1))}</button>
+          </div>
+        </div>`;
+    } else {
+      const s = cycle.steps[current - 1];
+      const kuvat = s.kuvaohjeet.map((id) => `<div class="kuvaohje-slot" data-kuvaohje="${escapeText(id)}" data-kuvaohje-taso="4"></div>`).join("");
+      now = `<div class="cycle-now">
+          <p class="cycle-now-label">${escapeText(t("cycleNowLabel", current, total))}</p>
+          <h3 class="cycle-now-title" tabindex="-1">${current} · ${escapeText(s.nimi)}${s.paikka ? `<span class="cycle-place"> · ${escapeText(s.paikka)}</span>` : ""}</h3>
+          ${s.tyokalu ? `<p class="cycle-tool"><strong>${escapeText(t("cycleTool"))}</strong> ${escapeText(s.tyokalu)}</p>` : ""}
+          ${s.oma ? `<p class="cycle-own"><strong>${escapeText(t("cycleOwn"))}</strong> ${richText(cycle.fill(s.oma))}</p>` : ""}
+          ${s.ohje.length ? `<ol class="cycle-instructions">${s.ohje.map((line) => `<li>${richText(cycle.fill(line))}</li>`).join("")}</ol>` : ""}
+          ${s.lisa ? `<p class="cycle-extra">${richText(cycle.fill(s.lisa))}</p>` : ""}
+          ${copyBlockHtml(s.pohja, cycle.fill)}
+          ${kuvat}
+          ${s.valmis ? `<p class="cycle-when"><strong>${escapeText(t("cycleWhen"))}</strong> ${richText(cycle.fill(s.valmis))}</p>` : ""}
+          ${s.jumissa.length ? `<details class="cycle-stuck"><summary>${escapeText(t("cycleStuck"))}</summary><p class="cycle-stuck-lead">${escapeText(t("cycleStuckLead"))}</p>${stuckTreeHtml(s.jumissa, cycle.fill)}</details>` : ""}
+          <div class="cycle-actions">
+            <button type="button" class="button button-secondary" data-cycle-prev${current === 1 ? " disabled" : ""}>${escapeText(t("cyclePrev"))}</button>
+            <button type="button" class="button button-primary" data-cycle-next>${escapeText(current === total ? t("cycleFinish") : t("cycleNext"))}</button>
+          </div>
+        </div>`;
+    }
+
+    box.innerHTML = `<div class="cycle-head"><h2 id="${headId}">${escapeText(cycle.otsikko || t("cycleHeading"))}</h2><span class="cycle-round">${escapeText(t("cycleRound", round))}</span></div>
+      <p class="cycle-lead">${richText(cycle.johdanto || t("cycleLead"))}</p>
+      <ol class="cycle-track" aria-label="${escapeText(t("cycleTrackLabel"))}">${track}</ol>
+      ${now}`;
+
+    const go = (step, nextRound) => {
+      cycleState[week] = { step, round: nextRound || round };
+      writeStorage(CYCLE_KEY, cycleState);
+      renderCycle(card, true);
+      updateProgress();
+      const label = step > total ? t("cycleRoundDoneTitle", nextRound || round) : t("cycleLiveStep", step, cycle.steps[step - 1].nimi);
+      announce(label);
+    };
+    box.querySelectorAll("[data-cycle-go]").forEach((btn) => btn.addEventListener("click", () => go(Number(btn.dataset.cycleGo))));
+    box.querySelector("[data-cycle-next]")?.addEventListener("click", () => go(current + 1));
+    box.querySelector("[data-cycle-prev]")?.addEventListener("click", () => go(Math.max(1, current - 1)));
+    box.querySelector("[data-cycle-round]")?.addEventListener("click", () => go(1, round + 1));
+    renderKuvaohjeet(box);
+    if (focusNow) box.querySelector(".cycle-now-title")?.focus({ preventScroll: false });
+  }
+
+  /* ---------- v2.4: joka viikon vakiolohkot (opt-in) ----------
+   * P.josJumissa = { otsikko, johdanto, kohdat: [{ kysymys, ohje, pohja, jatko }] }
+   *   → sama "Jos et tiedä, mitä tehdä" -puu jokaisessa viikkokortissa. Viimeisen
+   *   haaran pitää päättyä ihmiseen (ohjaaja, kanava, viestipohja).
+   * P.viikkorutiini = { otsikko, johdanto, kohdat: [{ teksti, milloin }] }
+   *   → rastilista joka viikolle. Rastit tallentuvat erikseen eivätkä lasketa
+   *   viikon tehtäviin. Viikko voi jättää lohkon pois: viikkoOhjeet[w].rutiini = false
+   *   tai viikkoOhjeet[w].josJumissa = false.
+   */
+  const lostTree = P.josJumissa && Array.isArray(P.josJumissa.kohdat) && P.josJumissa.kohdat.length ? P.josJumissa : null;
+  const routine = P.viikkorutiini && Array.isArray(P.viikkorutiini.kohdat) && P.viikkorutiini.kohdat.length ? P.viikkorutiini : null;
+  const ROUTINE_KEY = `${SLUG}-rutiini-v1`;
+  let routineState = readStorage(ROUTINE_KEY, {});
+
+  function weekFill(week) {
+    const g = weekGuidance[week] || {};
+    return (value) => String(value ?? "").replace(/\{(viikko|nimi|feature|deliverable|done)\}/g, (_, key) =>
+      key === "viikko" ? String(week) : key === "nimi" ? weekTitle(week) : String(g[key] || ""));
+  }
+
+  function renderLostTree(card) {
+    const week = Number(card.dataset.week);
+    const g = weekGuidance[week];
+    if (!lostTree || !g || g.josJumissa === false) return;
+    let box = card.querySelector("[data-week-lost]");
+    if (!box) {
+      box = document.createElement("details");
+      box.setAttribute("data-week-lost", "");
+      const anchor = card.querySelector("[data-week-cycle]") || card.querySelector(".view-section .task-list")?.closest(".view-section") || card.querySelector("[data-week-kicker]");
+      anchor?.insertAdjacentElement("afterend", box);
+    }
+    box.className = "week-lost";
+    const fill = weekFill(week);
+    box.innerHTML = `<summary>${escapeText(lostTree.otsikko || t("lostHeading"))}</summary>
+      ${lostTree.johdanto ? `<p class="week-lost-lead">${richText(fill(lostTree.johdanto))}</p>` : ""}
+      ${stuckTreeHtml(lostTree.kohdat, fill)}`;
+  }
+
+  function renderRoutine(card) {
+    const week = Number(card.dataset.week);
+    const g = weekGuidance[week];
+    if (!routine || !g || g.rutiini === false) return;
+    let box = card.querySelector("[data-week-routine]");
+    if (!box) {
+      box = document.createElement("section");
+      box.setAttribute("data-week-routine", "");
+      const tasks = card.querySelector(".task-list")?.closest(".view-section");
+      if (tasks) tasks.insertAdjacentElement("afterend", box);
+      else card.querySelector(".lesson-instructions")?.insertAdjacentElement("beforebegin", box);
+    }
+    box.className = "view-section week-routine";
+    const saved = routineState[week] || {};
+    const done = routine.kohdat.filter((_, i) => saved[i]).length;
+    box.innerHTML = `<div class="section-heading-row"><h2>${escapeText(routine.otsikko || t("routineHeading"))}</h2><span class="week-status" data-routine-status>${done} / ${routine.kohdat.length}</span></div>
+      ${routine.johdanto ? `<p class="week-routine-lead">${richText(routine.johdanto)}</p>` : ""}
+      <div class="task-list">${routine.kohdat.map((k, i) => `<label class="task-row routine-row"><input type="checkbox" data-routine="${week}-${i}"${saved[i] ? " checked" : ""}><span class="task-box" aria-hidden="true"></span><span class="task-text">${k.milloin ? `<strong>${escapeText(k.milloin)}:</strong> ` : ""}${richText(weekFill(week)(k.teksti))}</span></label>`).join("")}</div>`;
+    box.querySelectorAll("[data-routine]").forEach((input) => input.addEventListener("change", () => {
+      const i = Number(input.dataset.routine.split("-").pop());
+      routineState[week] = { ...(routineState[week] || {}), [i]: input.checked };
+      writeStorage(ROUTINE_KEY, routineState);
+      const count = routine.kohdat.filter((_, j) => routineState[week][j]).length;
+      box.querySelector("[data-routine-status]").textContent = `${count} / ${routine.kohdat.length}`;
+    }));
+  }
+
+  function cycleNote(week) {
+    const cycle = cycleFor(week);
+    if (!cycle) return "";
+    const saved = cycleState[week] || {};
+    const step = Math.min(Math.max(1, Number(saved.step) || 1), cycle.steps.length + 1);
+    return step > cycle.steps.length ? t("cycleRoundDoneTitle", Math.max(1, Number(saved.round) || 1)) : t("cycleLiveStep", step, cycle.steps[step - 1].nimi);
+  }
+
   function weekTasks(week) {
     return [...document.querySelectorAll(`.week-card[data-week="${week}"] [data-task]`)];
   }
@@ -398,7 +909,7 @@
 
   function closeMobileSidebar() {
     const sidebar = document.getElementById("sivupalkki");
-    if (window.matchMedia("(max-width: 860px)").matches) {
+    if (singleColumn || window.matchMedia("(max-width: 860px)").matches) {
       sidebar?.classList.remove("is-open");
       document.querySelector("[data-sidebar-toggle]")?.setAttribute("aria-expanded", "false");
     }
@@ -413,6 +924,20 @@
     closeMobileSidebar();
     document.querySelector(`.view[data-view="${state.view}"]`)?.scrollIntoView?.({ block: "start" });
     document.getElementById("sisalto").scrollTop = 0;
+    /* v2.4 (teema): fokus uuden näkymän otsikkoon, jotta ruudunlukija ja
+       näppäimistö jatkavat oikeasta kohdasta eikä fokus katoa suljettuun valikkoon. */
+    if (focusOnViewChange) {
+      const h1 = activeHeading();
+      if (h1) {
+        if (!h1.hasAttribute("tabindex")) h1.setAttribute("tabindex", "-1");
+        h1.focus({ preventScroll: true });
+      }
+    }
+  }
+  function activeHeading() {
+    return state.view === "viikko"
+      ? document.querySelector(`.view[data-view="viikko"] [data-week="${state.week}"] h1`)
+      : document.querySelector(`.view[data-view="${state.view}"] h1`);
   }
   function goToWeek(week) { setView("viikko", week); }
 
@@ -431,9 +956,7 @@
     document.querySelectorAll(".view").forEach((el) => { el.hidden = el.dataset.view !== state.view; });
     weekCardEls.forEach((el) => { el.hidden = Number(el.dataset.week) !== state.week; });
     syncNavActive();
-    const h1 = state.view === "viikko"
-      ? document.querySelector(`.view[data-view="viikko"] [data-week="${state.week}"] h1`)
-      : document.querySelector(`.view[data-view="${state.view}"] h1`);
+    const h1 = activeHeading();
     if (h1) document.title = `${h1.textContent.trim()} – ${P.nimi}`;
   }
 
@@ -461,7 +984,11 @@
     holder.classList.toggle("is-compact", compactSidebar);
     const names = P.viikkoNimet || {};
     const phaseStart = {};
-    phases.forEach((phase) => { if ((phase.viikot || []).length) phaseStart[Math.min(...phase.viikot)] = phase; });
+    /* Vaiheen ensimmäinen viikko viikot-listan järjestyksessä (toimii myös vuodenvaihteen yli). */
+    phases.forEach((phase) => {
+      const first = weekList.find((w) => (phase.viikot || []).map(Number).includes(w));
+      if (first != null) phaseStart[first] = phase;
+    });
     const cur = currentWeek();
 
     const rows = [];
@@ -473,13 +1000,24 @@
       const holiday = holidayWeeks.has(week);
       const isDone = !holiday && weekTasks(week).length > 0 && weekTasks(week).every((box) => box.checked);
       const isCurrent = week === cur;
-      const future = week > cur;
+      const future = weekIndex(week) > weekIndex(cur);
       const phase = phaseOf(week);
       const classes = ["week-row"];
       if (isDone) classes.push("is-done");
       if (isCurrent) classes.push("is-current");
       if (holiday) classes.push("is-holiday");
       if (lockFuture && future && !holiday) classes.push("is-locked");
+      if (stateTexts) {
+        /* v2.4 (teema): tila näkyvänä tekstinä ja symbolina, ei värinä. Ei
+           aria-labelia, jotta ruudunlukija lukee saman kuin näkyy. */
+        const kind = holiday ? "holiday" : (isDone ? "done" : (isCurrent ? "current" : "future"));
+        rows.push(`<a class="${classes.join(" ")}" href="#week-${week}" data-week-link="${week}">
+        <span class="week-row-title">${escapeText(names[week] || t("weekFallback", week))}</span>
+        <span class="week-row-n">${escapeText(t("weekNumberShort", week))}</span>
+        ${stateLabel(kind)}
+      </a>`);
+        return;
+      }
       const ariaLabel = holiday
         ? t("weekAriaHoliday", week, (names[week] || t("holidayFallback")).toLowerCase())
         : t("weekAria", week, phase ? phase.tunnus : "");
@@ -521,7 +1059,10 @@
       const label = button.querySelector("span:first-child");
       if (label) label.textContent = firstIncomplete ? (done ? t("resumeLabel") : (P.aloitusNappi || t("resumeLabel"))) : t("resumeDone");
     });
-    document.querySelectorAll("[data-continue-note]").forEach((el) => { el.textContent = t("resumeNote", cur, weekTitle(cur)); });
+    const cycleText = cycleNote(cur);
+    document.querySelectorAll("[data-continue-note]").forEach((el) => {
+      el.textContent = t("resumeNote", cur, weekTitle(cur)) + (cycleText ? ` · ${cycleText}` : "");
+    });
 
     buildWeekNavigation();
   }
@@ -591,7 +1132,8 @@
       if (complete) cls.push("is-logged");
       if (isCurrent) cls.push("is-current");
       const status = complete ? t("weekTileLogged") : (isCurrent ? t("weekTileCurrent") : t("weekTileOpen"));
-      return `<button type="button" class="${cls.join(" ")}" data-week-tile="${w}"><strong>${w}</strong><span>${escapeText(status)}</span></button>`;
+      const symbol = stateTexts ? `<span aria-hidden="true">${escapeText(t(complete ? "tileSymbolLogged" : (isCurrent ? "tileSymbolCurrent" : "tileSymbolOpen")))}</span> ` : "";
+      return `<button type="button" class="${cls.join(" ")}" data-week-tile="${w}"><strong>${w}</strong><span>${symbol}${escapeText(status)}</span></button>`;
     }).join("");
     holder.querySelectorAll("[data-week-tile]").forEach((btn) => btn.addEventListener("click", () => goToWeek(Number(btn.dataset.weekTile))));
   }
@@ -646,7 +1188,9 @@
   const journalPath = journalCfg.polku || `project-docs/${journalFile}`;
 
   function exportJournal() {
-    const weeks = Object.keys(weekGuidance);
+    /* viikot-listan järjestyksessä: objektin numeroavaimet kulkisivat numerojärjestyksessä
+       ja vuodenvaihteen yli menevä jakso sekoittuisi (v2.4). */
+    const weeks = weekList.filter((w) => weekGuidance[w]);
     const documentText = [
       `# ${t("mdJournalTitle", P.nimi)}`, "",
       t("mdJournalLead", journalPath), "",
@@ -682,7 +1226,7 @@
     const text = done === 0 ? t("planNotStarted") : (done < required.length ? t("planPartial", done, required.length) : t("planDone"));
     const complete = done === required.length;
     document.querySelectorAll("[data-plan-status]").forEach((el) => { el.textContent = text; el.classList.toggle("complete", complete); });
-    document.querySelectorAll("[data-plan-status-meta]").forEach((el) => { el.textContent = complete ? "valmis" : (done === 0 ? "päivittyy" : `${done} / ${required.length}`); });
+    document.querySelectorAll("[data-plan-status-meta]").forEach((el) => { el.textContent = complete ? t("planMetaDone") : (done === 0 ? t("planMetaEmpty") : `${done} / ${required.length}`); });
   }
 
   function planMarkdown() {
@@ -759,9 +1303,13 @@
     const planName = plan?.otsikko ? `, ${plan.otsikko}` : "";
     const files = plan?.tiedostonimi ? ` ja ${plan.tiedostonimi}` : "";
     if (!window.confirm(t("resetConfirm", planName, files))) return;
-    [STORAGE_KEY, EVIDENCE_KEY, LOG_KEY, JOURNAL_KEY, PLAN_KEY].forEach((key) => localStorage.removeItem(key));
+    [STORAGE_KEY, EVIDENCE_KEY, LOG_KEY, JOURNAL_KEY, PLAN_KEY, CYCLE_KEY].forEach((key) => { try { localStorage.removeItem(key); } catch (_) { /* ei tallennusta */ } });
     journalEntries = {};
     planData = {};
+    cycleState = {};
+    routineState = {};
+    try { localStorage.removeItem(ROUTINE_KEY); } catch (_) { /* ei tallennusta */ }
+    taskWeekCards.forEach((card) => { renderCycle(card, false); renderRoutine(card); });
     taskBoxes.forEach((box) => { box.checked = false; });
     evidenceBoxes.forEach((box) => { box.checked = false; });
     document.querySelectorAll("[data-journal-field]").forEach((field) => { field.value = ""; });
@@ -775,6 +1323,8 @@
 
   /* ---------- käynnistys ---------- */
 
+  taskWeekCards.forEach((card) => { renderCycle(card, false); renderLostTree(card); renderRoutine(card); });
+  renderKuvaohjeet(document);
   applyHashFromLocation(true);
   buildWeekNavigation();
   initJournal();

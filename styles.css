@@ -1,5 +1,5 @@
 /*
- * Näyttöprojekti – geneerinen kaksipalstainen leiska (moottori).
+ * Näyttöprojekti – geneerinen kaksipalstainen leiska (moottori v2.4).
  * TÄTÄ TIEDOSTOA EI MUOKATA PROJEKTIKOHTAISESTI, PAITSI :root-paletti.
  * Projektikohtainen väri tulee AINA :root:sta (--accent, --accent-dark,
  * --phase-a..--phase-f) — muualle ei kovakoodata värejä.
@@ -464,3 +464,263 @@ figure.view-figure figcaption strong { color: var(--ink); display: block; margin
 .expectation-grid .expected-example { border-left: 3px solid var(--accent); }
 .expectation-grid .not-enough { border-left: 3px solid #b8412c; background: color-mix(in srgb, #b8412c 5%, var(--card-bg)); }
 @media (max-width: 860px) { .expectation-grid { grid-template-columns: 1fr; } }
+
+/* =====================================================================
+   v2.4 · OPT-IN-KOMPONENTIT
+   Näkyvät vain, kun projekti ottaa ne käyttöön (sisalto.js: sykli,
+   kuvaohjeet). Värit tulevat tokeneista, joten ne sopivat sekä
+   oletusteemaan että html[data-teema] -teemaan.
+   ===================================================================== */
+.sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+/* ---- tila tekstinä ja symbolina (teema.tilaTekstit) ---- */
+.week-state { display: inline-flex; gap: .3em; align-items: baseline; font-size: 12px; color: var(--muted); white-space: nowrap; }
+.week-state-current { font-weight: 700; color: var(--ink); }
+
+/* ---- työsykli (viikkoOhjeet[w].sykli) ---- */
+.week-cycle { margin-top: 20px; padding: 18px; background: var(--card-bg); border: 1px solid var(--line); border-radius: var(--radius-card); }
+.week-cycle[hidden] { display: none; }
+.cycle-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.cycle-round { font-size: 13px; color: var(--meta); }
+.cycle-lead { margin-top: 6px; font-size: 14px; color: var(--muted); }
+.cycle-track { list-style: none; margin: 14px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr)); gap: 8px; }
+.cycle-track button {
+  width: 100%; height: 100%; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; padding: 8px 10px;
+  background: var(--bg); color: var(--ink); border: 1px solid var(--line); border-radius: var(--radius-button);
+  font: inherit; font-size: 13px; text-align: left; cursor: pointer;
+}
+.cycle-track button:hover { border-color: var(--line-hover); }
+.cycle-step.is-current button { border: 2px solid var(--accent); }
+.cycle-step-n { font-weight: 700; color: var(--accent); }
+.cycle-step-name { font-weight: 600; }
+.cycle-now { margin-top: 16px; padding: 16px 18px; border: 2px solid var(--accent); border-radius: var(--radius-card); background: var(--bg); }
+.cycle-now-label { font-size: 12px; font-weight: 700; color: var(--accent); }
+.cycle-now-title { font-size: 28px; margin-top: 4px; }
+.cycle-now-title:focus { outline: none; }
+.cycle-now-title:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.cycle-now-text { margin-top: 8px; }
+.cycle-tool { margin-top: 6px; font-size: 14px; }
+.cycle-instructions { margin: 12px 0 0; padding-left: 22px; display: flex; flex-direction: column; gap: 6px; font-size: 15px; }
+.cycle-extra { margin-top: 10px; font-size: 14px; }
+.cycle-when { margin-top: 14px; font-size: 14px; }
+.cycle-actions { margin-top: 18px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.copy-block { margin-top: 16px; }
+.copy-title { font-size: 14px; font-weight: 700; }
+.copy-text {
+  margin: 6px 0 10px; padding: 12px 14px; background: var(--card-bg); color: var(--ink); border: 1px dashed var(--dashed);
+  border-radius: 8px; font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; font-size: 13px;
+  white-space: pre-wrap; overflow-wrap: anywhere;
+}
+.copy-button.is-copied { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+.cycle-stuck { margin-top: 16px; padding: 0 14px; border: 1px solid var(--line); border-radius: var(--radius-card); background: var(--card-bg); }
+.cycle-stuck > summary { padding: 12px 0; font-weight: 700; cursor: pointer; }
+.cycle-stuck-lead { font-size: 14px; color: var(--muted); }
+.stuck-list { list-style: none; margin: 10px 0 14px; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.stuck-list .stuck-list { margin: 10px 0 4px; }
+.stuck-item > summary { padding: 6px 0; font-weight: 600; cursor: pointer; }
+.stuck-answer { margin: 4px 0 8px 6px; padding-left: 14px; border-left: 2px solid var(--line); font-size: 14px; }
+
+/* ---- kuvaohje (kuvakaappaukset.json) ---- */
+.week-kuvaohjeet > h2 { margin-bottom: 4px; }
+.kuvaohje { margin: 14px 0 0; padding: 14px 16px; background: var(--card-bg); border: 1px solid var(--line); border-radius: var(--radius-card); }
+.kuvaohje-title { font-family: var(--font-sans); font-size: 15px; font-weight: 700; }
+.kuvaohje-where { margin-top: 2px; font-size: 13px; color: var(--muted); }
+.kuvaohje-body { margin-top: 12px; display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 16px; align-items: start; }
+.kuvaohje-picture { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+.kuvaohje-stage { position: relative; display: block; width: 100%; overflow: visible; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; cursor: zoom-in; }
+.kuvaohje-stage img { display: block; width: 100%; height: 100%; border-radius: 7px; }
+.kuvaohje-stage.is-full { cursor: default; max-width: none; }
+.kuvaohje-placeholder { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; padding: 16px; text-align: center; color: var(--muted); border: 2px dashed var(--dashed); border-radius: 7px; font-size: 14px; }
+.kuvaohje-mark { position: absolute; border: 4px solid var(--teema-kehys, var(--accent)); border-radius: 6px; box-shadow: 0 0 0 2px var(--bg), inset 0 0 0 2px var(--bg); pointer-events: none; }
+.kuvaohje-mark-n {
+  position: absolute; top: 0; left: 0; transform: translate(-55%, -55%); min-width: 1.9em; height: 1.9em; padding: 0 .3em;
+  display: flex; align-items: center; justify-content: center; border-radius: var(--radius-pill);
+  background: var(--teema-kehys, var(--accent)); color: var(--bg); font-weight: 700; font-size: 14px; box-shadow: 0 0 0 2px var(--bg);
+}
+.kuvaohje-steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.kuvaohje-steps li { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; }
+.kuvaohje-n { flex-shrink: 0; min-width: 1.9em; height: 1.9em; display: flex; align-items: center; justify-content: center; border: 2px solid var(--teema-kehys, var(--accent)); border-radius: var(--radius-pill); font-weight: 700; }
+.kuvaohje-meta { margin-top: 10px; font-size: 12px; color: var(--meta); }
+.kuvaohje-error { margin-top: 10px; font-size: 14px; color: var(--ink); }
+.kuvaohje-dialog { width: min(96vw, 1400px); max-width: 96vw; max-height: 94vh; padding: 0; background: var(--card-bg); color: var(--ink); border: 2px solid var(--line); border-radius: var(--radius-card); }
+.kuvaohje-dialog::backdrop { background: rgba(0, 0, 0, .78); }
+.kuvaohje-dialog-head { position: sticky; top: 0; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 10px 14px; background: var(--card-bg); border-bottom: 1px solid var(--line); }
+.kuvaohje-dialog-body { padding: 16px; display: flex; flex-direction: column; gap: 16px; overflow: auto; }
+.kuvaohje-dialog-body .kuvaohje-stage { margin: 12px 0 0 12px; }
+@media (max-width: 860px) { .kuvaohje-body { grid-template-columns: 1fr; } }
+
+/* =====================================================================
+   v2.4 · SAAVUTETTAVA TEEMA (opt-in: <html data-teema>)
+   Arvot tulevat sisalto.js:n `teema`-lohkosta --teema-*-muuttujiin (app.js).
+   Oletukset alla ovat tumma korkean kontrastin teema. Tämä lohko ei vaikuta
+   projekteihin, joissa data-teema-attribuuttia ei ole.
+   Periaatteet: yksi tekstiväri mustalla, ei pienempää sivutekstiä, ei
+   kursiivia eikä isoja kirjaimia pieninä otsikkoina, reunat vähintään 2 px,
+   fokus 3 px, linkit alleviivattuina, tilat tekstinä ja symbolina.
+   ===================================================================== */
+html[data-teema] {
+  --bg: var(--teema-tausta, #000000);
+  --sidebar-bg: var(--teema-pinta, var(--bg));
+  --card-bg: var(--teema-pinta, var(--bg));
+  --ink: var(--teema-teksti, #ffffff);
+  --muted: var(--ink);
+  --meta: var(--ink);
+  --line: var(--ink);
+  --line-soft: var(--ink);
+  --line-hover: var(--ink);
+  --row-selected: transparent;
+  --row-hover: transparent;
+  --num-circle: transparent;
+  --dashed: var(--ink);
+  --future-border: var(--ink);
+  --accent: var(--teema-korostus, var(--ink));
+  --accent-dark: var(--accent);
+  --accent-hover: var(--accent);
+  --accent-wash: transparent;
+  --accent-line: var(--accent);
+  --on-accent: var(--teema-korostus-teksti, var(--bg));
+  --heading: var(--teema-otsikot, var(--ink));
+  --phase-a: var(--ink); --phase-b: var(--ink); --phase-c: var(--ink);
+  --phase-d: var(--ink); --phase-e: var(--ink); --phase-f: var(--ink);
+  --font-sans: var(--teema-fontti, Arial, Helvetica, sans-serif);
+  --font-serif: var(--font-sans);
+  --bw: var(--teema-reuna, 2px);
+  --focus-w: var(--teema-fokus, 3px);
+  --measure: var(--teema-rivi, 60ch);
+  background: var(--bg);
+  color: var(--ink);
+  color-scheme: dark;
+}
+html[data-teema] body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--teema-koko, 1.5rem);
+  line-height: var(--teema-rivikorkeus, 1.6);
+  letter-spacing: var(--teema-kirjainvali, 1px);
+  word-spacing: var(--teema-sanavali, .3rem);
+  overflow-wrap: anywhere;
+  -webkit-font-smoothing: auto;
+}
+/* Ei pienempää sivutekstiä: kaikki perii perusfontin. Otsikot ovat suurempia. */
+html[data-teema] body * { font-size: inherit !important; font-style: normal !important; letter-spacing: inherit !important; text-transform: none !important; }
+html[data-teema] h1, html[data-teema] .view-title, html[data-teema] .progress-pct { font-size: 1.75em !important; line-height: 1.2; }
+html[data-teema] h2, html[data-teema] .cycle-now-title, html[data-teema] .sidebar-title { font-size: 1.35em !important; line-height: 1.25; }
+html[data-teema] h3, html[data-teema] h4 { font-size: 1.1em !important; line-height: 1.3; }
+html[data-teema] h1, html[data-teema] h2, html[data-teema] h3, html[data-teema] h4 { color: var(--heading); font-family: var(--font-sans); font-weight: 700; }
+html[data-teema] strong, html[data-teema] b { font-weight: 700; }
+html[data-teema] code, html[data-teema] pre, html[data-teema] .copy-text, html[data-teema] .glossary-term { font-family: ui-monospace, Consolas, "Courier New", monospace; background: transparent; color: var(--ink); }
+html[data-teema] pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+/* Pitkät polut ja koodit katkeavat, jotta 400 %:n zoomilla ei synny vaakavieritystä. */
+html[data-teema] code { overflow-wrap: anywhere; }
+html[data-teema] .impl-help summary, html[data-teema] .matrix summary, html[data-teema] details.source-role summary { flex-wrap: wrap; }
+
+/* Reunat vähintään 2 px: koskee vain elementtejä, joilla on jo reuna. */
+html[data-teema] body * { border-width: var(--bw) !important; }
+
+/* Linkit alleviivattuina. Navigaatiorivit ja napit erotetaan reunalla. */
+html[data-teema] a { color: var(--ink); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: .2em; }
+html[data-teema] a:hover { text-decoration-thickness: 3px; }
+html[data-teema] .nav-row, html[data-teema] .week-row { text-decoration: none; border: var(--bw) solid transparent; }
+html[data-teema] .nav-row:hover, html[data-teema] .week-row:hover { border-color: var(--ink); text-decoration: none; }
+html[data-teema] .nav-row[aria-current="page"], html[data-teema] .week-row[aria-current="page"] { border-color: var(--ink); background: transparent; font-weight: 700; }
+
+/* Fokus 3 px, aina näkyvä. */
+html[data-teema] :focus-visible,
+html[data-teema] input:focus, html[data-teema] textarea:focus, html[data-teema] select:focus {
+  outline: var(--focus-w) solid var(--teema-fokusvari, var(--ink)) !important; outline-offset: 3px !important;
+}
+html[data-teema] .task-row:focus-within { outline: var(--focus-w) solid var(--ink); outline-offset: 3px; }
+html[data-teema] .task-row input:focus-visible ~ .task-box { outline: none !important; }
+
+/* Napit */
+html[data-teema] .button, html[data-teema] .resume-button, html[data-teema] .mobile-menu-toggle {
+  border: var(--bw) solid var(--ink); border-radius: var(--radius-button); padding: .45em .8em; white-space: normal; text-align: left; line-height: 1.3;
+}
+html[data-teema] .button-primary, html[data-teema] .resume-button { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+html[data-teema] .button-primary:hover, html[data-teema] .resume-button:hover { background: var(--accent); color: var(--on-accent); text-decoration: underline; }
+html[data-teema] .button-secondary, html[data-teema] .button-ghost, html[data-teema] .mobile-menu-toggle { background: transparent; color: var(--ink); }
+html[data-teema] .button-secondary:hover, html[data-teema] .button-ghost:hover { text-decoration: underline; }
+html[data-teema] .button:disabled { opacity: 1; border-style: dashed; cursor: not-allowed; }
+html[data-teema] .copy-button.is-copied { background: var(--bg); color: var(--ink); border-color: var(--ink); }
+
+/* Lomakkeet ja valintaruudut */
+html[data-teema] input, html[data-teema] textarea, html[data-teema] select { background: var(--bg) !important; color: var(--ink) !important; border: var(--bw) solid var(--ink) !important; font: inherit; }
+html[data-teema] ::placeholder { color: var(--ink); opacity: .8; }
+html[data-teema] input[type="checkbox"] { accent-color: var(--accent); width: 1.2em; height: 1.2em; }
+html[data-teema] .task-box { width: 1.2em; height: 1.2em; border: var(--bw) solid var(--ink); background: transparent; color: var(--on-accent); }
+html[data-teema] .task-row input:checked ~ .task-box { background: var(--accent); border-color: var(--accent); }
+html[data-teema] .task-row input:checked ~ .task-text { color: var(--ink); }
+
+/* Pinnat ja erottelu ilman värisävyjä */
+html[data-teema] .card, html[data-teema] .card-tint, html[data-teema] .week-kicker, html[data-teema] .impl-help,
+html[data-teema] .plan-row, html[data-teema] .plan-prefilled article, html[data-teema] .task-row, html[data-teema] .matrix,
+html[data-teema] .week-terms, html[data-teema] details.source-role, html[data-teema] .ai-log-form, html[data-teema] .log-entry,
+html[data-teema] .journal-weeks-grid .tile, html[data-teema] .gallery-empty, html[data-teema] .matrix-row { background: var(--card-bg); }
+html[data-teema] .image-stage { background: var(--bg); border: var(--bw) solid var(--ink); }
+html[data-teema] .expectation-grid .not-enough { border-color: var(--ink); background: var(--card-bg); }
+html[data-teema] .journal-weeks-grid .tile.is-logged { background: var(--card-bg); }
+html[data-teema] .journal-weeks-grid .tile.is-current { border-style: solid; font-weight: 700; }
+html[data-teema] .skill-tags li, html[data-teema] .glossary-week { background: transparent; color: var(--ink); }
+html[data-teema] .lesson-instructions li .step-n { width: 1.6em; height: 1.6em; border: var(--bw) solid var(--ink); background: transparent; color: var(--ink); }
+html[data-teema] .progress-bar { height: .5em; border: var(--bw) solid var(--ink); background: transparent; }
+html[data-teema] .progress-bar > span { background: var(--ink); }
+html[data-teema] .brand-mark { background: var(--accent); color: var(--on-accent); width: 1.8em; height: 1.8em; }
+html[data-teema] .cycle-step.is-current button { border-width: calc(var(--bw) + 1px) !important; font-weight: 700; }
+
+/* Rivin pituus noin 60 merkkiä ja väljyys */
+html[data-teema] .view { max-width: calc(var(--measure) + 2.5rem); padding: 1.5rem 1.25rem 3rem; }
+html[data-teema] .view-lead, html[data-teema] .journal-lead, html[data-teema] .plan-form-heading p { max-width: none; }
+html[data-teema] .view-section { margin-top: 2em; }
+html[data-teema] .view-section:first-of-type { margin-top: 1.5em; }
+
+/* Ruudukot yhteen palstaan: toimii 200 % ja 400 % zoomilla ilman vaakavieritystä. */
+html[data-teema] .grid-2, html[data-teema] .principle-grid, html[data-teema] .outcome-grid, html[data-teema] .expectation-grid,
+html[data-teema] .workflow-loop, html[data-teema] .ai-rules, html[data-teema] .day-grid, html[data-teema] .kuvaohje-body,
+html[data-teema] .glossary-item { grid-template-columns: 1fr; }
+html[data-teema] .journal-weeks-grid { grid-template-columns: repeat(auto-fill, minmax(6.5em, 1fr)); }
+html[data-teema] .cycle-track { grid-template-columns: repeat(auto-fill, minmax(9em, 1fr)); }
+html[data-teema] .lanka-row, html[data-teema] .week-pager { flex-direction: column; }
+html[data-teema] .week-pager button { max-width: none; width: 100%; }
+html[data-teema] .plan-row { flex-direction: column; align-items: stretch; gap: .4em; }
+html[data-teema] .plan-tag { width: auto; }
+html[data-teema] .section-heading-row, html[data-teema] .journal-heading, html[data-teema] .plan-form-heading, html[data-teema] .progress-row,
+html[data-teema] .download-card, html[data-teema] .privacy-row, html[data-teema] .ai-log-meta, html[data-teema] .week-terms-head,
+html[data-teema] .nav-row, html[data-teema] .week-kicker, html[data-teema] .cycle-actions { flex-wrap: wrap; }
+html[data-teema] .week-row { flex-wrap: wrap; row-gap: 0; }
+html[data-teema] .week-row-title { flex: 1 1 8em; white-space: normal; overflow: visible; }
+html[data-teema] [data-plan-status], html[data-teema] .plan-row-week, html[data-teema] .week-terms-head a, html[data-teema] .week-state { white-space: normal; }
+html[data-teema] img { max-width: 100%; height: auto; }
+html[data-teema] .kuvaohje-stage.is-full img { max-width: none; }
+
+/* ---- yksi palsta: sivupalkki avautuu valikkona kaikilla leveyksillä ---- */
+html[data-teema-asettelu="yksi"] .app-shell { flex-direction: column; }
+html[data-teema-asettelu="yksi"] .sidebar { position: static; width: 100%; height: auto; border-right: none; border-bottom: var(--bw, 1px) solid var(--line); }
+html[data-teema-asettelu="yksi"] .sidebar-header { flex-wrap: wrap; justify-content: space-between; padding: 1rem 1.25rem; }
+html[data-teema-asettelu="yksi"] .sidebar-progress { display: block; padding: 1rem 1.25rem; }
+html[data-teema-asettelu="yksi"] .resume-button { width: 100%; }
+html[data-teema-asettelu="yksi"] .sidebar-scroll { display: none; }
+html[data-teema-asettelu="yksi"] .sidebar.is-open .sidebar-scroll { display: flex; max-height: none; overflow: visible; border-top: var(--bw, 1px) solid var(--line); }
+html[data-teema-asettelu="yksi"] .mobile-menu-toggle { display: inline-flex; align-items: center; gap: .4em; margin-left: auto; cursor: pointer; font: inherit; font-weight: 700; }
+html[data-teema-asettelu="yksi"] .view-main { height: auto; overflow: visible; }
+html[data-teema-asettelu="yksi"] .nav-group-docs { margin-top: 0; }
+
+/* Liike: ei pehmeää vieritystä eikä siirtymiä, jos käyttäjä on pyytänyt vähemmän liikettä. */
+@media (prefers-reduced-motion: reduce) {
+  html[data-teema], html[data-teema] * { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
+}
+
+/* ---- v2.4: joka viikon vakiolohkot (josJumissa, viikkorutiini) ---- */
+.week-lost { margin-top: 16px; padding: 0 16px; background: var(--card-bg); border: 1px solid var(--line); border-radius: var(--radius-card); }
+.week-lost > summary { padding: 12px 0; font-weight: 700; cursor: pointer; }
+.week-lost-lead { font-size: 14px; color: var(--muted); }
+.week-routine-lead { margin-top: 6px; font-size: 14px; color: var(--muted); }
+html[data-teema] fieldset { margin: 1em 0 0; padding: .6em 1em 1em; border: var(--bw) solid var(--ink); border-radius: var(--radius-card); }
+html[data-teema] legend { padding: 0 .4em; font-weight: 700; }
+html[data-teema] input[type="radio"] { accent-color: var(--accent); width: 1.2em; height: 1.2em; }
+.cycle-place { font-weight: 400; }
+.cycle-own { margin-top: 10px; padding: 10px 12px; border-left: 3px solid var(--accent); background: var(--card-bg); font-size: 15px; }
+/* Kuvaohjeen kehykset ovat tarkoituksella paksumpia kuin teeman 2 px reunat. */
+html[data-teema] .kuvaohje-mark { border-width: calc(var(--bw) * 2 + 1px) !important; }
+html[data-teema] .kuvaohje-n { border-width: var(--bw) !important; }
+.week-templates { margin-top: 8px; }

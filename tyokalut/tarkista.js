@@ -10,7 +10,12 @@
  *
  * v2 (kaksipalstainen layout): viikkokortit ovat <article class="week-card">
  * (ei enää <details>), koska JS näyttää yhden viikon kerrallaan sivupalkin
- * kautta. Rakenteen tarkka kuvaus: /root/work/layout-rakenne.md.
+ * kautta. Rakenteen tarkka kuvaus: references/layout-rakenne.md (skilli).
+ *
+ * v2.4: vuodenvaihde (viikot [40, …, 53, 1, …, 9] kun vuosi on [2026, 2027]),
+ * lyhyetViikot (esim. {51: 4} → data-week-label ma–to), dokumentoidut
+ * mitoituspoikkeamat (poikkeamat.vaiheita = "perustelu" → INFO, ei HUOM),
+ * sekä opt-in-ominaisuuksien tarkistukset: teema (14), sykli (15), kuvaohjeet (16).
  */
 const fs = require("fs");
 const path = require("path");
@@ -18,8 +23,10 @@ const path = require("path");
 const ROOT = process.cwd();
 const errors = [];
 const warnings = [];
+const infos = [];
 const err = (m) => errors.push(m);
 const warn = (m) => warnings.push(m);
+const info = (m) => infos.push(m);
 
 function read(name) {
   const p = path.join(ROOT, name);
@@ -50,19 +57,34 @@ const weeks = (P.viikot || []).map(Number);
 const holidays = (P.lomaViikot || []).map(Number);
 const workWeeks = weeks.filter((w) => !holidays.includes(w));
 
-if (weeks.join(",") !== [...weeks].sort((a, b) => a - b).join(",")) {
-  err("sisalto.js: viikot eivät ole nousevassa järjestyksessä");
+/* Nouseva järjestys. Vuodenvaihde sallitaan kerran, kun vuosi on taulukko:
+   [40, …, 53, 1, …, 9]. weekYear kertoo kunkin viikon vuoden. */
+const yearList = Array.isArray(P.vuosi) ? P.vuosi.map(Number) : [Number(P.vuosi)];
+const weekYear = {};
+{
+  let yi = 0;
+  weeks.forEach((w, i) => {
+    if (i > 0 && w <= weeks[i - 1]) {
+      const wrap = !P.paivaton && yearList.length > 1 && yi === 0 && weeks[i - 1] >= 52 && w <= 2;
+      if (wrap) yi = 1;
+      else err(`sisalto.js: viikot eivät ole nousevassa järjestyksessä (${weeks[i - 1]} → ${w})${yearList.length > 1 ? "" : " — vuodenvaihde vaatii vuosi: [alku, loppu]"}`);
+    }
+    weekYear[w] = yearList[Math.min(yi, yearList.length - 1)];
+  });
 }
+if (new Set(weeks).size !== weeks.length) err("sisalto.js: sama viikkonumero toistuu viikot-listassa");
 if (workWeeks.length < 3 || workWeeks.length > 18) {
   err(`${workWeeks.length} työviikkoa — runko on mitoitettu 3–18 viikolle`);
 }
 
-/* Keston mukainen mitoitus, ks. references/pedagoginen-runko.md § Kesto. */
+/* Keston mukainen mitoitus, ks. references/pedagoginen-runko.md § Kesto.
+   Tietoinen poikkeama kirjataan sisalto.js:n poikkeamat-lohkoon perusteluineen. */
 const MITOITUS = workWeeks.length <= 5 ? { vaiheita: 2, testeja: 6, ketjuja: 1 }
   : workWeeks.length <= 9 ? { vaiheita: 3, testeja: 8, ketjuja: 2 }
   : { vaiheita: 4, testeja: 12, ketjuja: 3 };
 if ((P.vaiheet || []).length !== MITOITUS.vaiheita) {
-  warn(`${workWeeks.length} työviikkoa → suositus ${MITOITUS.vaiheita} vaihetta, nyt ${(P.vaiheet || []).length}`);
+  const syy = P.poikkeamat && P.poikkeamat.vaiheita;
+  (syy ? info : warn)(`${workWeeks.length} työviikkoa → suositus ${MITOITUS.vaiheita} vaihetta, nyt ${(P.vaiheet || []).length}${syy ? ` (tietoinen poikkeama: ${syy})` : ""}`);
 }
 
 /* ---------- 2. viikkoOhjeet ---------- */
@@ -162,9 +184,13 @@ const EN_MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"
     return;
   }
   const w = Number(num);
-  const candidates = years.flatMap((y) => {
+  /* Vuodenvaihteen yli menevässä jaksossa viikon vuosi tiedetään sen paikasta
+     viikot-listassa. lyhyetViikot = {51: 4}: viikon viimeinen työpäivä on to. */
+  const paivia = Number((P.lyhyetViikot || {})[w]) || 5;
+  const candidateYears = weekYear[w] ? [weekYear[w]] : years;
+  const candidates = candidateYears.flatMap((y) => {
     const ma = isoMonday(y, w);
-    const pe = new Date(ma.getTime() + 4 * 86400000);
+    const pe = new Date(ma.getTime() + (paivia - 1) * 86400000);
     const sameMonth = ma.getUTCMonth() === pe.getUTCMonth();
     const fi = sameMonth
       ? `${ma.getUTCDate()}.–${pe.getUTCDate()}.${pe.getUTCMonth() + 1}.`
@@ -276,6 +302,41 @@ if (!html.includes('data-week-links')) err('index.html: sivupalkin viikkonavigaa
 if (!/id="sivupalkki"/.test(html)) err('index.html: sivupalkin id="sivupalkki" puuttuu (mobiilivalikko tarvitsee sen)');
 if (!html.includes('data-sidebar-toggle')) warn('index.html: mobiilin valikkonappi (data-sidebar-toggle) puuttuu');
 
+/* ---------- 12b. v2.4-datan lataus (sykli ja kuvaohjeet) ---------- */
+const syklissa = (w) => Boolean(P.viikkoOhjeet?.[w]?.sykli);
+const sykliViikot = workWeeks.filter(syklissa);
+const kuvaViittaukset = new Map(); // tunnus → [viikko | "index.html"]
+const lisaaViittaus = (id, missa) => { if (!kuvaViittaukset.has(id)) kuvaViittaukset.set(id, []); kuvaViittaukset.get(id).push(missa); };
+workWeeks.forEach((w) => {
+  const g = P.viikkoOhjeet?.[w] || {};
+  (g.kuvaohjeet || []).forEach((id) => lisaaViittaus(id, w));
+  if (g.sykli) {
+    (P.sykli?.askeleet || []).forEach((s) => (s.kuvaohjeet || []).forEach((id) => lisaaViittaus(id, w)));
+    Object.values((g.sykli === true ? {} : g.sykli).kuvaohjeet || {}).flat().forEach((id) => lisaaViittaus(id, w));
+  }
+});
+[...htmlNoComments.matchAll(/data-kuvaohje="([^"]+)"/g)].forEach(([, id]) => lisaaViittaus(id, "index.html"));
+let kuvaLista = null;
+if (Array.isArray(P.kuvakaappaukset)) kuvaLista = P.kuvakaappaukset;
+else if (kuvaViittaukset.size || fs.existsSync(path.join(ROOT, P.kuvakaappauksetPolku || "kuvakaappaukset.json"))) {
+  const kp = path.join(ROOT, P.kuvakaappauksetPolku || "kuvakaappaukset.json");
+  if (!fs.existsSync(kp)) err(`kuvaohjeita käytetään, mutta ${P.kuvakaappauksetPolku || "kuvakaappaukset.json"} puuttuu`);
+  else {
+    try {
+      const data = JSON.parse(fs.readFileSync(kp, "utf8"));
+      kuvaLista = Array.isArray(data) ? data : (data.kuvat || []);
+    } catch (e) { err(`kuvakaappaukset.json ei ole kelvollista JSONia: ${e.message}`); }
+  }
+}
+const kuvaMap = new Map((kuvaLista || []).map((k) => [k.tunnus, k]));
+const kuvaTeksti = (k) => (k ? stringsOfTop([k.otsikko, k.kuvaa, k.missa, k.alt, (k.kohdat || []).map((c) => c.teksti)]).join(" ") : "");
+function stringsOfTop(v, out = []) {
+  if (typeof v === "string") out.push(v);
+  else if (Array.isArray(v)) v.forEach((x) => stringsOfTop(x, out));
+  else if (v && typeof v === "object") Object.values(v).forEach((x) => stringsOfTop(x, out));
+  return out;
+}
+
 /* ---------- 13. pedagoginen termistö ----------
  * Sivun pitää opettaa käyttämänsä ammattikieli, ei olettaa sitä tunnetuksi.
  * Tarkistus on kevyt ja mekaaninen — se ei ymmärrä kieltä, vaan etsii tunnetut
@@ -330,8 +391,13 @@ const lohkot = [
   ...workWeeks.map((w) => {
     const card = html.match(new RegExp(`<article class="week-card" id="week-${w}"[\\s\\S]*?<\\/article>`));
     const g = P.viikkoOhjeet[w] || {};
-    const guideText = stringsOf({ ...g, termit: undefined }).join(" ");
-    return { nimi: `viikko ${w}`, viikko: w, teksti: `${card ? stripHtml(card[0]) : ""} ${guideText}`, termit: (g.termit || []).map((k) => String(k).toLowerCase()) };
+    const guideText = stringsOf({ ...g, termit: undefined, kuvaohjeet: undefined }).join(" ");
+    /* v2.4: syklin yhteiset tekstit ja viikon kuvaohjeet kuuluvat viikon lukujärjestykseen. */
+    const sykliTeksti = (g.sykli ? stringsOf(P.sykli || {}).join(" ") : "")
+      + (P.josJumissa && g.josJumissa !== false ? " " + stringsOf(P.josJumissa).join(" ") : "")
+      + (P.viikkorutiini && g.rutiini !== false ? " " + stringsOf(P.viikkorutiini).join(" ") : "");
+    const kuvaTekstit = [...kuvaViittaukset.entries()].filter(([, missa]) => missa.includes(w)).map(([id]) => kuvaTeksti(kuvaMap.get(id))).join(" ");
+    return { nimi: `viikko ${w}`, viikko: w, teksti: `${card ? stripHtml(card[0]) : ""} ${guideText} ${sykliTeksti} ${kuvaTekstit}`, termit: (g.termit || []).map((k) => String(k).toLowerCase()) };
   })
 ];
 const muuTeksti = ["galleria", "paivakirja", "ailoki", "naytto"].map(viewBlock).join(" ")
@@ -373,12 +439,119 @@ PERHEET.forEach((f) => {
   }
 });
 
+/* ---------- 13b. lyhyetViikot ---------- */
+Object.entries(P.lyhyetViikot || {}).forEach(([w, n]) => {
+  if (!workWeeks.includes(Number(w))) err(`lyhyetViikot: viikko ${w} ei ole työviikko`);
+  if (!(Number(n) >= 1 && Number(n) <= 4)) err(`lyhyetViikot: viikon ${w} päivien määrä ${n} ei ole 1–4`);
+});
+
+/* ---------- 14. teema (v2.4, opt-in) ---------- */
+const htmlTag = (html.match(/<html\b[^>]*>/) || [""])[0];
+if (P.teema) {
+  if (typeof P.teema !== "object") err("sisalto.js: teema pitää olla objekti");
+  if (!/\sdata-teema=/.test(htmlTag)) warn("teema on käytössä, mutta <html> ei sisällä data-teema-attribuuttia — sivu välähtää oletusteemassa ennen app.js:ää");
+  if (P.teema.yksiPalsta !== false && !/\sdata-teema-asettelu="yksi"/.test(htmlTag)) warn('teema.yksiPalsta: lisää <html data-teema-asettelu="yksi">, jotta asettelu ei hyppää latauksessa');
+  if (/fonts\.googleapis\.com[^"]*Instrument/.test(htmlNoComments)) warn("teema on käytössä, mutta index.html lataa yhä Instrument-fontit — poista Google Fonts -linkki");
+  const hex = (v) => /^#[0-9a-f]{6}$/i.test(String(v || ""));
+  ["tausta", "teksti"].forEach((k) => { if (P.teema[k] && !hex(P.teema[k]) && !/^[a-z]+$/i.test(P.teema[k])) warn(`teema.${k}: '${P.teema[k]}' ei ole #rrggbb-väri`); });
+  /* Kontrasti WCAG 2.x: suhteellinen luminanssi. Tarkistetaan vain #rrggbb-arvot. */
+  const NIMET = { black: "#000000", white: "#ffffff" };
+  const lum = (c) => {
+    const h = (NIMET[String(c).toLowerCase()] || c).replace("#", "");
+    const [r, g, b] = [0, 2, 4].map((i) => parseInt(h.slice(i, i + 2), 16) / 255).map((v) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4));
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  };
+  const suhde = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p); return (x + 0.05) / (y + 0.05); };
+  const ok = (c) => hex(c) || NIMET[String(c).toLowerCase()];
+  const tausta = P.teema.tausta || "#000000";
+  [["teksti", P.teema.teksti || "#ffffff"], ["otsikot", P.teema.otsikot], ["korostus", P.teema.korostus]].forEach(([k, c]) => {
+    if (!c || !ok(c) || !ok(tausta)) return;
+    const r = suhde(c, tausta);
+    if (r < 7) warn(`teema.${k} ${c} taustaa ${tausta} vasten: kontrasti ${r.toFixed(1)}:1 (AAA vaatii 7:1)`);
+    else info(`teema.${k} ${c} / ${tausta}: kontrasti ${r.toFixed(1)}:1`);
+  });
+}
+
+/* ---------- 15. työsykli (v2.4, opt-in) ---------- */
+if (sykliViikot.length || P.sykli) {
+  const askeleet = P.sykli?.askeleet;
+  if (!Array.isArray(askeleet) || !askeleet.length) err("viikoilla on sykli, mutta sisalto.js:n sykli.askeleet puuttuu");
+  else {
+    askeleet.forEach((s, i) => {
+      if (!s.nimi) err(`sykli.askeleet[${i}]: nimi puuttuu`);
+      if (!(s.ohje || []).length) warn(`sykli: askeleelta ${i + 1} (${s.nimi || "?"}) puuttuu ohje`);
+      (s.ohje || []).forEach((line) => { if (/^[a-zåäö]/.test(String(line).trim())) warn(`sykli: askeleen ${i + 1} ohje alkaa pienellä kirjaimella — aloita verbillä isolla: "${String(line).slice(0, 40)}…"`); });
+      if (!(s.jumissa || []).length) warn(`sykli: askeleelta ${i + 1} (${s.nimi || "?"}) puuttuu "Olen jumissa" -päätöspuu`);
+      const tarkistaPuu = (items, polku) => (items || []).forEach((it, j) => {
+        if (!it.kysymys) err(`sykli: ${polku}[${j}] kysymys puuttuu`);
+        if (!it.ohje && !it.pohja && !(it.jatko || []).length) err(`sykli: ${polku}[${j}] ("${it.kysymys || "?"}") ei kerro mitä tehdä (ohje, pohja tai jatko)`);
+        tarkistaPuu(it.jatko, `${polku}[${j}].jatko`);
+      });
+      tarkistaPuu(s.jumissa, `askel ${i + 1} jumissa`);
+    });
+    sykliViikot.forEach((w) => {
+      const o = P.viikkoOhjeet[w].sykli;
+      if (o === true) return;
+      ["pohjat", "ohjeet", "jumissa", "kuvaohjeet", "lisa", "oma"].forEach((field) => Object.keys(o[field] || {}).forEach((n) => {
+        if (!(Number(n) >= 1 && Number(n) <= askeleet.length)) err(`viikko ${w}: sykli.${field} viittaa askeleeseen ${n}, askeleita on ${askeleet.length}`);
+      }));
+    });
+  }
+}
+
+/* ---------- 15b. vakiolohkot josJumissa ja viikkorutiini (v2.4, opt-in) ---------- */
+if (P.josJumissa) {
+  const kohdat = P.josJumissa.kohdat;
+  if (!Array.isArray(kohdat) || !kohdat.length) err("josJumissa.kohdat puuttuu tai on tyhjä");
+  else {
+    const puu = (items, polku) => (items || []).forEach((it, j) => {
+      if (!it.kysymys) err(`josJumissa: ${polku}[${j}] kysymys puuttuu`);
+      if (!it.ohje && !it.pohja && !(it.jatko || []).length) err(`josJumissa: ${polku}[${j}] ei kerro mitä tehdä`);
+      puu(it.jatko, `${polku}[${j}].jatko`);
+    });
+    puu(kohdat, "kohdat");
+    const viimeinen = kohdat[kohdat.length - 1];
+    if (!/ohjaaj|opettaj|teams|sähköpost|viesti/i.test(`${viimeinen.ohje || ""} ${JSON.stringify(viimeinen.pohja || "")}`)) {
+      warn("josJumissa: viimeinen kohta ei ohjaa ihmiseen (ohjaaja, kanava, viestipohja) — puun pitää päättyä ihmiseen");
+    }
+  }
+}
+if (P.viikkorutiini) {
+  if (!Array.isArray(P.viikkorutiini.kohdat) || !P.viikkorutiini.kohdat.length) err("viikkorutiini.kohdat puuttuu tai on tyhjä");
+  else P.viikkorutiini.kohdat.forEach((k, i) => { if (!k.teksti) err(`viikkorutiini.kohdat[${i}]: teksti puuttuu`); });
+}
+
+/* ---------- 16. kuvaohjeet (v2.4, opt-in) ---------- */
+if (kuvaLista) {
+  const tunnukset = new Set();
+  kuvaLista.forEach((k, i) => {
+    const nimi = k.tunnus || `#${i}`;
+    if (!k.tunnus) err(`kuvakaappaukset[${i}]: tunnus puuttuu`);
+    if (tunnukset.has(k.tunnus)) err(`kuvakaappaukset: tunnus ${k.tunnus} toistuu`);
+    tunnukset.add(k.tunnus);
+    ["kuvaa", "missa", "alt"].forEach((f) => { if (!k[f]) err(`kuvaohje ${nimi}: kenttä '${f}' puuttuu`); });
+    if (!(k.kohdat || []).length) err(`kuvaohje ${nimi}: numeroidut kohdat puuttuvat — kuva ei saa olla ainoa tiedon kantaja`);
+    (k.kohdat || []).forEach((c, j) => {
+      if (Number(c.n) !== j + 1) err(`kuvaohje ${nimi}: kohtien numerointi ei ole 1…N (kohta ${j + 1} = ${c.n})`);
+      if (!c.teksti) err(`kuvaohje ${nimi}: kohdalta ${c.n} puuttuu teksti`);
+      if (c.alue && (!Array.isArray(c.alue) || c.alue.length !== 4 || c.alue.some((v) => !(Number(v) >= 0 && Number(v) <= 100)))) err(`kuvaohje ${nimi}: kohdan ${c.n} alue pitää olla [x, y, leveys, korkeus] prosentteina 0–100`);
+    });
+    if (k.alt && k.alt.length < 40) warn(`kuvaohje ${nimi}: alt-teksti on lyhyt (${k.alt.length} merkkiä) — kerro mitä kuvassa näkyy ja missä`);
+    if (!k.tiedosto) warn(`kuvaohje ${nimi}: kuva puuttuu (tiedosto tyhjä) — sivulla näkyy paikanpitäjä`);
+    else if (!/^https?:/.test(k.tiedosto) && !fs.existsSync(path.join(ROOT, k.tiedosto))) warn(`kuvaohje ${nimi}: kuvatiedosto puuttuu: ${k.tiedosto} — sivulla näkyy paikanpitäjä`);
+    if (k.tiedosto && !k.pvm) warn(`kuvaohje ${nimi}: kuvauspäivä (pvm) puuttuu`);
+    if (!kuvaViittaukset.has(k.tunnus)) info(`kuvaohje ${nimi} ei ole vielä käytössä millään viikolla`);
+  });
+  kuvaViittaukset.forEach((missa, id) => { if (!kuvaMap.has(id)) err(`kuvaohje '${id}' (${[...new Set(missa)].join(", ")}) puuttuu kuvakaappaukset.json:sta`); });
+}
+
 /* ---------- tulos ---------- */
 const total = allTaskIds.length;
 const matriisiOsa = matrixUsed
   ? ` · ${evidenceIds.length} osaamisvaatimusta · ${matrixCount} tutkinnon osaa`
   : " · ei näyttömatriisia (projektisivusto)";
 console.log(`${P.nimi} · ${workWeeks.length} työviikkoa · ${total} tehtävää${matriisiOsa}`);
+infos.forEach((m) => console.log("  INFO  " + m));
 warnings.forEach((w) => console.log("  HUOM  " + w));
 errors.forEach((e) => console.log("  VIRHE " + e));
 if (!errors.length && !warnings.length) console.log("  Kaikki tarkistukset läpi.");
