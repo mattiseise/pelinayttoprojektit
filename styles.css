@@ -149,6 +149,8 @@ code { font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; 
 .view-main { flex: 1; min-width: 0; overflow-y: auto; height: 100vh; }
 .view { max-width: var(--main-max); margin: 0 auto; padding: 40px 40px 80px; }
 .view[hidden] { display: none; }
+/* v2.4.1: alatunniste sisältöpalstan lopussa; sivureunat samat kuin näkymällä. */
+.view-main > footer.view, html[data-teema] .view-main > footer.view { padding-top: 0; padding-bottom: 40px; }
 .view-eyebrow { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--meta); margin: 0; }
 .view-title { font-size: clamp(32px, 5vw, 42px); line-height: 1.1; margin: 6px 0 0; }
 .view-lead { margin: 16px 0 0; font-size: 15px; color: var(--muted); max-width: 62ch; }

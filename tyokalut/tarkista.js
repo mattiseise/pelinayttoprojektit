@@ -372,7 +372,7 @@ workWeeks.forEach((w) => {
 /* Opiskelijalle näkyvä teksti lohkoina lukujärjestyksessä. */
 const stripHtml = (s) => s.replace(/<!--[\s\S]*?-->/g, "").replace(/<[^>]+>/g, " ").replace(/&amp;/g, "&").replace(/&nbsp;/g, " ").replace(/\s+/g, " ");
 const viewBlock = (name) => {
-  const m = html.match(new RegExp(`<section class="view" data-view="${name}"[\\s\\S]*?<\\/section>\\s*(?=<!--|<section class="view"|<\\/main>)`));
+  const m = html.match(new RegExp(`<section class="view" data-view="${name}"[\\s\\S]*?<\\/section>\\s*(?=<!--|<section class="view"|<footer|<\\/main>)`));
   return m ? stripHtml(m[0]) : "";
 };
 const stringsOf = (v, out = []) => {

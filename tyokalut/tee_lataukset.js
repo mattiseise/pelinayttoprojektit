@@ -132,7 +132,7 @@ const sz = (half) => (iso ? Math.max(ISO.half, Math.round(half * ISO.half / 21))
 const col = (c) => (iso && c ? (c === ACCENT ? String(TULOSTE.otsikot).replace("#", "") : ISO.ink) : c);
 
 const p = (text, opts = {}) => new Paragraph({
-  children: [new TextRun({ text, size: sz(opts.size || 21), bold: opts.bold, italics: iso ? false : opts.italics, color: col(opts.color), font: iso ? ISO.font : undefined })],
+  children: [new TextRun({ text: iso ? String(text).replace(/`/g, "") : text, size: sz(opts.size || 21), bold: opts.bold, italics: iso ? false : opts.italics, color: col(opts.color), font: iso ? ISO.font : undefined })],
   spacing: { after: opts.after ?? 120, before: opts.before ?? 0, line: iso ? 384 : undefined },
   alignment: opts.align,
 });
@@ -146,7 +146,7 @@ function cell(text, { w, bold, fill, size = 19, color } = {}) {
     width: { size: w, type: WidthType.DXA },
     shading: fill && !iso ? { type: ShadingType.CLEAR, fill } : undefined,
     margins: { top: 60, bottom: 60, left: 100, right: 100 },
-    children: [new Paragraph({ children: [new TextRun({ text, bold, size: sz(size), color: col(color), font: iso ? ISO.font : undefined })], spacing: { after: 0 } })],
+    children: [new Paragraph({ children: [new TextRun({ text: iso ? String(text).replace(/`/g, "") : text, bold, size: sz(size), color: col(color), font: iso ? ISO.font : undefined })], spacing: { after: 0 } })],
   });
 }
 function table(colWidths, rows) {
@@ -457,7 +457,7 @@ async function saveDoc(name, children, large = false) {
    Tyylit: "oletus" (kuten ennen), "teema" (näytölle opiskelijan teemassa) ja
    "tuloste" (vaalea tausta, isokirjainen). Kaksi jälkimmäistä vain, kun
    sisalto.js:ssä on teema. Sisältö on kaikissa sama. */
-function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;"); }
+function escBase(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;"); }
 
 function printCss(style) {
   if (style === "oletus") {
@@ -490,7 +490,7 @@ th { background: #${TINT}; }
   return `@page { size: A4; margin: ${style === "teema" ? "0" : "14mm"}; }
 html { -webkit-print-color-adjust: exact; print-color-adjust: exact; background: ${c.bg}; }
 body { font-family: ${font}; font-size: ${koko}; line-height: ${T.rivikorkeus || 1.6}; letter-spacing: ${T.kirjainvali || "1px"}; word-spacing: ${T.sanavali || "0.3rem"};
-  color: ${c.ink}; background: ${c.bg}; margin: 0; ${style === "teema" ? "padding: 14mm;" : ""} }
+  color: ${c.ink}; background: ${c.bg}; margin: 0; ${style === "teema" ? "padding: 14mm; -webkit-box-decoration-break: clone; box-decoration-break: clone;" : ""} }
 * { font-style: normal !important; }
 h1 { color: ${c.head}; font-size: 1.5em; line-height: 1.2; margin: 0 0 .5em; page-break-after: avoid; }
 h2 { color: ${c.head}; font-size: 1.2em; line-height: 1.25; margin: 1em 0 .35em; page-break-after: avoid; }
@@ -507,11 +507,15 @@ th { font-weight: 700; }
 .done, .ev { margin: .3em 0 0; }
 .page { page-break-before: always; }
 .muted, .item { }
-strong { font-weight: 700; }`;
+strong { font-weight: 700; }
+code { font-family: Consolas, "Courier New", monospace; font-size: 1em; }`;
 }
 
 function printHtml(style) {
   const H = [];
+  /* Teema- ja tulosteversiossa takahipsut `näin` muuttuvat koodiksi kuten sivustolla.
+     Oletusversio pysyy ennallaan, jotta muiden projektien työpaketit eivät muutu. */
+  const esc = style === "oletus" ? escBase : (s) => escBase(s).replace(/`([^`\n]+)`/g, "<code>$1</code>");
   H.push(`<!doctype html><html lang="${esc(lt("lang"))}"><head><meta charset="utf-8"><title>${esc(P.nimi)} – ${esc(lt("tyopakettiTiedostoOtsikko"))}</title><style>
 ${printCss(style)}
 </style></head><body>`);

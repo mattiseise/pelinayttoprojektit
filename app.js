@@ -9,6 +9,9 @@
  * Rakenne, jota tämä moottori odottaa index.html:ltä, on kuvattu tarkasti
  * tiedostossa skillin references/layout-rakenne.md.
  *
+ * v2.4.1: alatunniste ja AI-muokattu-merkki näkyvät kaikissa näkymissä. render() piilottaa
+ *   vain .view[data-view]-näkymät, ja app.js siirtää vanhan sivun alatunnisteen
+ *   sisältöpalstan (.view-main) loppuun.
  * v2.4: opt-in-ominaisuudet, oletuksena pois päältä (muiden projektien ulkoasu ei muutu):
  *   - `teema`: saavutettava teema (värit, fontti, välistys, rivinpituus, 2 px reunat,
  *     3 px fokus) ja yksipalstainen asettelu, jossa sivupalkki avautuu valikkona.
@@ -883,6 +886,17 @@
 
   /* ---------- näkymänvaihto ---------- */
 
+  /* v2.4.1: alatunniste (footer.view ilman data-view:tä) näkyy kaikissa näkymissä.
+     Ennen v2.4.1:tä tehdyissä sivuissa se on .app-shellin jälkeen, jolloin se jää
+     vierivän sisältöpalstan ulkopuolelle. Siirretään se .view-mainin loppuun ja
+     poistetaan inline-tyyli; reunat tulevat styles.css:stä. */
+  const siteFooter = document.querySelector("footer.view:not([data-view])");
+  const viewMain = document.querySelector(".view-main");
+  if (siteFooter && viewMain && siteFooter.parentElement !== viewMain) {
+    viewMain.appendChild(siteFooter);
+    siteFooter.removeAttribute("style");
+  }
+
   const state = { view: "viikko", week: weekList[0] };
 
   function applyHashFromLocation(initial) {
@@ -953,7 +967,7 @@
   }
 
   function render() {
-    document.querySelectorAll(".view").forEach((el) => { el.hidden = el.dataset.view !== state.view; });
+    document.querySelectorAll(".view[data-view]").forEach((el) => { el.hidden = el.dataset.view !== state.view; });
     weekCardEls.forEach((el) => { el.hidden = Number(el.dataset.week) !== state.week; });
     syncNavActive();
     const h1 = activeHeading();
