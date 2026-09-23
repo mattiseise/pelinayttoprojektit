@@ -689,6 +689,7 @@ html[data-teema] .plan-tag { width: auto; }
 html[data-teema] .section-heading-row, html[data-teema] .journal-heading, html[data-teema] .plan-form-heading, html[data-teema] .progress-row,
 html[data-teema] .download-card, html[data-teema] .privacy-row, html[data-teema] .ai-log-meta, html[data-teema] .week-terms-head,
 html[data-teema] .nav-row, html[data-teema] .week-kicker, html[data-teema] .cycle-actions { flex-wrap: wrap; }
+html[data-teema] .download-actions { flex-shrink: 1; min-width: 0; }
 html[data-teema] .week-row { flex-wrap: wrap; row-gap: 0; }
 html[data-teema] .week-row-title { flex: 1 1 8em; white-space: normal; overflow: visible; }
 html[data-teema] [data-plan-status], html[data-teema] .plan-row-week, html[data-teema] .week-terms-head a, html[data-teema] .week-state { white-space: normal; }

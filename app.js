@@ -9,6 +9,8 @@
  * Rakenne, jota tämä moottori odottaa index.html:ltä, on kuvattu tarkasti
  * tiedostossa skillin references/layout-rakenne.md.
  *
+ * v2.4.2: kuvaohjeen "Avaa kuva isona" näkyy vain, kun kuva on olemassa (paikanpitäjää ja
+ *   latautumatonta kuvaa ei avata). Teeman latausnapit rivittyvät kapealla näytöllä.
  * v2.4.1: alatunniste ja AI-muokattu-merkki näkyvät kaikissa näkymissä. render() piilottaa
  *   vain .view[data-view]-näkymät, ja app.js siirtää vanhan sivun alatunnisteen
  *   sisältöpalstan (.view-main) loppuun.
@@ -589,7 +591,7 @@
     const picture = k.tiedosto
       ? `<img src="${escapeText(k.tiedosto)}" alt="${escapeText(k.alt || "")}" width="${w}" height="${h}"${full ? "" : " loading=\"lazy\""}>`
       : `<span class="kuvaohje-placeholder" role="img" aria-label="${escapeText(k.alt || t("kuvaohjePlaceholder", k.kuvaa || k.tunnus))}">${escapeText(t("kuvaohjePlaceholder", k.kuvaa || k.tunnus))}</span>`;
-    return `<span class="kuvaohje-stage${full ? " is-full" : ""}" style="aspect-ratio:${w} / ${h}${full ? `;width:${w}px` : ""}"${full ? "" : " data-kuvaohje-open"}>${picture}${marks}</span>`;
+    return `<span class="kuvaohje-stage${full ? " is-full" : ""}" style="aspect-ratio:${w} / ${h}${full ? `;width:${w}px` : ""}"${full || !k.tiedosto ? "" : " data-kuvaohje-open"}>${picture}${marks}</span>`;
   }
 
   function kuvaStepsHtml(k) {
@@ -604,8 +606,8 @@
         <h${hl} class="kuvaohje-title">${escapeText(k.otsikko || k.kuvaa || k.tunnus)}</h${hl}>
         ${k.missa ? `<p class="kuvaohje-where"><strong>${escapeText(t("kuvaohjeWhere"))}</strong> ${richText(k.missa)}</p>` : ""}
         <div class="kuvaohje-body">
-          <div class="kuvaohje-picture">${kuvaStageHtml(k, false)}
-            <button type="button" class="button button-secondary kuvaohje-open-button" data-kuvaohje-open>${escapeText(t("kuvaohjeOpen"))}</button>
+          <div class="kuvaohje-picture">${kuvaStageHtml(k, false)}${k.tiedosto ? `
+            <button type="button" class="button button-secondary kuvaohje-open-button" data-kuvaohje-open>${escapeText(t("kuvaohjeOpen"))}</button>` : ""}
           </div>
           ${kuvaStepsHtml(k)}
         </div>
@@ -643,6 +645,7 @@
       holder.setAttribute("aria-label", k.alt || t("kuvaohjePlaceholder", k.kuvaa || k.tunnus));
       holder.textContent = t("kuvaohjePlaceholder", k.kuvaa || k.tunnus);
       img.replaceWith(holder);
+      scope.querySelectorAll(".kuvaohje-open-button").forEach((button) => { button.hidden = true; });
     }, { once: true }));
   }
 
@@ -658,7 +661,9 @@
       }
       slot.innerHTML = kuvaohjeHtml(k, slot.dataset.kuvaohjeTaso);
       bindImageFallback(slot, k);
-      slot.querySelectorAll("[data-kuvaohje-open]").forEach((el) => el.addEventListener("click", () => openKuvaDialog(k, slot.querySelector(".kuvaohje-open-button"))));
+      slot.querySelectorAll("[data-kuvaohje-open]").forEach((el) => el.addEventListener("click", () => {
+        if (slot.querySelector(".kuvaohje-stage img")) openKuvaDialog(k, slot.querySelector(".kuvaohje-open-button"));
+      }));
     }));
   }
 
