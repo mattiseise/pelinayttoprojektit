@@ -1,0 +1,963 @@
+{
+  "skeema": 1,
+  "slug": "kahvilakoodi",
+  "nimi": "KahvilaKoodi",
+  "kieli": "fi",
+  "paivaton": false,
+  "generoitu": "2026-09-28",
+  "lahde": {
+    "sisalto.js": "cfc7eb9b486adc53",
+    "index.html": "f89585fdec698586"
+  },
+  "viikot": [
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49
+  ],
+  "lomaViikot": [
+    42
+  ],
+  "tyoviikot": [
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49
+  ],
+  "paivakirja": {
+    "polku": "project-docs/projektipaivakirja.md",
+    "tiedostonimi": "projektipaivakirja.md",
+    "viikkotiedosto": "projektipaivakirja-vko-{n}.md",
+    "viikkoOtsikko": "## Vko {n}",
+    "kentat": [
+      "### Mitä tein ja miten?",
+      "### Miksi tein näin?",
+      "### Missä työnäyte on?"
+    ],
+    "tyhja": "Ei vielä kirjattu."
+  },
+  "aiLoki": {
+    "otsikko": "## AI-loki",
+    "tiedosto": "AI-loki.md"
+  },
+  "suunnitelma": {
+    "tiedostonimi": "gdd.md",
+    "polku": "project-docs/gdd.md"
+  },
+  "viikko": {
+    "34": {
+      "jarjestys": 1,
+      "tyyppi": "pohjustus",
+      "vaihe": "A",
+      "otsikko": "Aloitus: peli-idea ja työkalut",
+      "tehtavat": [
+        {
+          "id": "34-1",
+          "teksti": "Lue toimeksianto ja kirjoita kahdeksan kysymystä asiakkaalle.",
+          "valmis": "Sinulla on kuusi erilaista kysymystä, ja jokaisen perässä lukee, minkä päätöksen vastaus ratkaisee.",
+          "tallenna": "Kysymyslista viikon 34 päiväkirjaan, kenttään Mitä tein ja miten?"
+        },
+        {
+          "id": "34-2",
+          "teksti": "Pidä aloituskeskustelu ja kirjaa asiakkaan vastaukset.",
+          "valmis": "Päiväkirjassa on jokaiselle kuudelle kysymykselle joko asiakkaan vastaus tai merkintä avoin sekä lista pakollisista (P0) ominaisuuksista.",
+          "tallenna": "Vastaukset ja avoimet asiat viikon 34 päiväkirjaan."
+        },
+        {
+          "id": "34-3",
+          "teksti": "Luo Unity-projekti ja kokeile, aukeaako se selaimessa.",
+          "valmis": "Tyhjä CafeGame-peli aukeaa selaimeen, ja tiedät käyttämäsi Unity-version.",
+          "tallenna": "Unity-versio viikon 34 päiväkirjaan. Kuvakaappaus auenneesta selainversiosta, jonka viet tehtävässä 4 polkuun project-docs/evidence/week-34/web-test.png."
+        },
+        {
+          "id": "34-4",
+          "teksti": "Luo Git-repository ja kloonaa se koneellesi.",
+          "valmis": "Repository on GitHubissa, ja Unity Hub avaa CafeGame-projektin repositoryn kansiosta.",
+          "tallenna": "Repositoryn linkki viikon 34 päiväkirjaan."
+        },
+        {
+          "id": "34-5",
+          "teksti": "Tee ensimmäinen commit ja push.",
+          "valmis": "Commit näkyy GitHubissa. Repositoryssa ovat Assets-, Packages-, ProjectSettings- ja project-docs-kansiot sekä README.md.",
+          "tallenna": "Repositoryn linkki ja ensimmäisen commitin tunniste (7 merkin koodi GitHubin commit-listassa, esimerkiksi a1b2c3d) viikon 34 päiväkirjaan."
+        }
+      ],
+      "nayta": "kysymykset ja asiakkaan vastaukset päiväkirjassa, kuvakaappaus selainversiosta, repository-linkki ja ensimmäinen commit.",
+      "tuotos": "Kysymyslista ja asiakkaan vastaukset, Unity-projekti, selaimessa aukeava testiversio ja Git-repository.",
+      "valmis": "Asiakkaan vastaukset ja avoimet asiat ovat päiväkirjassa, tyhjä peli aukeaa selaimessa ja ensimmäinen commit näkyy GitHubissa.",
+      "tarkistukset": [
+        {
+          "id": "tiedosto:README.md",
+          "tyyppi": "tiedosto",
+          "polku": "README.md",
+          "lahde": "auto"
+        },
+        {
+          "id": "paivakirja:34",
+          "tyyppi": "paivakirja",
+          "viikko": 34,
+          "lahde": "oletus"
+        },
+        {
+          "id": "commitit:34",
+          "tyyppi": "commitit",
+          "viikko": 34,
+          "min": 1,
+          "lahde": "oletus"
+        }
+      ],
+      "vuosi": 2026,
+      "alku": "2026-08-17",
+      "loppu": "2026-08-23",
+      "erapaiva": "2026-08-21",
+      "label": "17.–21.8."
+    },
+    "35": {
+      "jarjestys": 2,
+      "tyyppi": "pohjustus",
+      "vaihe": "A",
+      "otsikko": "Pelin suunnitelma: ruudut ja feature-lista",
+      "tehtavat": [
+        {
+          "id": "35-1",
+          "teksti": "Täytä pelin suunnitteludokumentti (GDD) ja vie se repositoryyn.",
+          "valmis": "Tiedosto project-docs/gdd.md näkyy GitHubissa, eikä yhdessäkään OMA-merkityssä kentässä ole tyhjää kohtaa. OHJAAJA-merkitty kierroksen pituus saa jäädä avoimeksi.",
+          "tallenna": "project-docs/gdd.md ja commit-linkki viikon 35 päiväkirjaan."
+        },
+        {
+          "id": "35-2",
+          "teksti": "Pilko ensimmäiset featuret pieniksi tehtäviksi GitHubiin.",
+          "valmis": "GitHubissa on issuet kahdelle ensimmäiselle featurelle ja yksi issue kustakin muusta. Jokaisessa on arvio ja Valmis kun -ehto.",
+          "tallenna": "Linkki GitHubin Issues-listaan viikon 35 päiväkirjaan."
+        },
+        {
+          "id": "35-3",
+          "teksti": "Merkitse jokaiselle tehtävälle, onko se pakollinen, tärkeä vai lisä.",
+          "valmis": "Jokaisella issuella on yksi label: P0 pakollinen, P1 tärkeä tai P2 lisä. Ohjaaja on hyväksynyt listan.",
+          "tallenna": "Linkki Issues-listaan sekä hyväksyjän rooli ja päivä viikon 35 päiväkirjaan."
+        },
+        {
+          "id": "35-4",
+          "teksti": "Piirrä pelin kolme ruutua paperille.",
+          "valmis": "Kuvassa on kolme ruutua, ja nuolet näyttävät, mihin Aloita ja Pelaa uudelleen vievät ja milloin peli siirtyy tulosruutuun.",
+          "tallenna": "Kuva polkuun project-docs/evidence/week-35/mockup.png, commit ja push."
+        },
+        {
+          "id": "35-5",
+          "teksti": "Piirrä kartta pelin C#-skripteistä ja niiden tehtävistä.",
+          "valmis": "Kuvassa on viisi skriptiä, jokaisella oma tehtävä, ja nuolet näyttävät, mistä tuotteet ja tulokset kulkevat.",
+          "tallenna": "Kuva polkuun project-docs/evidence/week-35/unity-rakenne.png, commit ja push."
+        }
+      ],
+      "nayta": "gdd.md, Issues-lista prioriteetteineen, rajauksen hyväksyntä, mockup.png ja unity-rakenne.png.",
+      "tuotos": "Täytetty gdd.md, tehtävälista GitHubissa, prioriteetit, ruutujen luonnos ja skriptien kartta.",
+      "valmis": "Tiedosto gdd.md on repositoryssa, jokaisella issuella on arvio, tärkeysluokka – pakollinen (P0), tärkeä (P1) tai lisä (P2) – ja Valmis kun -ehto, ja ohjaaja on hyväksynyt rajauksen. Luonnoksessa näkyvät valikko, peli ja tulos.",
+      "tarkistukset": [
+        {
+          "id": "tiedosto:project-docs/gdd.md",
+          "tyyppi": "tiedosto",
+          "polku": "project-docs/gdd.md",
+          "lahde": "auto"
+        },
+        {
+          "id": "paivakirja:35",
+          "tyyppi": "paivakirja",
+          "viikko": 35,
+          "lahde": "oletus"
+        },
+        {
+          "id": "commitit:35",
+          "tyyppi": "commitit",
+          "viikko": 35,
+          "min": 1,
+          "lahde": "oletus"
+        }
+      ],
+      "vuosi": 2026,
+      "alku": "2026-08-24",
+      "loppu": "2026-08-30",
+      "erapaiva": "2026-08-28",
+      "label": "24.–28.8."
+    },
+    "36": {
+      "jarjestys": 3,
+      "tyyppi": "feature",
+      "vaihe": "A",
+      "otsikko": "Feature 1 · Ensimmäinen pelattava kierros",
+      "tehtavat": [
+        {
+          "id": "36-1",
+          "teksti": "Rakenna Unityyn valikkoruutu.",
+          "valmis": "Hierarchyssä on Canvas ja sen alla kolme paneelia. MenuPanelissa näkyvät pelin nimi ja Aloita-painike.",
+          "tallenna": "Commit ja push. Commit-linkki viikon 36 päiväkirjaan."
+        },
+        {
+          "id": "36-2",
+          "teksti": "Rakenna peli- ja tulosruutu.",
+          "valmis": "Hierarchy näyttää samalta kuin avun rakenne (Main Camera, Global Light 2D ja EventSystem saavat olla lisäksi), ja Play-tilassa näkyy vain valikko.",
+          "tallenna": "Kuvakaappaus Hierarchy-ikkunasta polkuun project-docs/evidence/week-36/hierarchy.png, commit ja push. Polku viikon 36 päiväkirjan kenttään Missä työnäyte on?"
+        },
+        {
+          "id": "36-3",
+          "teksti": "Tee GameManager-skripti, joka vaihtaa ruutua.",
+          "valmis": "Play-tilassa Aloita vaihtaa valikon peliruutuun.",
+          "tallenna": "Commit ja push. Commit-linkki viikon 36 päiväkirjaan."
+        },
+        {
+          "id": "36-4",
+          "teksti": "Tee ensimmäinen tilaus: asiakas tilaa kahvin ja pelaaja toimittaa sen.",
+          "valmis": "Aloita → Kahvi → Toimita → tulosruudulla lukee 10 pistettä.",
+          "tallenna": "Commit ja push. Commit-linkki viikon 36 päiväkirjaan."
+        },
+        {
+          "id": "36-5",
+          "teksti": "Testaa kierros kolme kertaa selaimessa ja kirjaa tulokset.",
+          "valmis": "Päiväkirjassa on kolme testikierrosta tuloksineen, ja viimeinen kierros meni odotetusti.",
+          "tallenna": "Kolme kuvaa tai lyhyt video pelipolusta kansioon project-docs/evidence/week-36/, commit ja push. Testikirjaukset ja commit-linkki viikon 36 päiväkirjaan."
+        }
+      ],
+      "nayta": "video tai kuvat pelipolusta, viisi testikierrosta päiväkirjassa ja commit-linkit.",
+      "tuotos": "Ensimmäinen pelattava selainversio: valikosta yhden tilauksen kautta tulosruutuun.",
+      "valmis": "Aloita → Kahvi → Toimita → tulosruutu näyttää pisteet. Polku toimii selainversiossa ilman, että kosket Unity-editoriin kesken pelin.",
+      "tarkistukset": [
+        {
+          "id": "kansio:project-docs/evidence/week-36/",
+          "tyyppi": "kansio",
+          "polku": "project-docs/evidence/week-36/",
+          "lahde": "auto"
+        },
+        {
+          "id": "paivakirja:36",
+          "tyyppi": "paivakirja",
+          "viikko": 36,
+          "lahde": "oletus"
+        },
+        {
+          "id": "commitit:36",
+          "tyyppi": "commitit",
+          "viikko": 36,
+          "min": 1,
+          "lahde": "oletus"
+        }
+      ],
+      "vuosi": 2026,
+      "alku": "2026-08-31",
+      "loppu": "2026-09-06",
+      "erapaiva": "2026-09-04",
+      "label": "31.8.–4.9."
+    },
+    "37": {
+      "jarjestys": 4,
+      "tyyppi": "feature",
+      "vaihe": "A",
+      "otsikko": "Feature 2 · Kahvilan oikea tuotelista",
+      "tehtavat": [
+        {
+          "id": "37-1",
+          "teksti": "Kirjoita kahvilan tuotteet products.json-tiedostoon.",
+          "valmis": "Unityn Inspector näyttää products.json-tiedoston, ja siinä on kolme tuotetta.",
+          "tallenna": "Commit ja push. Tiedoston polku viikon 37 päiväkirjaan."
+        },
+        {
+          "id": "37-2",
+          "teksti": "Lue tuotteet tiedostosta ProductDatabase-skriptillä.",
+          "valmis": "Avun tarkistustestissä Console näyttää Kahvi, ja molemmat TODO-kohdat on täydennetty.",
+          "tallenna": "Commit ja push. Commit-linkki viikon 37 päiväkirjaan."
+        },
+        {
+          "id": "37-3",
+          "teksti": "Arvo asiakkaalle 1–3 tuotteen tilaus OrderManager-skriptillä.",
+          "valmis": "Play-tilassa tilaus vaihtuu joka pelissä, ja siinä on 1–3 tuotetta.",
+          "tallenna": "Commit ja push. Commit-linkki ja viiden tilauksen lista viikon 37 päiväkirjaan."
+        },
+        {
+          "id": "37-4",
+          "teksti": "Tee tuotepainikkeet ja tarkista, menikö toimitus oikein.",
+          "valmis": "Oikea toimitus antaa tuotteiden pisteet yhteensä, ja väärä toimitus antaa 0 pistettä.",
+          "tallenna": "Commit ja push. Commit-linkki ja kahden toimituksen tulos viikon 37 päiväkirjaan."
+        },
+        {
+          "id": "37-5",
+          "teksti": "Testaa tuotelista kolmella testillä.",
+          "valmis": "Kaikki kolme testiä menivät odotetusti, ja tulokset ovat päiväkirjassa.",
+          "tallenna": "Testien tulokset ja tiedon kulku viikon 37 päiväkirjaan."
+        }
+      ],
+      "nayta": "products.json, ProductDatabase.cs ja OrderManager.cs committeina sekä kolmen testin tulokset.",
+      "tuotos": "products.json, ProductDatabase.cs, OrderManager.cs, 1–3 tuotteen tilaus ja virhetilanteiden käsittely.",
+      "valmis": "Kun muutat kahvin pistearvon products.json-tiedostossa, muutos näkyy pelissä ilman C#-muutosta. Jos tiedosto puuttuu tai on rikki, peli näyttää virheilmoituksen eikä kaadu.",
+      "tarkistukset": [
+        {
+          "id": "tiedosto:products.json",
+          "tyyppi": "tiedosto",
+          "polku": "products.json",
+          "lahde": "auto"
+        },
+        {
+          "id": "tiedosto:ProductDatabase.cs",
+          "tyyppi": "tiedosto",
+          "polku": "ProductDatabase.cs",
+          "lahde": "auto"
+        },
+        {
+          "id": "tiedosto:OrderManager.cs",
+          "tyyppi": "tiedosto",
+          "polku": "OrderManager.cs",
+          "lahde": "auto"
+        },
+        {
+          "id": "paivakirja:37",
+          "tyyppi": "paivakirja",
+          "viikko": 37,
+          "lahde": "oletus"
+        },
+        {
+          "id": "commitit:37",
+          "tyyppi": "commitit",
+          "viikko": 37,
+          "min": 1,
+          "lahde": "oletus"
+        }
+      ],
+      "vuosi": 2026,
+      "alku": "2026-09-07",
+      "loppu": "2026-09-13",
+      "erapaiva": "2026-09-11",
+      "label": "7.–11.9."
+    },
+    "38": {
+      "jarjestys": 5,
+      "tyyppi": "feature",
+      "vaihe": "B",
+      "otsikko": "Feature 3 · Kello, pisteet ja palaute",
+      "tehtavat": [
+        {
+          "id": "38-1",
+          "teksti": "Kirjoita pelin säännöt ennen koodaamista.",
+          "valmis": "Päiväkirjassa on viisi numeroitua sääntöä lukuarvoineen.",
+          "tallenna": "Säännöt viikon 38 päiväkirjaan."
+        },
+        {
+          "id": "38-2",
+          "teksti": "Lisää peliin ajastin, joka päättää kierroksen.",
+          "valmis": "Play-tilassa aika laskee, pelaaja voi toimittaa monta tilausta ja tulosruutu aukeaa kerran, kun aika on 0.",
+          "tallenna": "Commit ja push. Commit-linkki viikon 38 päiväkirjaan."
+        },
+        {
+          "id": "38-3",
+          "teksti": "Näytä pelaajalle heti, menikö toimitus oikein.",
+          "valmis": "Oikea ja väärä toimitus näyttävät eri palautteen, ja pisteet muuttuvat sääntöjen mukaan.",
+          "tallenna": "Kuvakaappaukset molemmista palautteista kansioon project-docs/evidence/week-38/, commit ja push. Polut viikon 38 päiväkirjaan."
+        },
+        {
+          "id": "38-4",
+          "teksti": "Testaa pelin kolme rajatilannetta.",
+          "valmis": "Kolmen rajatestin odotetut ja todelliset tulokset on kirjattu, ja viimeinen ajo meni odotetusti.",
+          "tallenna": "Testien tulokset ja korjausten commit-linkit viikon 38 päiväkirjaan."
+        }
+      ],
+      "nayta": "pelisäännöt, ajastimen ja palautteen commitit sekä neljän rajatestin tulokset.",
+      "tuotos": "Kirjatut pelisäännöt sekä toimiva ajastin, pisteet, palaute ja pelin päättyminen.",
+      "valmis": "Peli päättyy kerran, kun aika loppuu. Nopea kaksoispainallus ei anna kahta tulosta, ja uusi peli nollaa ajan sekä pisteet.",
+      "tarkistukset": [
+        {
+          "id": "kansio:project-docs/evidence/week-38/",
+          "tyyppi": "kansio",
+          "polku": "project-docs/evidence/week-38/",
+          "lahde": "auto"
+        },
+        {
+          "id": "paivakirja:38",
+          "tyyppi": "paivakirja",
+          "viikko": 38,
+          "lahde": "oletus"
+        },
+        {
+          "id": "commitit:38",
+          "tyyppi": "commitit",
+          "viikko": 38,
+          "min": 1,
+          "lahde": "oletus"
+        }
+      ],
+      "vuosi": 2026,
+      "alku": "2026-09-14",
+      "loppu": "2026-09-20",
+      "erapaiva": "2026-09-18",
+      "label": "14.–18.9."
+    },
+    "39": {
+      "jarjestys": 6,
+      "tyyppi": "feature",
+      "vaihe": "B",
+      "otsikko": "Feature 4 · Kasvava kiire",
+      "tehtavat": [
+        {
+          "id": "39-1",
+          "teksti": "Vertaa kahta tapaa vaikeuttaa peliä ja tee valinta.",
+          "valmis": "Päiväkirjassa ovat molemmat tavat, kolmen kysymyksen vastaukset, valinta ja kaksi perustelua.",
+          "tallenna": "Vertailu ja valinta viikon 39 päiväkirjaan."
+        },
+        {
+          "id": "39-2",
+          "teksti": "Tee kolme vaikeustasoa, joita voi säätää Inspectorissa.",
+          "valmis": "Pisteillä 0, 31 ja 61 peli käyttää eri tasoa, ja tason arvot voi muuttaa Inspectorissa.",
+          "tallenna": "Commit ja push. Commit-linkki ja tasotaulukko viikon 39 päiväkirjaan."
+        },
+        {
+          "id": "39-3",
+          "teksti": "Testaa, että pelin kolme tilaa pysyvät erillään.",
+          "valmis": "Kolmen kierroksen tulokset on kirjattu, ja uusi peli alkaa aina tasolta 0.",
+          "tallenna": "Testien tulokset ja commit-linkit viikon 39 päiväkirjaan."
+        }
+      ],
+      "nayta": "vertailu ja valinta päiväkirjassa, vaikeustasojen commit ja testitulokset.",
+      "tuotos": "Kahden vaikeutustavan vertailu, perusteltu valinta ja kolme vaikeustasoa, joita voi säätää Inspectorissa.",
+      "valmis": "Valinta on perusteltu. Pisteillä 0, 31 ja 61 tilauksen koko tai asiakkaan odotusaika muuttuu tasojen mukaan joka kerta, eikä jokaiselle tasolle tarvita omaa if-lausetta.",
+      "tarkistukset": [
+        {
+          "id": "paivakirja:39",
+          "tyyppi": "paivakirja",
+          "viikko": 39,
+          "lahde": "oletus"
+        },
+        {
+          "id": "commitit:39",
+          "tyyppi": "commitit",
+          "viikko": 39,
+          "min": 1,
+          "lahde": "oletus"
+        }
+      ],
+      "vuosi": 2026,
+      "alku": "2026-09-21",
+      "loppu": "2026-09-27",
+      "erapaiva": "2026-09-25",
+      "label": "21.–25.9."
+    },
+    "40": {
+      "jarjestys": 7,
+      "tyyppi": "feature",
+      "vaihe": "B",
+      "otsikko": "Feature 5 · Top 5 -tuloslista",
+      "tehtavat": [
+        {
+          "id": "40-1",
+          "teksti": "Lisää tulosruutuun nimimerkkikenttä ja Tallenna-painike.",
+          "valmis": "Tulosruudulla näkyvät nimimerkkikenttä, Tallenna tulos -painike ja tyhjä tuloslista.",
+          "tallenna": "Kuvakaappaus tulosruudusta polkuun project-docs/evidence/week-40/tulosruutu.png, commit ja push. Polku viikon 40 päiväkirjaan."
+        },
+        {
+          "id": "40-2",
+          "teksti": "Tee SaveService-skripti, joka tallentaa viisi parasta tulosta.",
+          "valmis": "SaveScore ja LoadScores on täydennetty, ja päiväkirjassa on omin sanoin selitys tallennusriveistä.",
+          "tallenna": "Commit ja push. Commit-linkki ja selitys viikon 40 päiväkirjaan."
+        },
+        {
+          "id": "40-3",
+          "teksti": "Kytke tulosruutu tallentamaan ja näyttämään parhaat tulokset.",
+          "valmis": "Tulosruutu näyttää tallennetut tulokset heti, ja kuudesta tuloksesta näkyy viisi parasta oikeassa järjestyksessä.",
+          "tallenna": "Commit ja push. Kuvakaappaus listasta kansioon project-docs/evidence/week-40/ ja polku viikon 40 päiväkirjaan."
+        },
+        {
+          "id": "40-4",
+          "teksti": "Tarkista nimimerkki ennen tallennusta.",
+          "valmis": "Tyhjä nimi tallentuu nimellä Nimetön, ja liian pitkä nimi lyhenee sallittuun pituuteen.",
+          "tallenna": "Commit ja push. Päätökset ja commit-linkki viikon 40 päiväkirjaan."
+        },
+        {
+          "id": "40-5",
+          "teksti": "Testaa tallennus selaimessa ja perustele ratkaisu.",
+          "valmis": "Kolmen testin tulokset ja ratkaisun perustelu ovat päiväkirjassa.",
+          "tallenna": "Testitulokset, perustelu ja commit-linkit viikon 40 päiväkirjaan."
+        }
+      ],
+      "nayta": "tallennuksen commitit, neljän testin tulokset ja ratkaisun perustelu päiväkirjassa.",
+      "tuotos": "Nimimerkki ja Tallenna-painike tulosruudulla, toimiva top 5 -tallennus, nimimerkin tarkistus ja ratkaisun rajoitusten perustelu.",
+      "valmis": "Kuudesta tuloksesta näkyy vain viisi parasta myös silloin, kun sivu avataan uudelleen. Tasapisteet ja liian pitkä nimimerkki on testattu.",
+      "tarkistukset": [
+        {
+          "id": "kansio:project-docs/evidence/week-40/",
+          "tyyppi": "kansio",
+          "polku": "project-docs/evidence/week-40/",
+          "lahde": "auto"
+        },
+        {
+          "id": "paivakirja:40",
+          "tyyppi": "paivakirja",
+          "viikko": 40,
+          "lahde": "oletus"
+        },
+        {
+          "id": "commitit:40",
+          "tyyppi": "commitit",
+          "viikko": 40,
+          "min": 1,
+          "lahde": "oletus"
+        }
+      ],
+      "vuosi": 2026,
+      "alku": "2026-09-28",
+      "loppu": "2026-10-04",
+      "erapaiva": "2026-10-02",
+      "label": "28.9.–2.10."
+    },
+    "41": {
+      "jarjestys": 8,
+      "tyyppi": "katselmointi",
+      "vaihe": "B",
+      "otsikko": "Katselmointi · Asiakas pelaa peliäsi",
+      "tehtavat": [
+        {
+          "id": "41-1",
+          "teksti": "Valmistele asiakkaalle kokeiltava versio.",
+          "valmis": "Selainversio toimii alusta loppuun, ja katselmoinnin aika on sovittu.",
+          "tallenna": "Version tunniste ja tarkistuslistan tulos viikon 41 päiväkirjaan."
+        },
+        {
+          "id": "41-2",
+          "teksti": "Anna asiakkaan pelata ja kirjaa, mitä hän sanoo.",
+          "valmis": "Muistiinpanoissa ovat asiakkaan sanat ja omat havaintosi erikseen.",
+          "tallenna": "Muistiinpanot viikon 41 päiväkirjaan."
+        },
+        {
+          "id": "41-3",
+          "teksti": "Sovi asiakkaan kanssa yksi muutos ja tee siitä issue.",
+          "valmis": "GitHubissa on yksi hyväksytty muutosissue, ja katselmointimuistio on päiväkirjassa.",
+          "tallenna": "Issuen linkki ja katselmointimuistio viikon 41 päiväkirjaan."
+        }
+      ],
+      "nayta": "version tunniste, katselmointimuistio ja hyväksytty muutosissue.",
+      "tuotos": "Asiakkaan kokeilema selainversio, katselmointimuistio ja yksi sovittu muutostehtävä GitHubissa.",
+      "valmis": "Asiakas on pelannut pelin alusta loppuun. Muistiossa näkyvät asiakkaan sanat, oma tulkinta, päätös, hyväksyjä ja yksi rajattu issue.",
+      "tarkistukset": [
+        {
+          "id": "paivakirja:41",
+          "tyyppi": "paivakirja",
+          "viikko": 41,
+          "lahde": "oletus"
+        },
+        {
+          "id": "commitit:41",
+          "tyyppi": "commitit",
+          "viikko": 41,
+          "min": 1,
+          "lahde": "oletus"
+        }
+      ],
+      "vuosi": 2026,
+      "alku": "2026-10-05",
+      "loppu": "2026-10-11",
+      "erapaiva": "2026-10-09",
+      "label": "5.–9.10."
+    },
+    "43": {
+      "jarjestys": 9,
+      "tyyppi": "feature",
+      "vaihe": "C",
+      "otsikko": "Feature 6 · Asiakkaan toivoma parannus",
+      "tehtavat": [
+        {
+          "id": "43-1",
+          "teksti": "Tarkista muutosissue ja kirjoita sille testi.",
+          "valmis": "Issuessa ovat arvio, hyväksymistesti ja vanhan pelipolun testi.",
+          "tallenna": "Issuen linkki viikon 43 päiväkirjaan."
+        },
+        {
+          "id": "43-2",
+          "teksti": "Tee muutos omassa Git-haarassa.",
+          "valmis": "Haara näkyy GitHubissa, ja siinä on vähintään kaksi pientä committia.",
+          "tallenna": "Haaran nimi ja commit-linkit viikon 43 päiväkirjaan."
+        },
+        {
+          "id": "43-3",
+          "teksti": "Pyydä katselmointi pull requestilla ja yhdistä muutos.",
+          "valmis": "Pull request on yhdistetty, siinä on kommentti ja vastaus, ja molemmat testit menivät odotetusti.",
+          "tallenna": "Pull requestin linkki ja koko ketju viikon 43 päiväkirjaan."
+        }
+      ],
+      "nayta": "issue, haara, pull request kommentteineen, commitit ja testitulokset.",
+      "tuotos": "Asiakaspalautteeseen jäljitettävä, katselmoitu ja testattu muutos omassa Git-haarassa.",
+      "valmis": "Muutos täyttää Valmis kun -ehdon, vanha pelipolku toimii, katselmointikommenttiin on vastattu ja muutos on yhdistetty main-haaraan.",
+      "tarkistukset": [
+        {
+          "id": "pr:yhdistetty",
+          "tyyppi": "pr",
+          "min": 1,
+          "lahde": "auto"
+        },
+        {
+          "id": "paivakirja:43",
+          "tyyppi": "paivakirja",
+          "viikko": 43,
+          "lahde": "oletus"
+        },
+        {
+          "id": "commitit:43",
+          "tyyppi": "commitit",
+          "viikko": 43,
+          "min": 1,
+          "lahde": "oletus"
+        }
+      ],
+      "vuosi": 2026,
+      "alku": "2026-10-19",
+      "loppu": "2026-10-25",
+      "erapaiva": "2026-10-23",
+      "label": "19.–23.10."
+    },
+    "44": {
+      "jarjestys": 10,
+      "tyyppi": "feature",
+      "vaihe": "C",
+      "otsikko": "Feature 7 · Peli ohjaa pelaajaa itse",
+      "tehtavat": [
+        {
+          "id": "44-1",
+          "teksti": "Vertaa peliä viikon 35 luonnokseen.",
+          "valmis": "Jokaisesta kolmesta ruudusta on kirjattu erot ja niiden syyt.",
+          "tallenna": "Kuvakaappaukset kansioon project-docs/evidence/week-44/, commit ja push. Vertailu viikon 44 päiväkirjaan."
+        },
+        {
+          "id": "44-2",
+          "teksti": "Testaa peliä uudella pelaajalla ilman neuvoja.",
+          "valmis": "Päiväkirjassa ovat testaajan rooli ja päivä, annettu tehtävä, havainnot ja aika ensimmäiseen toimitukseen.",
+          "tallenna": "Havainnot viikon 44 päiväkirjaan."
+        },
+        {
+          "id": "44-3",
+          "teksti": "Korjaa kaksi suurinta ongelmaa ja testaa uudelleen.",
+          "valmis": "Kahdesta korjauksesta on kuvat ennen korjausta ja sen jälkeen, ja uusintatestin tulos on kirjattu.",
+          "tallenna": "Ennen/jälkeen-kuvat kansioon project-docs/evidence/week-44/. Uusintatestin tulos ja commit-linkki viikon 44 päiväkirjaan."
+        }
+      ],
+      "nayta": "vertailu luonnokseen, havainnot, ennen/jälkeen-kuvat ja uusintatestin tulos.",
+      "tuotos": "Vertailu luonnokseen, lyhyt käytettävyystesti, kaksi perusteltua korjausta ja uusintatesti.",
+      "valmis": "Uusi pelaaja ymmärtää tavoitteen ja pelaa yhden tilauksen loppuun ilman neuvoja. Kahdesta korjauksesta on kuvat ennen korjausta ja sen jälkeen.",
+      "tarkistukset": [
+        {
+          "id": "kansio:project-docs/evidence/week-44/",
+          "tyyppi": "kansio",
+          "polku": "project-docs/evidence/week-44/",
+          "lahde": "auto"
+        },
+        {
+          "id": "paivakirja:44",
+          "tyyppi": "paivakirja",
+          "viikko": 44,
+          "lahde": "oletus"
+        },
+        {
+          "id": "commitit:44",
+          "tyyppi": "commitit",
+          "viikko": 44,
+          "min": 1,
+          "lahde": "oletus"
+        }
+      ],
+      "vuosi": 2026,
+      "alku": "2026-10-26",
+      "loppu": "2026-11-01",
+      "erapaiva": "2026-10-30",
+      "label": "26.–30.10."
+    },
+    "45": {
+      "jarjestys": 11,
+      "tyyppi": "laatu",
+      "vaihe": "C",
+      "otsikko": "Pelin laatu · Peli kestää pelaamista",
+      "tehtavat": [
+        {
+          "id": "45-1",
+          "teksti": "Kirjoita 12 testitapausta ennen testaamista.",
+          "valmis": "Tiedostossa on 12 testitapausta T01–T12, ja jokaisella on odotettu tulos.",
+          "tallenna": "project-docs/testaus.md, commit ja push."
+        },
+        {
+          "id": "45-2",
+          "teksti": "Aja testitapaukset selainversiolla ja kirjaa tulokset.",
+          "valmis": "Jokaisella testitapauksella T01–T12 on todellinen tulos ja merkintä, läpäisikö se.",
+          "tallenna": "Päivitetty project-docs/testaus.md, commit ja push."
+        },
+        {
+          "id": "45-3",
+          "teksti": "Korjaa kolme virhettä ja kirjaa jokaisesta koko ketju.",
+          "valmis": "Päiväkirjassa on kolme täydellistä ketjua, ja jokaisen uusintatesti meni odotetusti.",
+          "tallenna": "Kolme ketjua commit-linkkeineen viikon 45 päiväkirjaan."
+        }
+      ],
+      "nayta": "project-docs/testaus.md, kolme virheenkorjausketjua ja korjauscommitit.",
+      "tuotos": "Vähintään 12 testitapauksen testaustaulukko ja kolme täydellistä virheenkorjausketjua.",
+      "valmis": "Kaikissa 12 testitapauksessa näkyvät lähtötila, toiminta, odotettu tulos, todellinen tulos ja läpäisy. Kolmessa ketjussa näkyvät havainto, syy, korjauscommit ja onnistunut uusintatesti.",
+      "tarkistukset": [
+        {
+          "id": "tiedosto:project-docs/testaus.md",
+          "tyyppi": "tiedosto",
+          "polku": "project-docs/testaus.md",
+          "lahde": "auto"
+        },
+        {
+          "id": "paivakirja:45",
+          "tyyppi": "paivakirja",
+          "viikko": 45,
+          "lahde": "oletus"
+        },
+        {
+          "id": "commitit:45",
+          "tyyppi": "commitit",
+          "viikko": 45,
+          "min": 1,
+          "lahde": "oletus"
+        }
+      ],
+      "vuosi": 2026,
+      "alku": "2026-11-02",
+      "loppu": "2026-11-08",
+      "erapaiva": "2026-11-06",
+      "label": "2.–6.11."
+    },
+    "46": {
+      "jarjestys": 12,
+      "tyyppi": "laatu",
+      "vaihe": "C",
+      "otsikko": "Pelin laatu · Koodi, jonka toinen ymmärtää",
+      "tehtavat": [
+        {
+          "id": "46-1",
+          "teksti": "Etsi koodista yksi kohta, jota on vaikea ymmärtää.",
+          "valmis": "Päiväkirjassa on yksi valittu kohta, sen ongelma ja siihen liittyvä testitapaus.",
+          "tallenna": "Kuvaus ja testitapauksen tunnus viikon 46 päiväkirjaan."
+        },
+        {
+          "id": "46-2",
+          "teksti": "Selkeytä kohta niin, että peli toimii kuten ennen.",
+          "valmis": "Sama testitapaus läpäisee ennen ja jälkeen muutoksen, ja muutos on yhdessä commitissa.",
+          "tallenna": "Commit-linkki sekä ennen- ja jälkeen-tulokset viikon 46 päiväkirjaan."
+        },
+        {
+          "id": "46-3",
+          "teksti": "Pyydä koodikatselmointi ja selitä ratkaisusi.",
+          "valmis": "Päiväkirjassa ovat katselmoijan rooli, hänen kommenttinsa, oma vastauksesi ja se, minkä kohdan selitit suullisesti.",
+          "tallenna": "Kommentti, vastaus ja selitetty kohta viikon 46 päiväkirjaan. Tekoälyn käyttö AI-lokiin."
+        }
+      ],
+      "nayta": "refaktoroinnin commit, testi ennen ja jälkeen, katselmoinnin kommentti ja vastaus.",
+      "tuotos": "Yksi rajattu refaktorointi, sama testi ennen ja jälkeen, ihmisen tekemä koodikatselmointi ja yhden ratkaisun suullinen selitys.",
+      "valmis": "Sama testitapaus läpäisee ennen ja jälkeen refaktoroinnin. Katselmointikommenttiin on vastattu, ja osaat selittää ratkaisusi ilman tekoälyä.",
+      "tarkistukset": [
+        {
+          "id": "paivakirja:46",
+          "tyyppi": "paivakirja",
+          "viikko": 46,
+          "lahde": "oletus"
+        },
+        {
+          "id": "commitit:46",
+          "tyyppi": "commitit",
+          "viikko": 46,
+          "min": 1,
+          "lahde": "oletus"
+        }
+      ],
+      "vuosi": 2026,
+      "alku": "2026-11-09",
+      "loppu": "2026-11-15",
+      "erapaiva": "2026-11-13",
+      "label": "9.–13.11."
+    },
+    "47": {
+      "jarjestys": 13,
+      "tyyppi": "julkaisu",
+      "vaihe": "D",
+      "otsikko": "Pelin julkaisu · Ensimmäinen julkaisuehdokas RC1 testipelattavana",
+      "tehtavat": [
+        {
+          "id": "47-1",
+          "teksti": "Merkitse ensimmäinen julkaisuehdokas (RC1) ja lopeta uusien ominaisuuksien lisääminen.",
+          "valmis": "Tagi RC1 näkyy GitHubissa, ja se osoittaa main-haaran viimeisimpään committiin.",
+          "tallenna": "RC1-tagin linkki ja commitin tunniste viikon 47 päiväkirjaan."
+        },
+        {
+          "id": "47-2",
+          "teksti": "Anna asiakkaan ja yhden muun ihmisen testata julkaisuehdokas.",
+          "valmis": "Kahden testaajan havainnot on kirjattu erikseen, ja testaajien roolit näkyvät.",
+          "tallenna": "Havainnot viikon 47 päiväkirjaan."
+        },
+        {
+          "id": "47-3",
+          "teksti": "Päätä jokaisesta havainnosta, korjataanko se ennen julkaisua.",
+          "valmis": "Jokaisella havainnolla on vakavuus, toistuvuus ja päätös, ja korjattavista on issuet.",
+          "tallenna": "Luokiteltu lista ja issueiden linkit viikon 47 päiväkirjaan."
+        }
+      ],
+      "nayta": "RC1-tagi, kahden testaajan havainnot ja luokiteltu korjauslista.",
+      "tuotos": "Tagilla merkitty ensimmäinen julkaisuehdokas (RC1), kahden ihmisen testipalaute ja päätetty korjauslista.",
+      "valmis": "Ensimmäinen julkaisuehdokas (RC1) on merkitty yhteen committiin. Asiakas ja toinen käyttäjä ovat testanneet sen, ja jokaisella havainnolla on vakavuus, toistuvuus ja päätös.",
+      "tarkistukset": [
+        {
+          "id": "paivakirja:47",
+          "tyyppi": "paivakirja",
+          "viikko": 47,
+          "lahde": "oletus"
+        },
+        {
+          "id": "commitit:47",
+          "tyyppi": "commitit",
+          "viikko": 47,
+          "min": 1,
+          "lahde": "oletus"
+        }
+      ],
+      "vuosi": 2026,
+      "alku": "2026-11-16",
+      "loppu": "2026-11-22",
+      "erapaiva": "2026-11-20",
+      "label": "16.–20.11."
+    },
+    "48": {
+      "jarjestys": 14,
+      "tyyppi": "julkaisu",
+      "vaihe": "D",
+      "otsikko": "Pelin julkaisu · v1.0 julki",
+      "tehtavat": [
+        {
+          "id": "48-1",
+          "teksti": "Korjaa vain ne virheet, jotka päätit korjata ennen julkaisua.",
+          "valmis": "Kaikki korjataan nyt -havainnot on korjattu ja testattu, ja niiden issuet on suljettu.",
+          "tallenna": "Korjauscommitien linkit viikon 48 päiväkirjaan."
+        },
+        {
+          "id": "48-2",
+          "teksti": "Julkaise peli GitHub Pagesiin ja merkitse se versioksi v1.0.",
+          "valmis": "Peli aukeaa julkaisulinkistä, ja tagi v1.0 osoittaa samaan committiin kuin julkaisu.",
+          "tallenna": "Julkaisulinkki ja v1.0-tagin linkki viikon 48 päiväkirjaan."
+        },
+        {
+          "id": "48-3",
+          "teksti": "Kirjoita README:hen käyttöohje ja tunnetut puutteet.",
+          "valmis": "README:ssä ovat julkaisulinkki, käyttöohje, tunnetut puutteet ja lähteet.",
+          "tallenna": "README.md, commit ja push."
+        },
+        {
+          "id": "48-4",
+          "teksti": "Testaa julkaistu peli toisella laitteella käyttöohjeen avulla.",
+          "valmis": "Toinen ihminen on pelannut julkaistun pelin toisella laitteella tai selaimella, ja tulos on kirjattu.",
+          "tallenna": "Laite, selain, testaajan rooli ja tulos viikon 48 päiväkirjaan."
+        }
+      ],
+      "nayta": "julkaisulinkki, v1.0-tagi, testitulos toiselta laitteelta ja README käyttöohjeineen.",
+      "tuotos": "GitHub Pagesissa toimiva versio v1.0, käyttöohje ja tunnettujen puutteiden lista.",
+      "valmis": "v1.0-tagin commit vastaa julkaistua versiota. Toinen ihminen avaa linkin toisella selaimella tai laitteella ja pelaa kierroksen käyttöohjeen avulla.",
+      "tarkistukset": [
+        {
+          "id": "tagi:v1.0",
+          "tyyppi": "tagi",
+          "nimi": "v1.0",
+          "lahde": "auto"
+        },
+        {
+          "id": "paivakirja:48",
+          "tyyppi": "paivakirja",
+          "viikko": 48,
+          "lahde": "oletus"
+        },
+        {
+          "id": "commitit:48",
+          "tyyppi": "commitit",
+          "viikko": 48,
+          "min": 1,
+          "lahde": "oletus"
+        }
+      ],
+      "vuosi": 2026,
+      "alku": "2026-11-23",
+      "loppu": "2026-11-29",
+      "erapaiva": "2026-11-27",
+      "label": "23.–27.11."
+    },
+    "49": {
+      "jarjestys": 15,
+      "tyyppi": "naytto",
+      "vaihe": "D",
+      "otsikko": "Näyttö · Aineisto ja luovutus",
+      "tehtavat": [
+        {
+          "id": "49-1",
+          "teksti": "Tarkista projektipäiväkirja ja vie se repositoryyn.",
+          "valmis": "Kaikki 15 viikkoa on kirjattu, ja jokaisen viikon työnäytelinkki aukeaa.",
+          "tallenna": "Täydennetyt viikkomerkinnät sivuston projektipäiväkirjassa. Lataat tiedoston repositoryyn tehtävässä 5."
+        },
+        {
+          "id": "49-2",
+          "teksti": "Kirjoita itsearviointi omiin työnäytteisiin nojaten.",
+          "valmis": "Viikon 49 päiväkirjassa on kolme vahvuutta työnäytteineen ja yksi kehitysaskel.",
+          "tallenna": "Itsearviointi viikon 49 päiväkirjaan."
+        },
+        {
+          "id": "49-3",
+          "teksti": "Liitä jokaiseen näyttömatriisin kohtaan tarkka linkki.",
+          "valmis": "Jokaisella näyttömatriisin vaatimuksella on tarkka linkki, joka aukeaa.",
+          "tallenna": "Vaatimusten linkit viikon 49 päiväkirjaan, josta ne tulevat mukaan projektipaivakirja.md-tiedostoon."
+        },
+        {
+          "id": "49-4",
+          "teksti": "Harjoittele 8–10 minuutin demo.",
+          "valmis": "Demo kestää 8–10 minuuttia ja käy läpi kaikki kuusi kohtaa.",
+          "tallenna": "Demon runko viikon 49 päiväkirjaan."
+        },
+        {
+          "id": "49-5",
+          "teksti": "Luovuta peli ja aineisto viimeistään pe 4.12.2026.",
+          "valmis": "Aineisto on luovutettu viimeistään pe 4.12.2026, ja toinen ihminen on tarkistanut sen.",
+          "tallenna": "Luovutuksen päivä viikon 49 päiväkirjaan."
+        }
+      ],
+      "nayta": "peli, repository, project-docs/projektipaivakirja.md, näyttömatriisi, AI-loki ja demo.",
+      "tuotos": "Valmis projektipäiväkirja, itsearviointi, täytetty näyttömatriisi, harjoiteltu demo ja luovutettu aineisto.",
+      "valmis": "Jokaisessa näyttömatriisin kohdassa on tarkka linkki, joka aukeaa. Projektipäiväkirja ja AI-loki ovat repositoryssa, ja demo käyttää samaa v1.0-versiota.",
+      "tarkistukset": [
+        {
+          "id": "paivakirja:49",
+          "tyyppi": "paivakirja",
+          "viikko": 49,
+          "lahde": "oletus"
+        },
+        {
+          "id": "commitit:49",
+          "tyyppi": "commitit",
+          "viikko": 49,
+          "min": 1,
+          "lahde": "oletus"
+        }
+      ],
+      "vuosi": 2026,
+      "alku": "2026-11-30",
+      "loppu": "2026-12-06",
+      "erapaiva": "2026-12-04",
+      "label": "30.11.–4.12."
+    }
+  }
+}
