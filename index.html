@@ -91,6 +91,17 @@
           <div class="card"><span class="num">4</span><h3>Vie päiväkirja talteen</h3><p>Lataa koko projektipäiväkirja jokaisen viikon lopussa ja korvaa repositoryn vanha tiedosto.</p><small>Tiedosto: <code>project-docs/projektipaivakirja.md</code>.</small></div>
         </div>
 
+        <div class="card view-section checklist-box">
+          <p class="section-label section-label-accent">Näin viikon tehtävät toimivat</p>
+          <ol>
+            <li>Joka viikolla on 3–5 tehtävää. Tee ne järjestyksessä. Vain kesken oleva tehtävä on auki.</li>
+            <li>Jokainen tehtävä on pilkottu pieniin osatehtäviin. Yksi osatehtävä on yksi asia, jonka teet. Rastita se heti, kun olet tehnyt sen.</li>
+            <li>Tehtävän alussa lukee, miksi se tehdään. Uudet sanat ja tunnukset selitetään tehtävässä, jossa niitä tarvitaan.</li>
+            <li>Tehtävän lopussa lukee <strong>Valmis kun</strong> ja <strong>Tallenna työnäyte</strong>. Tarkista ne ennen kuin siirryt seuraavaan tehtävään.</li>
+            <li>Jos jäät jumiin, avaa tehtävän kohta <strong>Tarvitsen apua tähän tehtävään</strong>. Kokeile ensin itse.</li>
+          </ol>
+        </div>
+
         <div class="card card-tint view-section checklist-box">
           <p class="section-label section-label-accent">Tee kerran projektin alussa</p>
           <ol>
@@ -117,7 +128,7 @@
           </div>
         </div>
 
-        <p class="footnote view-section"><strong>Muista:</strong> sivuston rastit ja kirjoituskentät ovat oma työmuistisi. Ne tallentuvat vain tähän selaimeen, eivätkä ne siirry opettajalle. Rasti ei ole palautus eikä osa näyttöaineistoa. Rastita vasta, kun työ on testattu ja työnäyte on Git-repositoryssa.</p>
+        <p class="footnote view-section"><strong>Muista:</strong> sivuston rastit ja kirjoituskentät ovat oma työmuistisi. Ne tallentuvat vain tähän selaimeen, eivätkä ne siirry opettajalle. Rasti ei ole palautus eikä osa näyttöaineistoa. Tehtävä on valmis vasta, kun sen Valmis kun -ehto täyttyy ja työnäyte on Git-repositoryssa.</p>
 
         <details class="source-role">
           <summary>Mitä paperinen työpaketti ja alkuperäinen Word-pohja tekevät?</summary>
@@ -297,11 +308,13 @@
           </div>
 
           <section class="view-section">
-            <div class="section-heading-row"><h2>Viikon tehtävät</h2><span class="week-status" data-week-status>0 / 3</span></div>
+            <div class="section-heading-row"><h2>Viikon tehtävät</h2><span class="week-status" data-week-status>0 / 5</span></div>
             <div class="task-list">
-              <label class="task-row"><input type="checkbox" data-task="34-1"><span class="task-box" aria-hidden="true"></span><span class="task-text">Lue toimeksianto, laadi vähintään 8 kysymystä ja pidä aloituskeskustelu.</span></label>
-              <label class="task-row"><input type="checkbox" data-task="34-2"><span class="task-box" aria-hidden="true"></span><span class="task-text">Asenna sovittu Unity-versio Unity Hubissa, luo 2D-projekti ja varmista toimiva WebGL-testibuild.</span></label>
-              <label class="task-row"><input type="checkbox" data-task="34-3"><span class="task-box" aria-hidden="true"></span><span class="task-text">Perusta Git-repository, README, .gitignore ja project-docs-kansio.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="34-1"><span class="task-box" aria-hidden="true"></span><span class="task-text">Lue toimeksianto ja kirjoita kahdeksan kysymystä asiakkaalle.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="34-2"><span class="task-box" aria-hidden="true"></span><span class="task-text">Pidä aloituskeskustelu ja kirjaa asiakkaan vastaukset.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="34-3"><span class="task-box" aria-hidden="true"></span><span class="task-text">Luo Unity-projekti ja kokeile, aukeaako se selaimessa.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="34-4"><span class="task-box" aria-hidden="true"></span><span class="task-text">Luo Git-repository ja kloonaa se koneellesi.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="34-5"><span class="task-box" aria-hidden="true"></span><span class="task-text">Tee ensimmäinen commit ja push.</span></label>
             </div>
           </section>
 
@@ -323,7 +336,7 @@
 
           <div class="outcome-grid">
             <div class="card"><p class="section-label">Valmis kun</p><p class="checkpoint">Ennen kuin jatkat: tarkista viikon valmis kun -ehto.</p></div>
-            <div class="card"><p class="section-label section-label-accent">Näytä</p><p class="evidence"><strong>Työnäyte Git-repositoryyn ennen rastia:</strong> asiakastarpeen muistiinpano, repository-linkki, ensimmäinen commit ja testibuild.</p></div>
+            <div class="card"><p class="section-label section-label-accent">Näytä</p><p class="evidence"><strong>Työnäyte Git-repositoryyn ennen rastia:</strong> kysymykset ja asiakkaan vastaukset päiväkirjassa, kuvakaappaus selainversiosta, repository-linkki ja ensimmäinen commit.</p></div>
           </div>
 
           <section class="week-journal" data-week-journal="34">
@@ -361,11 +374,13 @@
           <div class="week-skills" data-week-skills hidden><p class="skill-tags-label" data-skills-label>Viikon tekniikka</p><ul class="skill-tags" data-skills-list></ul></div>
 
           <section class="view-section">
-            <div class="section-heading-row"><h2>Viikon tehtävät</h2><span class="week-status" data-week-status>0 / 3</span></div>
+            <div class="section-heading-row"><h2>Viikon tehtävät</h2><span class="week-status" data-week-status>0 / 5</span></div>
             <div class="task-list">
-              <label class="task-row"><input type="checkbox" data-task="35-1"><span class="task-box" aria-hidden="true"></span><span class="task-text">Täytä GDD:n omat päätökset tällä sivulla (mm. tavoite ja oma rooli omin sanoin) ja vie ladattu gdd.md repositoryn project-docs-kansioon.</span></label>
-              <label class="task-row"><input type="checkbox" data-task="35-2"><span class="task-box" aria-hidden="true"></span><span class="task-text">Tee priorisoitu tehtävälista eli backlog (P0, P1 ja P2), työmääräarviot ja valmis kun -ehdot.</span></label>
-              <label class="task-row"><input type="checkbox" data-task="35-3"><span class="task-box" aria-hidden="true"></span><span class="task-text">Piirrä käyttöliittymäluonnos (mockup) ja suunnittele Unityn scene, Canvas-paneelit, C#-skriptit, JSON ja tallennus.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="35-1"><span class="task-box" aria-hidden="true"></span><span class="task-text">Täytä pelin suunnitteludokumentti (GDD) ja vie se repositoryyn.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="35-2"><span class="task-box" aria-hidden="true"></span><span class="task-text">Pilko ensimmäiset featuret pieniksi tehtäviksi GitHubiin.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="35-3"><span class="task-box" aria-hidden="true"></span><span class="task-text">Merkitse jokaiselle tehtävälle, onko se pakollinen, tärkeä vai lisä.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="35-4"><span class="task-box" aria-hidden="true"></span><span class="task-text">Piirrä pelin kolme ruutua paperille.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="35-5"><span class="task-box" aria-hidden="true"></span><span class="task-text">Piirrä kartta pelin C#-skripteistä ja niiden tehtävistä.</span></label>
             </div>
           </section>
 
@@ -380,7 +395,7 @@
 
           <div class="outcome-grid">
             <div class="card"><p class="section-label">Valmis kun</p><p class="checkpoint">Ennen kuin jatkat: tarkista viikon valmis kun -ehto.</p></div>
-            <div class="card"><p class="section-label section-label-accent">Näytä</p><p class="evidence"><strong>Työnäyte Git-repositoryyn ennen rastia:</strong> hyväksytty rajaus, päivätty mockup, tekninen suunnitelma ja backlog.</p></div>
+            <div class="card"><p class="section-label section-label-accent">Näytä</p><p class="evidence"><strong>Työnäyte Git-repositoryyn ennen rastia:</strong> gdd.md, Issues-lista prioriteetteineen, rajauksen hyväksyntä, mockup.png ja unity-rakenne.png.</p></div>
           </div>
 
           <section class="week-journal" data-week-journal="35">
@@ -408,11 +423,13 @@
           <div class="week-skills" data-week-skills hidden><p class="skill-tags-label" data-skills-label>Viikon tekniikka</p><ul class="skill-tags" data-skills-list></ul></div>
 
           <section class="view-section">
-            <div class="section-heading-row"><h2>Viikon tehtävät</h2><span class="week-status" data-week-status>0 / 3</span></div>
+            <div class="section-heading-row"><h2>Viikon tehtävät</h2><span class="week-status" data-week-status>0 / 5</span></div>
             <div class="task-list">
-              <label class="task-row"><input type="checkbox" data-task="36-1"><span class="task-box" aria-hidden="true"></span><span class="task-text">Rakenna pelin kolme ruutua: tee Unityn Canvasille MenuPanel, GamePanel ja ResultPanel väliaikaisella grafiikalla.</span></label>
-              <label class="task-row"><input type="checkbox" data-task="36-2"><span class="task-box" aria-hidden="true"></span><span class="task-text">Toteuta yksi asiakas, yksi tilaus, oikea toimitus ja piste.</span></label>
-              <label class="task-row"><input type="checkbox" data-task="36-3"><span class="task-box" aria-hidden="true"></span><span class="task-text">Kirjaa ensimmäiset testit ja bugit.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="36-1"><span class="task-box" aria-hidden="true"></span><span class="task-text">Rakenna Unityyn valikkoruutu.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="36-2"><span class="task-box" aria-hidden="true"></span><span class="task-text">Rakenna peli- ja tulosruutu.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="36-3"><span class="task-box" aria-hidden="true"></span><span class="task-text">Tee GameManager-skripti, joka vaihtaa ruutua.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="36-4"><span class="task-box" aria-hidden="true"></span><span class="task-text">Tee ensimmäinen tilaus: asiakas tilaa kahvin ja pelaaja toimittaa sen.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="36-5"><span class="task-box" aria-hidden="true"></span><span class="task-text">Testaa kierros viisi kertaa selaimessa ja kirjaa tulokset.</span></label>
             </div>
           </section>
 
@@ -427,7 +444,7 @@
 
           <div class="outcome-grid">
             <div class="card"><p class="section-label">Valmis kun</p><p class="checkpoint">Ennen kuin jatkat: tarkista viikon valmis kun -ehto.</p></div>
-            <div class="card"><p class="section-label section-label-accent">Näytä</p><p class="evidence"><strong>Työnäyte Git-repositoryyn ennen rastia:</strong> pelattava polku, video tai kuva ja vähintään kaksi testimerkintää.</p></div>
+            <div class="card"><p class="section-label section-label-accent">Näytä</p><p class="evidence"><strong>Työnäyte Git-repositoryyn ennen rastia:</strong> video tai kuvat pelipolusta, viisi testikierrosta päiväkirjassa ja commit-linkit.</p></div>
           </div>
 
           <section class="week-journal" data-week-journal="36">
@@ -455,11 +472,13 @@
           <div class="week-skills" data-week-skills hidden><p class="skill-tags-label" data-skills-label>Viikon tekniikka</p><ul class="skill-tags" data-skills-list></ul></div>
 
           <section class="view-section">
-            <div class="section-heading-row"><h2>Viikon tehtävät</h2><span class="week-status" data-week-status>0 / 3</span></div>
+            <div class="section-heading-row"><h2>Viikon tehtävät</h2><span class="week-status" data-week-status>0 / 5</span></div>
             <div class="task-list">
-              <label class="task-row"><input type="checkbox" data-task="37-1"><span class="task-box" aria-hidden="true"></span><span class="task-text">Anna kahvilalle oikea tuotelista: luo products.json ja lataa se Unityn TextAsset-tiedostoviitteenä C#-olioiksi JsonUtilitylla.</span></label>
-              <label class="task-row"><input type="checkbox" data-task="37-2"><span class="task-box" aria-hidden="true"></span><span class="task-text">Toteuta 1–3 tuotteen tilaukset ja oikean/väärän toimituksen tarkistus.</span></label>
-              <label class="task-row"><input type="checkbox" data-task="37-3"><span class="task-box" aria-hidden="true"></span><span class="task-text">Pidä toimintalogiikka erillään käyttöliittymästä ja dokumentoi vastuut.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="37-1"><span class="task-box" aria-hidden="true"></span><span class="task-text">Kirjoita kahvilan tuotteet products.json-tiedostoon.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="37-2"><span class="task-box" aria-hidden="true"></span><span class="task-text">Lue tuotteet tiedostosta ProductDatabase-skriptillä.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="37-3"><span class="task-box" aria-hidden="true"></span><span class="task-text">Arvo asiakkaalle 1–3 tuotteen tilaus OrderManager-skriptillä.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="37-4"><span class="task-box" aria-hidden="true"></span><span class="task-text">Tee tuotepainikkeet ja tarkista, menikö toimitus oikein.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="37-5"><span class="task-box" aria-hidden="true"></span><span class="task-text">Testaa tuotelista kolmella testillä.</span></label>
             </div>
           </section>
 
@@ -474,7 +493,7 @@
 
           <div class="outcome-grid">
             <div class="card"><p class="section-label">Valmis kun</p><p class="checkpoint">Ennen kuin jatkat: tarkista viikon valmis kun -ehto.</p></div>
-            <div class="card"><p class="section-label section-label-accent">Näytä</p><p class="evidence"><strong>Työnäyte Git-repositoryyn ennen rastia:</strong> JSON-esimerkki, latauslogiikan commit sekä testit tyhjälle ja virheelliselle datalle.</p></div>
+            <div class="card"><p class="section-label section-label-accent">Näytä</p><p class="evidence"><strong>Työnäyte Git-repositoryyn ennen rastia:</strong> products.json, ProductDatabase.cs ja OrderManager.cs committeina sekä kolmen testin tulokset.</p></div>
           </div>
 
           <section class="week-journal" data-week-journal="37">
@@ -502,11 +521,12 @@
           <div class="week-skills" data-week-skills hidden><p class="skill-tags-label" data-skills-label>Viikon tekniikka</p><ul class="skill-tags" data-skills-list></ul></div>
 
           <section class="view-section">
-            <div class="section-heading-row"><h2>Viikon tehtävät</h2><span class="week-status" data-week-status>0 / 3</span></div>
+            <div class="section-heading-row"><h2>Viikon tehtävät</h2><span class="week-status" data-week-status>0 / 4</span></div>
             <div class="task-list">
-              <label class="task-row"><input type="checkbox" data-task="38-1"><span class="task-box" aria-hidden="true"></span><span class="task-text">Tuo kahvilaan kiire: toteuta C#:lla pisteytys, Time.deltaTime-ajastin ja pelin päättymisehdot.</span></label>
-              <label class="task-row"><input type="checkbox" data-task="38-2"><span class="task-box" aria-hidden="true"></span><span class="task-text">Näytä tilaus, aika, pisteet sekä onnistumisen ja virheen palaute.</span></label>
-              <label class="task-row"><input type="checkbox" data-task="38-3"><span class="task-box" aria-hidden="true"></span><span class="task-text">Testaa aika 0, nopea kaksoisklikkaus ja väärä tuote.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="38-1"><span class="task-box" aria-hidden="true"></span><span class="task-text">Kirjoita pelin säännöt ennen koodaamista.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="38-2"><span class="task-box" aria-hidden="true"></span><span class="task-text">Lisää peliin ajastin, joka päättää kierroksen.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="38-3"><span class="task-box" aria-hidden="true"></span><span class="task-text">Näytä pelaajalle heti, menikö toimitus oikein.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="38-4"><span class="task-box" aria-hidden="true"></span><span class="task-text">Testaa pelin neljä rajatilannetta.</span></label>
             </div>
           </section>
 
@@ -521,7 +541,7 @@
 
           <div class="outcome-grid">
             <div class="card"><p class="section-label">Valmis kun</p><p class="checkpoint">Ennen kuin jatkat: tarkista viikon valmis kun -ehto.</p></div>
-            <div class="card"><p class="section-label section-label-accent">Näytä</p><p class="evidence"><strong>Työnäyte Git-repositoryyn ennen rastia:</strong> toimiva pelisilmukka, kolme testitapausta ja dokumentoitu bugikorjaus.</p></div>
+            <div class="card"><p class="section-label section-label-accent">Näytä</p><p class="evidence"><strong>Työnäyte Git-repositoryyn ennen rastia:</strong> pelisäännöt, ajastimen ja palautteen commitit sekä neljän rajatestin tulokset.</p></div>
           </div>
 
           <section class="week-journal" data-week-journal="38">
@@ -551,9 +571,9 @@
           <section class="view-section">
             <div class="section-heading-row"><h2>Viikon tehtävät</h2><span class="week-status" data-week-status>0 / 3</span></div>
             <div class="task-list">
-              <label class="task-row"><input type="checkbox" data-task="39-1"><span class="task-box" aria-hidden="true"></span><span class="task-text">Toteuta sovittu vaikeuden kasvu ja pidä arvot helposti säädettävinä.</span></label>
-              <label class="task-row"><input type="checkbox" data-task="39-2"><span class="task-box" aria-hidden="true"></span><span class="task-text">Tee selkeät tilat: valikko, peli, tarvittaessa tauko ja tulos.</span></label>
-              <label class="task-row"><input type="checkbox" data-task="39-3"><span class="task-box" aria-hidden="true"></span><span class="task-text">Vertaile toisen henkilön kanssa kahta toteutusvaihtoehtoa ja kirjaa päätös.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="39-1"><span class="task-box" aria-hidden="true"></span><span class="task-text">Vertaa kahta tapaa vaikeuttaa peliä ja tee valinta.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="39-2"><span class="task-box" aria-hidden="true"></span><span class="task-text">Tee kolme vaikeustasoa, joita voi säätää Inspectorissa.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="39-3"><span class="task-box" aria-hidden="true"></span><span class="task-text">Testaa, että pelin kolme tilaa pysyvät erillään.</span></label>
             </div>
           </section>
 
@@ -568,7 +588,7 @@
 
           <div class="outcome-grid">
             <div class="card"><p class="section-label">Valmis kun</p><p class="checkpoint">Ennen kuin jatkat: tarkista viikon valmis kun -ehto.</p></div>
-            <div class="card"><p class="section-label section-label-accent">Näytä</p><p class="evidence"><strong>Työnäyte Git-repositoryyn ennen rastia:</strong> vaihtoehtomuistio, vaikeuslogiikan commit ja hyväksytyt testit.</p></div>
+            <div class="card"><p class="section-label section-label-accent">Näytä</p><p class="evidence"><strong>Työnäyte Git-repositoryyn ennen rastia:</strong> vertailu ja valinta päiväkirjassa, vaikeustasojen commit ja testitulokset.</p></div>
           </div>
 
           <section class="week-journal" data-week-journal="39">
@@ -596,11 +616,13 @@
           <div class="week-skills" data-week-skills hidden><p class="skill-tags-label" data-skills-label>Viikon tekniikka</p><ul class="skill-tags" data-skills-list></ul></div>
 
           <section class="view-section">
-            <div class="section-heading-row"><h2>Viikon tehtävät</h2><span class="week-status" data-week-status>0 / 3</span></div>
+            <div class="section-heading-row"><h2>Viikon tehtävät</h2><span class="week-status" data-week-status>0 / 5</span></div>
             <div class="task-list">
-              <label class="task-row"><input type="checkbox" data-task="40-1"><span class="task-box" aria-hidden="true"></span><span class="task-text">Tee peliin top 5 -lista: tallenna ja lataa Unityn pienellä PlayerPrefs-avain–arvo-tallennuksella viisi parasta tulosta ja nimimerkkiä.</span></label>
-              <label class="task-row"><input type="checkbox" data-task="40-2"><span class="task-box" aria-hidden="true"></span><span class="task-text">Perustele tiedostomuoto ja tallennuspaikka teknisessä suunnitelmassa.</span></label>
-              <label class="task-row"><input type="checkbox" data-task="40-3"><span class="task-box" aria-hidden="true"></span><span class="task-text">Validoi luettu data ja nimimerkki; älä tallenna salaisuuksia.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="40-1"><span class="task-box" aria-hidden="true"></span><span class="task-text">Lisää tulosruutuun nimimerkkikenttä ja Tallenna-painike.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="40-2"><span class="task-box" aria-hidden="true"></span><span class="task-text">Tee SaveService-skripti, joka tallentaa viisi parasta tulosta.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="40-3"><span class="task-box" aria-hidden="true"></span><span class="task-text">Kytke tulosruutu tallentamaan ja näyttämään parhaat tulokset.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="40-4"><span class="task-box" aria-hidden="true"></span><span class="task-text">Tarkista nimimerkki ja estä saman tuloksen tallennus kahdesti.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="40-5"><span class="task-box" aria-hidden="true"></span><span class="task-text">Testaa tallennus selaimessa ja perustele ratkaisu.</span></label>
             </div>
           </section>
 
@@ -615,7 +637,7 @@
 
           <div class="outcome-grid">
             <div class="card"><p class="section-label">Valmis kun</p><p class="checkpoint">Ennen kuin jatkat: tarkista viikon valmis kun -ehto.</p></div>
-            <div class="card"><p class="section-label section-label-accent">Näytä</p><p class="evidence"><strong>Työnäyte Git-repositoryyn ennen rastia:</strong> tallennus uudelleenkäynnistyksen jälkeen sekä kirjatut riskit ja ratkaisut.</p></div>
+            <div class="card"><p class="section-label section-label-accent">Näytä</p><p class="evidence"><strong>Työnäyte Git-repositoryyn ennen rastia:</strong> tallennuksen commitit, neljän testin tulokset ja ratkaisun perustelu päiväkirjassa.</p></div>
           </div>
 
           <section class="week-journal" data-week-journal="40">
@@ -645,9 +667,9 @@
           <section class="view-section">
             <div class="section-heading-row"><h2>Viikon tehtävät</h2><span class="week-status" data-week-status>0 / 3</span></div>
             <div class="task-list">
-              <label class="task-row"><input type="checkbox" data-task="41-1"><span class="task-box" aria-hidden="true"></span><span class="task-text">Tee asiakkaalle kokeiltava build ja valmistele 5–10 minuutin demo.</span></label>
-              <label class="task-row"><input type="checkbox" data-task="41-2"><span class="task-box" aria-hidden="true"></span><span class="task-text">Kerää palaute, selitä ratkaisut ymmärrettävästi ja sovi yksi rajattu muutos.</span></label>
-              <label class="task-row"><input type="checkbox" data-task="41-3"><span class="task-box" aria-hidden="true"></span><span class="task-text">Päivitä backlog, prioriteetit, arviot ja katselmointiloki.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="41-1"><span class="task-box" aria-hidden="true"></span><span class="task-text">Valmistele asiakkaalle kokeiltava versio.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="41-2"><span class="task-box" aria-hidden="true"></span><span class="task-text">Anna asiakkaan pelata ja kirjaa, mitä hän sanoo.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="41-3"><span class="task-box" aria-hidden="true"></span><span class="task-text">Sovi asiakkaan kanssa yksi muutos ja tee siitä issue.</span></label>
             </div>
           </section>
 
@@ -662,7 +684,7 @@
 
           <div class="outcome-grid">
             <div class="card"><p class="section-label">Valmis kun</p><p class="checkpoint">Ennen kuin jatkat: tarkista viikon valmis kun -ehto.</p></div>
-            <div class="card"><p class="section-label section-label-accent">Näytä</p><p class="evidence"><strong>Työnäyte Git-repositoryyn ennen rastia:</strong> katselmointiloki, palaute, päätetty muutos ja toimiva build.</p></div>
+            <div class="card"><p class="section-label section-label-accent">Näytä</p><p class="evidence"><strong>Työnäyte Git-repositoryyn ennen rastia:</strong> version tunniste, katselmointimuistio ja hyväksytty muutosissue.</p></div>
           </div>
 
           <section class="week-journal" data-week-journal="41">
@@ -698,9 +720,9 @@
           <section class="view-section">
             <div class="section-heading-row"><h2>Viikon tehtävät</h2><span class="week-status" data-week-status>0 / 3</span></div>
             <div class="task-list">
-              <label class="task-row"><input type="checkbox" data-task="43-1"><span class="task-box" aria-hidden="true"></span><span class="task-text">Muuta asiakkaan palaute pieniksi GitHub-issueiksi ja arvioi työmäärä.</span></label>
-              <label class="task-row"><input type="checkbox" data-task="43-2"><span class="task-box" aria-hidden="true"></span><span class="task-text">Toteuta sovittu muutos omassa feature-branchissa eli muutokselle rajatussa Git-haarassa.</span></label>
-              <label class="task-row"><input type="checkbox" data-task="43-3"><span class="task-box" aria-hidden="true"></span><span class="task-text">Katselmoi, testaa ja yhdistä muutos toimivaan main-versioon.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="43-1"><span class="task-box" aria-hidden="true"></span><span class="task-text">Tarkista muutosissue ja kirjoita sille testi.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="43-2"><span class="task-box" aria-hidden="true"></span><span class="task-text">Tee muutos omassa Git-haarassa.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="43-3"><span class="task-box" aria-hidden="true"></span><span class="task-text">Pyydä katselmointi pull requestilla ja yhdistä muutos.</span></label>
             </div>
           </section>
 
@@ -715,7 +737,7 @@
 
           <div class="outcome-grid">
             <div class="card"><p class="section-label">Valmis kun</p><p class="checkpoint">Ennen kuin jatkat: tarkista viikon valmis kun -ehto.</p></div>
-            <div class="card"><p class="section-label section-label-accent">Näytä</p><p class="evidence"><strong>Työnäyte Git-repositoryyn ennen rastia:</strong> GitHub-issue, oma haara ja yhdistäminen (merge) tai pull request, testit ja katselmointiloki.</p></div>
+            <div class="card"><p class="section-label section-label-accent">Näytä</p><p class="evidence"><strong>Työnäyte Git-repositoryyn ennen rastia:</strong> issue, haara, pull request kommentteineen, commitit ja testitulokset.</p></div>
           </div>
 
           <section class="week-journal" data-week-journal="43">
@@ -745,9 +767,9 @@
           <section class="view-section">
             <div class="section-heading-row"><h2>Viikon tehtävät</h2><span class="week-status" data-week-status>0 / 3</span></div>
             <div class="task-list">
-              <label class="task-row"><input type="checkbox" data-task="44-1"><span class="task-box" aria-hidden="true"></span><span class="task-text">Vertaa toteutusta mockupiin ja kirjaa perustellut poikkeamat.</span></label>
-              <label class="task-row"><input type="checkbox" data-task="44-2"><span class="task-box" aria-hidden="true"></span><span class="task-text">Paranna luettavuutta, palautetta, ohjausta ja virhetilanteita.</span></label>
-              <label class="task-row"><input type="checkbox" data-task="44-3"><span class="task-box" aria-hidden="true"></span><span class="task-text">Pyydä vertaiselta lyhyt käytettävyystesti.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="44-1"><span class="task-box" aria-hidden="true"></span><span class="task-text">Vertaa peliä viikon 35 luonnokseen.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="44-2"><span class="task-box" aria-hidden="true"></span><span class="task-text">Testaa peliä uudella pelaajalla ilman neuvoja.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="44-3"><span class="task-box" aria-hidden="true"></span><span class="task-text">Korjaa kaksi suurinta ongelmaa ja testaa uudelleen.</span></label>
             </div>
           </section>
 
@@ -762,7 +784,7 @@
 
           <div class="outcome-grid">
             <div class="card"><p class="section-label">Valmis kun</p><p class="checkpoint">Ennen kuin jatkat: tarkista viikon valmis kun -ehto.</p></div>
-            <div class="card"><p class="section-label section-label-accent">Näytä</p><p class="evidence"><strong>Työnäyte Git-repositoryyn ennen rastia:</strong> ennen/jälkeen-kuvat, vertaispalaute, päätökset ja korjaukset.</p></div>
+            <div class="card"><p class="section-label section-label-accent">Näytä</p><p class="evidence"><strong>Työnäyte Git-repositoryyn ennen rastia:</strong> vertailu luonnokseen, havainnot, ennen/jälkeen-kuvat ja uusintatestin tulos.</p></div>
           </div>
 
           <section class="week-journal" data-week-journal="44">
@@ -792,9 +814,9 @@
           <section class="view-section">
             <div class="section-heading-row"><h2>Viikon tehtävät</h2><span class="week-status" data-week-status>0 / 3</span></div>
             <div class="task-list">
-              <label class="task-row"><input type="checkbox" data-task="45-1"><span class="task-box" aria-hidden="true"></span><span class="task-text">Laadi vähintään 12 testitapausta: normaali käyttö, rajatapaukset ja tallennus.</span></label>
-              <label class="task-row"><input type="checkbox" data-task="45-2"><span class="task-box" aria-hidden="true"></span><span class="task-text">Kirjaa kaikki aidosti löytyneet bugit. Osoita kolme täydellistä virheenkorjausketjua; käytä tarvittaessa opettajan erikseen merkitsemiä vikatehtäviä.</span></label>
-              <label class="task-row"><input type="checkbox" data-task="45-3"><span class="task-box" aria-hidden="true"></span><span class="task-text">Testaa puhdas käynnistys sekä puuttuva tai virheellinen datatiedosto.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="45-1"><span class="task-box" aria-hidden="true"></span><span class="task-text">Kirjoita 12 testitapausta ennen testaamista.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="45-2"><span class="task-box" aria-hidden="true"></span><span class="task-text">Aja testitapaukset selainversiolla ja kirjaa tulokset.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="45-3"><span class="task-box" aria-hidden="true"></span><span class="task-text">Korjaa kolme virhettä ja kirjaa jokaisesta koko ketju.</span></label>
             </div>
           </section>
 
@@ -809,7 +831,7 @@
 
           <div class="outcome-grid">
             <div class="card"><p class="section-label">Valmis kun</p><p class="checkpoint">Ennen kuin jatkat: tarkista viikon valmis kun -ehto.</p></div>
-            <div class="card"><p class="section-label section-label-accent">Näytä</p><p class="evidence"><strong>Työnäyte Git-repositoryyn ennen rastia:</strong> testausloki, tulokset, bugikorjaukset ja uusintatestit.</p></div>
+            <div class="card"><p class="section-label section-label-accent">Näytä</p><p class="evidence"><strong>Työnäyte Git-repositoryyn ennen rastia:</strong> project-docs/testaus.md, kolme virheenkorjausketjua ja korjauscommitit.</p></div>
           </div>
 
           <section class="week-journal" data-week-journal="45">
@@ -837,11 +859,12 @@
           <div class="week-skills" data-week-skills hidden><p class="skill-tags-label" data-skills-label>Viikon tekniikka</p><ul class="skill-tags" data-skills-list></ul></div>
 
           <section class="view-section">
-            <div class="section-heading-row"><h2>Viikon tehtävät</h2><span class="week-status" data-week-status>0 / 3</span></div>
+            <div class="section-heading-row"><h2>Viikon tehtävät</h2><span class="week-status" data-week-status>0 / 4</span></div>
             <div class="task-list">
-              <label class="task-row"><input type="checkbox" data-task="46-1"><span class="task-box" aria-hidden="true"></span><span class="task-text">Poista turha toisto, selkeytä nimet ja rajaa osien vastuut.</span></label>
-              <label class="task-row"><input type="checkbox" data-task="46-2"><span class="task-box" aria-hidden="true"></span><span class="task-text">Pyydä koodikatselmointi ohjaajalta tai vertaiselta ja kirjaa palaute.</span></label>
-              <label class="task-row"><input type="checkbox" data-task="46-3"><span class="task-box" aria-hidden="true"></span><span class="task-text">Varmista, että osaat selittää myös tekoälyn avulla syntyneet ratkaisut.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="46-1"><span class="task-box" aria-hidden="true"></span><span class="task-text">Etsi koodista yksi kohta, jota on vaikea ymmärtää.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="46-2"><span class="task-box" aria-hidden="true"></span><span class="task-text">Selkeytä kohta niin, että peli toimii kuten ennen.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="46-3"><span class="task-box" aria-hidden="true"></span><span class="task-text">Pyydä koodikatselmointi ja vastaa palautteeseen.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="46-4"><span class="task-box" aria-hidden="true"></span><span class="task-text">Selitä kaksi ratkaisua omin sanoin.</span></label>
             </div>
           </section>
 
@@ -856,7 +879,7 @@
 
           <div class="outcome-grid">
             <div class="card"><p class="section-label">Valmis kun</p><p class="checkpoint">Ennen kuin jatkat: tarkista viikon valmis kun -ehto.</p></div>
-            <div class="card"><p class="section-label section-label-accent">Näytä</p><p class="evidence"><strong>Työnäyte Git-repositoryyn ennen rastia:</strong> katselmointimuistio, refaktorointicommit ja rakenteen perustelu.</p></div>
+            <div class="card"><p class="section-label section-label-accent">Näytä</p><p class="evidence"><strong>Työnäyte Git-repositoryyn ennen rastia:</strong> refaktoroinnin commit, testi ennen ja jälkeen, katselmoinnin kommentti ja vastaus.</p></div>
           </div>
 
           <section class="week-journal" data-week-journal="46">
@@ -886,9 +909,9 @@
           <section class="view-section">
             <div class="section-heading-row"><h2>Viikon tehtävät</h2><span class="week-status" data-week-status>0 / 3</span></div>
             <div class="task-list">
-              <label class="task-row"><input type="checkbox" data-task="47-1"><span class="task-box" aria-hidden="true"></span><span class="task-text">Tee ensimmäinen julkaisuehdokas (release candidate, RC1) ja jäädytä uusien ominaisuuksien lisääminen.</span></label>
-              <label class="task-row"><input type="checkbox" data-task="47-2"><span class="task-box" aria-hidden="true"></span><span class="task-text">Anna asiakkaan ja vähintään yhden muun käyttäjän testata peli.</span></label>
-              <label class="task-row"><input type="checkbox" data-task="47-3"><span class="task-box" aria-hidden="true"></span><span class="task-text">Luokittele palaute: korjataan, tunnettu puute tai myöhempään versioon.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="47-1"><span class="task-box" aria-hidden="true"></span><span class="task-text">Merkitse ensimmäinen julkaisuehdokas (RC1) ja lopeta uusien ominaisuuksien lisääminen.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="47-2"><span class="task-box" aria-hidden="true"></span><span class="task-text">Anna asiakkaan ja yhden muun ihmisen testata julkaisuehdokas.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="47-3"><span class="task-box" aria-hidden="true"></span><span class="task-text">Päätä jokaisesta havainnosta, korjataanko se ennen julkaisua.</span></label>
             </div>
           </section>
 
@@ -903,7 +926,7 @@
 
           <div class="outcome-grid">
             <div class="card"><p class="section-label">Valmis kun</p><p class="checkpoint">Ennen kuin jatkat: tarkista viikon valmis kun -ehto.</p></div>
-            <div class="card"><p class="section-label section-label-accent">Näytä</p><p class="evidence"><strong>Työnäyte Git-repositoryyn ennen rastia:</strong> RC1-build, testipalautteet, päätökset ja viimeinen korjauslista.</p></div>
+            <div class="card"><p class="section-label section-label-accent">Näytä</p><p class="evidence"><strong>Työnäyte Git-repositoryyn ennen rastia:</strong> RC1-tagi, kahden testaajan havainnot ja luokiteltu korjauslista.</p></div>
           </div>
 
           <section class="week-journal" data-week-journal="47">
@@ -931,11 +954,12 @@
           <div class="week-skills" data-week-skills hidden><p class="skill-tags-label" data-skills-label>Viikon tekniikka</p><ul class="skill-tags" data-skills-list></ul></div>
 
           <section class="view-section">
-            <div class="section-heading-row"><h2>Viikon tehtävät</h2><span class="week-status" data-week-status>0 / 3</span></div>
+            <div class="section-heading-row"><h2>Viikon tehtävät</h2><span class="week-status" data-week-status>0 / 4</span></div>
             <div class="task-list">
-              <label class="task-row"><input type="checkbox" data-task="48-1"><span class="task-box" aria-hidden="true"></span><span class="task-text">Korjaa vain julkaisemisen estävät ja selvästi tärkeät virheet.</span></label>
-              <label class="task-row"><input type="checkbox" data-task="48-2"><span class="task-box" aria-hidden="true"></span><span class="task-text">Tee puhdas Unity WebGL -build, v1.0-tagi ja julkaise build GitHub Pagesiin.</span></label>
-              <label class="task-row"><input type="checkbox" data-task="48-3"><span class="task-box" aria-hidden="true"></span><span class="task-text">Testaa julkaistu linkki toisella laitteella tai selaimella ja kirjoita käyttöohje.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="48-1"><span class="task-box" aria-hidden="true"></span><span class="task-text">Korjaa vain ne virheet, jotka päätit korjata ennen julkaisua.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="48-2"><span class="task-box" aria-hidden="true"></span><span class="task-text">Julkaise peli GitHub Pagesiin ja merkitse se versioksi v1.0.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="48-3"><span class="task-box" aria-hidden="true"></span><span class="task-text">Kirjoita README:hen käyttöohje ja tunnetut puutteet.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="48-4"><span class="task-box" aria-hidden="true"></span><span class="task-text">Testaa julkaistu peli toisella laitteella käyttöohjeen avulla.</span></label>
             </div>
           </section>
 
@@ -950,7 +974,7 @@
 
           <div class="outcome-grid">
             <div class="card"><p class="section-label">Valmis kun</p><p class="checkpoint">Ennen kuin jatkat: tarkista viikon valmis kun -ehto.</p></div>
-            <div class="card"><p class="section-label section-label-accent">Näytä</p><p class="evidence"><strong>Työnäyte Git-repositoryyn ennen rastia:</strong> toimiva julkaisulinkki, v1.0/tagi, käyttöohje ja tunnetut puutteet.</p></div>
+            <div class="card"><p class="section-label section-label-accent">Näytä</p><p class="evidence"><strong>Työnäyte Git-repositoryyn ennen rastia:</strong> julkaisulinkki, v1.0-tagi, testitulos toiselta laitteelta ja README käyttöohjeineen.</p></div>
           </div>
 
           <section class="week-journal" data-week-journal="48">
@@ -978,12 +1002,13 @@
           <div class="week-skills" data-week-skills hidden><p class="skill-tags-label" data-skills-label>Viikon tekniikka</p><ul class="skill-tags" data-skills-list></ul></div>
 
           <section class="view-section">
-            <div class="section-heading-row"><h2>Viikon tehtävät</h2><span class="week-status" data-week-status>0 / 4</span></div>
+            <div class="section-heading-row"><h2>Viikon tehtävät</h2><span class="week-status" data-week-status>0 / 5</span></div>
             <div class="task-list">
-              <label class="task-row"><input type="checkbox" data-task="49-1"><span class="task-box" aria-hidden="true"></span><span class="task-text">Tarkista kaikkien viikkojen projektipäiväkirja ja vie valmis tiedosto repositoryn project-docs-kansioon.</span></label>
-              <label class="task-row"><input type="checkbox" data-task="49-2"><span class="task-box" aria-hidden="true"></span><span class="task-text">Täytä osaamisvaatimusten näyttömatriisiin linkit tai työnäytteet.</span></label>
-              <label class="task-row"><input type="checkbox" data-task="49-3"><span class="task-box" aria-hidden="true"></span><span class="task-text">Harjoittele demo ja selitä koodi, bugi, tallennus, Git ja tekoälyn käyttö.</span></label>
-              <label class="task-row"><input type="checkbox" data-task="49-4"><span class="task-box" aria-hidden="true"></span><span class="task-text">Luovuta peli, repository, projektipäiväkirja ja näyttöaineisto viimeistään pe 4.12.2026.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="49-1"><span class="task-box" aria-hidden="true"></span><span class="task-text">Tarkista projektipäiväkirja ja vie se repositoryyn.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="49-2"><span class="task-box" aria-hidden="true"></span><span class="task-text">Kirjoita itsearviointi omiin työnäytteisiin nojaten.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="49-3"><span class="task-box" aria-hidden="true"></span><span class="task-text">Liitä jokaiseen näyttömatriisin kohtaan tarkka linkki.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="49-4"><span class="task-box" aria-hidden="true"></span><span class="task-text">Harjoittele 8–10 minuutin demo.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="49-5"><span class="task-box" aria-hidden="true"></span><span class="task-text">Luovuta peli ja aineisto viimeistään pe 4.12.2026.</span></label>
             </div>
           </section>
 
@@ -1043,7 +1068,7 @@
               <li>Asiakkaan toivoma parannus <small>vko 43 · sisältö selviää katselmoinnissa vkolla 41</small></li>
               <li>Peli ohjaa pelaajaa itse <small>vko 44</small></li>
             </ol>
-            <small>Tämä lista ei ole valmis suunnitelma: featurejen pilkkominen 0,5–1 päivän GitHub-issueiksi ja priorisointi on sinun työtäsi (tehtävä 35-2). Priorisointi tarkoittaa tässä projektissa kolmea tasoa: P0 on pakollinen ydin, jonka on valmistuttava; P1 on tärkeä jatkosisältö, joka tehdään vasta kun P0 toimii; P2 on valinnainen lisä, joka voidaan jättää pois.</small>
+            <small>Tämä lista ei ole valmis suunnitelma. Featurejen pilkkominen pieniksi GitHub-issueiksi ja niiden priorisointi on sinun työtäsi (viikon 35 tehtävät 2 ja 3). Priorisoinnissa on kolme tasoa: pakollinen (P0) on ydin, jonka on valmistuttava; tärkeä (P1) tehdään vasta, kun pakolliset toimivat; lisä (P2) voidaan jättää pois, jos aika loppuu.</small>
           </article>
           <article><h3>4. Teknologia</h3><p>Unity 2D + C#, tuotteet erillisessä products.json-tiedostossa (TextAsset + JsonUtility), tallennus PlayerPrefsillä, julkaisu Unity WebGL -buildina GitHub Pagesiin.</p></article>
           <article><h3>5. Rajaus — mitä ei tehdä</h3><p>Ei verkkomoninpeliä, käyttäjätilejä, oikeita maksuja eikä laajaa 3D-maailmaa. Ensin toimiva P0-versio.</p></article>

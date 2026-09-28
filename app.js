@@ -9,6 +9,13 @@
  * Rakenne, jota tämä moottori odottaa index.html:ltä, on kuvattu tarkasti
  * tiedostossa skillin references/layout-rakenne.md.
  *
+ * v2.5: pilkottu tehtävänanto (opt-in, viikkoOhjeet[w].tehtavat). index.html:n tehtävärivi
+ *   antaa tehtävän otsikon; app.js rakentaa siitä tehtäväkortin, jossa on miksi, tehtävän
+ *   omat sanat, rastitettavat osatehtävät, valmis kun, tallenna, kalibrointi ja tehtävän
+ *   oma toteutusapu. Tehtävä valmistuu, kun kaikki osat on rastittu. Vain nykyinen tehtävä
+ *   on auki. Viikon tausta (connection, deliverable/why, skills) kootaan yhteen suljettuun
+ *   lohkoon ja Näin etenet -osio jää pois, jos viikolla ei ole steps-listaa. Vanhat rastit
+ *   siirtyvät osatehtäviin kerran (perii-kenttä kertoo, mistä vanhasta tehtävästä).
  * v2.4.2: kuvaohjeen "Avaa kuva isona" näkyy vain, kun kuva on olemassa (paikanpitäjää ja
  *   latautumatonta kuvaa ei avata). Teeman latausnapit rivittyvät kapealla näytöllä.
  * v2.4.1: alatunniste ja AI-muokattu-merkki näkyvät kaikissa näkymissä. render() piilottaa
@@ -60,6 +67,7 @@
     helpActionsLabel: "Kytke näin",
     helpCodeLabel: "Käytä tätä työpohjaa tai tarkistuslistaa",
     helpTestLabel: "Tarkistustesti:",
+    helpTipsLabel: "Hyvä tietää",
     helpNote: "Jos käytit tähän tekoälyä, kirjaa se AI-lokiin.",
     stepsLead: (n) => `${n} askelta · ohjattu työ · tee järjestyksessä`,
     dayRhythmLabel: "Viikon päivärytmi",
@@ -184,7 +192,24 @@
     kuvaohjeMissing: (id) => `Kuvaohjetta ${id} ei löydy.`,
     /* v2.4: joka viikon vakiolohkot (P.josJumissa, P.viikkorutiini). */
     lostHeading: "Jos et tiedä, mitä tehdä",
-    routineHeading: "Viikkorutiini"
+    routineHeading: "Viikkorutiini",
+    /* v2.5: pilkottu tehtävänanto (viikkoOhjeet[w].tehtavat). */
+    tasksLead: "Tee tehtävät järjestyksessä. Rastita osatehtävä heti, kun olet tehnyt sen. Tehtävä on valmis, kun kaikki sen osat on rastittu.",
+    taskNumber: (i, n) => `Tehtävä ${i} / ${n}`,
+    taskWhy: "Miksi:",
+    taskWords: "Sanat tässä tehtävässä",
+    taskStepsLabel: (title) => `Osatehtävät: ${title}`,
+    taskDone: "Valmis kun:",
+    taskSave: "Tallenna työnäyte:",
+    taskProgress: (done, total) => `${done} / ${total}`,
+    taskComplete: "Valmis",
+    taskHelpTitle: "Tarvitsen apua tähän tehtävään",
+    taskHelpNote: "kokeile ensin itse",
+    taskOpenAll: "Avaa kaikki tehtävät",
+    taskOpenCurrent: "Näytä vain nykyinen tehtävä",
+    taskLiveDone: (i) => `Tehtävä ${i} valmis.`,
+    weekBackground: "Miksi tämä viikko tehdään · tausta ja arvioitavat taidot",
+    resumeTask: (i, n) => `tehtävä ${i} / ${n}`
   };
   const UI = Object.assign({}, UI_OLETUS, P.tekstit || {});
   const t = (key, ...args) => {
@@ -373,6 +398,220 @@
     container.innerHTML = items.map(mapFn).join("");
   }
 
+  /* Toteutusavun sisältö: { title, tree, actions[], code, vinkit?[], test, images?[], links?[] }.
+     Viikkotasolla (viikkoOhjeet[w].help) neljä pääkenttää ovat mukana; tehtävän omassa
+     avussa (tehtavat[id].apu, v2.5) jokainen kenttä on valinnainen. actions = tee näin
+     -vaiheet, vinkit = taustatietoa koodista tai työkalusta ("Hyvä tietää"). */
+  function helpContentHtml(h) {
+    const helpLinks = h.links?.length ? `<p class="impl-help-links">${h.links.map(([label, url]) => `<a href="${url}" target="_blank" rel="noreferrer">${escapeText(label)} ↗</a>`).join("")}</p>` : "";
+    const helpImages = h.images?.length ? `<div class="impl-help-images">${h.images.map(([src, alt, caption]) => `<figure><img src="${src}" alt="${escapeText(alt)}" loading="lazy">${caption ? `<figcaption>${escapeText(caption)}</figcaption>` : ""}</figure>`).join("")}</div>` : "";
+    return `
+        ${h.title ? `<p style="font-size:13px;color:var(--muted)"><small>${escapeText(h.title)}</small></p>` : ""}
+        ${h.tree ? `<div><p class="help-label">${escapeText(t("helpTreeLabel"))}</p><pre><code>${escapeText(h.tree)}</code></pre></div>` : ""}
+        ${(h.actions || []).length ? `<div><p class="help-label">${escapeText(t("helpActionsLabel"))}</p><ol>${h.actions.map((a) => `<li>${richText(a)}</li>`).join("")}</ol></div>` : ""}
+        ${h.code ? `<div><p class="help-label">${escapeText(t("helpCodeLabel"))}</p><pre><code>${escapeText(h.code)}</code></pre></div>` : ""}
+        ${(h.vinkit || []).length ? `<div><p class="help-label">${escapeText(t("helpTipsLabel"))}</p><ul>${h.vinkit.map((a) => `<li>${richText(a)}</li>`).join("")}</ul></div>` : ""}
+        ${h.test ? `<p class="impl-help-test"><strong>${escapeText(t("helpTestLabel"))}</strong> ${richText(h.test)}</p>` : ""}
+        ${helpImages}${helpLinks}
+        <p class="impl-help-note" style="font-size:12px;color:var(--meta)">${escapeText(t("helpNote"))}</p>`;
+  }
+
+  /* ---------- v2.5: pilkottu tehtävänanto (viikkoOhjeet[w].tehtavat, opt-in) ----------
+   * tehtavat = { "35-2": { miksi, osat: ["…", ["Otsikko", "ohje"]], valmis, tallenna,
+   *   sanat: ["P0"], apu: {…toteutusavun muoto…}, esimerkki, eiRiita, perii: ["35-2"] } }
+   * Tehtävän otsikko on index.html:n tehtävärivin teksti (data-task), joten työpaketti ja
+   * tarkistus lukevat edelleen samaa riviä. Alkuperäinen data-task-ruutu jää korttiin
+   * piiloon ja seuraa osatehtäviä: eteneminen, jatka-nappi ja sivupalkki toimivat ennallaan.
+   * Osatehtävien tila: localStorage `${slug}-osat-v1` = { tehtävätunnus: [true, false, …] }.
+   * Siirto vanhoista rasteista tehdään tehtävä kerrallaan vain kerran: jos tehtävällä ei ole
+   * vielä tilaa, sen osat saavat vanhan tehtävän rastin (perii-lista tai sama tunnus).
+   */
+  const SUBSTEP_KEY = `${SLUG}-osat-v1`;
+  let substepState = readStorage(SUBSTEP_KEY, {}) || {};
+  const legacyTaskState = readStorage(STORAGE_KEY, {}) || {};
+  const taskCardEls = [];
+
+  function taskOsat(def) {
+    return (def.osat || []).map((o) => (Array.isArray(o) ? { otsikko: o[0], teksti: o[1] } : { otsikko: "", teksti: String(o) }));
+  }
+
+  function substepsFor(id, def, count) {
+    let saved = Array.isArray(substepState[id]) ? substepState[id].slice(0, count) : null;
+    if (!saved) {
+      const from = Array.isArray(def.perii) && def.perii.length ? def.perii : [id];
+      const inherited = from.some((key) => Boolean(legacyTaskState[key]));
+      saved = Array(count).fill(inherited);
+      substepState[id] = saved;
+      writeStorage(SUBSTEP_KEY, substepState);
+    } else if (saved.length < count) {
+      /* Osia on lisätty: valmis tehtävä pysyy valmiina, kesken oleva saa uudet osat avoimina. */
+      const allDone = saved.length > 0 && saved.every(Boolean);
+      saved = saved.concat(Array(count - saved.length).fill(allDone));
+      substepState[id] = saved;
+      writeStorage(SUBSTEP_KEY, substepState);
+    }
+    return saved.map(Boolean);
+  }
+
+  function taskCardHtml(id, def, titleHtml, index, total) {
+    const osat = taskOsat(def);
+    const words = (def.sanat || []).map((k) => glossaryByTerm.get(String(k).toLowerCase())).filter(Boolean);
+    const plainTitle = titleHtml.replace(/<[^>]+>/g, "").trim();
+    const calibration = def.esimerkki || def.eiRiita
+      ? `<div class="expectation-grid task-card-expectations">
+          ${def.esimerkki ? `<div class="card expected-example"><p class="section-label section-label-accent">${escapeText(t("exampleLabel"))}</p><p>${richText(def.esimerkki)}</p></div>` : ""}
+          ${def.eiRiita ? `<div class="card not-enough"><p class="section-label">${escapeText(t("notEnoughLabel"))}</p><p>${richText(def.eiRiita)}</p></div>` : ""}
+        </div>`
+      : "";
+    const help = def.apu
+      ? `<details class="impl-help task-help"><summary><span>${escapeText(def.apu.otsikko || t("taskHelpTitle"))}</span><small>${escapeText(t("taskHelpNote"))}</small></summary><div class="impl-help-content">${helpContentHtml(def.apu)}</div></details>`
+      : "";
+    return `
+      <summary class="task-card-head">
+        <span class="task-card-n">${escapeText(t("taskNumber", index + 1, total))}</span>
+        <h3 class="task-card-title">${titleHtml}</h3>
+        <span class="task-card-status" data-task-status></span>
+      </summary>
+      <div class="task-card-body">
+        ${def.miksi ? `<p class="task-card-why"><strong>${escapeText(t("taskWhy"))}</strong> ${richText(def.miksi)}</p>` : ""}
+        ${words.length ? `<div class="task-card-words"><p class="section-label">${escapeText(t("taskWords"))}</p><dl class="glossary glossary-compact">${words.map((g) => glossaryItemHtml(g)).join("")}</dl></div>` : ""}
+        <ol class="substep-list" aria-label="${escapeText(t("taskStepsLabel", plainTitle))}">${osat.map((o, j) => `
+          <li><label class="substep-row"><input type="checkbox" data-substep="${escapeText(id)}" data-substep-n="${j}"><span class="task-box" aria-hidden="true"></span><span class="substep-n" aria-hidden="true">${j + 1}</span><span class="substep-text">${o.otsikko ? `<strong>${richText(o.otsikko)}.</strong> ` : ""}${richText(o.teksti)}</span></label></li>`).join("")}
+        </ol>
+        ${def.valmis ? `<p class="task-card-done"><strong>${escapeText(t("taskDone"))}</strong> ${richText(def.valmis)}</p>` : ""}
+        ${def.tallenna ? `<p class="task-card-save"><strong>${escapeText(t("taskSave"))}</strong> ${richText(def.tallenna)}</p>` : ""}
+        ${calibration}
+        ${help}
+      </div>`;
+  }
+
+  /* Palauttaa true, jos viikolla on vähintään yksi tehtäväkortti. */
+  function enhanceTaskCards(card, guide) {
+    const defs = guide.tehtavat;
+    if (!defs || typeof defs !== "object") return false;
+    const rows = [...card.querySelectorAll(".task-list .task-row")].filter((row) => row.querySelector("[data-task]"));
+    let used = false;
+    rows.forEach((row, index) => {
+      const input = row.querySelector("[data-task]");
+      const id = input.dataset.task;
+      const def = defs[id];
+      if (!def) return;
+      used = true;
+      const el = document.createElement("details");
+      el.className = "task-card";
+      el.dataset.taskCard = id;
+      el.innerHTML = taskCardHtml(id, def, row.querySelector(".task-text")?.innerHTML || id, index, rows.length);
+      /* Alkuperäinen ruutu seuraa osia: se jää DOMiin, mutta ei näy eikä saa fokusta. */
+      input.hidden = true;
+      input.tabIndex = -1;
+      input.setAttribute("aria-hidden", "true");
+      el.appendChild(input);
+      row.replaceWith(el);
+      const osat = taskOsat(def);
+      const state = substepsFor(id, def, osat.length);
+      el.querySelectorAll("[data-substep]").forEach((box) => {
+        box.checked = state[Number(box.dataset.substepN)];
+        box.addEventListener("change", () => onSubstepChange(el));
+      });
+      taskCardEls.push(el);
+    });
+    if (!used) return false;
+    const section = card.querySelector(".task-list")?.closest(".view-section");
+    if (section && !section.querySelector(".tasks-lead")) {
+      const lead = document.createElement("p");
+      lead.className = "tasks-lead";
+      lead.textContent = t("tasksLead");
+      section.querySelector(".section-heading-row")?.insertAdjacentElement("afterend", lead);
+      const toggle = document.createElement("button");
+      toggle.type = "button";
+      toggle.className = "button button-secondary button-pill tasks-toggle";
+      toggle.setAttribute("data-tasks-toggle", "");
+      toggle.textContent = t("taskOpenAll");
+      toggle.addEventListener("click", () => {
+        const cards = [...card.querySelectorAll(".task-card")];
+        const openAll = toggle.dataset.mode !== "all";
+        if (openAll) cards.forEach((c) => { c.open = true; });
+        else focusCurrentTask(card, false);
+        toggle.dataset.mode = openAll ? "all" : "";
+        toggle.textContent = t(openAll ? "taskOpenCurrent" : "taskOpenAll");
+      });
+      lead.insertAdjacentElement("afterend", toggle);
+    }
+    return true;
+  }
+
+  function taskCardDone(el) {
+    const boxes = [...el.querySelectorAll("[data-substep]")];
+    return boxes.length > 0 && boxes.every((b) => b.checked);
+  }
+
+  function syncTaskCard(el) {
+    const boxes = [...el.querySelectorAll("[data-substep]")];
+    const done = boxes.filter((b) => b.checked).length;
+    const complete = boxes.length > 0 && done === boxes.length;
+    const input = el.querySelector("[data-task]");
+    if (input) input.checked = complete;
+    el.classList.toggle("is-done", complete);
+    const status = el.querySelector("[data-task-status]");
+    if (status) {
+      status.innerHTML = complete
+        ? `<span aria-hidden="true">${escapeText(t("stateSymbolDone"))}</span> ${escapeText(t("taskComplete"))}`
+        : escapeText(t("taskProgress", done, boxes.length));
+    }
+    return complete;
+  }
+
+  /* Avaa viikon ensimmäisen keskeneräisen tehtävän ja sulkee muut. */
+  function focusCurrentTask(card, scroll) {
+    const cards = [...card.querySelectorAll(".task-card")];
+    if (!cards.length) return null;
+    const current = cards.find((c) => !taskCardDone(c)) || null;
+    cards.forEach((c) => { c.open = c === current; });
+    const toggle = card.querySelector("[data-tasks-toggle]");
+    if (toggle) { toggle.dataset.mode = ""; toggle.textContent = t("taskOpenAll"); }
+    if (current && scroll) {
+      current.scrollIntoView({ block: "start" });
+      current.querySelector("summary")?.focus({ preventScroll: true });
+    }
+    return current;
+  }
+
+  function onSubstepChange(el) {
+    const id = el.dataset.taskCard;
+    const boxes = [...el.querySelectorAll("[data-substep]")];
+    substepState[id] = boxes.map((b) => b.checked);
+    writeStorage(SUBSTEP_KEY, substepState);
+    const wasDone = el.querySelector("[data-task]")?.checked;
+    const complete = syncTaskCard(el);
+    saveTasks();
+    if (complete && !wasDone) {
+      const cards = [...el.parentElement.querySelectorAll(".task-card")];
+      announce(t("taskLiveDone", cards.indexOf(el) + 1));
+      const next = cards.slice(cards.indexOf(el) + 1).find((c) => !taskCardDone(c));
+      if (next) next.open = true;
+      const weekCard = el.closest(".week-card");
+      const status = weekCard?.querySelector("[data-journal-status]");
+      if (status && !journalEntryIsComplete(journalEntries[weekCard.dataset.week])) {
+        status.textContent = t("journalReminder");
+        status.classList.add("attention");
+      }
+    }
+  }
+
+  /* Viikon tausta yhteen suljettuun lohkoon (vain tehtäväkorttiviikoilla). */
+  function collapseWeekBackground(card) {
+    const parts = ["[data-week-connection]", "[data-week-why]", "[data-week-skills]"]
+      .map((sel) => card.querySelector(sel)).filter((el) => el && !el.hidden);
+    if (!parts.length || card.querySelector("[data-week-background]")) return;
+    const box = document.createElement("details");
+    box.className = "week-background";
+    box.setAttribute("data-week-background", "");
+    box.innerHTML = `<summary>${escapeText(t("weekBackground"))}</summary><div class="week-background-body"></div>`;
+    const anchor = card.querySelector("[data-week-quote]:not([hidden])") || card.querySelector("[data-week-kicker]") || card.querySelector(".view-title");
+    anchor.insertAdjacentElement("afterend", box);
+    parts.forEach((el) => box.querySelector(".week-background-body").appendChild(el));
+  }
+
   function enhanceWeekCard(card) {
     const week = card.dataset.week;
     const guide = weekGuidance[week];
@@ -417,7 +656,10 @@
        Laatikko luodaan tarvittaessa, jotta vanhat index.html:t eivät tarvitse
        paikanpitäjää. Se näytetään heti kärjen ja tekniikkatagien jälkeen, ennen
        tehtäviä — termi opitaan ennen kuin sitä tarvitaan. */
-    const termKeys = (guide.termit || []).map((k) => String(k).toLowerCase());
+    /* v2.5: tehtäväkorttiviikolla termi näytetään siinä tehtävässä, jossa sitä käytetään
+       (tehtavat[id].sanat). Viikon laatikkoon jäävät vain termit, joita mikään tehtävä ei avaa. */
+    const taskWords = new Set(Object.values(guide.tehtavat || {}).flatMap((d) => (d && d.sanat) || []).map((k) => String(k).toLowerCase()));
+    const termKeys = (guide.termit || []).map((k) => String(k).toLowerCase()).filter((k) => !taskWords.has(k));
     const termItems = termKeys.map((k) => glossaryByTerm.get(k)).filter(Boolean);
     if (termItems.length) {
       let box = card.querySelector("[data-week-terms]");
@@ -463,17 +705,7 @@
     const help = card.querySelector("[data-week-help]");
     if (help && guide.help) {
       help.querySelector("[data-help-title]").textContent = P.apuOtsikko || t("helpFallbackTitle");
-      const h = guide.help;
-      const helpLinks = h.links?.length ? `<p class="impl-help-links">${h.links.map(([label, url]) => `<a href="${url}" target="_blank" rel="noreferrer">${escapeText(label)} ↗</a>`).join("")}</p>` : "";
-      const helpImages = h.images?.length ? `<div class="impl-help-images">${h.images.map(([src, alt, caption]) => `<figure><img src="${src}" alt="${escapeText(alt)}" loading="lazy">${caption ? `<figcaption>${escapeText(caption)}</figcaption>` : ""}</figure>`).join("")}</div>` : "";
-      help.querySelector("[data-help-content]").innerHTML = `
-        <p style="font-size:13px;color:var(--muted)"><small>${escapeText(h.title || "")}</small></p>
-        <div><p class="help-label">${escapeText(t("helpTreeLabel"))}</p><pre><code>${escapeText(h.tree)}</code></pre></div>
-        <div><p class="help-label">${escapeText(t("helpActionsLabel"))}</p><ol>${(h.actions || []).map((a) => `<li>${richText(a)}</li>`).join("")}</ol></div>
-        <div><p class="help-label">${escapeText(t("helpCodeLabel"))}</p><pre><code>${escapeText(h.code)}</code></pre></div>
-        <p class="impl-help-test"><strong>${escapeText(t("helpTestLabel"))}</strong> ${richText(h.test)}</p>
-        ${helpImages}${helpLinks}
-        <p class="impl-help-note" style="font-size:12px;color:var(--meta)">${escapeText(t("helpNote"))}</p>`;
+      help.querySelector("[data-help-content]").innerHTML = helpContentHtml(guide.help);
       help.hidden = false;
     }
 
@@ -526,6 +758,22 @@
 
     const record = card.querySelector("[data-journal-record]");
     if (record) record.innerHTML = `<strong>${escapeText(t("journalRecordPrefix"))}</strong> ${richText(guide.record || "")}`;
+
+    /* v2.5: tehtäväkortit. Osatehtävät korvaavat Näin etenet -listan, jos viikolla ei ole
+       steps-listaa; resurssilinkit ja viestipohjat siirtyvät silloin tehtävien yhteyteen. */
+    if (enhanceTaskCards(card, guide)) {
+      card.classList.add("has-task-cards");
+      collapseWeekBackground(card);
+      const lesson = card.querySelector(".lesson-instructions");
+      const taskList = card.querySelector(".task-list");
+      if (lesson && taskList && !steps.length) {
+        const res = lesson.querySelector("[data-week-resources]");
+        if (res && !res.hidden) taskList.insertAdjacentElement("beforebegin", res);
+        const templates = lesson.querySelector("[data-week-templates]");
+        if (templates) taskList.insertAdjacentElement("afterend", templates);
+        lesson.hidden = true;
+      }
+    }
   }
 
   function buildWeekPager(card) {
@@ -554,6 +802,9 @@
 
   const savedTasks = readStorage(STORAGE_KEY, {});
   taskBoxes.forEach((box) => { box.checked = Boolean(savedTasks[box.dataset.task]); });
+  /* v2.5: tehtäväkortin ruutu seuraa osatehtäviä, ei vanhaa rastia. Vain nykyinen tehtävä auki. */
+  taskCardEls.forEach(syncTaskCard);
+  taskWeekCards.filter((card) => card.classList.contains("has-task-cards")).forEach((card) => focusCurrentTask(card, false));
 
   const savedEvidence = readStorage(EVIDENCE_KEY, {});
   evidenceBoxes.forEach((box) => { box.checked = Boolean(savedEvidence[box.dataset.evidence]); });
@@ -1079,8 +1330,12 @@
       if (label) label.textContent = firstIncomplete ? (done ? t("resumeLabel") : (P.aloitusNappi || t("resumeLabel"))) : t("resumeDone");
     });
     const cycleText = cycleNote(cur);
+    /* v2.5: tehtäväkorttiviikolla jatka-nappi kertoo myös, monesko tehtävä on kesken. */
+    const curCards = [...document.querySelectorAll(`.week-card[data-week="${cur}"] .task-card`)];
+    const curTask = curCards.findIndex((c) => !taskCardDone(c));
+    const taskText = curTask >= 0 ? t("resumeTask", curTask + 1, curCards.length) : "";
     document.querySelectorAll("[data-continue-note]").forEach((el) => {
-      el.textContent = t("resumeNote", cur, weekTitle(cur)) + (cycleText ? ` · ${cycleText}` : "");
+      el.textContent = t("resumeNote", cur, weekTitle(cur)) + (cycleText ? ` · ${cycleText}` : "") + (taskText ? ` · ${taskText}` : "");
     });
 
     buildWeekNavigation();
@@ -1110,7 +1365,13 @@
   }
   evidenceBoxes.forEach((box) => box.addEventListener("change", updateEvidence));
 
-  document.querySelectorAll("[data-continue]").forEach((button) => button.addEventListener("click", () => goToWeek(currentWeek())));
+  document.querySelectorAll("[data-continue]").forEach((button) => button.addEventListener("click", () => {
+    const week = currentWeek();
+    goToWeek(week);
+    /* v2.5: avaa ja näytä ensimmäinen keskeneräinen tehtävä. */
+    const card = document.querySelector(`.week-card[data-week="${week}"].has-task-cards`);
+    if (card) focusCurrentTask(card, true);
+  }));
 
   /* ---------- projektipäiväkirja ---------- */
 
@@ -1330,6 +1591,15 @@
     try { localStorage.removeItem(ROUTINE_KEY); } catch (_) { /* ei tallennusta */ }
     taskWeekCards.forEach((card) => { renderCycle(card, false); renderRoutine(card); });
     taskBoxes.forEach((box) => { box.checked = false; });
+    /* v2.5: osatehtävät tyhjiksi. Tila kirjoitetaan heti, jotta vanhoja rasteja ei siirretä uudelleen. */
+    substepState = {};
+    taskCardEls.forEach((el) => {
+      el.querySelectorAll("[data-substep]").forEach((b) => { b.checked = false; });
+      substepState[el.dataset.taskCard] = [...el.querySelectorAll("[data-substep]")].map(() => false);
+      syncTaskCard(el);
+    });
+    writeStorage(SUBSTEP_KEY, substepState);
+    taskWeekCards.filter((card) => card.classList.contains("has-task-cards")).forEach((card) => focusCurrentTask(card, false));
     evidenceBoxes.forEach((box) => { box.checked = false; });
     document.querySelectorAll("[data-journal-field]").forEach((field) => { field.value = ""; });
     document.querySelectorAll("[data-plan-field]").forEach((field) => { field.value = ""; });

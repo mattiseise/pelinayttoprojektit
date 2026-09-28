@@ -6,6 +6,8 @@ Sivusto sisältää viikot 34–49, syysloman viikolla 42, 4.12.2026 päättyvä
 
 Pedagoginen runko on tarkastettu pedagogia-agenttiputken Linnea-portilla (hyväksytty 17.8.2026).
 
+**Tehtävänanto pilkottu 28.9.2026 (moottori v2.5).** Jokainen viikon tehtävä on tehtäväkortti: yksi tavoite, 3–7 rastitettavaa osatehtävää, miksi, valmis kun, tallenna työnäyte sekä tehtävän oma apu. Tunnukset (P0, T01, RC1…) sanallistetaan jokaisessa tehtävässä, jossa niitä käytetään. Sisältö on `sisalto.js`:n `viikkoOhjeet[w].tehtavat`-kentissä; `node tyokalut/tarkista.js` tarkistaa rakenteen ja sanallistuksen. Opiskelijoiden aiemmat rastit siirtyvät uusiin tehtäviin (`perii`-kenttä).
+
 ## GitHub Pages
 
 Sivusto on täysin staattinen. Julkaise repositoryn juuresta `main`-branchista GitHub Pagesiin.

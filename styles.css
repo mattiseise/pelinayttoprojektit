@@ -1,5 +1,5 @@
 /*
- * Näyttöprojekti – geneerinen kaksipalstainen leiska (moottori v2.4).
+ * Näyttöprojekti – geneerinen kaksipalstainen leiska (moottori v2.5).
  * TÄTÄ TIEDOSTOA EI MUOKATA PROJEKTIKOHTAISESTI, PAITSI :root-paletti.
  * Projektikohtainen väri tulee AINA :root:sta (--accent, --accent-dark,
  * --phase-a..--phase-f) — muualle ei kovakoodata värejä.
@@ -727,3 +727,62 @@ html[data-teema] input[type="radio"] { accent-color: var(--accent); width: 1.2em
 html[data-teema] .kuvaohje-mark { border-width: calc(var(--bw) * 2 + 1px) !important; }
 html[data-teema] .kuvaohje-n { border-width: var(--bw) !important; }
 .week-templates { margin-top: 8px; }
+
+/* ---- v2.5: pilkottu tehtävänanto (viikkoOhjeet[w].tehtavat → tehtäväkortit) ----
+   Tehtävä on <details class="task-card">: yhteenvetorivillä numero, otsikko ja tila,
+   sisällä miksi, tehtävän sanat, rastitettavat osatehtävät, valmis kun ja tallenna.
+   Tehty osatehtävä himmenee mutta ei yliviivaudu: yliviivattu teksti on vaikealukuista. */
+.tasks-lead { margin-top: 8px; font-size: 14px; color: var(--muted); }
+.tasks-toggle { margin-top: 10px; align-self: flex-start; }
+.has-task-cards .task-list { gap: 10px; }
+.task-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: var(--radius-card); }
+.task-card[open] { border-color: var(--line-hover); }
+.task-card.is-done { background: var(--sidebar-bg); }
+.task-card > summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 1fr auto 16px; gap: 2px 12px; padding: 14px 16px; align-items: baseline; }
+.task-card > summary::-webkit-details-marker { display: none; }
+.task-card > summary::after { content: "▸"; grid-column: 3; grid-row: 1 / span 2; align-self: center; color: var(--meta); font-size: 13px; }
+.task-card[open] > summary::after { content: "▾"; }
+.task-card-n { grid-column: 1; font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: .02em; }
+.task-card-title { grid-column: 1; font-family: var(--font-sans); font-size: 16px; font-weight: 600; line-height: 1.4; }
+.task-card-status { grid-column: 2; grid-row: 1 / span 2; align-self: center; font-size: 13px; color: var(--meta); white-space: nowrap; }
+.task-card.is-done .task-card-status { color: var(--accent); font-weight: 700; }
+.task-card-body { display: flex; flex-direction: column; gap: 12px; padding: 12px 16px 16px; border-top: 1px solid var(--line-soft); }
+.task-card-why { font-size: 14.5px; }
+.task-card-words { padding: 10px 14px 4px; background: var(--sidebar-bg); border: 1px solid var(--line-soft); border-radius: 8px; }
+.task-card-words .glossary { margin-top: 4px; }
+.substep-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.substep-row { position: relative; display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; background: var(--bg); border: 1px solid var(--line-soft); border-radius: 8px; cursor: pointer; font-size: 14.5px; line-height: 1.5; }
+.substep-row:hover { border-color: var(--line-hover); }
+.substep-row input[type="checkbox"] { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.substep-n { flex-shrink: 0; min-width: 16px; margin-top: 1px; font-size: 12px; font-weight: 700; color: var(--meta); text-align: right; }
+.substep-row input:checked ~ .task-box { background: var(--accent); border-color: var(--accent); }
+.substep-row input:checked ~ .task-box::after { content: "✓"; }
+.substep-row input:checked ~ .substep-text { color: var(--meta); }
+.substep-row input:focus-visible ~ .task-box { outline: 2px solid var(--accent); outline-offset: 2px; }
+.task-card-done, .task-card-save { font-size: 14px; padding: 8px 12px; border-left: 3px solid var(--accent); background: var(--accent-wash); border-radius: 0 8px 8px 0; }
+.task-card-save { border-left-color: var(--line-hover); background: transparent; }
+.task-card .expectation-grid { margin-top: 0; }
+.task-card .impl-help { margin-top: 0; }
+.task-card-body > * { min-width: 0; }
+/* Toteutusavun koodi ja puu vierivät vaakasuunnassa kapealla näytöllä. Aiempi sääntö
+   (.impl-help-tree pre, .impl-help-code pre) ei osunut app.js:n tuottamaan rakenteeseen. */
+.impl-help-content pre { max-width: 100%; overflow-x: auto; background: var(--card-bg); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; font-size: 12.5px; line-height: 1.45; }
+.impl-help-content pre code { background: none; padding: 0; font-size: inherit; }
+.impl-help-content ol, .impl-help-content ul { margin: 0; padding-left: 20px; font-size: 14px; display: flex; flex-direction: column; gap: 4px; }
+.week-background { margin-top: 16px; padding: 0 16px; background: var(--card-bg); border: 1px solid var(--line); border-radius: var(--radius-card); }
+.week-background > summary { padding: 12px 0; cursor: pointer; font-size: 14px; font-weight: 600; color: var(--muted); }
+.week-background-body { padding-bottom: 14px; }
+.week-background-body > .week-connection { margin-top: 2px; }
+
+html[data-teema] .task-card, html[data-teema] .task-card.is-done, html[data-teema] .substep-row,
+html[data-teema] .week-background, html[data-teema] .task-card-words { background: var(--card-bg); }
+html[data-teema] .task-card > summary { grid-template-columns: 1fr auto; }
+html[data-teema] .task-card > summary::after { grid-column: 2; grid-row: 1; }
+html[data-teema] .task-card-status { grid-column: 1; grid-row: auto; white-space: normal; }
+html[data-teema] .task-card-n, html[data-teema] .substep-n { color: var(--ink); }
+html[data-teema] .substep-n { min-width: 1.4em; }
+html[data-teema] .substep-row:focus-within { outline: var(--focus-w) solid var(--ink); outline-offset: 3px; }
+html[data-teema] .substep-row input:focus-visible ~ .task-box { outline: none !important; }
+html[data-teema] .substep-row input:checked ~ .task-box { background: var(--accent); border-color: var(--accent); }
+html[data-teema] .substep-row input:checked ~ .substep-text { color: var(--ink); }
+html[data-teema] .task-card-done, html[data-teema] .task-card-save { background: transparent; }

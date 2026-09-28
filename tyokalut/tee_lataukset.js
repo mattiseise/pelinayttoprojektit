@@ -59,7 +59,10 @@ const L_OLETUS = {
   selainHuomio: "Muista: sivuston rastit ja kentät tallentuvat vain selaimeen. Ne eivät siirry opettajalle eivätkä korvaa Gitissä olevaa työtä.",
   sanastoOtsikko: "Sanasto",
   sanastoJohdanto: "Projektin tunnukset ja ammattitermit siinä järjestyksessä, jossa ne tulevat vastaan. Jokainen on selitetty myös sivustolla ensimmäisen käytön kohdalla.",
-  sanastoViikko: (w) => `vko ${w}`
+  sanastoViikko: (w) => `vko ${w}`,
+  /* v2.5: tehtäväkortit paperilla */
+  tehtavaNumero: (i, n) => `Tehtävä ${i} / ${n}`,
+  tallennaLabel: "Tallenna työnäyte:"
 };
 const L = Object.assign({}, L_OLETUS, P.lataukset || {});
 const lt = (key, ...args) => {
@@ -82,10 +85,11 @@ const cardRe = /<article class="week-card" id="week-(\d+)" data-week="\d+">\s*<p
 let m;
 while ((m = cardRe.exec(html))) {
   const [block, num, dates, title] = m;
-  const tasks = [...block.matchAll(/data-task="[\d-]+"[^>]*>\s*<span class="task-box"[^>]*><\/span>\s*<span class="task-text">([\s\S]*?)<\/span><\/label>/g)]
-    .map((t) => stripTags(t[1]).replace(/tällä sivulla/g, "sivustolla").replace(/on this page/g, "on the site"));
+  const taskMatches = [...block.matchAll(/data-task="([\d-]+)"[^>]*>\s*<span class="task-box"[^>]*><\/span>\s*<span class="task-text">([\s\S]*?)<\/span><\/label>/g)];
+  const tasks = taskMatches.map((t) => stripTags(t[2]).replace(/tällä sivulla/g, "sivustolla").replace(/on this page/g, "on the site"));
+  const taskIds = taskMatches.map((t) => t[1]);
   const ev = block.match(/<p class="evidence">([\s\S]*?)<\/p>/);
-  weeks.push({ num: +num, dates, title, tasks, evidence: ev ? stripTags(ev[1]) : "" });
+  weeks.push({ num: +num, dates, title, tasks, taskIds, evidence: ev ? stripTags(ev[1]) : "" });
 }
 
 /* Lomaviikot holiday-cardeista (sama otsikkomuoto kuin week-cardeissa:
@@ -135,10 +139,15 @@ const p = (text, opts = {}) => new Paragraph({
   children: [new TextRun({ text: iso ? String(text).replace(/`/g, "") : text, size: sz(opts.size || 21), bold: opts.bold, italics: iso ? false : opts.italics, color: col(opts.color), font: iso ? ISO.font : undefined })],
   spacing: { after: opts.after ?? 120, before: opts.before ?? 0, line: iso ? 384 : undefined },
   alignment: opts.align,
+  indent: opts.indent ? { left: opts.indent } : undefined,
 });
 const h1 = (text) => new Paragraph({ heading: HeadingLevel.HEADING_1, children: [new TextRun({ text, color: col(ACCENT), bold: true, size: iso ? Math.round(ISO.half * 1.5) : undefined, font: iso ? ISO.font : undefined })], spacing: { before: 320, after: 160 } });
 const h2 = (text, color = ACCENT) => new Paragraph({ heading: HeadingLevel.HEADING_2, children: [new TextRun({ text, color: col(color), bold: true, size: iso ? Math.round(ISO.half * 1.25) : undefined, font: iso ? ISO.font : undefined })], spacing: { before: 260, after: 120 } });
 const box = (text) => p("☐  " + text, { after: 80 });
+/* v2.5: tehtäväkortin osat paperille (viikkoOhjeet[w].tehtavat[id]). Takahipsut pois. */
+const plainTick = (s) => String(s || "").replace(/`([^`\n]+)`/g, "$1");
+const osaTeksti = (o) => (Array.isArray(o) ? `${o[0]}. ${o[1]}` : String(o));
+function taskDef(g, id) { return g && g.tehtavat && g.tehtavat[id] ? g.tehtavat[id] : null; }
 const pageBreak = () => new Paragraph({ children: [new PageBreak()] });
 
 function cell(text, { w, bold, fill, size = 19, color } = {}) {
@@ -226,7 +235,14 @@ tp.push(pageBreak());
     const g = P.viikkoOhjeet[num] || {};
     tp.push(h2(lt("viikkoOtsikko", wk.num, wk.dates, wk.title)));
     if (g.feature) tp.push(p(g.feature, { italics: true, color: GREY }));
-    wk.tasks.forEach((t) => tp.push(box(t)));
+    wk.tasks.forEach((t, i) => {
+      const d = taskDef(g, wk.taskIds[i]);
+      if (!d) { tp.push(box(t)); return; }
+      tp.push(p(`${lt("tehtavaNumero", i + 1, wk.tasks.length)} · ${t}`, { bold: true, before: 120, after: 60 }));
+      (d.osat || []).forEach((o, j) => tp.push(p(`☐  ${j + 1}. ${plainTick(osaTeksti(o))}`, { size: 19, after: 40, indent: 360 })));
+      if (d.valmis) tp.push(p(lt("valmisKun") + plainTick(d.valmis), { size: 19, color: ACCENT, after: 40, indent: 360 }));
+      if (d.tallenna) tp.push(p(`${lt("tallennaLabel")} ${plainTick(d.tallenna)}`, { size: 19, color: GREY, after: 80, indent: 360 }));
+    });
     if (g.done) tp.push(p(lt("valmisKun") + g.done, { size: 19, color: ACCENT, after: 60 }));
     if (wk.evidence) tp.push(p(`${lt("evidenceLabel")} ${wk.evidence}`, { size: 19, color: GREY, after: 240 }));
   });
@@ -474,6 +490,10 @@ th { background: #${TINT}; }
 .wk { page-break-inside: avoid; margin-bottom: 8pt; }
 .feature { color: #555; font-style: italic; margin: 0 0 4pt; }
 .task { margin: 2pt 0; }
+.tcard { margin: 7pt 0 2pt; }
+.osat { list-style: none; margin: 0 0 2pt 12pt; padding: 0; font-size: 9pt; }
+.osat li { margin: 1pt 0; }
+.osa-done { margin-left: 12pt; }
 .done { color: #${ACCENT}; font-size: 9pt; margin: 3pt 0 0; }
 .ev { color: #555; font-size: 9pt; margin: 2pt 0 0; }
 .page { page-break-before: always; }
@@ -504,6 +524,10 @@ th { font-weight: 700; }
 .wk { margin-bottom: .8em; padding-bottom: .4em; border-bottom: 2px solid ${c.ink}; }
 .feature { margin: 0 0 .3em; }
 .task { margin: .2em 0; }
+.tcard { margin: .7em 0 .2em; }
+.osat { list-style: none; margin: 0 0 .3em 1em; padding: 0; }
+.osat li { margin: .15em 0; max-width: 60ch; }
+.osa-done { margin-left: 1em; }
 .done, .ev { margin: .3em 0 0; }
 .page { page-break-before: always; }
 .muted, .item { }
@@ -539,7 +563,14 @@ ${printCss(style)}
       const g = P.viikkoOhjeet[num] || {};
       H.push(`<div class="wk"><h2>${esc(lt("viikkoOtsikko", wk.num, wk.dates, wk.title))}</h2>`);
       if (g.feature) H.push(`<p class="feature">${esc(g.feature)}</p>`);
-      wk.tasks.forEach((t) => H.push(`<p class="task">☐&nbsp; ${esc(t)}</p>`));
+      wk.tasks.forEach((t, i) => {
+        const d = taskDef(g, wk.taskIds[i]);
+        if (!d) { H.push(`<p class="task">☐&nbsp; ${esc(t)}</p>`); return; }
+        H.push(`<p class="task tcard"><strong>${esc(lt("tehtavaNumero", i + 1, wk.tasks.length))} · ${esc(t)}</strong></p>`);
+        H.push(`<ol class="osat">${(d.osat || []).map((o) => `<li>☐&nbsp; ${esc(osaTeksti(o))}</li>`).join("")}</ol>`);
+        if (d.valmis) H.push(`<p class="done osa-done"><strong>${esc(lt("valmisKunLabel"))}</strong> ${esc(d.valmis)}</p>`);
+        if (d.tallenna) H.push(`<p class="ev osa-done"><strong>${esc(lt("tallennaLabel"))}</strong> ${esc(d.tallenna)}</p>`);
+      });
       if (g.done) H.push(`<p class="done"><strong>${esc(lt("valmisKunLabel"))}</strong> ${esc(g.done)}</p>`);
       if (wk.evidence) H.push(`<p class="ev"><strong>${esc(lt("evidenceLabel"))}</strong> ${esc(wk.evidence)}</p>`);
       H.push(`</div>`);

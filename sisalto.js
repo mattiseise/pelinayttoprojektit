@@ -75,20 +75,36 @@ window.NAYTTOPROJEKTI = {
     { termi: "repository", nimi: "Projektin koodivarasto Gitissä", selite: "Repository on projektin tiedostojen ja koko muutoshistorian säilytyspaikka. Tässä projektissa se on GitHubissa, ja sieltä löytyvät peliprojekti, project-docs-kansio ja työnäytteet.", viikko: 34 },
     { termi: "commit", nimi: "Versionhallintaan tallennettu muutos", selite: "Commit on yksi versionhallintaan tallennettu muutoskokonaisuus: mitä muutit ja miksi. Jokaisella commitilla on oma tunniste, johon voit linkittää työnäytteenä.", viikko: 34 },
     { termi: "build", nimi: "Pelin ajettava julkaisuversio", selite: "Build on Unityn tekemä valmis versio pelistä. Sitä pelataan ilman Unity-editoria, ja juuri sitä asiakas kokeilee.", viikko: 34 },
-    { termi: "WebGL", nimi: "Unityn selainjulkaisu", selite: "WebGL on Unityn julkaisumuoto, joka toimii selaimessa ilman asennusta. WebGL-build on siis selaimessa pelattava julkaisuversio pelistä – tämän projektin lopputuote.", viikko: 34 },
+    { termi: "WebGL", nimi: "Unityn selainjulkaisu", selite: "WebGL on Unityn julkaisumuoto, joka toimii selaimessa ilman asennusta. WebGL-build on pelin selainversio – tämän projektin lopputuote.", viikko: 34 },
+    { termi: "push", nimi: "Commitien siirto GitHubiin", selite: "Push siirtää koneellasi tehdyt commitit GitHubiin. Vasta pushin jälkeen ohjaaja ja asiakas näkevät muutoksesi.", viikko: 34 },
     { termi: "P0", nimi: "Pakollinen ydin", selite: "P0 on se osa peliä, jonka on pakko valmistua: ilman sitä peliä ei voi luovuttaa asiakkaalle. Tee koko P0 valmiiksi ennen kuin aloitat lisäominaisuuksia.", viikko: 34 },
-    { termi: "P1", nimi: "Tärkeä jatkosisältö", selite: "P1 on ominaisuus, joka tehdään vasta kun koko P0 toimii. Se parantaa peliä, mutta peli on luovutettavissa myös ilman sitä.", viikko: 35 },
-    { termi: "P2", nimi: "Valinnainen lisä", selite: "P2 on ominaisuus, joka voidaan jättää kokonaan pois, jos aika loppuu. Merkitse P2:ksi kaikki, mistä voi luopua ilman että asiakkaan vaatimus jää täyttämättä.", viikko: 35 },
+    { termi: "P1", nimi: "Tärkeä jatkosisältö", selite: "P1 on ominaisuus, joka tehdään vasta, kun koko P0 toimii. Se parantaa peliä, mutta peli on luovutettavissa myös ilman sitä.", viikko: 35 },
+    { termi: "P2", nimi: "Valinnainen lisä", selite: "P2 on ominaisuus, joka voidaan jättää kokonaan pois, jos aika loppuu. Merkitse P2:ksi kaikki, mistä voi luopua ilman, että asiakkaan vaatimus jää täyttämättä.", viikko: 35 },
     { termi: "GDD", nimi: "Game Design Document, pelin suunnitteludokumentti", selite: "GDD kokoaa yhteen tiedostoon pelin konseptin, pelin kulun, omat suunnittelupäätökset, rajauksen ja avoimet asiat. Tässä projektissa se täytetään Suunnitelma-näkymässä ja tallennetaan repositoryyn nimellä gdd.md.", viikko: 35 },
-    { termi: "GitHub-issue", nimi: "Tehtävä, jota seurataan GitHubissa", selite: "GitHub-issue on yksi tehtävä: otsikko, perustelu, rajattu muutos ja valmis kun -ehto. Tässä projektissa yhden issuen työmäärä on 0,5–1 työpäivää.", viikko: 35 },
-    { termi: "backlog", nimi: "Priorisoitu tehtävälista", selite: "Backlog on projektin tehtävälista, jossa jokaisella tehtävällä on prioriteetti (P0, P1 tai P2), työmääräarvio ja valmis kun -ehto. Backlog päivitetään aina, kun asiakas päättää jotain uutta.", viikko: 35 },
+    { termi: "GitHub-issue", nimi: "Tehtävä, jota seurataan GitHubissa", selite: "GitHub-issue on yksi tehtävä GitHubissa: otsikko, perustelu, rajattu muutos ja Valmis kun -ehto. Tässä projektissa yhden issuen työmäärä on puolesta päivästä yhteen päivään.", viikko: 35 },
+    { termi: "backlog", nimi: "Priorisoitu tehtävälista", selite: "Backlog on projektin tehtävälista. Tässä projektissa se on GitHubin Issues-lista, jossa jokaisella tehtävällä on prioriteetti: pakollinen (P0), tärkeä (P1) tai lisä (P2). Lista päivitetään aina, kun asiakas päättää jotain uutta.", viikko: 35 },
+    { termi: "mockup", nimi: "Käyttöliittymän luonnoskuva", selite: "Mockup on paperille tai piirto-ohjelmalla tehty luonnos ruuduista ennen koodaamista. Tässä projektissa se on project-docs/evidence/week-35/mockup.png, ja ruudut rakennetaan sen mukaan.", viikko: 35 },
     { termi: "UI", nimi: "User interface, käyttöliittymä", selite: "Käyttöliittymä on se osa peliä, jonka pelaaja näkee ja jota hän käyttää: painikkeet, tekstit ja paneelit. Unityssä ne rakennetaan Canvas-alueelle.", viikko: 35 },
-    { termi: "feature", nimi: "Pelin yksittäinen ominaisuus", selite: "Feature on yksi pelaajalle näkyvä ominaisuus, esimerkiksi pistelasku tai viiden parhaan tuloksen lista. Tässä projektissa featuret tehdään yksi kerrallaan, yleensä yksi viikossa.", viikko: 36 },
+    { termi: "feature", nimi: "Pelin yksittäinen ominaisuus", selite: "Feature on yksi pelaajalle näkyvä ominaisuus, esimerkiksi pistelasku tai viiden parhaan tuloksen lista. Tässä projektissa featuret tehdään yksi kerrallaan, yleensä yksi viikossa.", viikko: 35 },
+    { termi: "scene", nimi: "Unityn näkymä", selite: "Scene on Unityn tiedosto, jossa pelin objektit ovat. Tässä projektissa koko peli on yhdessä scenessä nimeltä CafeGame.", viikko: 34 },
+    { termi: "Hierarchy", nimi: "Unityn objektilista", selite: "Hierarchy-ikkuna näyttää scenen kaikki objektit puuna. Siinä luodaan ja nimetään esimerkiksi Canvas, paneelit, painikkeet ja GameManager.", viikko: 36 },
+    { termi: "metodi", nimi: "Skriptin toiminto", selite: "Metodi on C#-skriptin nimetty toiminto, esimerkiksi StartGame. Painike kutsuu metodia, kun pelaaja klikkaa sitä.", viikko: 36 },
+    { termi: "TODO", nimi: "Täydennettävä kohta koodissa", selite: "TODO-rivi on työpohjaan merkitty kohta, jonka kirjoitat itse. Rivi alkaa merkeillä // TODO, ja sen perässä lukee, mitä kohtaan tulee.", viikko: 36 },
+    { termi: "hyväksymistesti", nimi: "Testi, joka osoittaa tehtävän valmiiksi", selite: "Hyväksymistesti kertoo, mitä tehdään ja mitä pitää näkyä, jotta tehtävä tai muutos on valmis. Esimerkiksi Aloita → Kahvi → Toimita → tulosruudulla 10.", viikko: 36 },
+    { termi: "Canvas", nimi: "Käyttöliittymän alue Unityssä", selite: "Canvas on alue, jolle Unityssä sijoitetaan tekstit, painikkeet ja paneelit. Pelin kolme ruutua ovat Canvasin sisällä.", viikko: 36 },
+    { termi: "Inspector", nimi: "Unityn asetusikkuna", selite: "Inspector näyttää valitun objektin asetukset ja skriptien kentät. Siihen raahataan esimerkiksi paneelit ja products.json-tiedosto.", viikko: 36 },
     { termi: "asset", nimi: "Peliin tuotava valmis tiedosto", selite: "Asset on peliin tuotava valmis kuva-, ääni- tai fonttitiedosto, esimerkiksi sprite eli hahmon tai esineen kuva. Kirjaa jokaisesta assetista lähde ja lisenssi.", viikko: 36 },
-    { termi: "JSON", nimi: "Tekstimuoto datalle", selite: "JSON on yksinkertainen tekstimuoto, jossa tieto on nimi–arvo-pareina. Tässä projektissa kahvilan tuotteet ovat products.json-tiedostossa, joten valikoimaa voi muuttaa koskematta koodiin.", viikko: 37 },
-    { termi: "branch", nimi: "Git-haara", selite: "Branch eli haara on rinnakkainen kehityslinja: teet muutoksen omassa haarassa, jolloin toimiva main-haara pysyy ehjänä. Valmis haara yhdistetään eli mergetään takaisin mainiin.", viikko: 43 },
-    { termi: "pull request", nimi: "PR, pyyntö yhdistää haara pääversioon", selite: "Pull request eli PR on GitHubissa tehtävä pyyntö yhdistää oma haara main-haaraan. Se antaa katselmoinnille oman paikan ennen yhdistämistä; pienen muutoksen voi myös yhdistää suoraan ilman PR:ää.", viikko: 43 },
+    { termi: "JSON", nimi: "Tekstimuoto datalle", selite: "JSON on yksinkertainen tekstimuoto, jossa tieto on nimi–arvo-pareina. Tässä projektissa kahvilan tuotteet ovat products.json-tiedostossa, joten valikoimaa voi muuttaa koskematta koodiin.", viikko: 35 },
+    { termi: "Console", nimi: "Unityn viesti-ikkuna", selite: "Console näyttää skriptien Debug.Log- ja Debug.LogError-viestit sekä virheet. Avaa se valinnalla Window → General → Console.", viikko: 37 },
+    { termi: "rajatilanne", nimi: "Pelin ääritilanne", selite: "Rajatilanne on kohta, jossa peli menee helpoimmin rikki, esimerkiksi aika 0, nopea kaksoispainallus tai tyhjä nimimerkki. Rajatilanteet testataan erikseen.", viikko: 38 },
+    { termi: "vertainen", nimi: "Toinen opiskelija", selite: "Vertainen on toinen opiskelija, joka keskustelee kanssasi, testaa peliäsi tai lukee koodiasi. Hän ei ole projektin asiakas.", viikko: 39 },
+    { termi: "PlayerPrefs", nimi: "Unityn pieni tallennuspaikka", selite: "PlayerPrefs tallentaa pieniä tietoja avain–arvo-pareina. Selainversiossa tieto säilyy selaimen muistissa, kunnes pelaaja tyhjentää sen.", viikko: 40 },
+    { termi: "katselmointi", nimi: "Työn yhteinen tarkastus", selite: "Katselmoinnissa toinen ihminen kokeilee peliä tai lukee koodia ja antaa palautetta. Viikolla 41 asiakas katselmoi pelin, viikolla 46 ohjaaja tai vertainen katselmoi koodin.", viikko: 41 },
+    { termi: "branch", nimi: "Git-haara", selite: "Branch eli haara on rinnakkainen kehityslinja: teet muutoksen omassa haarassa, jolloin toimiva main-haara pysyy ehjänä. Valmis haara yhdistetään eli mergetään takaisin main-haaraan.", viikko: 43 },
+    { termi: "pull request", nimi: "PR, pyyntö yhdistää haara pääversioon", selite: "Pull request eli PR on GitHubissa tehtävä pyyntö yhdistää oma haara main-haaraan. Se antaa katselmoinnille oman paikan ennen yhdistämistä. Pienen muutoksen voi myös yhdistää suoraan ilman PR:ää.", viikko: 43 },
     { termi: "T01", nimi: "Testitapauksen tunnus", selite: "Testitapaukset numeroidaan juoksevasti: T01 on ensimmäinen testitapaus, T02 toinen. Odotettu tulos kirjataan ennen ajoa, ja tunnuksella viitataan testiin päiväkirjassa ja näyttömatriisissa.", viikko: 45 },
+    { termi: "refaktorointi", nimi: "Koodin rakenteen selkeyttäminen", selite: "Refaktoroinnissa koodia muutetaan selkeämmäksi niin, että peli toimii täsmälleen kuten ennen. Sama testitapaus ajetaan ennen ja jälkeen muutoksen.", viikko: 46 },
+    { termi: "regressiotesti", nimi: "Vanhan toiminnan uusintatesti", selite: "Regressiotesti on toinen testitapaus, joka käyttää samaa koodia kuin korjaus. Kun se menee läpi, tiedät, ettei korjaus rikkonut muuta.", viikko: 45 },
     { termi: "RC", nimi: "Release candidate, julkaisuehdokas", selite: "Julkaisuehdokas on lähes valmis versio, joka testataan täsmälleen siinä muodossa, jossa se aiotaan julkaista. RC1 on ensimmäinen julkaisuehdokas, eikä siihen enää lisätä uusia ominaisuuksia.", viikko: 47 },
     { termi: "tagi", nimi: "Versionhallintaan merkitty nimetty versio", selite: "Tagi on yhteen committiin kiinnitetty nimilappu, esimerkiksi RC1 tai v1.0. Tagin avulla löydät myöhemmin täsmälleen sen version, jonka asiakas testasi.", viikko: 47 }
   ],
@@ -198,7 +214,7 @@ window.NAYTTOPROJEKTI = {
         "6. Asiakkaan toivoma parannus (vko 43 — sisältö selviää katselmoinnissa vkolla 41)",
         "7. Peli ohjaa pelaajaa itse (vko 44)",
         "",
-        "Huomautus: tämä lista ei ole valmis suunnitelma. Featurejen pilkkominen 0,5–1 päivän GitHub-issueiksi ja priorisointi on omaa työtä (tehtävä 35-2). P0 on pakollinen ydin, jonka on valmistuttava; P1 on tärkeä jatkosisältö, joka tehdään kun P0 toimii; P2 on valinnainen lisä, joka voidaan jättää pois.",
+        "Huomautus: tämä lista ei ole valmis suunnitelma. Featurejen pilkkominen pieniksi GitHub-issueiksi ja niiden priorisointi on omaa työtä (viikon 35 tehtävät 2 ja 3). Pakollinen (P0) on ydin, jonka on valmistuttava; tärkeä (P1) tehdään, kun pakolliset toimivat; lisä (P2) voidaan jättää pois.",
         "",
         "## 7. Teknologia",
         "",
@@ -216,370 +232,1122 @@ window.NAYTTOPROJEKTI = {
     }
   },
 
-  /* ---- viikkojen ohjaava sisältö (siirretty sellaisenaan vanhan app.js:n weekGuidance-objektista) ---- */
+  /* ---- viikkojen ohjaava sisältö (moottori v2.5: pilkottu tehtävänanto) ----
+     Jokainen index.html:n tehtävärivi (data-task) on tehtäväkortti, jonka sisältö on
+     tehtavat-objektissa samalla tunnuksella: miksi, osat (rastitettavat osatehtävät),
+     valmis, tallenna, sanat (tehtävässä avattavat termit), apu, esimerkki ja eiRiita.
+     perii = vanhan tehtävän tunnus, jonka rasti siirtyy osatehtäviin kerran (syksy 2026). */
   viikkoOhjeet: {
     34: {
       type: "pohjustus",
       termit: ["repository", "commit", "build", "WebGL", "P0"],
       feature: "Viikon jälkeen tiedät, millainen peli tehdään ja kenelle. Tyhjä peli käynnistyy selaimessa.",
-      connection: "Pelin toimintakierto (gameplay loop) alkaa asiakkaan tarpeesta: ennen koodaamista päätät, mitä kahvilassa tapahtuu tilauksen saapumisesta tulosruutuun.",
-      deliverable: "Tarvekartoitus, käynnistyvä Unity 2D -projekti, WebGL-testibuild ja Git-repository.",
-      why: "Jos avoimet asiat jäävät oletuksiksi, voit rakentaa väärän pelin. Varhainen testibuild varmistaa, että valittu Unity-versio ja WebGL toimivat ennen varsinaista koodausta.",
-      done: "Asiakkaan vastaukset, avoimet asiat ja oletukset on eroteltu. Toinen henkilö löytää repositoryn README:stä projektin tavoitteen, ja WebGL-testibuild käynnistyy.",
-      record: "Kirjoita Vko 34 -merkintään keskustelun päivä, osallistujien roolit, 8 kysymystä vastauksineen, avoimet asiat, Unity-versio, ensimmäisen commitin tunniste ja testibuildin paikka.",
+      connection: "Pelin toimintakierto alkaa asiakkaan tarpeesta: ennen koodaamista selvität, mitä kahvilassa tapahtuu tilauksen saapumisesta tulosruutuun.",
+      deliverable: "Kysymyslista ja asiakkaan vastaukset, Unity-projekti, selaimessa aukeava testiversio ja Git-repository.",
+      why: "Jos avoimet asiat jäävät oletuksiksi, voit rakentaa väärän pelin. Varhainen testiversio varmistaa, että Unity-versio ja selainjulkaisu toimivat ennen varsinaista koodausta.",
+      done: "Asiakkaan vastaukset ja avoimet asiat ovat päiväkirjassa, tyhjä peli aukeaa selaimessa ja ensimmäinen commit näkyy GitHubissa.",
+      record: "Kirjoita Vko 34 -merkintään keskustelun päivä, osallistujien roolit, 8 kysymystä vastauksineen, avoimet asiat, Unity-versio, ensimmäisen commitin tunniste ja testiversion kuvakaappaus.",
       skills: ["asiakastarve", "Unity 2D", "Git"],
-      steps: [
-        ["Selvitä tarve", "Merkitse toimeksiannon pakolliset asiat, laadi vähintään 8 päätökseen johtavaa kysymystä ja kirjaa asiakaskeskustelun vastaukset, avoimet asiat ja oletukset."],
-        ["Tee Unity-testi", "Luo Unity Hubissa 2D-projekti, CafeGame-scene ja WebGL-testibuild. Kirjaa käytetty Unity-versio."],
-        ["Perusta Git", "Lisää README eli repositoryn esittelytiedosto, project-docs-kansio ja Unity-.gitignore. Gitissä ovat Assets, Packages ja ProjectSettings; Library jää pois. Tee ensimmäinen commit ja push."]
-      ],
-      help: {
-        title: "Luo Unity-projekti, ensimmäinen scene ja Git-repository",
-        tree: "CafeGame/\n├─ Assets/\n│  └─ Scenes/CafeGame.unity\n├─ Packages/\n├─ ProjectSettings/\n├─ project-docs/\n│  └─ projektipaivakirja.md\n├─ .gitignore\n└─ README.md\n\nBuilds/ jätetään Gitin ulkopuolelle testivaiheessa.",
-        actions: [
-          "Avaa Unity Hub → Projects → New project. Valitse oppilaitoksen Unity-versio ja 2D Core. Anna nimeksi CafeGame ja paina Create project.",
-          "Unityssä valitse File → Save As. Luo Assets-kansioon Scenes-kansio ja tallenna scene nimellä CafeGame.unity.",
-          "Valitse File → Build Profiles (vanhemmassa Unityssä Build Settings) → Web → Switch Platform → Add Open Scenes → Build. Tallenna testi paikalliseen Builds/Test-kansioon.",
-          "Luo GitHubiin tyhjä repository. Lisää Unitylle tarkoitettu .gitignore, jotta Library-, Temp- ja Builds-kansiot eivät mene versionhallintaan.",
-          "Varmista ennen ensimmäistä committia, että Assets, Packages, ProjectSettings, project-docs, README.md ja .gitignore näkyvät Gitin muutoksissa. Tee commit ja push."
-        ],
-        code: "ENSIMMÄISEN COMMITIN TARKISTUS\n[ ] Assets mukana\n[ ] Packages mukana\n[ ] ProjectSettings mukana\n[ ] project-docs mukana\n[ ] README.md kertoo pelin tavoitteen\n[ ] Library, Temp ja Builds eivät ole mukana\n[ ] commit näkyy GitHubissa",
-        test: "Sulje Unity. Kloonaa repository toiseen kansioon tai pyydä ohjaajaa avaamaan se. Unity luo puuttuvan Library-kansion itse, CafeGame-scene avautuu ja WebGL-testibuild voidaan tehdä.",
-        images: [
-          ["assets/unity/vko34-hub-uusi-projekti.png", "Unity Hubin New project -näkymä: Universal 2D -templaatti valittuna, projektin nimi CafeGame ja sijainti D-asemalla.", "Unity Hub: New project → Universal 2D → nimi CafeGame → Create project."],
-          ["assets/unity/vko34-build-profiles-web.png", "Unityn Platform Browser -ikkuna, jossa Web-alusta on valittuna ja Add Build Profile -painike näkyvissä.", "Build Profiles → Add Build Profile → Web. Uusi profiili vaihtaa alustan Webiin."]
-        ]
+      tehtavat: {
+        "34-1": {
+          perii: ["34-1"],
+          miksi: "Toimeksianto ei kerro kaikkea. Kysymyksillä saat selville, mitä asiakas oikeasti haluaa, ennen kuin alat rakentaa peliä.",
+          osat: [
+            "Avaa sivun Toimeksianto-näkymä ja lue asiakkaan teksti kerran alusta loppuun.",
+            "Kirjoita muistiin jokainen asia, jonka pelissä on pakko olla, esimerkiksi aloitusvalikko, pistelasku ja parhaiden tulosten tallennus.",
+            "Merkitse kohdat, joita teksti ei kerro. Esimerkiksi: kuinka pitkä yksi pelikierros on?",
+            "Kirjoita kahdeksan kysymystä asiakkaalle: ota mukaan Toimeksianto-näkymän Sovi asiakkaan kanssa -laatikon neljä kysymystä ja lisää neljä omaa. Jokaisen vastauksen pitää auttaa sinua päättämään jotain pelistä.",
+            "Kirjoita jokaisen kysymyksen perään, minkä päätöksen vastaus ratkaisee.",
+            "Tarkista, ettei kaksi kysymystä kysy samaa asiaa. Vaihda päällekkäinen kysymys uuteen."
+          ],
+          valmis: "Sinulla on kahdeksan erilaista kysymystä, ja jokaisen perässä lukee, minkä päätöksen vastaus ratkaisee.",
+          tallenna: "Kysymyslista viikon 34 päiväkirjaan, kenttään Mitä tein ja miten?",
+          esimerkki: "Kysymys: Kuinka pitkä yksi pelikierros on? → Päätös: ajastimen aloitusarvo.",
+          eiRiita: "Kahdeksan lähes samaa kysymystä tai tekoälyn tekemä valmis lista, jota et ole käynyt itse läpi."
+        },
+        "34-2": {
+          perii: ["34-1"],
+          miksi: "Vain asiakas voi kertoa, mitä hän toivoo. Kun vastaukset on kirjattu, voit myöhemmin näyttää, mihin päätöksesi perustuvat.",
+          osat: [
+            "Sovi ohjaajan kanssa, kuka on asiakkaana ja milloin keskustelette.",
+            "Kysy kysymykset yksi kerrallaan. Kirjoita vastaus heti ylös asiakkaan omin sanoin.",
+            "Jos asiakas ei osaa vastata, kirjoita kohtaan sana avoin. Älä keksi vastausta itse tai tekoälyllä.",
+            "Sovi lopuksi, mitkä ominaisuudet ovat pakollisia. Yhdessä ne ovat pakollinen perusversio (P0). Ilman niitä peliä ei voi antaa asiakkaalle.",
+            "Kirjaa päiväkirjaan keskustelun päivä ja osallistujien roolit, esimerkiksi asiakas ja ohjaaja. Älä kirjoita muiden ihmisten nimiä."
+          ],
+          valmis: "Päiväkirjassa on jokaiselle kahdeksalle kysymykselle joko asiakkaan vastaus tai merkintä avoin sekä lista pakollisista (P0) ominaisuuksista.",
+          tallenna: "Vastaukset ja avoimet asiat viikon 34 päiväkirjaan.",
+          sanat: ["P0"],
+          esimerkki: "Kysymys: Miten viiden parhaan tuloksen listan (top 5) tasatilanteet järjestetään? Vastaus: [asiakkaan vastaus]. Päätös: [oma tiivistys].",
+          eiRiita: "Itse keksityt asiakkaan vastaukset eivät osoita, että olet selvittänyt asiakkaan tarpeen."
+        },
+        "34-3": {
+          perii: ["34-2"],
+          miksi: "Kun kokeilet selainversiota heti alussa, tiedät, että Unity-versio ja selainjulkaisu toimivat ennen kuin alat koodata.",
+          osat: [
+            "Avaa Unity Hub ja valitse Installs. Tarkista, että oppilaitoksen sopima Unity-versio on asennettu ja siinä on Web Build Support.",
+            "Jos Web Build Support puuttuu, paina version kohdalla hammasratasta, valitse Add modules ja asenna se.",
+            "Valitse Projects → New project. Valitse pohjaksi Universal 2D, anna nimeksi CafeGame ja paina Create project.",
+            "Tallenna scene eli pelin näkymä: File → Save As → Assets/Scenes/CafeGame.unity.",
+            "Avaa File → Build Profiles, valitse Web ja paina Switch Platform.",
+            "Paina Add Open Scenes ja poista rasti SampleScene-riviltä. Paina Build And Run ja valitse kansioksi Builds/Test. Unity avaa selainversion.",
+            "Kirjoita muistiin Unity-versio. Se näkyy Unity Hubissa projektin kohdalla, esimerkiksi 6000.0.xx."
+          ],
+          valmis: "Tyhjä CafeGame-peli aukeaa selaimeen, ja tiedät käyttämäsi Unity-version.",
+          tallenna: "Unity-versio viikon 34 päiväkirjaan. Kuvakaappaus auenneesta selainversiosta, jonka viet tehtävässä 4 polkuun project-docs/evidence/week-34/web-test.png.",
+          sanat: ["build", "WebGL"],
+          apu: {
+            title: "Unity Hubin uusi projekti ja selainversio",
+            vinkit: [
+              "Vanhemmissa Unity-versioissa Build Profiles on nimeltään Build Settings, ja Web on nimeltään WebGL.",
+              "Build And Run käynnistää Unityn oman pienen palvelimen. Siksi peli aukeaa selaimeen. Jos avaat Builds/Test/index.html-tiedoston suoraan kansiosta, peli ei käynnisty.",
+              "Builds-kansio ei kuulu versionhallintaan. Tee testiversio aina koneen omaan kansioon."
+            ],
+            test: "Sulje selain. Paina Build And Run uudelleen: sama tyhjä peli aukeaa.",
+            images: [
+              ["assets/unity/vko34-hub-uusi-projekti.png", "Unity Hubin New project -näkymä: Universal 2D -pohja valittuna, projektin nimi CafeGame ja sijainti D-asemalla.", "Unity Hub: New project → Universal 2D → nimi CafeGame → Create project."],
+              ["assets/unity/vko34-build-profiles-web.png", "Unityn Platform Browser -ikkuna, jossa Web-alusta on valittuna ja Add Build Profile -painike näkyvissä.", "Build Profiles → Web. Uusi profiili vaihtaa alustan Webiin."]
+            ]
+          }
+        },
+        "34-4": {
+          perii: ["34-3"],
+          miksi: "Repository eli koodivarasto säilyttää pelin ja sen koko muutoshistorian. Siitä ohjaaja ja asiakas näkevät työsi.",
+          osat: [
+            "Luo GitHubiin uusi repository. Valitse Public, ellei ohjaaja päätä toisin: ilmaistilillä GitHub Pages toimii vain julkisessa repositoryssa.",
+            "Valitse kohtaan Add .gitignore pohja Unity. Se pitää Unityn väliaikaiset kansiot, kuten Library ja Temp, poissa versionhallinnasta.",
+            "Kloonaa eli kopioi repository koneellesi GitHub Desktopilla: File → Clone repository.",
+            "Sulje Unity. Siirrä CafeGame-projektin kansiot ja tiedostot repositoryn kansioon.",
+            "Lisää projekti uudesta paikasta Unity Hubiin: Add → Add project from disk. Avaa projekti ja tarkista, että CafeGame-scene aukeaa."
+          ],
+          valmis: "Repository on GitHubissa, ja Unity Hub avaa CafeGame-projektin repositoryn kansiosta.",
+          tallenna: "Repositoryn linkki viikon 34 päiväkirjaan.",
+          sanat: ["repository"],
+          apu: {
+            title: "Repositoryn rakenne",
+            tree: "CafeGame/\n├─ Assets/\n│  └─ Scenes/CafeGame.unity\n├─ Packages/\n├─ ProjectSettings/\n├─ project-docs/\n│  └─ projektipaivakirja.md\n├─ .gitignore\n└─ README.md\n\nLibrary/, Temp/ ja Builds/ jäävät Gitin ulkopuolelle.",
+            vinkit: [
+              "Jos Unity Hub avaa yhä vanhan kopion, poista vanha rivi Hubin projektilistasta: kolme pistettä → Remove from list."
+            ]
+          }
+        },
+        "34-5": {
+          perii: ["34-3"],
+          miksi: "Commit tallentaa työn versionhallintaan, ja push vie sen GitHubiin. Vasta silloin ohjaaja ja asiakas näkevät työsi.",
+          osat: [
+            "Luo repositoryn juureen kansio project-docs ja sen sisään tyhjä tiedosto projektipaivakirja.md. Git ei tallenna tyhjää kansiota.",
+            "Siirrä tehtävän 3 kuvakaappaus polkuun project-docs/evidence/week-34/web-test.png.",
+            "Kirjoita README.md-tiedostoon pelin nimi ja yksi virke siitä, mitä peli tekee. README on repositoryn esittelytiedosto.",
+            "Tarkista GitHub Desktopin Changes-listasta, että Assets, Packages, ProjectSettings, project-docs ja README.md ovat mukana. Library, Temp ja Builds eivät saa olla mukana.",
+            "Tee commit eli tallenna muutokset versionhallintaan: kirjoita GitHub Desktopin Summary-kenttään ”Unity-projektin pohja” ja paina Commit to main. Tee sitten push painamalla Push origin, jolloin commit siirtyy GitHubiin.",
+            "Rastita Näyttömatriisi-näkymässä kohdat Kehitysympäristö, Asiakkaan tarpeet ja Kehittämisympäristön käyttöönotto. Kirjoita niiden työnäytteiden linkit päiväkirjan kenttään Missä työnäyte on?"
+          ],
+          valmis: "Commit näkyy GitHubissa. Repositoryssa ovat Assets-, Packages-, ProjectSettings- ja project-docs-kansiot sekä README.md.",
+          tallenna: "Repositoryn linkki ja ensimmäisen commitin tunniste (7 merkin koodi GitHubin commit-listassa, esimerkiksi a1b2c3d) viikon 34 päiväkirjaan.",
+          sanat: ["commit", "push"],
+          apu: {
+            title: "Ensimmäisen commitin tarkistus",
+            code: "ENSIMMÄISEN COMMITIN TARKISTUS\n[ ] Assets mukana\n[ ] Packages mukana\n[ ] ProjectSettings mukana\n[ ] project-docs mukana\n[ ] README.md kertoo pelin tavoitteen\n[ ] Library, Temp ja Builds eivät ole mukana\n[ ] commit näkyy GitHubissa",
+            test: "Kloonaa repository toiseen kansioon tai pyydä ohjaajaa avaamaan se. Unity luo puuttuvan Library-kansion itse, ja CafeGame-scene aukeaa, kun kaksoisklikkaat sitä Project-ikkunan Scenes-kansiossa."
+          }
+        }
       },
-      example: "Kysymys: Miten top 5 -listan tasatilanteet järjestetään? Vastaus: [asiakkaan vastaus]. Päätös: [oma tiivistys].",
-      notEnough: "Kahdeksan lähes samaa tekoälykysymystä tai itse keksityt asiakkaan vastaukset eivät osoita asiakastarpeen selvittämistä.",
       paivat: [
-        ["Päivä 1", "Tarve: Lue toimeksianto. Kirjoita 8 kysymystä ja pidä aloituskeskustelu."],
-        ["Päivä 2", "Rajaus: Sovi testiselaimet, pelisäännöt, kohderyhmä, P0-ominaisuudet ja valmis kun -ehdot."],
-        ["Päivä 3", "Unity-perusta: Luo Unity Hubissa 2D-projekti, käynnistä testiscene ja tee WebGL-testibuild. Perusta Git-repository."],
-        ["Päivä 4", "Suunnittele: Tee backlog eli priorisoitu tehtävälista, käyttöliittymäluonnos ja jaa koodi selkeisiin vastuisiin."],
-        ["Päivä 5", "Pelattava kokonaisuus: Tee polku valikosta yhteen tilaukseen, pisteeseen ja pelin loppuun."]
+        ["Kysymykset", "Tehtävä 1: lue toimeksianto ja kirjoita kahdeksan kysymystä."],
+        ["Keskustelu", "Tehtävä 2: pidä aloituskeskustelu ja kirjaa vastaukset."],
+        ["Unity", "Tehtävä 3: luo Unity-projekti ja selaimessa aukeava testiversio."],
+        ["Git", "Tehtävät 4 ja 5: repository, ensimmäinen commit ja push."],
+        ["Kirjaus", "Täydennä päiväkirja, lataa se ja vie se project-docs-kansioon."]
       ]
     },
 
     35: {
       type: "pohjustus",
-      termit: ["GDD", "GitHub-issue", "backlog", "P1", "P2", "UI"],
-      feature: "Viikon jälkeen peli on paperilla: kolme ruutua ja featuret tekojärjestyksessä. Asiakas on hyväksynyt rajauksen.",
+      termit: ["GDD", "GitHub-issue", "backlog", "P1", "P2", "UI", "JSON"],
+      feature: "Viikon jälkeen peli on paperilla: kolme ruutua, skriptien kartta ja tehtävälista GitHubissa. Ohjaaja on hyväksynyt rajauksen.",
       excerpt: "Pelissä pitää olla aloitusvalikko, itse peli, pistelasku ja pelin päättymisnäkymä.",
-      connection: "Nyt muutat toimeksiannon näkyväksi Unity-suunnitelmaksi: Canvas-näkymät, pelin toimintakierto, C#-vastuut, tehtävät ja valmiin työn ehdot.",
-      deliverable: "Hyväksytty pakollinen perusversio, pieni backlog, käyttöliittymäluonnos ja Unityn tekninen rakennekuva.",
-      why: "Rajaus estää projektia kasvamasta liian suureksi. Kun jokaisella tehtävällä on selvä valmis kun -ehto, tiedät mitä seuraavaksi tehdään ja milloin työ voidaan testata.",
-      done: "Pakollinen perusversio on hyväksytty. Jokaisella P0-tehtävällä on 0,5–1 päivän arvio ja havaittava valmis kun -ehto. Mockupissa näkyvät valikko, peli ja tulos.",
-      record: "Kirjoita Vko 35 -merkintään, mitkä GDD-päätökset teit ja miksi, hyväksyjän rooli ja päivä sekä mitkä asiat jäivät asiakkaalle avoimiksi. Lisää linkit gdd.md-tiedostoon, backlogiin, mockupiin ja rakennekuvaan.",
+      connection: "Nyt muutat toimeksiannon näkyväksi suunnitelmaksi: pelin säännöt, pienet tehtävät, ruutujen luonnos ja skriptien vastuut.",
+      deliverable: "Täytetty gdd.md, tehtävälista GitHubissa, prioriteetit, ruutujen luonnos ja skriptien kartta.",
+      why: "Rajaus estää projektia kasvamasta liian suureksi. Kun jokaisella tehtävällä on selvä valmis kun -ehto, tiedät mitä teet seuraavaksi ja milloin työn voi testata.",
+      done: "Tiedosto gdd.md on repositoryssa, jokaisella issuella on arvio, tärkeysluokka – pakollinen (P0), tärkeä (P1) tai lisä (P2) – ja Valmis kun -ehto, ja ohjaaja on hyväksynyt rajauksen. Luonnoksessa näkyvät valikko, peli ja tulos.",
+      record: "Kirjoita Vko 35 -merkintään, mitkä GDD-päätökset teit ja miksi, rajauksen hyväksyjän rooli ja päivä sekä asiakkaalle avoimiksi jääneet asiat. Lisää linkit gdd.md-tiedostoon, GitHubin tehtävälistaan, luonnokseen ja skriptien karttaan.",
       skills: ["rajaus", "Unity UI", "työn pilkkominen"],
       resources: [
         ["Täytä GDD tällä sivulla", "#view-suunnitelma", false],
         ["Avaa koko toimeksianto", "#view-toimeksianto", false]
       ],
-      steps: [
-        ["Täytä GDD", "Täytä GDD:n omat päätökset tällä sivulla: kirjoita tavoite ja oma roolisi omin sanoin, nimeä peli, valitse tyyli ja grafiikan lähde lisensseineen ja päätä pisteytys perusteluineen. Lataa gdd.md ja vie se project-docs-kansioon."],
-        ["Tee pieni backlog", "Kirjoita jokainen kahvilapelin P0-toiminto omaksi 0,5–1 päivän GitHub-issueksi. Lisää prioriteetti ja havaittava valmis kun -ehto."],
-        ["Piirrä Unity-ratkaisu", "Luonnostele kolme Canvas-paneelia ja pelin toimintakierto. Jaa C#-vastuut GameManager-, OrderManager-, ProductDatabase-, UIController- ja SaveService-skripteille."]
-      ],
-      help: {
-        title: "Tee GitHub-issue, mockup ja vastuurakenne",
-        tree: "project-docs/evidence/week-35/\n├─ mockup.png\n└─ unity-rakenne.png\n\nCafeGame-scene\n├─ GameManager\n├─ OrderManager\n├─ ProductDatabase\n├─ UIController\n└─ SaveService",
-        actions: [
-          "Kirjoita ensin projektipäiväkirjaan käyttäjä, tavoite, rajaus ja pakollinen perusversio. Käytä asiakkaan vastauksia; älä keksi avoimia päätöksiä.",
-          "Avaa GitHubissa repository → Issues → New issue. Tee yksi issue jokaisesta pakollisesta toiminnosta. Kirjoita otsikko verbillä, esimerkiksi Näytä asiakkaan tilaus.",
-          "Lisää issueen työmääräarvio ja valmis kun -ehto, jonka toinen ihminen voi testata. Jaa yli päivän mittainen issue pienemmäksi.",
-          "Piirrä valikko, peli ja tulos paperille tai piirto-ohjelmalla. Merkitse näkyviin tilaus, tuotteet, aika, pisteet, palaute ja painikkeet. Tallenna kuva annettuun project-docs-polkuun.",
-          "Piirrä toinen kuva C#-vastuista. Kirjoita jokaisen laatikon alle yksi vastuu ja nuoli siihen osaan, jolle tieto annetaan. Pyydä hyväksyntä ennen koodaamista."
-        ],
-        code: "ISSUE-POHJA\nOtsikko: [verbi + näkyvä toiminto]\n\nMiksi tämä tarvitaan:\n[linkki toimeksiannon vaatimukseen]\n\nToteutan:\n[rajattu muutos]\n\nValmis kun:\n[havaittava testitulos]\n\nArvio:\n[0,5 tai 1 työpäivä]",
-        test: "Valitse yksi P0-issue sattumalta. Toinen henkilö pystyy kertomaan sen tekstin perusteella, mitä peliin muuttuu, miten tulos testataan ja milloin tehtävä on valmis."
-      },
-      example: "Issue: Näytä asiakkaan tilaus / P0 / 4 h / Valmis kun 1–3 tuotetta näkyy peliruudulla ennen pelaajan valintaa.",
-      notEnough: "Tehtävä nimeltä “Tee peli” tai perustelematon tekoälyn arkkitehtuurikuva ei ole toteutuskelpoinen suunnitelma."
+      tehtavat: {
+        "35-1": {
+          perii: ["35-1"],
+          miksi: "Pelin suunnitteludokumentti kokoaa pelin säännöt yhteen paikkaan. Palaat siihen, kun rakennat pistelaskua ja ulkoasua.",
+          osat: [
+            "Avaa Suunnitelma (GDD) -näkymä. GDD eli Game Design Document on pelin suunnitteludokumentti. Lue esitäytetty osa: se tulee toimeksiannosta.",
+            "Kirjoita pelille työnimi ja oma nimesi.",
+            "Kirjoita kahdella tai kolmella virkkeellä, mitä peli tavoittelee, kenelle se on ja mikä on sinun roolisi.",
+            "Valitse visuaalinen tyyli. Kirjoita, mistä grafiikka tulee ja millä lisenssillä eli käyttöluvalla sitä saa käyttää, esimerkiksi Kenney.nl, CC0 (saa käyttää vapaasti).",
+            "Päätä pisteet: montako pistettä pelaaja saa oikeasta toimituksesta ja montako hän menettää väärästä. Perustele valinta yhdellä tai kahdella virkkeellä.",
+            "Jos sovit kierroksen pituuden asiakkaan kanssa viikolla 34, kirjaa se. Muuten jätä kenttä tyhjäksi: se on avoin asia.",
+            "Paina Lataa gdd.md. Siirrä tiedosto repositoryn project-docs-kansioon, tee commit ja push."
+          ],
+          valmis: "Tiedosto project-docs/gdd.md näkyy GitHubissa, eikä yhdessäkään OMA-merkityssä kentässä ole tyhjää kohtaa. OHJAAJA-merkitty kierroksen pituus saa jäädä avoimeksi.",
+          tallenna: "project-docs/gdd.md ja commit-linkki viikon 35 päiväkirjaan.",
+          sanat: ["GDD"],
+          esimerkki: "Valitsin pikseligrafiikan, koska Kenneyn CC0-paketissa on valmiit kahvilaesineet ja tyyli toimii pienellä ruudulla välituntipelaajille.",
+          eiRiita: "”Koska se näyttää hyvältä” tai tekoälyn yleinen perustelu, joka ei liity omaan peliin."
+        },
+        "35-2": {
+          perii: ["35-2"],
+          miksi: "Kun iso tavoite on pilkottu enintään päivän mittaisiksi tehtäviksi, tiedät joka päivä, mitä teet seuraavaksi ja milloin se on valmis.",
+          osat: [
+            "Avaa Suunnitelma-näkymän lista Featuret tekojärjestyksessä. Feature on yksi pelaajalle näkyvä ominaisuus, esimerkiksi pistelasku.",
+            "Ota listan kolme ensimmäistä featurea. Kirjoita jokaisesta paperille 3–5 pientä asiaa, joita sen tekemiseen tarvitaan, esimerkiksi pelattava kierros: kolme ruutua, ruudun vaihto, tilaus ja pisteet.",
+            "Avaa GitHubissa repository → Issues → New issue. Tee jokaisesta pienestä asiasta oma issue eli tehtävä. Aloita otsikko verbillä, esimerkiksi Näytä asiakkaan tilaus.",
+            "Kirjoita jokaiseen issueen arvio: puoli päivää tai yksi päivä. Jos tehtävä on isompi, jaa se kahdeksi issueksi.",
+            "Kirjoita jokaiseen issueen Valmis kun -ehto: mitä toinen ihminen näkee pelissä, kun tehtävä on tehty.",
+            "Lisää vielä yksi issue kustakin muusta featuresta paitsi asiakkaan toivomasta parannuksesta, joka selviää vasta viikolla 41. Pilkot ne tarkemmin sillä viikolla, kun teet featuren."
+          ],
+          valmis: "GitHubissa on issuet kolmelle ensimmäiselle featurelle ja yksi issue kustakin muusta. Jokaisessa on arvio ja Valmis kun -ehto.",
+          tallenna: "Linkki GitHubin Issues-listaan viikon 35 päiväkirjaan.",
+          sanat: ["feature", "GitHub-issue"],
+          apu: {
+            title: "Issuen pohja",
+            code: "ISSUEN POHJA\nOtsikko: [verbi + näkyvä toiminto]\n\nMiksi tämä tarvitaan:\n[mikä toimeksiannon vaatimus]\n\nTeen:\n[rajattu muutos]\n\nValmis kun:\n[mitä toinen ihminen näkee pelissä]\n\nArvio:\n[0,5 tai 1 työpäivä]",
+            test: "Valitse yksi issue sattumalta. Toinen ihminen osaa sen tekstin perusteella kertoa, mitä peliin muuttuu ja miten tulos testataan."
+          },
+          esimerkki: "Issue: Näytä asiakkaan tilaus · 0,5 päivää · Valmis kun 1–3 tuotetta näkyy peliruudulla ennen kuin pelaaja valitsee.",
+          eiRiita: "Yksi issue nimeltä ”Tee peli” tai issue, jossa ei ole Valmis kun -ehtoa."
+        },
+        "35-3": {
+          perii: ["35-2"],
+          miksi: "Jos aika loppuu, tiedät heti, mistä voit luopua. Pakolliset tehtävät tehdään aina ensin.",
+          osat: [
+            "Luo GitHubissa kolme labelia eli tunnistetta: Issues → Labels → New label. Anna nimiksi P0 pakollinen, P1 tärkeä ja P2 lisä.",
+            "Anna label P0 pakollinen jokaiselle issuelle, jota ilman peliä ei voi antaa asiakkaalle. Kaikki toimeksiannon vaatimukset ovat pakollisia (P0). Käytä apuna viikon 34 aloituskeskustelun pakollisten (P0) listaa.",
+            "Anna label P1 tärkeä issueille, jotka parantavat peliä. Peli on kuitenkin valmis ilman niitä. Tärkeät (P1) tehdään vasta, kun pakolliset (P0) toimivat.",
+            "Anna label P2 lisä issueille, jotka voi jättää pois, jos aika loppuu. Lisät (P2) tehdään viimeisenä.",
+            "Näytä lista ohjaajalle ja pyydä hyväksyntä rajaukselle eli sille, mitä peliin tehdään ja mitä jätetään pois. Kirjaa päiväkirjaan hyväksyjän rooli ja päivä."
+          ],
+          valmis: "Jokaisella issuella on yksi label: P0 pakollinen, P1 tärkeä tai P2 lisä. Ohjaaja on hyväksynyt listan.",
+          tallenna: "Linkki Issues-listaan sekä hyväksyjän rooli ja päivä viikon 35 päiväkirjaan.",
+          sanat: ["P0", "P1", "P2", "backlog"],
+          eiRiita: "Kaikki issuet on merkitty pakollisiksi (P0). Silloin et tiedä, mistä voit luopua."
+        },
+        "35-4": {
+          perii: ["35-3"],
+          miksi: "Luonnos näyttää ennen koodaamista, mitä pelaaja näkee. Rakennat ruudut viikolla 36 tämän kuvan mukaan.",
+          osat: [
+            "Ota paperi ja jaa se kolmeen osaan. Kirjoita osien otsikoiksi Valikko, Peli ja Tulos.",
+            "Piirrä Valikko-ruutuun pelin nimi ja Aloita-painike.",
+            "Piirrä Peli-ruutuun asiakkaan tilaus, tuotepainikkeet (esimerkiksi Kahvi, Tee ja Sämpylä), Toimita-painike, aika ja pisteet.",
+            "Piirrä Peli-ruutuun myös kohta, jossa peli kertoo, menikö toimitus oikein.",
+            "Piirrä Tulos-ruutuun loppupisteet, viiden parhaan tuloksen lista ja Pelaa uudelleen -painike.",
+            "Piirrä nuoli jokaisesta ruutua vaihtavasta painikkeesta siihen ruutuun, johon se vie, ja Peli-ruudusta Tulos-ruutuun, kun aika loppuu. Kuvaa paperi ja tallenna kuva nimellä mockup.png eli käyttöliittymän luonnoskuva."
+          ],
+          valmis: "Kuvassa on kolme ruutua, ja nuolet näyttävät, mihin Aloita ja Pelaa uudelleen vievät ja milloin peli siirtyy tulosruutuun.",
+          tallenna: "Kuva polkuun project-docs/evidence/week-35/mockup.png, commit ja push.",
+          sanat: ["UI", "mockup"]
+        },
+        "35-5": {
+          perii: ["35-3"],
+          miksi: "Kun jokaisella skriptillä on yksi tehtävä, virhe on helpompi löytää. Tämä kuva on koodin kartta, jota käytät viikosta 36 alkaen.",
+          osat: [
+            "Piirrä paperille viisi laatikkoa: GameManager, OrderManager, ProductDatabase, DifficultyController ja SaveService. Jokainen laatikko on yksi C#-skripti eli ohjelmatiedosto.",
+            "Kirjoita jokaisen laatikon alle omin sanoin, mitä skripti tekee kahvilapelissä. Apuna on lista kortin lopun suljetussa kohdassa Skriptien tehtävät.",
+            "Piirrä nuoli aina, kun skripti antaa tietoa toiselle. Esimerkiksi ProductDatabase → OrderManager: tuotelista.",
+            "Lisää kuvaan tiedosto products.json ja nuoli siitä ProductDatabaseen. Tuotteet luetaan tästä tiedostosta, eikä niitä kirjoiteta koodiin.",
+            "Lisää kuvaan selaimen tallennus ja nuoli SaveServicestä siihen. Parhaat tulokset säilyvät siellä, vaikka peli suljetaan.",
+            "Kuvaa paperi ja tallenna kuva nimellä unity-rakenne.png. Näytä kuva ohjaajalle ennen koodaamista ja kirjaa päiväkirjaan hänen kommenttinsa, roolinsa ja päivä.",
+            "Rastita Näyttömatriisi-näkymässä kohdat Tehtävistä sopiminen ja Tehtäviksi jakaminen. Kirjoita niiden työnäytteiden linkit päiväkirjan kenttään Missä työnäyte on?"
+          ],
+          valmis: "Kuvassa on viisi skriptiä, jokaisella oma tehtävä, ja nuolet näyttävät, mistä tuotteet ja tulokset kulkevat.",
+          tallenna: "Kuva polkuun project-docs/evidence/week-35/unity-rakenne.png, commit ja push.",
+          sanat: ["JSON"],
+          apu: {
+            title: "Skriptien tehtävät",
+            tree: "CafeGame-scene\n├─ GameManager      pelin kulku: ruudut, aika, pisteet ja näkyvät tekstit\n├─ OrderManager     tilaus: arpoo tuotteet ja tarkistaa toimituksen\n├─ ProductDatabase  tuotelista: lukee products.json-tiedoston\n├─ DifficultyController  vaikeus: kertoo tason pisteiden mukaan (vko 39)\n└─ SaveService      parhaat tulokset: tallentaa ja lataa top 5 -listan",
+            test: "Näytä kuva toiselle ihmiselle. Hän osaa sanoa, mikä skripti muuttaa pisteitä ja mikä lukee tuotteet."
+          },
+          eiRiita: "Tekoälyn piirtämä rakennekuva, jota et osaa selittää, tai kuva ilman nuolia."
+        }
+      }
     },
 
     36: {
       type: "feature",
-      termit: ["feature", "asset"],
-      feature: "Peliä voi pelata ensimmäistä kertaa: Aloita → asiakas tilaa kahvin → toimitat → piste → tulosruutu.",
+      termit: ["asset", "scene", "Canvas", "Inspector"],
+      feature: "Peliä voi pelata ensimmäistä kertaa: Aloita → asiakas tilaa kahvin → toimitat → saat pisteet → tulosruutu.",
       excerpt: "Pelaajan tehtävänä on toimittaa oikea tilaus mahdollisimman nopeasti.",
-      connection: "Rakennat Unityyn pelin toimintakierron ensimmäisen päästä päähän toimivan version. Yksi kiinteä kahvitilaus riittää nyt todistamaan koko polun; lopullinen 1–3 tuotteen tilaus tulee seuraavaksi.",
-      deliverable: "Ensimmäinen pelattava WebGL-versio, jossa polku toimii valikosta yhden tilauksen kautta tulosruutuun.",
-      why: "Pieni päästä päähän toimiva versio paljastaa scene-, Canvas- ja painikekytkentöjen ongelmat aikaisin. Sen päälle on turvallisempi lisätä loput ominaisuudet.",
-      done: "Aloita → Kahvi → Toimita → pisteet → aika loppuu → tulos toimii WebGL-buildissa ilman, että muutat Unity Editorissa objekteja kesken pelin.",
-      record: "Kirjoita Vko 36 -merkintään buildin tunniste, viisi testikierrosta ja tulokset. Lisää yhtenäinen video tai muu työnäyte koko pelipolusta sekä commit- ja testitunnisteet.",
+      connection: "Rakennat pelin toimintakierrosta ensimmäisen version, joka toimii alusta loppuun. Yksi kiinteä kahvitilaus riittää nyt. Oikea 1–3 tuotteen tilaus tulee viikolla 37.",
+      deliverable: "Ensimmäinen pelattava selainversio: valikosta yhden tilauksen kautta tulosruutuun.",
+      why: "Pieni alusta loppuun toimiva versio paljastaa scenen, Canvasin ja painikkeiden kytkentävirheet aikaisin. Sen päälle on turvallista lisätä loput ominaisuudet.",
+      done: "Aloita → Kahvi → Toimita → tulosruutu näyttää pisteet. Polku toimii selainversiossa ilman, että kosket Unity-editoriin kesken pelin.",
+      record: "Kirjoita Vko 36 -merkintään viisi testikierrosta tuloksineen, löydetyt virheet ja niiden korjaukset. Lisää video tai kuvat pelipolusta sekä commit-linkit.",
       skills: ["Unity Canvas", "pelitilat", "ensimmäinen testi"],
       resources: [
         ["Kenney.nl – ilmaiset CC0-assetit: hahmot, esineet ja käyttöliittymäkuvat", "https://kenney.nl/assets", false],
         ["OpenGameArt – 2D-hahmot ja taustat (tarkista lisenssi)", "https://opengameart.org/", false],
         ["Piskel – piirrä omat spritet selaimessa", "https://www.piskelapp.com/", false]
       ],
-      steps: [
-        ["Rakenna Canvas-paneelit", "Tee CafeGame-sceneen MenuPanel, GamePanel ja ResultPanel. GameManager näyttää kerrallaan vain oikean paneelin."],
-        ["Yhdistä yksi kierros", "Kytke Unity Button -tapahtumat: Aloita → valitse Kahvi → Toimita → +10 → aika 0 → tulos."],
-        ["Testaa WebGL-buildissa", "Pelaa polku viisi kertaa ilman Unity Editoria ja kirjaa katkokset ennen niiden korjaamista."]
-      ],
-      help: {
-        title: "Rakenna ensimmäinen Unity-näkymä",
-        tree: "CafeGame (scene = pelin työtila)\n├─ GameManager [GameManager.cs]\n└─ Canvas (käyttöliittymän alue)\n   ├─ MenuPanel\n   │  └─ StartButton\n   ├─ GamePanel\n   │  ├─ OrderText\n   │  ├─ CoffeeButton\n   │  ├─ SubmitButton\n   │  ├─ ScoreText\n   │  └─ TimeText\n   └─ ResultPanel\n      ├─ FinalScoreText\n      └─ RestartButton",
-        actions: [
-          "Luo Hierarchyyn tyhjä GameManager-objekti ja liitä siihen GameManager.cs. MonoBehaviour tarkoittaa C#-skriptiä, jonka voi liittää GameObjectiin.",
-          "Luo Canvas ja sen alle kolme Panel-objektia yllä olevan puun mukaan. Hyväksy TextMeshPro Essentials -tuonti, kun Unity kysyy sitä.",
-          "Raahaa paneelit Inspectorissa eli komponenttien asetuspaneelissa GameManager-skriptin kenttiin.",
-          "Lisää StartButtonin On Click -listaan GameManager ja valitse StartGame. Tee sama Submit- ja Restart-painikkeille.",
-          "Pidä alussa vain MenuPanel aktiivisena. Tallenna scene nimellä CafeGame."
-        ],
-        code: "using UnityEngine;\n\npublic class GameManager : MonoBehaviour\n{\n    [SerializeField] private GameObject menuPanel;\n    [SerializeField] private GameObject gamePanel;\n    [SerializeField] private GameObject resultPanel;\n\n    public void StartGame()\n    {\n        // TODO: nollaa pisteet ja aika\n        // TODO: näytä vain gamePanel\n    }\n\n    public void SubmitOrder()\n    {\n        // TODO viikolla 38: tarkista tilaus ja muuta pisteitä\n    }\n\n    public void EndGame()\n    {\n        // TODO: näytä vain resultPanel\n    }\n\n    public void RestartGame()\n    {\n        // TODO: palauta alkutila ja kutsu StartGame\n    }\n}",
-        test: "Play-painalluksen jälkeen näkyy vain valikko. Aloita näyttää vain pelin ja EndGame vain tuloksen. Sama toimii WebGL-buildissa.",
-        images: [
-          ["assets/unity/vko36-hierarchy-paneelit.png", "Unityn Hierarchy-paneeli: CafeGame-scene, jossa GameManager, ProductDatabase sekä Canvasin alla MenuPanel, GamePanel ja ResultPanel.", "Hierarchy tämän viikon jälkeen: GameManager ja Canvasin kolme paneelia."],
-          ["assets/unity/vko36-button-onclick.png", "Unityn Inspector: StartButtonin Button-komponentti, jonka On Click -listassa on GameManager ja StartGame-metodi.", "StartButtonin On Click -lista: GameManager → StartGame."]
-        ]
-      },
-      example: "Hyväksymistesti: Aloita → Kahvi → Toimita → pistemäärä 10 → aika 0 → tulosruudulla 10.",
-      notEnough: "Kolme irrallista ruutukaappausta tai editorissa käsin vaihdettu pelitila ei vielä ole päästä päähän pelattava kokonaisuus."
+      tehtavat: {
+        "36-1": {
+          perii: ["36-1"],
+          miksi: "Valikko, peli ja tulos ovat pelin runko. Aloitat valikosta, koska pelaaja näkee sen ensimmäisenä.",
+          osat: [
+            "Avaa CafeGame-scene. Valitse Hierarchy-ikkunassa eli scenen objektilistassa + → UI → Canvas. Canvas on alue, jolle pelin tekstit ja painikkeet tulevat.",
+            "Klikkaa Canvasia hiiren oikealla ja valitse UI → Panel. Tee näin kolme paneelia ja nimeä ne MenuPanel, GamePanel ja ResultPanel.",
+            "Lisää MenuPaneliin painike: UI → Button - TextMeshPro. Paina Import TMP Essentials, jos Unity kysyy. Nimeä painike StartButton.",
+            "Valitse StartButtonin alta Text (TMP) ja kirjoita Inspectorin tekstikenttään Aloita.",
+            "Lisää MenuPaneliin teksti (UI → Text - TextMeshPro) ja kirjoita siihen pelin nimi.",
+            "Siirrä Scene-ikkunassa pelin nimi ja Aloita-painike luonnoksesi (mockup.png) mukaisille paikoille."
+          ],
+          valmis: "Hierarchyssä on Canvas ja sen alla kolme paneelia. MenuPanelissa näkyvät pelin nimi ja Aloita-painike.",
+          tallenna: "Commit ja push. Commit-linkki viikon 36 päiväkirjaan.",
+          sanat: ["Hierarchy", "Canvas", "UI", "Inspector"],
+          apu: {
+            title: "Valikkoruudun rakenne",
+            tree: "CafeGame (scene)\n├─ Main Camera\n├─ Global Light 2D\n├─ EventSystem       (Unity luo tämän Canvasin kanssa)\n└─ Canvas\n   ├─ MenuPanel\n   │  ├─ Text (TMP)   pelin nimi\n   │  └─ StartButton\n   ├─ GamePanel\n   └─ ResultPanel",
+            vinkit: [
+              "Uudemmissa Unity 6 -versioissa valikon nimi voi olla UI (Canvas).",
+              "Älä poista EventSystem-objektia. Ilman sitä painikkeet eivät reagoi klikkauksiin."
+            ],
+            test: "Paina Play. Pelin nimi ja Aloita-painike näkyvät."
+          }
+        },
+        "36-2": {
+          perii: ["36-1"],
+          miksi: "Peliruudussa pelaaja tekee työn, ja tulosruutu kertoo, miten hän onnistui. Ruudut rakennetaan valmiiksi ennen koodia.",
+          osat: [
+            "Lisää GamePaneliin kolme tekstiä (UI → Text - TextMeshPro): OrderText, ScoreText ja TimeText.",
+            "Lisää GamePaneliin kaksi painiketta: CoffeeButton tekstillä Kahvi ja SubmitButton tekstillä Toimita.",
+            "Lisää ResultPaneliin teksti FinalScoreText ja painike RestartButton tekstillä Pelaa uudelleen.",
+            "Siirrä Scene-ikkunassa jokaisen paneelin tekstit ja painikkeet erilleen luonnoksesi (mockup.png) mukaan, jotta ne eivät ole päällekkäin.",
+            "Piilota GamePanel ja ResultPanel: valitse paneeli ja poista rasti Inspectorin yläreunasta nimen vierestä."
+          ],
+          valmis: "Hierarchy näyttää samalta kuin avun rakenne (Main Camera, Global Light 2D ja EventSystem saavat olla lisäksi), ja Play-tilassa näkyy vain valikko.",
+          tallenna: "Kuvakaappaus Hierarchy-ikkunasta polkuun project-docs/evidence/week-36/hierarchy.png, commit ja push. Polku viikon 36 päiväkirjan kenttään Missä työnäyte on?",
+          sanat: ["UI", "Inspector", "asset"],
+          apu: {
+            title: "Scenen rakenne tämän tehtävän jälkeen",
+            tree: "CafeGame (scene)\n└─ Canvas\n   ├─ MenuPanel\n   │  └─ StartButton\n   ├─ GamePanel        (piilossa alussa)\n   │  ├─ OrderText\n   │  ├─ ScoreText\n   │  ├─ TimeText\n   │  ├─ CoffeeButton\n   │  └─ SubmitButton\n   └─ ResultPanel      (piilossa alussa)\n      ├─ FinalScoreText\n      └─ RestartButton",
+            vinkit: [
+              "Väliaikainen grafiikka riittää: harmaat paneelit ja oletuspainikkeet. Assetit eli valmiit kuvat ja äänet lisätään vasta viimeistelyssä."
+            ],
+            test: "Paina Play. Vain MenuPanel näkyy.",
+            images: [
+              ["assets/unity/vko36-hierarchy-paneelit.png", "Unityn Hierarchy-paneeli: CafeGame-scene, jossa GameManager, ProductDatabase sekä Canvasin alla MenuPanel, GamePanel ja ResultPanel.", "Hierarchy viikon lopussa: Canvasin alla kolme paneelia. GameManager lisätään tehtävässä 3."]
+            ]
+          }
+        },
+        "36-3": {
+          perii: ["36-2"],
+          miksi: "Pelin pitää itse näyttää oikea ruutu oikeaan aikaan. Silloin peliä voi pelata ilman, että kukaan koskee Unity-editoriin.",
+          osat: [
+            "Luo Project-ikkunan Assets-kansioon kansio Scripts: hiiren oikea → Create → Folder.",
+            "Klikkaa Scripts-kansiota hiiren oikealla ja valitse Create → Scripting → MonoBehaviour Script eli objektiin liitettävä C#-skripti. Anna nimeksi GameManager.",
+            "Avaa skripti ja korvaa sen sisältö avun työpohjalla. Tallenna tiedosto.",
+            "Luo Hierarchyyn tyhjä objekti: + → Create Empty. Nimeä se GameManager ja raahaa GameManager-skripti sen päälle.",
+            "Valitse GameManager-objekti. Raahaa MenuPanel, GamePanel ja ResultPanel Hierarchystä Inspectorin kenttiin Menu Panel, Game Panel ja Result Panel.",
+            "Kytke Aloita-painike. Valitse StartButton ja paina On Click () -listan +. Raahaa GameManager-objekti kenttään ja valitse GameManager → StartGame.",
+            "Kytke RestartButton samalla tavalla metodiin eli skriptin toimintoon RestartGame.",
+            "Paina Play ja sitten Aloita. Peliruutu tulee näkyviin, ja valikko katoaa."
+          ],
+          valmis: "Play-tilassa Aloita vaihtaa valikon peliruutuun.",
+          tallenna: "Commit ja push. Commit-linkki viikon 36 päiväkirjaan.",
+          sanat: ["Inspector", "metodi"],
+          apu: {
+            title: "GameManager-työpohja (käytät samaa tiedostoa myös tehtävässä 4)",
+            code: "using TMPro;\nusing UnityEngine;\n\npublic class GameManager : MonoBehaviour\n{\n    [SerializeField] private GameObject menuPanel;\n    [SerializeField] private GameObject gamePanel;\n    [SerializeField] private GameObject resultPanel;\n    [SerializeField] private TMP_Text orderText;\n    [SerializeField] private TMP_Text scoreText;\n    [SerializeField] private TMP_Text finalScoreText;\n\n    private int score;\n    private bool coffeeSelected;\n\n    private void Start()\n    {\n        ShowOnly(menuPanel);\n    }\n\n    public void StartGame()\n    {\n        score = 0;\n        coffeeSelected = false;\n        // TODO tehtävä 4: kirjoita orderText-kenttään \"Asiakas tilaa: Kahvi\"\n        // TODO tehtävä 4: näytä pisteet scoreText-kentässä\n        ShowOnly(gamePanel);\n    }\n\n    public void SelectCoffee()\n    {\n        coffeeSelected = true;\n    }\n\n    public void SubmitOrder()\n    {\n        // TODO tehtävä 4: jos coffeeSelected on true, lisää pisteisiin 10\n        // TODO tehtävä 4: näytä uudet pisteet scoreText-kentässä\n        EndGame(); // viikolla 38 peli päättyy vasta, kun aika loppuu\n    }\n\n    public void EndGame()\n    {\n        // TODO tehtävä 4: näytä pisteet finalScoreText-kentässä\n        ShowOnly(resultPanel);\n    }\n\n    public void RestartGame()\n    {\n        StartGame();\n    }\n\n    private void ShowOnly(GameObject panel)\n    {\n        menuPanel.SetActive(panel == menuPanel);\n        gamePanel.SetActive(panel == gamePanel);\n        resultPanel.SetActive(panel == resultPanel);\n    }\n}",
+            vinkit: [
+              "MonoBehaviour on C#-skripti, jonka voi liittää Unityn objektiin.",
+              "[SerializeField] tuo kentän näkyviin Inspectoriin, jotta voit raahata paneelin siihen.",
+              "Vanhemmissa Unity-versioissa skripti luodaan valinnalla Create → C# Script."
+            ],
+            test: "Paina Play: näkyy vain valikko. Paina Aloita: näkyy vain peliruutu.",
+            images: [
+              ["assets/unity/vko36-button-onclick.png", "Unityn Inspector: StartButtonin Button-komponentti, jonka On Click -listassa on GameManager ja StartGame-metodi.", "StartButtonin On Click -lista: GameManager → StartGame."]
+            ]
+          }
+        },
+        "36-4": {
+          perii: ["36-2"],
+          miksi: "Tämä on pelin ydin pienimmillään: asiakas tilaa, pelaaja toimittaa ja saa pisteet.",
+          osat: [
+            "Valitse GameManager-objekti. Raahaa Inspectorissa OrderText, ScoreText ja FinalScoreText skriptin kenttiin.",
+            "Täydennä StartGame-metodin TODO-rivit eli koodiin merkityt täydennettävät kohdat: kirjoita OrderText-tekstiin ”Asiakas tilaa: Kahvi” ja näytä pisteet ScoreText-tekstissä.",
+            "Kytke CoffeeButtonin On Click () -listaan GameManager → SelectCoffee. Kytke SubmitButtonin listaan GameManager → SubmitOrder.",
+            "Täydennä SubmitOrder: jos kahvi on valittu, lisää pisteisiin 10 ja päivitä ScoreText.",
+            "Täydennä EndGame: näytä pisteet FinalScoreText-kentässä.",
+            "Paina Play ja pelaa: Aloita → Kahvi → Toimita."
+          ],
+          valmis: "Aloita → Kahvi → Toimita → tulosruudulla lukee 10 pistettä.",
+          tallenna: "Commit ja push. Commit-linkki viikon 36 päiväkirjaan.",
+          sanat: ["TODO", "hyväksymistesti"],
+          apu: {
+            title: "Tekstikentän päivitys C#:ssa",
+            code: "orderText.text = \"Asiakas tilaa: Kahvi\";\nscoreText.text = \"Pisteet: \" + score;\n\nif (coffeeSelected)\n{\n    score += 10;\n}",
+            test: "Paina Toimita valitsematta kahvia. Pisteet pysyvät nollassa."
+          },
+          esimerkki: "Hyväksymistesti eli testi, joka osoittaa tehtävän valmiiksi: Aloita → Kahvi → Toimita → tulosruudulla 10.",
+          eiRiita: "Kolme irrallista kuvaa ruuduista tai Unity-editorissa käsin vaihdettu ruutu ei ole alusta loppuun pelattava peli."
+        },
+        "36-5": {
+          perii: ["36-3"],
+          miksi: "Editorissa toimiva peli voi toimia selaimessa eri tavalla. Kun kirjaat virheet ennen korjaamista, näet myöhemmin, mitä korjasit ja miksi.",
+          osat: [
+            "Tee selainversio: File → Build Profiles → Web → Build And Run.",
+            "Kirjoita päiväkirjaan ennen pelaamista odotettu tulos: Aloita → Kahvi → Toimita → tulosruudulla 10.",
+            "Pelaa kierros viisi kertaa. Käytä välillä Pelaa uudelleen -painiketta.",
+            "Kirjaa jokaisesta kierroksesta, menikö se odotetusti. Jos ei mennyt, kirjoita tarkasti, mitä tapahtui.",
+            "Korjaa löytämäsi virheet vasta kirjaamisen jälkeen. Kirjaa korjaus samaan kohtaan.",
+            "Tee commit ja push. Kirjoita commit-viestiin, mitä korjasit.",
+            "Sulje GitHubissa tämän viikon valmiit issuet. Kirjoita jokaiseen ennen sulkemista kommentti, jossa on linkki commitiin, jossa työ tehtiin.",
+            "Rastita Näyttömatriisi-näkymässä kohdan Kirjaston toiminnot ja työkalut. Kirjoita sen työnäytteen linkki päiväkirjan kenttään Missä työnäyte on?"
+          ],
+          valmis: "Päiväkirjassa on viisi testikierrosta tuloksineen, ja viimeinen kierros meni odotetusti.",
+          tallenna: "Kolme kuvaa tai lyhyt video pelipolusta kansioon project-docs/evidence/week-36/, commit ja push. Testikirjaukset ja commit-linkki viikon 36 päiväkirjaan.",
+          eiRiita: "”Toimii” ilman odotettua tulosta tai testaus pelkästään Unity-editorissa."
+        }
+      }
     },
 
     37: {
       type: "feature",
       termit: ["JSON"],
-      feature: "Tilaukset arvotaan tuotelistasta. Valikoimaa voi muuttaa koskematta koodiin.",
+      feature: "Asiakas tilaa 1–3 tuotetta, jotka arvotaan tuotelistasta. Tuotteita voi muuttaa koskematta koodiin.",
       excerpt: "Tuotteiden tiedot eivät saa olla kovakoodattuna pelilogiikkaan, vaan niiden pitää tulla erillisestä tietolähteestä.",
-      connection: "Pelin toimintakierron tilaus syntyy nyt Unityyn tuodusta JSON-datasta. Kahvi, tee ja sämpylä eivät enää ole kirjoitettuina suoraan C#-tilauskoodiin.",
-      deliverable: "products.json, ProductDatabase.cs, 1–3 tuotteen tilauslogiikka ja virhetilanteiden käsittely.",
-      why: "Erillinen tietolähde tekee tuotteiden muuttamisesta helppoa ja osoittaa, että osaat siirtää dataa tiedostosta C#-olioiksi ilman käyttöliittymän ja pelisääntöjen sekoittamista.",
-      done: "Kahvin pistearvon muuttaminen JSONissa näkyy pelissä ilman C#-muutosta. Puuttuva tai rikkinäinen JSON näyttää hallitun virheen eikä riko koko peliä.",
-      record: "Kirjoita Vko 37 -merkintään JSON-tiedoston polku, tiedon kulku JSON → ProductDatabase → OrderManager → käyttöliittymä, commit-linkki ja puuttuvan sekä rikkinäisen datan testitulokset.",
+      connection: "Tilaus syntyy nyt tiedostosta luetusta tuotelistasta. Kahvi, tee ja sämpylä eivät enää ole kirjoitettuina suoraan C#-koodiin.",
+      deliverable: "products.json, ProductDatabase.cs, OrderManager.cs, 1–3 tuotteen tilaus ja virhetilanteiden käsittely.",
+      why: "Erillinen tietolähde tekee tuotteiden muuttamisesta helppoa. Samalla osoitat, että osaat lukea tietoa tiedostosta C#-olioiksi ja pitää pelisäännöt erillään käyttöliittymästä.",
+      done: "Kun muutat kahvin pistearvon products.json-tiedostossa, muutos näkyy pelissä ilman C#-muutosta. Jos tiedosto puuttuu tai on rikki, peli näyttää virheilmoituksen eikä kaadu.",
+      record: "Kirjoita Vko 37 -merkintään tiedoston polku, tiedon kulku products.json → ProductDatabase → OrderManager → OrderText, commit-linkki sekä kolmen testin tulokset.",
       skills: ["TextAsset + JSON", "C#-logiikka", "virheenkäsittely"],
-      steps: [
-        ["Tee tuotedata", "Lisää products.json-tiedostoon vähintään id, nimi ja pistearvo. Liitä tiedosto Inspectorissa (komponenttien asetuspaneeli) ProductDatabase-skriptin TextAsset-kenttään."],
-        ["Muunna ja muodosta tilaus", "Käytä JsonUtility.FromJson-metodia ja arvo tuloksesta 1–3 tuotetta. OrderManager hoitaa tilauksen; UIController vain näyttää sen."],
-        ["Riko tarkoituksella", "Irrota TextAsset Inspectorissa, riko JSON ja testaa lisäksi väärä, puuttuva sekä ylimääräinen tuote."]
-      ],
-      help: {
-        title: "Lataa tuotelista TextAssetista",
-        tree: "Assets/\n├─ Data/products.json\n└─ Scripts/\n   ├─ ProductData.cs\n   ├─ ProductDatabase.cs\n   └─ OrderManager.cs\n\nCafeGame\n└─ ProductDatabase [ProductDatabase.cs + products.json Inspectorissa]",
-        actions: [
-          "Luo Data-kansioon products.json, jossa products-taulukossa on vähintään kolme tuotetta.",
-          "Luo tavalliset ProductData- ja ProductList-luokat. [System.Serializable] tekee niiden kentistä Unityn JSON-muuntimelle luettavia.",
-          "Lisää ProductDatabase-skriptiin TextAsset-kenttä. TextAsset on Unityn viite erilliseen tekstitiedostoon.",
-          "Raahaa products.json Inspectorissa kenttään ja pura tiedosto ProductList-olioksi.",
-          "Anna OrderManagerin arpoa listasta 1–3 tuotetta; älä arvo tai kirjoita tuotenimiä UIControllerissa."
-        ],
-        code: "using UnityEngine;\n\n[System.Serializable]\npublic class ProductData\n{\n    public string id;\n    public string name;\n    public int points;\n}\n\n[System.Serializable]\npublic class ProductList\n{\n    public ProductData[] products;\n}\n\npublic class ProductDatabase : MonoBehaviour\n{\n    [SerializeField] private TextAsset productsJson;\n\n    public ProductList LoadProducts()\n    {\n        // TODO: tarkista puuttuva TextAsset\n        return JsonUtility.FromJson<ProductList>(productsJson.text);\n    }\n}",
-        test: "Muuta kahvin points-arvo JSONissa 10:stä 15:een. Muutoksen pitää näkyä pelissä ilman C#-tiedoston muokkausta.",
-        images: [
-          ["assets/unity/vko37-textasset-inspector.png", "Unityn Inspector: ProductDatabase-skripti, jonka Products Json -kenttään on raahattu products-TextAsset.", "products.json raahattuna ProductDatabase-skriptin TextAsset-kenttään."]
-        ]
-      },
-      example: "{ \"products\": [{ \"id\": \"kahvi\", \"name\": \"Kahvi\", \"points\": 10 }] } → JsonUtility → ProductDatabase → OrderManager → käyttöliittymä.",
-      notEnough: "JSON-tiedosto ei riitä, jos kahvi ja pistearvo ovat edelleen myös pelilogiikkaan kovakoodattuina."
+      tehtavat: {
+        "37-1": {
+          perii: ["37-1"],
+          miksi: "Asiakas haluaa, että tuotteita voi muuttaa koskematta koodiin. Siksi tuotteet ovat omassa tiedostossaan.",
+          osat: [
+            "Luo Assets-kansioon kansio Data. Luo sinne koodieditorilla, esimerkiksi VS Codella, tiedosto products.json.",
+            "Kirjoita tiedostoon kolme tuotetta avun mallin mukaan. Jokaisella tuotteella on id (tunniste), name (nimi) ja points (pisteet).",
+            "Anna points-arvoksi se pistemäärä, jonka päätit pelin suunnitteludokumentissa (GDD) oikealle toimitukselle, esimerkiksi 10.",
+            "Tarkista tiedoston muoto: lainausmerkit nimien ympärillä, pilkut tuotteiden välissä ja hakasulkeet listan ympärillä. VS Code näyttää muotovirheen punaisella.",
+            "Palaa Unityyn ja klikkaa products.json-tiedostoa Project-ikkunassa. Inspector näyttää tiedoston sisällön."
+          ],
+          valmis: "Unityn Inspector näyttää products.json-tiedoston, ja siinä on kolme tuotetta.",
+          tallenna: "Commit ja push. Tiedoston polku viikon 37 päiväkirjaan.",
+          sanat: ["JSON"],
+          apu: {
+            title: "products.json-malli",
+            code: "{\n  \"products\": [\n    { \"id\": \"kahvi\",   \"name\": \"Kahvi\",   \"points\": 10 },\n    { \"id\": \"tee\",     \"name\": \"Tee\",     \"points\": 10 },\n    { \"id\": \"sampyla\", \"name\": \"Sämpylä\", \"points\": 10 }\n  ]\n}",
+            vinkit: [
+              "Kirjoita id ilman ääkkösiä ja välilyöntejä. Sen avulla koodi tunnistaa tuotteen.",
+              "name näkyy pelaajalle, joten siinä saa olla ääkkösiä."
+            ],
+            test: "Poista yksi pilkku. VS Code näyttää punaisen virheen. Palauta pilkku."
+          }
+        },
+        "37-2": {
+          perii: ["37-1"],
+          miksi: "ProductDatabase on ainoa skripti, joka lukee tuotetiedoston. Jos tiedostossa on vika, se löytyy yhdestä kohdasta.",
+          osat: [
+            "Luo Scripts-kansioon skripti ProductDatabase ja korvaa sen sisältö avun työpohjalla.",
+            "Lue työpohjasta kaksi luokkaa: ProductData on yksi tuote ja ProductList on tuotteiden lista. Rivi [System.Serializable] kertoo Unitylle, että luokan voi lukea JSONista.",
+            "Luo Hierarchyyn tyhjä objekti ProductDatabase ja raahaa skripti sen päälle.",
+            "Raahaa products.json Inspectorissa ProductDatabase-skriptin Products Json -kenttään.",
+            "Täydennä ensimmäinen TODO-kohta: jos Products Json -kenttä on tyhjä, kirjoita virheilmoitus Consoleen eli Unityn viesti-ikkunaan ja palauta tyhjä lista.",
+            "Täydennä toinen TODO-kohta: ota rikkinäisen JSONin virhe kiinni try–catch-lohkolla eli koodilla, joka nappaa virheen ennen kuin peli kaatuu. Kirjoita virheilmoitus Consoleen ja palauta tyhjä lista."
+          ],
+          valmis: "Avun tarkistustestissä Console näyttää Kahvi, ja molemmat TODO-kohdat on täydennetty.",
+          tallenna: "Commit ja push. Commit-linkki viikon 37 päiväkirjaan.",
+          sanat: ["Console", "TODO"],
+          apu: {
+            title: "ProductDatabase-työpohja",
+            tree: "Assets/\n├─ Data/products.json\n└─ Scripts/\n   ├─ GameManager.cs\n   ├─ ProductDatabase.cs\n   └─ OrderManager.cs      (tehtävä 3)",
+            code: "using UnityEngine;\n\n[System.Serializable]\npublic class ProductData\n{\n    public string id;\n    public string name;\n    public int points;\n}\n\n[System.Serializable]\npublic class ProductList\n{\n    public ProductData[] products;\n}\n\npublic class ProductDatabase : MonoBehaviour\n{\n    [SerializeField] private TextAsset productsJson;\n\n    public ProductList LoadProducts()\n    {\n        // TODO 1: jos productsJson on null, kirjoita Debug.LogError(\"…\")\n        //         ja palauta new ProductList { products = new ProductData[0] }\n\n        // TODO 2: rikkinäinen JSON aiheuttaa virheen (ArgumentException).\n        //         Ota se kiinni try–catch-lohkolla ja palauta tyhjä lista.\n        return JsonUtility.FromJson<ProductList>(productsJson.text);\n    }\n}\n\n// try–catch-lohkon malli:\n// try\n// {\n//     koodi, joka voi aiheuttaa virheen\n// }\n// catch (System.ArgumentException)\n// {\n//     mitä tehdään, kun virhe tulee\n// }",
+            vinkit: [
+              "TextAsset on Unityn viite tekstitiedostoon. Siksi products.json voidaan raahata kenttään.",
+              "Console-ikkuna näyttää Debug.Log- ja Debug.LogError-viestit. Avaa se valinnalla Window → General → Console."
+            ],
+            test: "Lisää testiksi ProductDatabaseen metodi private void Start() { Debug.Log(LoadProducts().products[0].name); } ja paina Play. Consolessa lukee Kahvi. Poista rivi testin jälkeen.",
+            images: [
+              ["assets/unity/vko37-textasset-inspector.png", "Unityn Inspector: ProductDatabase-skripti, jonka Products Json -kenttään on raahattu products-TextAsset.", "products.json raahattuna ProductDatabase-skriptin Products Json -kenttään."]
+            ]
+          }
+        },
+        "37-3": {
+          perii: ["37-2"],
+          miksi: "Toimeksiannon mukaan asiakas tilaa 1–3 tuotetta. OrderManager hoitaa tilaukset, jotta GameManager pysyy yksinkertaisena.",
+          osat: [
+            "Luo skripti OrderManager avun työpohjasta ja liitä se GameManager-objektiin.",
+            "Raahaa ProductDatabase-objekti OrderManager-skriptin Product Database -kenttään.",
+            "Täydennä CreateOrder: arvo tilaukseen 1–3 tuotetta listasta ja palauta tilausteksti, esimerkiksi ”Asiakas tilaa: Kahvi, Sämpylä”.",
+            "Lisää GameManageriin kenttä [SerializeField] private OrderManager orderManager; ja raahaa GameManager-objekti Inspectorissa sen Order Manager -kenttään.",
+            "Muuta StartGame-metodia: kirjoita OrderText-tekstiin CreateOrder-metodin palauttama tilausteksti.",
+            "Paina Play ja Aloita viisi kertaa. Kirjaa, mitä tilauksia tuli."
+          ],
+          valmis: "Play-tilassa tilaus vaihtuu joka pelissä, ja siinä on 1–3 tuotetta.",
+          tallenna: "Commit ja push. Commit-linkki ja viiden tilauksen lista viikon 37 päiväkirjaan.",
+          sanat: ["metodi"],
+          apu: {
+            title: "OrderManager-työpohja",
+            code: "using System.Collections.Generic;\nusing UnityEngine;\n\npublic class OrderManager : MonoBehaviour\n{\n    [SerializeField] private ProductDatabase productDatabase;\n\n    private ProductData[] products;\n    private readonly List<ProductData> currentOrder = new List<ProductData>();\n    private readonly List<string> selectedIds = new List<string>();\n\n    private void Awake()\n    {\n        products = productDatabase.LoadProducts().products;\n    }\n\n    public string CreateOrder()\n    {\n        currentOrder.Clear();\n        selectedIds.Clear();\n        if (products.Length == 0) return \"Tuotteita ei löytynyt\";\n        int count = Random.Range(1, 4); // antaa luvun 1, 2 tai 3\n        // TODO: lisää currentOrder-listaan count kappaletta satunnaisia tuotteita:\n        //       products[Random.Range(0, products.Length)]\n        // TODO: palauta teksti, esim. \"Asiakas tilaa: Kahvi, Sämpylä\"\n        return \"\";\n    }\n\n    public void SelectProduct(string id)\n    {\n        selectedIds.Add(id);\n    }\n\n    // Palauttaa oikean toimituksen pisteet tai 0, jos toimitus oli väärä.\n    public int CheckDelivery()\n    {\n        // TODO tehtävä 4: vertaa valintoja tilaukseen (malli tehtävän 4 avussa)\n        return 0;\n    }\n}",
+            vinkit: [
+              "Random.Range(1, 4) antaa kokonaisluvun 1, 2 tai 3: yläraja ei ole mukana.",
+              "GameManager ja OrderManager ovat saman objektin komponentteja. Siksi raahaat GameManager-objektin Order Manager -kenttään."
+            ],
+            test: "Pelaa viisi kierrosta. Tilauksessa on joka kerta 1–3 tuotetta, eikä sama tilaus toistu joka kerta."
+          }
+        },
+        "37-4": {
+          perii: ["37-2"],
+          miksi: "Pelaaja valitsee tuotteet painikkeilla, ja pelin pitää tietää, menikö toimitus oikein.",
+          osat: [
+            "Lisää GamePaneliin painikkeet TeaButton tekstillä Tee ja BreadButton tekstillä Sämpylä.",
+            "Poista Kahvi-painikkeen vanha kytkentä: valitse CoffeeButton, valitse On Click () -listan SelectCoffee-rivi ja paina −.",
+            "Kytke kolme tuotepainiketta GameManager-objektin OrderManager → SelectProduct -metodiin. Kirjoita parametriksi eli annettavaksi arvoksi tuotteen id: kahvi, tee tai sampyla.",
+            "Täydennä CheckDelivery: vertaa valittuja tuotteita tilaukseen. Oikeasta toimituksesta metodi palauttaa tuotteiden points-arvojen summan. Väärästä toimituksesta se palauttaa nollan.",
+            "Muuta SubmitOrder-metodia: lisää pisteisiin CheckDelivery-metodin palauttama arvo.",
+            "Paina Play ja toimita yksi oikea ja yksi väärä tilaus. Kirjaa, montako pistettä kumpikin antoi."
+          ],
+          valmis: "Oikea toimitus antaa tuotteiden pisteet yhteensä, ja väärä toimitus antaa 0 pistettä.",
+          tallenna: "Commit ja push. Commit-linkki ja kahden toimituksen tulos viikon 37 päiväkirjaan.",
+          apu: {
+            title: "Listojen vertailu CheckDelivery-metodissa",
+            code: "// Lisää OrderManager.cs-tiedoston alkuun:\nusing System.Linq;\n\npublic int CheckDelivery()\n{\n    List<string> orderIds = currentOrder.Select(p => p.id).ToList();\n    orderIds.Sort();\n    selectedIds.Sort();\n    // TODO: jos orderIds.SequenceEqual(selectedIds) on true,\n    //       palauta currentOrder.Sum(p => p.points)\n    // TODO: muuten palauta 0\n    return 0;\n}",
+            vinkit: [
+              "Sort järjestää listan aakkosjärjestykseen. Kun molemmat listat on järjestetty, valintajärjestyksellä ei ole väliä.",
+              "SequenceEqual vertaa, ovatko kaksi listaa samat alkio alkiolta.",
+              "Painikkeen On Click () -lista osaa antaa metodille yhden tekstiparametrin. Siksi yksi SelectProduct-metodi riittää kaikille tuotteille."
+            ],
+            test: "Tilaus Kahvi, Tee: valitse ensin Tee ja sitten Kahvi. Toimitus on silti oikein."
+          },
+          eiRiita: "Tuotetiedosto on olemassa, mutta kahvi ja sen pisteet on silti kirjoitettu myös C#-koodiin."
+        },
+        "37-5": {
+          perii: ["37-3"],
+          miksi: "Testit todistavat, että tuotteita voi muuttaa koskematta koodiin ja että rikkinäinen tiedosto ei kaada peliä.",
+          osat: [
+            "Kirjoita päiväkirjaan odotettu tulos kolmelle testille ennen kuin testaat.",
+            "Testi 1: muuta kahvin points-arvo 10 → 15 ja paina Play. Toimita oikein tilaus, jossa on kahvi. Pisteet ovat tuotteiden summa, jossa kahvi on 15, esimerkiksi Kahvi + Tee = 25.",
+            "Testi 2: tyhjennä ProductDatabase-skriptin Products Json -kenttä ja paina Play. Consolessa näkyy virheilmoitus, eikä peli kaadu.",
+            "Testi 3: poista products.json-tiedostosta yksi pilkku ja paina Play. Consolessa näkyy virheilmoitus, eikä peli kaadu.",
+            "Palauta tiedosto ja kenttä ennalleen. Kirjaa jokaisen testin todellinen tulos päiväkirjaan.",
+            "Kirjoita päiväkirjaan omin sanoin, mitä kukin vaihe tekee tiedon kulussa: products.json → ProductDatabase → OrderManager → GameManager → OrderText.",
+            "Sulje GitHubissa tämän viikon valmiit issuet. Kirjoita jokaiseen ennen sulkemista kommentti, jossa on linkki commitiin, jossa työ tehtiin.",
+            "Rastita Näyttömatriisi-näkymässä kohdan Rajapinnat ja tieto. Kirjoita sen työnäytteen linkki päiväkirjan kenttään Missä työnäyte on?"
+          ],
+          valmis: "Kaikki kolme testiä menivät odotetusti, ja tulokset ovat päiväkirjassa.",
+          tallenna: "Testien tulokset ja tiedon kulku viikon 37 päiväkirjaan.",
+          esimerkki: "Testi 1 · odotus: Kahvi + Tee antaa 25 · tulos: antoi 25 · läpäisi.",
+          eiRiita: "Tulos testistä, jota et ajanut itse, tai testi, jonka odotettu tulos kirjoitettiin vasta ajon jälkeen."
+        }
+      }
     },
 
     38: {
       type: "feature",
-      feature: "Peliin tulevat kello, pisteet ja välitön palaute toimituksesta.",
+      feature: "Peliin tulevat kello, pisteet ja välitön palaute. Kierros päättyy, kun aika loppuu.",
       excerpt: "Pelissä pitää olla aloitusvalikko, itse peli, pistelasku ja pelin päättymisnäkymä.",
-      connection: "Viimeistelet pelin toimintakierron palautteen: kahvilapelaaja näkee TextMeshPro-kentissä heti, oliko toimitus oikea, paljonko pisteitä tuli ja milloin vuoro päättyy.",
-      deliverable: "Kirjatut pelisäännöt sekä toimivat pisteet, ajastin, palaute ja pelin päättyminen.",
+      connection: "Viimeistelet pelin toimintakierron: pelaaja näkee heti, oliko toimitus oikein, paljonko pisteitä tuli ja paljonko aikaa on jäljellä.",
+      deliverable: "Kirjatut pelisäännöt sekä toimiva ajastin, pisteet, palaute ja pelin päättyminen.",
       why: "Pelaaja voi tehdä päätöksiä vain, jos peli kertoo tavoitteen, ajan ja toiminnan tuloksen. Rajatestit estävät tuplapisteet ja virheellisen lopetuksen.",
-      done: "Peli päättyy kerran ajan loppuessa, nopea kaksoispainallus ei anna kahta tulosta ja uusi peli nollaa ajan sekä pisteet.",
-      record: "Kirjoita Vko 38 -merkintään oikean ja väärän toimituksen pisteet, kierrosaika ja päättymisehto. Lisää build- tai commit-tunniste sekä vähintään kolme nimettyä rajatestiä tuloksineen.",
+      done: "Peli päättyy kerran, kun aika loppuu. Nopea kaksoispainallus ei anna kahta tulosta, ja uusi peli nollaa ajan sekä pisteet.",
+      record: "Kirjoita Vko 38 -merkintään pelisäännöt numeroineen, rajatestien odotetut ja todelliset tulokset sekä commit-linkit.",
       skills: ["C#-pelisäännöt", "TextMeshPro UI", "rajatapaukset"],
-      steps: [
-        ["Kirjoita kahvilan säännöt", "Päätä ennen koodausta oikean ja väärän toimituksen pisteet, kierrosaika ja tarkka pelin päättymisehto."],
-        ["Näytä palaute heti", "Kun Unity Button lähettää toimituksen, päivitä pisteet ja TextMeshPro-palaute ennen seuraavaa asiakasta."],
-        ["Testaa rajat", "Kokeile aikaa 0, kahta nopeaa Toimita-painallusta, väärää tuotetta ja uuden pelin nollausta."]
-      ],
-      help: {
-        title: "Kytke pisteet, aika ja käyttöliittymä",
-        tree: "GameManager [score, timeLeft, isPlaying]\n├─ OrderManager [CurrentOrder, SubmitOrder]\n└─ UIController\n   ├─ ScoreText (TextMeshPro)\n   ├─ TimeText (TextMeshPro)\n   └─ FeedbackText (TextMeshPro)",
-        actions: [
-          "Lisää GameManageriin score-, timeLeft- ja isPlaying-kentät. Serialisoitu [SerializeField]-kenttä näkyy Inspectorissa ja sen aloitusarvo tallentuu sceneen.",
-          "Vähennä aikaa vain pelitilassa Time.deltaTime-arvolla.",
-          "OrderManager palauttaa toimituksesta onnistumisen. GameManager muuttaa pisteitä vain kerran per Submit-painallus.",
-          "UIController saa uudet pisteet, ajan ja palautetekstin; se ei päätä pelisäännöistä.",
-          "Poista Submit-painike hetkeksi käytöstä toimituksen käsittelyn ajaksi, jotta kaksoisklikkaus ei anna kahta tulosta."
-        ],
-        code: "// Lisää tiedoston alkuun: using TMPro;\n// Lisää seuraavat viikon 36 GameManager-luokan sisään.\n// Säilytä menuPanel-, gamePanel- ja resultPanel-kentät.\n[SerializeField] private TMP_Text timeText;\nprivate float timeLeft = 60f;\nprivate bool isPlaying;\n\nprivate void Update()\n{\n    if (!isPlaying) return;\n    timeLeft -= Time.deltaTime;\n    // TODO: päivitä timeText pyöristetyllä ajalla\n    if (timeLeft <= 0f) EndGame();\n}\n\n// Täydennä viikon 36 SubmitOrder-metodia:\n// TODO: estä toinen painallus käsittelyn aikana\n// TODO: kysy OrderManagerilta, oliko toimitus oikein\n// TODO: muuta pisteitä ja näytä palaute\n\n// Täydennä EndGame-metodia:\n// TODO: aseta isPlaying = false ennen ResultPanelin näyttämistä",
-        test: "Aseta testissä aika arvoon 0,1 s ja paina Toimita nopeasti kahdesti. ResultPanel avautuu kerran ja pisteet muuttuvat enintään kerran.",
-        images: [
-          ["assets/unity/vko38-game-view.png", "Unityn Game-näkymä: kahvilavuoro käynnissä väliaikaisella grafiikalla. Näkyvissä tilaus, aika, pisteet, Kahvi- ja Toimita-painikkeet sekä palauteteksti.", "Game view: tilaus, aika, pisteet ja palaute riittävät. Grafiikka viimeistellään myöhemmin."]
-        ]
-      },
-      example: "Oikea tilaus +10; väärä −5; aika 60 s; peli päättyy kerran, kun aika = 0.",
-      notEnough: "Pelivideo yksin ei osoita, että pistelogiikka toimii rajoilla tai että uusi peli nollaa vanhan tuloksen."
+      tehtavat: {
+        "38-1": {
+          perii: ["38-1"],
+          miksi: "Kun säännöt on kirjoitettu ennen koodia, tiedät tarkalleen, mitä koodin pitää tehdä ja mitä testaat.",
+          osat: [
+            "Avaa project-docs/gdd.md. Katso, mitkä pisteet päätit oikealle ja väärälle toimitukselle.",
+            "Kirjoita päiväkirjaan sääntö 1: oikea toimitus antaa tuotteiden pisteet yhteensä.",
+            "Kirjoita sääntö 2: väärä toimitus vie pois sen määrän pisteitä, jonka päätit pelin suunnitteludokumentissa (GDD).",
+            "Kirjoita sääntö 3: kierros kestää __ sekuntia. Käytä asiakkaan kanssa sovittua pituutta. Jos sitä ei ole sovittu, käytä 60 sekuntia ja merkitse asia avoimeksi.",
+            "Kirjoita sääntö 4: peli päättyy kerran, kun aika on 0. Kirjoita sääntö 5: voivatko pisteet mennä alle nollan, ja perustele oma päätöksesi yhdellä virkkeellä."
+          ],
+          valmis: "Päiväkirjassa on viisi numeroitua sääntöä lukuarvoineen.",
+          tallenna: "Säännöt viikon 38 päiväkirjaan.",
+          esimerkki: "Oikea tilaus: tuotteiden pisteet · väärä −5 · aika 60 s · peli päättyy kerran, kun aika on 0 · pisteet eivät mene alle nollan."
+        },
+        "38-2": {
+          perii: ["38-1"],
+          miksi: "Kiire tekee pelistä pelin. Ajastin myös päättää kierroksen, joten pelaaja ei voi pelata loputtomasti.",
+          osat: [
+            "Lisää GameManageriin avun työpohjan neljä kenttää: timeText, roundSeconds (kierroksen pituus), timeLeft (jäljellä oleva aika) ja isPlaying (onko peli käynnissä).",
+            "Raahaa TimeText Inspectorissa GameManager-skriptin Time Text -kenttään ja kirjoita Round Seconds -kenttään säännön 3 kierroksen pituus.",
+            "Täydennä StartGame: timeLeft saa kierroksen pituuden ja isPlaying arvon true.",
+            "Lisää avun Update-metodi GameManageriin. Se vähentää aikaa Time.deltaTime-arvolla eli edellisestä ruudunpäivityksestä kuluneella ajalla. Täydennä sen TODO: näytä aika TimeText-tekstissä kokonaisina sekunteina.",
+            "Kirjoita EndGame-metodin ensimmäiseksi riviksi isPlaying = false, jotta Update ei kutsu EndGamea uudelleen eikä peli pääty kahdesti.",
+            "Poista SubmitOrder-metodista viikolla 36 lisätty EndGame-kutsu. Nyt kierros päättyy vasta, kun aika loppuu."
+          ],
+          valmis: "Play-tilassa aika laskee, pelaaja voi toimittaa monta tilausta ja tulosruutu aukeaa kerran, kun aika on 0.",
+          tallenna: "Commit ja push. Commit-linkki viikon 38 päiväkirjaan.",
+          sanat: ["Inspector"],
+          apu: {
+            title: "Ajastin GameManageriin",
+            code: "// Lisää nämä GameManager-luokan kenttien joukkoon:\n[SerializeField] private TMP_Text timeText;\n[SerializeField] private float roundSeconds = 60f;\nprivate float timeLeft;\nprivate bool isPlaying;\n\nprivate void Update()\n{\n    if (!isPlaying) return;\n    timeLeft -= Time.deltaTime;\n    // TODO: näytä aika timeText-kentässä: Mathf.CeilToInt(timeLeft)\n    if (timeLeft <= 0f) EndGame();\n}\n\n// Täydennä StartGame:\n// TODO: timeLeft = roundSeconds; isPlaying = true;\n\n// Täydennä EndGame ensimmäiseksi riviksi:\n// TODO: isPlaying = false;",
+            vinkit: [
+              "Update on Unityn metodi, jota kutsutaan joka ruudunpäivityksellä, noin 60 kertaa sekunnissa.",
+              "Time.deltaTime on edellisestä ruudunpäivityksestä kulunut aika sekunteina. Kun vähennät sen joka kerta, aika laskee oikealla nopeudella.",
+              "roundSeconds näkyy Inspectorissa. Voit muuttaa kierroksen pituutta testissä koskematta koodiin."
+            ],
+            test: "Aseta Round Seconds -arvoksi Inspectorissa 3, paina Play ja Aloita. Tulosruutu aukeaa kolmen sekunnin jälkeen. Palauta sitten oma kierroksen pituus.",
+            images: [
+              ["assets/unity/vko38-game-view.png", "Unityn Game-näkymä: kahvilavuoro käynnissä väliaikaisella grafiikalla. Näkyvissä tilaus, aika, pisteet, Kahvi- ja Toimita-painikkeet sekä palauteteksti.", "Game view: tilaus, aika, pisteet ja palaute riittävät. Grafiikka viimeistellään myöhemmin."]
+            ]
+          }
+        },
+        "38-3": {
+          perii: ["38-2"],
+          miksi: "Pelaaja oppii vain, jos hän näkee heti, menikö toimitus oikein.",
+          osat: [
+            "Lisää GamePaneliin teksti FeedbackText: UI → Text - TextMeshPro.",
+            "Lisää GameManageriin kenttä [SerializeField] private TMP_Text feedbackText; ja raahaa FeedbackText Inspectorissa Feedback Text -kenttään.",
+            "Toimitus on oikein, kun CheckDelivery palauttaa enemmän kuin 0. Silloin lisää pisteet ja kirjoita FeedbackText-tekstiin esimerkiksi ”Oikein! +10”.",
+            "Kun toimitus on väärin, vähennä pisteitä säännön 2 mukaan, noudata sääntöä 5 (alle nollan vai ei) ja kirjoita esimerkiksi ”Väärä tilaus −5”.",
+            "Päivitä ScoreText heti jokaisen toimituksen jälkeen.",
+            "Tee toimituksen jälkeen uusi tilaus CreateOrder-metodilla, jotta peli jatkuu, kunnes aika loppuu."
+          ],
+          valmis: "Oikea ja väärä toimitus näyttävät eri palautteen, ja pisteet muuttuvat sääntöjen mukaan.",
+          tallenna: "Kuvakaappaukset molemmista palautteista kansioon project-docs/evidence/week-38/, commit ja push. Polut viikon 38 päiväkirjaan.",
+          sanat: ["UI", "Inspector"]
+        },
+        "38-4": {
+          perii: ["38-3"],
+          miksi: "Rajatilanne on pelin ääritilanne, kuten aika 0 tai nopea kaksoispainallus. Niissä peli menee helpoimmin rikki. Kun testaat ne nyt, virheet eivät yllätä asiakasta.",
+          osat: [
+            "Kirjoita päiväkirjaan jokaiselle neljälle testille odotettu tulos ennen kuin testaat.",
+            "Testi 1: aseta Inspectorin Round Seconds -arvoksi 3, paina Play ja Aloita ja odota. Tulosruutu aukeaa vain kerran.",
+            "Testi 2: paina Toimita kaksi kertaa nopeasti peräkkäin. Vain ensimmäinen painallus lasketaan.",
+            "Testi 3: valitse väärä tuote ja paina Toimita. Pisteet muuttuvat sääntöjen 2 ja 5 mukaan, ja palaute kertoo virheestä.",
+            "Testi 4: paina tulosruudulla Pelaa uudelleen. Aika ja pisteet alkavat alusta.",
+            "Jos testi ei mennyt odotetusti, korjaa vika, tee commit ja testaa uudelleen. Kirjaa molemmat ajot.",
+            "Sulje GitHubissa tämän viikon valmiit issuet. Kirjoita jokaiseen ennen sulkemista kommentti, jossa on linkki commitiin, jossa työ tehtiin."
+          ],
+          valmis: "Neljän rajatestin odotetut ja todelliset tulokset on kirjattu, ja viimeinen ajo meni odotetusti.",
+          tallenna: "Testien tulokset ja korjausten commit-linkit viikon 38 päiväkirjaan.",
+          sanat: ["rajatilanne"],
+          apu: {
+            title: "Kaksoispainalluksen esto",
+            code: "private float lastSubmitTime = -1f;\n\npublic void SubmitOrder()\n{\n    // Hyväksy uusi toimitus vasta 0,3 sekunnin päästä edellisestä.\n    if (Time.time - lastSubmitTime < 0.3f) return;\n    lastSubmitTime = Time.time;\n    // … muu toimituksen käsittely\n}",
+            test: "Paina Toimita nopeasti kahdesti. Palaute ja pisteet muuttuvat vain kerran."
+          },
+          eiRiita: "Pelivideo yksin ei osoita, että pisteet toimivat rajatilanteissa tai että uusi peli nollaa vanhan tuloksen."
+        }
+      }
     },
 
     39: {
       type: "feature",
-      feature: "Peli vaikeutuu pistemäärän mukaan: isommat tilaukset ja lyhyemmät ajat, ei äkkihyppyjä.",
+      feature: "Peli vaikeutuu pistemäärän mukaan: isommat tilaukset tai lyhyemmät ajat, ei äkkinäisiä hyppyjä.",
       excerpt: "Vaikeustason pitää kasvaa pelin edetessä.",
-      connection: "Unityn pelin toimintakierto pysyy samana, mutta kahvilan kiire kasvaa hallitusti. Pelaajan pitää huomata vaikeutuminen ilman äkillistä sattumanvaraista hyppyä.",
-      deliverable: "Kahden vaikeusmallin vertailu, perusteltu päätös ja kolmen tason säädettävä vaikeuskäyrä.",
+      connection: "Pelin toimintakierto pysyy samana, mutta kahvilan kiire kasvaa hallitusti. Pelaajan pitää huomata vaikeutuminen ilman äkillistä hyppyä.",
+      deliverable: "Kahden vaikeutustavan vertailu, perusteltu valinta ja kolme vaikeustasoa, joita voi säätää Inspectorissa.",
       why: "Vertailu osoittaa, ettet valinnut ratkaisua sattumalta. Yhdestä paikasta säädettävät arvot helpottavat tasapainotusta ja tekevät muutoksista testattavia.",
-      done: "Valittu malli on perusteltu. Sovitut pistemäärät tuottavat joka kerta oikean tilauskoon ja asiakasajan ilman uutta if-ketjua jokaiselle tasolle.",
-      record: "Kirjoita Vko 39 -merkintään vaihtoehdot A ja B, vertailuperusteet, keskustelukumppanin rooli, valittu ratkaisu ja raja-arvojen testitulokset commit-linkkeineen.",
+      done: "Valinta on perusteltu. Pisteillä 0, 31 ja 61 tilauksen koko tai asiakkaan odotusaika muuttuu tasojen mukaan joka kerta, eikä jokaiselle tasolle tarvita omaa if-lausetta.",
+      record: "Kirjoita Vko 39 -merkintään vaihtoehdot A ja B, vertailun kolme kysymystä, keskustelukumppanin rooli, valinta perusteluineen ja raja-arvojen testitulokset commit-linkkeineen.",
       skills: ["vaihtoehtojen vertailu", "vaikeuskäyrä", "pelitilat"],
-      steps: [
-        ["Vertaa ja valitse", "Vertaa toisen henkilön kanssa vaihtoehtoa A (enemmän tuotteita) ja B (vähemmän aikaa) selkeyden, säädettävyyden ja testattavuuden perusteella. Kirjaa päätös."],
-        ["Tee kolme tasoa", "Pidä raja-arvot ja ajat yhdessä serialisoidussa eli Inspectorissa tallentuvassa DifficultySettings-rakenteessa. Älä hajauta niitä eri GameObjecteihin liitettäviin MonoBehaviour-skripteihin."],
-        ["Testaa pelitilat", "Pelaa kolme eri pituistä kierrosta. Varmista, että valikko, peli ja tulos ovat erillisiä tiloja ja vaikeus kasvaa samalla tavalla."]
-      ],
-      help: {
-        title: "Tee säädettävä vaikeuskäyrä",
-        tree: "GameManager\n└─ DifficultyController\n   └─ levels[] (näkyy Inspectorissa)\n      ├─ Level 0: minScore 0, itemCount 1, customerTime 15\n      ├─ Level 1: minScore 31, itemCount 2, customerTime 12\n      └─ Level 2: minScore 61, itemCount 3, customerTime 10",
-        actions: [
-          "Luo serialisoitu DifficultyLevel-luokka. Serialisoitu tarkoittaa, että Unity tallentaa arvot ja näyttää ne Inspectorissa.",
-          "Lisää DifficultyControlleriin levels-taulukko ja syötä kolme tasoa Inspectorissa.",
-          "Valitse pistemäärälle korkein taso, jonka minScore on saavutettu.",
-          "Anna valitun tason itemCount OrderManagerille ja customerTime GameManagerille.",
-          "Muuta testissä vain Inspector-arvoja; vaikeuskoodin ei pidä vaatia uutta if-ketjua joka tasolle."
-        ],
-        code: "using UnityEngine;\n\n[System.Serializable]\npublic class DifficultyLevel\n{\n    public int minScore;\n    public int itemCount;\n    public float customerTime;\n}\n\npublic class DifficultyController : MonoBehaviour\n{\n    [SerializeField] private DifficultyLevel[] levels;\n\n    public DifficultyLevel GetLevel(int score)\n    {\n        // TODO: palauta korkein taso, jonka minScore <= score\n        return levels[0];\n    }\n}",
-        test: "Anna testissä pisteiksi 0, 31 ja 61. Tilauskoko ja asiakasaika vastaavat joka kerralla suunnitelman taulukkoa."
-      },
-      example: "0–30 p: 1 tuote / 15 s; 31–60 p: 2 tuotetta / 12 s; 61+ p: 3 tuotetta / 10 s.",
-      notEnough: "Tekoälyn valitsema vaikeusmalli ilman kahden vaihtoehdon vertailua ja omaa pelitestiä ei osoita perusteltua päätöstä."
+      tehtavat: {
+        "39-1": {
+          perii: ["39-3"],
+          miksi: "Kun vertaat kahta tapaa ennen koodaamista, osaat perustella valintasi, eikä ratkaisu jää sattuman varaan.",
+          osat: [
+            "Lue kaksi tapaa vaikeuttaa peliä: A = tilauksissa on enemmän tuotteita, B = asiakkaalla on vähemmän aikaa.",
+            "Pyydä vertainen eli toinen opiskelija tai ohjaaja keskustelemaan kanssasi kymmeneksi minuutiksi.",
+            "Arvioikaa kumpikin tapa kolmella kysymyksellä: Huomaako pelaaja vaikeutumisen? Onko arvoja helppo säätää? Onko sitä helppo testata?",
+            "Valitse A, B tai molemmat. Kirjoita päiväkirjaan valinta ja kaksi perustelua.",
+            "Kirjoita päiväkirjaan keskustelukumppanin rooli, esimerkiksi vertainen tai ohjaaja."
+          ],
+          valmis: "Päiväkirjassa ovat molemmat tavat, kolmen kysymyksen vastaukset, valinta ja kaksi perustelua.",
+          tallenna: "Vertailu ja valinta viikon 39 päiväkirjaan.",
+          sanat: ["vertainen"],
+          eiRiita: "Tekoälyn valitsema vaikeusmalli ilman omaa vertailua ja keskustelua."
+        },
+        "39-2": {
+          perii: ["39-1"],
+          miksi: "Kun tasot ovat yhdessä listassa, voit tasapainottaa peliä muuttamalla lukuja Inspectorissa koskematta koodiin.",
+          osat: [
+            "Luo skripti DifficultyController avun työpohjasta ja liitä se GameManager-objektiin.",
+            "Lisää GameManageriin kenttä [SerializeField] private DifficultyController difficultyController; ja raahaa GameManager-objekti Inspectorissa sen Difficulty Controller -kenttään.",
+            "Aseta Inspectorissa Levels-listan kooksi 3. Täytä tasot avun taulukon mukaan tai omien arvojesi mukaan.",
+            "Täydennä GetLevel: palauta korkein taso, jonka aloituspisteet pelaaja on jo saavuttanut. Aloituspisteet ovat tason minScore-arvo.",
+            "Jos valitsit tavan A: muuta CreateOrder muotoon CreateOrder(int count) ja poista sen Random.Range-arvonta. GameManager antaa sille arvon difficultyController.GetLevel(score).itemCount.",
+            "Jos valitsit tavan B: aseta jokaiselle asiakkaalle odotusaika tason customerTime-arvosta. Kun aika loppuu, asiakas lähtee ja tulee uusi tilaus.",
+            "Muuta yhden tason arvoa Inspectorissa ja paina Play. Muutos näkyy pelissä ilman koodimuutosta."
+          ],
+          valmis: "Pisteillä 0, 31 ja 61 peli käyttää eri tasoa, ja tason arvot voi muuttaa Inspectorissa.",
+          tallenna: "Commit ja push. Commit-linkki ja tasotaulukko viikon 39 päiväkirjaan.",
+          sanat: ["Inspector"],
+          apu: {
+            title: "DifficultyController-työpohja",
+            tree: "GameManager\n└─ DifficultyController\n   └─ Levels (näkyy Inspectorissa)\n      ├─ Level 0: minScore 0,  itemCount 1, customerTime 15\n      ├─ Level 1: minScore 31, itemCount 2, customerTime 12\n      └─ Level 2: minScore 61, itemCount 3, customerTime 10",
+            code: "using UnityEngine;\n\n[System.Serializable]\npublic class DifficultyLevel\n{\n    public int minScore;\n    public int itemCount;\n    public float customerTime;\n}\n\npublic class DifficultyController : MonoBehaviour\n{\n    [SerializeField] private DifficultyLevel[] levels;\n\n    public DifficultyLevel GetLevel(int score)\n    {\n        // TODO: käy levels-lista läpi ja palauta viimeinen taso,\n        //       jonka minScore <= score\n        return levels[0];\n    }\n}\n\n// Tapa B: asiakkaan odotusaika GameManageriin\n// private float customerTimeLeft;\n// Kun tilaus tehdään:\n//     customerTimeLeft = difficultyController.GetLevel(score).customerTime;\n// Update-metodissa, kun isPlaying on true:\n//     customerTimeLeft -= Time.deltaTime;\n//     TODO: jos customerTimeLeft <= 0, asiakas lähtee:\n//           näytä palaute ja tee uusi tilaus",
+            vinkit: [
+              "[System.Serializable] saa Unityn näyttämään DifficultyLevel-luokan kentät Inspectorissa.",
+              "Muuta CreateOrder muotoon CreateOrder(int count), jotta GameManager voi antaa tuotemäärän tasolta."
+            ],
+            test: "Lisää StartGame-metodiin ennen CreateOrder-kutsua väliaikainen rivi score = 31; ja paina Play. Toista arvoilla 0 ja 61. Tilauksen koko vastaa joka kerta taulukkoa. Poista rivi testin jälkeen."
+          },
+          esimerkki: "0–30 p: 1 tuote / 15 s · 31–60 p: 2 tuotetta / 12 s · 61+ p: 3 tuotetta / 10 s.",
+          eiRiita: "Kolme erillistä if-lausetta, joihin luvut on kirjoitettu suoraan koodiin."
+        },
+        "39-3": {
+          perii: ["39-2"],
+          miksi: "Valikon, pelin ja tuloksen pitää olla erillisiä tiloja. Muuten aika voi kulua valikossa tai vanha taso jäädä päälle uuteen peliin.",
+          osat: [
+            "Kirjoita päiväkirjaan odotettu tulos ennen kuin testaat.",
+            "Pelaa kolme kierrosta niin, että pääset eri kierroksilla tasoille 0, 1 ja 2 eli Levels-listan kolmelle riville minScore-arvojesi mukaan.",
+            "Tarkista joka kierroksella: kun odotat valikossa 10 sekuntia ja painat Aloita, aika alkaa täydestä. Pelissä näkyy vain peliruutu, ja tulosruudulla pisteet eivät enää muutu.",
+            "Aloita uusi peli tason 2 jälkeen. Tarkista, että peli alkaa taas tasolta 0.",
+            "Kirjaa tulokset päiväkirjaan. Jos jokin ei mennyt odotetusti, korjaa, tee commit ja testaa uudelleen.",
+            "Sulje GitHubissa tämän viikon valmiit issuet. Kirjoita jokaiseen ennen sulkemista kommentti, jossa on linkki commitiin, jossa työ tehtiin.",
+            "Rastita Näyttömatriisi-näkymässä kohdat Toimintalogiikka ja Ratkaisuvaihtoehdot. Kirjoita niiden työnäytteiden linkit päiväkirjan kenttään Missä työnäyte on?"
+          ],
+          valmis: "Kolmen kierroksen tulokset on kirjattu, ja uusi peli alkaa aina tasolta 0.",
+          tallenna: "Testien tulokset ja commit-linkit viikon 39 päiväkirjaan."
+        }
+      }
     },
 
     40: {
       type: "feature",
+      termit: ["PlayerPrefs"],
       feature: "Viisi parasta tulosta ja nimimerkit säilyvät, vaikka pelin sulkee ja avaa uudelleen.",
       excerpt: "Pelaajan parhaat tulokset pitää tallentaa.",
-      connection: "Kun kahvilavuoro päättyy, viiden parhaan tuloksen lista tallentuu Unityn PlayerPrefsiin ja näkyy vielä WebGL-pelin uudelleenkäynnistyksen jälkeen.",
-      deliverable: "Toimiva top 5 -tallennus, nimimerkin validointi ja ratkaisun rajoitusten perustelu.",
-      why: "Toimeksianto vaatii pysyvän tuloksen. Samalla osoitat, että osaat valita pieneen selaimessa toimivaan peliin sopivan tallennustavan ja käsitellä epäluotettavaa syötettä.",
-      done: "Kuudesta tuloksesta näkyy vain viisi parasta vielä sivun uudelleenavauksen jälkeen. Tyhjä tallennus, tasapisteet ja liian pitkä nimimerkki on testattu.",
-      record: "Kirjoita Vko 40 -merkintään, miksi ScoreList tallennetaan JSON-merkkijonona PlayerPrefsiin, mitä ratkaisu ei suojaa ja mitä dataa ei tallenneta. Lisää commit ja nimetyt WebGL-testit.",
-      skills: ["PlayerPrefs", "validointi", "tietoturva"],
-      steps: [
-        ["Tallenna top 5", "ScoreList sisältää enintään viisi ScoreEntry-riviä. Järjestä lista pisteillä, poista kuudenneksi jäävä ja lataa lista seuraavalla käynnistyksellä."],
-        ["Perustele ratkaisu", "Kirjoita tämän viikon projektipäiväkirjan Miksi-kenttään, miksi ScoreList tallennetaan JSON-merkkijonona PlayerPrefsiin, missä selain säilyttää tiedon ja mitä rajoituksia ratkaisulla on."],
-        ["Validoi ja testaa", "Rajaa nimimerkki, käsittele puuttuva tallennus ja testaa tyhjä lista, kuudes tulos, tasapisteet sekä WebGL-uudelleenkäynnistys."]
-      ],
-      help: {
-        title: "Tallenna top 5 PlayerPrefsiin",
-        tree: "CafeGame\n├─ SaveService [SaveService.cs]\n└─ Canvas\n   └─ ResultPanel\n      ├─ NicknameInput (TMP_InputField)\n      ├─ SaveScoreButton\n      └─ HighScoresText (TextMeshPro)",
-        actions: [
-          "Luo ScoreEntry (nickname, score) ja ScoreList (entries). PlayerPrefs on Unityn pieni avain–arvo-tallennus selaimessa tai laitteella.",
-          "Kun kierros loppuu, validoi nimimerkki, lisää tulos, järjestä pisteet suurimmasta pienimpään ja pidä vain viisi.",
-          "Muunna wrapper-lista JsonUtility.ToJson-metodilla ja tallenna merkkijono HighScores-avaimeen.",
-          "Lataa merkkijono PlayerPrefs.GetString-metodilla. Jos avainta ei ole, luo tyhjä lista.",
-          "Näytä viisi riviä ResultPanelissa ja testaa WebGL-buildissa, ei vain Play Modessa."
-        ],
-        code: "using System.Collections.Generic;\nusing UnityEngine;\n\n[System.Serializable]\npublic class ScoreEntry\n{\n    public string nickname;\n    public int score;\n}\n\n[System.Serializable]\npublic class ScoreList\n{\n    public List<ScoreEntry> entries = new List<ScoreEntry>();\n}\n\npublic class SaveService : MonoBehaviour\n{\n    private ScoreList scoreList = new ScoreList();\n\n    public void SaveScore(string nickname, int score)\n    {\n        // TODO: validoi nimimerkki\n        // TODO: lisää, järjestä ja pidä viisi parasta\n        PlayerPrefs.SetString(\"HighScores\", JsonUtility.ToJson(scoreList));\n        PlayerPrefs.Save();\n    }\n\n    public ScoreList LoadScores()\n    {\n        // TODO: jos avainta ei ole, palauta tyhjä ScoreList\n        // TODO: muunna tallennettu JSON takaisin ScoreListiksi\n        return new ScoreList();\n    }\n}",
-        test: "Tallenna kuusi eri tulosta, sulje välilehti ja avaa peli uudelleen. Vain viisi parasta näkyy samassa järjestyksessä.",
-        images: [
-          ["assets/unity/vko40-resultpanel.png", "Unityn Game-näkymä ResultPanelista: lopputulos, nimimerkkikenttä, Tallenna tulos -painike ja viiden parhaan tuloksen lista.", "ResultPanel: nimimerkki, tallennus ja top 5 -lista."]
-        ]
-      },
-      example: "ScoreList → JsonUtility.ToJson → PlayerPrefs.SetString(\"HighScores\", json) → käynnistä uudelleen → sama top 5 näkyy.",
-      notEnough: "Inspectorissa tai koodissa näkyvä arvo ei osoita pysyvää latausta. Älä tallenna tai syötä tekoälylle salasanoja, avaimia tai henkilötietoja."
+      connection: "Kun kahvilavuoro päättyy, viiden parhaan tuloksen lista tallentuu selaimeen ja näkyy vielä, kun peli avataan uudelleen.",
+      deliverable: "Nimimerkki ja Tallenna-painike tulosruudulla, toimiva top 5 -tallennus, nimimerkin tarkistus ja ratkaisun rajoitusten perustelu.",
+      why: "Toimeksianto vaatii pysyvän tuloksen. Samalla osoitat, että osaat valita pieneen selainpeliin sopivan tallennustavan ja käsitellä pelaajan syötettä turvallisesti.",
+      done: "Kuudesta tuloksesta näkyy vain viisi parasta myös silloin, kun sivu avataan uudelleen. Tyhjä tallennus, tasapisteet ja liian pitkä nimimerkki on testattu.",
+      record: "Kirjoita Vko 40 -merkintään, miksi tulokset tallennetaan PlayerPrefsiin, missä selain säilyttää ne, mitä ratkaisu ei suojaa ja mitä tietoja peli ei tallenna. Lisää commit-linkit ja neljän testin tulokset.",
+      skills: ["PlayerPrefs", "syötteen tarkistus", "tietoturva"],
+      tehtavat: {
+        "40-1": {
+          perii: ["40-1"],
+          miksi: "Pelaaja tarvitsee paikan, johon kirjoittaa nimimerkin, ja listan, jossa parhaat tulokset näkyvät.",
+          osat: [
+            "Lisää ResultPaneliin syöttökenttä: UI → Input Field - TextMeshPro. Nimeä se NicknameInput.",
+            "Valitse NicknameInputin alta Text Area → Placeholder ja kirjoita Inspectorin tekstikenttään vihjetekstiksi Nimimerkki.",
+            "Lisää ResultPaneliin painike SaveScoreButton tekstillä Tallenna tulos.",
+            "Lisää ResultPaneliin teksti HighScoresText, johon tulee viisi parasta tulosta. Siirrä Scene-ikkunassa tulosruudun tekstit, kenttä ja painikkeet erilleen ja tee HighScoresText viiden rivin korkuiseksi."
+          ],
+          valmis: "Tulosruudulla näkyvät nimimerkkikenttä, Tallenna tulos -painike ja tyhjä tuloslista.",
+          tallenna: "Kuvakaappaus tulosruudusta polkuun project-docs/evidence/week-40/tulosruutu.png, commit ja push. Polku viikon 40 päiväkirjaan.",
+          sanat: ["UI"],
+          apu: {
+            title: "Tulosruudun rakenne",
+            tree: "ResultPanel\n├─ FinalScoreText\n├─ NicknameInput      (Input Field - TextMeshPro)\n├─ SaveScoreButton\n├─ HighScoresText\n└─ RestartButton",
+            images: [
+              ["assets/unity/vko40-resultpanel.png", "Unityn Game-näkymä ResultPanelista: lopputulos, nimimerkkikenttä, Tallenna tulos -painike ja viiden parhaan tuloksen lista.", "ResultPanel: nimimerkki, tallennus ja top 5 -lista."]
+            ]
+          }
+        },
+        "40-2": {
+          perii: ["40-1"],
+          miksi: "Toimeksiannon mukaan parhaat tulokset pitää tallentaa. SaveService on ainoa skripti, joka tallentaa ja lataa ne.",
+          osat: [
+            "Luo skripti SaveService avun työpohjasta ja liitä se uuteen tyhjään objektiin SaveService.",
+            "Lue työpohjasta kaksi luokkaa: ScoreEntry on yksi tulos (nimimerkki ja pisteet) ja ScoreList on tulosten lista.",
+            "Täydennä SaveScore: lisää uusi tulos listaan ja järjestä lista pisteiden mukaan suurimmasta pienimpään. Poista sitten kuudes tulos ja sitä huonommat.",
+            "Etsi SaveScore-metodista valmiit tallennusrivit ja kirjoita päiväkirjaan omin sanoin, mitä JsonUtility.ToJson, PlayerPrefs.SetString ja PlayerPrefs.Save tekevät.",
+            "Täydennä LoadScores: lue teksti PlayerPrefs.GetString-metodilla ja muuta se takaisin listaksi. Jos tallennusta ei vielä ole, palauta tyhjä lista."
+          ],
+          valmis: "SaveScore ja LoadScores on täydennetty, ja päiväkirjassa on omin sanoin selitys tallennusriveistä.",
+          tallenna: "Commit ja push. Commit-linkki ja selitys viikon 40 päiväkirjaan.",
+          sanat: ["PlayerPrefs", "JSON"],
+          apu: {
+            title: "SaveService-työpohja",
+            code: "using System.Collections.Generic;\nusing UnityEngine;\n\n[System.Serializable]\npublic class ScoreEntry\n{\n    public string nickname;\n    public int score;\n}\n\n[System.Serializable]\npublic class ScoreList\n{\n    public List<ScoreEntry> entries = new List<ScoreEntry>();\n}\n\npublic class SaveService : MonoBehaviour\n{\n    private const string Key = \"HighScores\";\n\n    public ScoreList SaveScore(string nickname, int score)\n    {\n        ScoreList list = LoadScores();\n        // TODO: lisää uusi ScoreEntry listaan\n        // TODO: järjestä vakaasti, jotta tasapisteissä aiempi tulos pysyy edellä (lisää alkuun using System.Linq;):\n        //       list.entries = list.entries.OrderByDescending(e => e.score).ToList();\n        // TODO: poista ylimääräiset, kun listassa on yli 5 riviä\n        PlayerPrefs.SetString(Key, JsonUtility.ToJson(list));\n        PlayerPrefs.Save();\n        return list;\n    }\n\n    public ScoreList LoadScores()\n    {\n        // TODO: jos PlayerPrefs.HasKey(Key) on false, palauta new ScoreList()\n        // TODO: muuta tallennettu teksti takaisin: JsonUtility.FromJson<ScoreList>(…)\n        return new ScoreList();\n    }\n}",
+            vinkit: [
+              "JsonUtility ei osaa tallentaa pelkkää listaa. Siksi lista on ScoreList-luokan sisällä.",
+              "PlayerPrefs.Save() varmistaa, että tieto tallentuu heti myös selainversiossa."
+            ],
+            test: "Tallenna kuusi eri tulosta Play-tilassa. Lista näyttää viisi parasta suurimmasta pienimpään."
+          }
+        },
+        "40-3": {
+          perii: ["40-1"],
+          miksi: "Tallennus on hyödyllinen vasta, kun pelaaja voi tallentaa tuloksen painikkeella ja näkee listan tulosruudulla.",
+          osat: [
+            "Lisää GameManageriin avun työpohjan kentät nicknameInput, highScoresText ja saveService.",
+            "Raahaa Inspectorissa NicknameInput, HighScoresText ja SaveService-objekti GameManager-skriptin kenttiin Nickname Input, High Scores Text ja Save Service.",
+            "Lisää GameManageriin avun ShowHighScores-metodi. Se kirjoittaa listan rivit HighScoresText-tekstiin.",
+            "Täydennä avun SaveCurrentScore-metodi: se tallentaa nimimerkin ja pisteet SaveServicellä ja näyttää palautetun listan.",
+            "Kytke SaveScoreButtonin On Click () -listaan GameManager → SaveCurrentScore.",
+            "Täydennä EndGame-metodia: näytä tallennettu lista heti, kun tulosruutu avautuu.",
+            "Paina Play ja tallenna kuusi eri tulosta. Tarkista, että lista näyttää viisi parasta suurimmasta pienimpään."
+          ],
+          valmis: "Tulosruutu näyttää tallennetut tulokset heti, ja kuudesta tuloksesta näkyy viisi parasta oikeassa järjestyksessä.",
+          tallenna: "Commit ja push. Kuvakaappaus listasta kansioon project-docs/evidence/week-40/ ja polku viikon 40 päiväkirjaan.",
+          sanat: ["Inspector", "metodi"],
+          apu: {
+            title: "Tulosruudun kytkentä GameManageriin",
+            code: "// GameManager-luokan kenttien joukkoon:\n[SerializeField] private TMP_InputField nicknameInput;\n[SerializeField] private TMP_Text highScoresText;\n[SerializeField] private SaveService saveService;\n\npublic void SaveCurrentScore()\n{\n    // TODO: ScoreList list = saveService.SaveScore(nicknameInput.text, score);\n    // TODO: ShowHighScores(list);\n}\n\nprivate void ShowHighScores(ScoreList list)\n{\n    string text = \"\";\n    for (int i = 0; i < list.entries.Count; i++)\n    {\n        text += (i + 1) + \". \" + list.entries[i].nickname + \"  \" + list.entries[i].score + \"\\n\";\n    }\n    highScoresText.text = text;\n}\n\n// Täydennä EndGame ennen ShowOnly(resultPanel) -riviä:\n// TODO: ShowHighScores(saveService.LoadScores());",
+            vinkit: [
+              "Painikkeen On Click () -lista ei osaa antaa metodille nimimerkkiä ja pisteitä. Siksi SaveCurrentScore hakee ne itse eikä ota parametreja.",
+              "`\\n` tekstin sisällä tarkoittaa rivinvaihtoa. Jokainen tulos tulee omalle rivilleen."
+            ],
+            test: "Tallenna kaksi tulosta ja paina Pelaa uudelleen. Kun kierros loppuu, tulosruutu näyttää molemmat heti."
+          }
+        },
+        "40-4": {
+          perii: ["40-3"],
+          miksi: "Pelaaja voi kirjoittaa kenttään mitä tahansa. Tarkistus estää tyhjät ja liian pitkät nimet, eikä peli pyydä henkilötietoja.",
+          osat: [
+            "Päätä nimimerkin enimmäispituus, esimerkiksi 12 merkkiä. Kirjaa päätös päiväkirjaan.",
+            "Lisää avun CleanNickname-metodi SaveService-skriptiin ja kutsu sitä SaveScore-metodin ensimmäisellä rivillä. Metodi poistaa jo valmiiksi välilyönnit alusta ja lopusta (Trim).",
+            "Jos nimimerkki on tyhjä, käytä nimeä Nimetön.",
+            "Jos nimimerkki on liian pitkä, lyhennä se sallittuun pituuteen.",
+            "Aseta NicknameInput-kentän Character Limit -arvoksi sama enimmäispituus.",
+            "Kirjaa päiväkirjaan, mitä peli tallentaa (nimimerkki ja pisteet) ja mitä se ei tallenna (oikea nimi, salasanat tai muut henkilötiedot).",
+            "Estä saman tuloksen tallennus kahdesti: lisää GameManageriin muuttuja bool scoreSaved. SaveCurrentScore tallentaa vain, jos se on false, ja StartGame nollaa sen."
+          ],
+          valmis: "Tyhjä nimi tallentuu nimellä Nimetön, liian pitkä nimi lyhenee ja toinen Tallenna tulos -painallus ei lisää samaa tulosta uudelleen.",
+          tallenna: "Commit ja push. Päätökset ja commit-linkki viikon 40 päiväkirjaan.",
+          apu: {
+            title: "Nimimerkin tarkistus",
+            code: "private const int MaxLength = 12;\n\nprivate string CleanNickname(string raw)\n{\n    string name = (raw ?? \"\").Trim();\n    // TODO: jos name on tyhjä, palauta \"Nimetön\"\n    // TODO: jos name.Length > MaxLength, palauta name.Substring(0, MaxLength)\n    return name;\n}",
+            test: "Kirjoita kenttään pelkkiä välilyöntejä ja tallenna. Listaan tulee Nimetön."
+          },
+          eiRiita: "Tallennus toimii, mutta syötettä ei tarkisteta. Älä syötä tekoälylle salasanoja, avaimia tai henkilötietoja."
+        },
+        "40-5": {
+          perii: ["40-2"],
+          miksi: "Tallennus toimii oikeasti vasta, kun tulokset säilyvät selainversiossa sivun sulkemisen jälkeen.",
+          osat: [
+            "Kirjoita päiväkirjaan odotettu tulos neljälle testille ennen kuin testaat.",
+            "Testi 1: avaa selainversio yksityisessä selainikkunassa. Lista on tyhjä, eikä peli kaadu.",
+            "Testi 2: tallenna kuusi eri tulosta. Vain viisi parasta näkyy.",
+            "Testi 3: tallenna kaksi yhtä suurta tulosta. Tarkista, että järjestys noudattaa asiakkaan kanssa sovittua sääntöä. Jos sääntöä ei ole sovittu, aiempi tulos on ylempänä, ja asia on avoin.",
+            "Testi 4: kopioi pelin osoite, sulje välilehti ja avaa sama osoite uudelleen samassa selaimessa ilman uutta buildia. Sama lista näkyy.",
+            "Kirjoita päiväkirjan Miksi tein näin? -kenttään, miksi PlayerPrefs sopii tähän peliin. Kirjoita myös, että tiedot säilyvät vain tässä selaimessa ja että pelaaja voi itse muuttaa tai poistaa ne.",
+            "Sulje GitHubissa tämän viikon valmiit issuet. Kirjoita jokaiseen ennen sulkemista kommentti, jossa on linkki commitiin, jossa työ tehtiin.",
+            "Rastita Näyttömatriisi-näkymässä kohdat Toimintojen toteutus, Tietovaraston valinta, Yhteys tietovarastoon ja Tietoturva. Kirjoita niiden työnäytteiden linkit päiväkirjan kenttään Missä työnäyte on?"
+          ],
+          valmis: "Neljän testin tulokset ja ratkaisun perustelu ovat päiväkirjassa.",
+          tallenna: "Testitulokset, perustelu ja commit-linkit viikon 40 päiväkirjaan.",
+          esimerkki: "ScoreList → JsonUtility.ToJson → PlayerPrefs.SetString(\"HighScores\", json) → sivu suljetaan ja avataan → sama top 5 näkyy.",
+          eiRiita: "Testaus pelkästään Unity-editorissa. Editorissa näkyvä arvo ei todista, että tulokset säilyvät selaimessa."
+        }
+      }
     },
 
     41: {
       type: "katselmointi",
-      feature: "Asiakas pelaa peliä ensimmäistä kertaa ja antaa palautteen. Yksi muutos sovitaan.",
+      termit: ["katselmointi"],
+      feature: "Asiakas pelaa peliä ensimmäistä kertaa ja antaa palautetta. Yhdessä sovitaan yksi muutos.",
       excerpt: "Haluan nähdä pelistä toimivan version vähintään kerran ennen lopullista versiota, jotta voin pyytää muutoksia.",
-      connection: "Asiakas pelaa nyt kahvilapelin oikean toimintakierron. Sinä tarkkailet, missä tilaus, tuotteiden valinta tai palaute jää epäselväksi.",
-      deliverable: "Asiakkaan kokeilema väliversio, katselmointimuistio ja yksi hyväksytty muutostehtävä.",
-      why: "Palaute tarvitaan ennen viimeistelyä, jotta muutokselle jää aikaa. Asiakkaan alkuperäisen havainnon erottaminen omasta tulkinnastasi tekee päätöksestä luotettavan.",
-      done: "Asiakas on pelannut buildin alusta loppuun. Muistiossa näkyvät alkuperäinen palaute, oma tulkinta, päätös, hyväksyjä ja yksi rajattu issue.",
-      record: "Kirjoita Vko 41 -merkintään buildin tunniste, katselmoinnin päivä, osallistujien roolit, asiakkaan sanat, oma tulkinta ja linkki hyväksyttyyn muutostehtävään.",
+      connection: "Asiakas pelaa nyt kahvilapelin koko toimintakierron. Sinä tarkkailet, missä tilaus, tuotteiden valinta tai palaute jää epäselväksi.",
+      deliverable: "Asiakkaan kokeilema selainversio, katselmointimuistio ja yksi sovittu muutostehtävä GitHubissa.",
+      why: "Palaute tarvitaan ennen viimeistelyä, jotta muutokselle jää aikaa. Kun erotat asiakkaan omat sanat omasta tulkinnastasi, päätös on luotettava.",
+      done: "Asiakas on pelannut pelin alusta loppuun. Muistiossa näkyvät asiakkaan sanat, oma tulkinta, päätös, hyväksyjä ja yksi rajattu issue.",
+      record: "Kirjoita Vko 41 -merkintään version tunniste, katselmoinnin päivä, osallistujien roolit, asiakkaan sanat, oma tulkinta ja linkki sovittuun muutostehtävään.",
       skills: ["asiakasviestintä", "katselmointi", "priorisointi"],
-      steps: [
-        ["Valmistele WebGL-kokeiluversio", "Buildissa toimivat valikko, 1–3 tuotteen tilaus, toimitus, pisteet, vaikeus, tulos ja PlayerPrefs-tallennus."],
-        ["Anna asiakkaan pelata", "Pyydä pelaamaan alusta loppuun. Älä neuvo heti, vaan kirjaa alkuperäinen havainto ja kysy tarkentava kysymys."],
-        ["Päätä yksi muutos", "Yhdistä palaute yhteen rajattuun issueen, arvioon ja hyväksymisehtoon. Päivitä backlog vasta päätöksen jälkeen."]
-      ],
-      example: "Palaute: “Tilausta ei huomaa.” Päätös: suurennetaan tilauskortti / P0 / 2 h / hyväksytty 9.10.",
-      notEnough: "Itse tai tekoälyllä keksitty asiakaspalaute ei ole katselmointi. Tallenna asiakkaan alkuperäinen havainto erikseen omasta tulkinnastasi."
+      tehtavat: {
+        "41-1": {
+          perii: ["41-1"],
+          miksi: "Asiakas voi antaa hyvää palautetta vain versiosta, joka toimii alusta loppuun.",
+          osat: [
+            "Käy läpi tarkistuslista. Tarkista, että valikko, 1–3 tuotteen tilaus, toimitus, pisteet, ajastin, vaikeus, tulosruutu ja tallennus toimivat.",
+            "Tee selainversio (Build And Run) ja pelaa se kerran itse alusta loppuun.",
+            "Kirjoita muistiin version tunniste: päivämäärä ja viimeisimmän commitin tunniste.",
+            "Sovi ohjaajan kanssa katselmoinnin aika. Katselmointi on tapaaminen, jossa asiakas kokeilee keskeneräistä peliä ja antaa palautetta.",
+            "Valmistele viiden minuutin esittely: mitä peli tekee, mikä on valmista ja mikä vielä puuttuu."
+          ],
+          valmis: "Selainversio toimii alusta loppuun, ja katselmoinnin aika on sovittu.",
+          tallenna: "Version tunniste ja tarkistuslistan tulos viikon 41 päiväkirjaan.",
+          sanat: ["katselmointi"]
+        },
+        "41-2": {
+          perii: ["41-2"],
+          miksi: "Kun katsot vierestä neuvomatta, näet, missä kohdissa peli on vielä epäselvä.",
+          osat: [
+            "Pyydä asiakasta pelaamaan peli alusta loppuun. Älä neuvo, ellei hän pyydä apua.",
+            "Kirjoita ylös asiakkaan sanat sellaisinaan, esimerkiksi ”En huomannut tilausta”.",
+            "Kirjoita erikseen, mitä itse näit: missä asiakas epäröi tai painoi väärää painiketta.",
+            "Selitä yksi tekninen ratkaisu arkikielellä, esimerkiksi miten tulokset tallentuvat. Kirjaa, ymmärsikö asiakas.",
+            "Kysy lopuksi: mikä yksi asia pitäisi muuttaa ensin?"
+          ],
+          valmis: "Muistiinpanoissa ovat asiakkaan sanat ja omat havaintosi erikseen.",
+          tallenna: "Muistiinpanot viikon 41 päiväkirjaan.",
+          eiRiita: "Itse tai tekoälyllä keksitty asiakaspalaute ei ole katselmointi."
+        },
+        "41-3": {
+          perii: ["41-2", "41-3"],
+          miksi: "Yksi selvästi rajattu muutos ehditään tehdä kunnolla. Monta epämääräistä toivetta jää kesken.",
+          osat: [
+            "Valitse palautteesta yhdessä asiakkaan kanssa yksi muutos, jonka ehdit tehdä viikolla 43.",
+            "Tee muutoksesta GitHub-issue: otsikko verbillä, asiakkaan alkuperäinen palaute, arvio ja Valmis kun -ehto.",
+            "Jos asiakas pitää muutosta välttämättömänä, se on pakollinen (P0): anna label P0 pakollinen. Muuten se on tärkeä (P1): anna label P1 tärkeä.",
+            "Pyydä asiakkaalta hyväksyntä issuelle. Kirjaa hyväksyjän rooli ja päivä.",
+            "Vertaa kolmen viikolla 35 tehdyn issuen arviota siihen, kauanko työ oikeasti kesti. Kirjaa ero ja sen syy päiväkirjaan.",
+            "Kirjoita katselmointimuistio päiväkirjaan: päivä, osallistujien roolit, asiakkaan sanat, oma tulkinta ja päätös.",
+            "Rastita Näyttömatriisi-näkymässä kohdat Asiakaslähtöinen viestintä, Priorisointi ja Suunnittelu ja arviointi. Kirjoita niiden työnäytteiden linkit päiväkirjan kenttään Missä työnäyte on?"
+          ],
+          valmis: "GitHubissa on yksi hyväksytty muutosissue, ja katselmointimuistio on päiväkirjassa.",
+          tallenna: "Issuen linkki ja katselmointimuistio viikon 41 päiväkirjaan.",
+          sanat: ["GitHub-issue", "P0", "P1"],
+          esimerkki: "Palaute: ”Tilausta ei huomaa.” Päätös: suurennetaan tilauskortti · P0 pakollinen · 0,5 päivää · hyväksytty 9.10."
+        }
+      }
     },
 
     43: {
       type: "feature",
       termit: ["branch", "pull request"],
-      feature: "Asiakkaan pyytämä muutos on pelattavana. Vanha toiminnallisuus toimii edelleen.",
+      feature: "Asiakkaan pyytämä muutos on pelattavana. Vanhat ominaisuudet toimivat edelleen.",
       excerpt: "Haluan myös nähdä pelistä toimivan version vähintään kerran ennen lopullista versiota, jotta voin pyytää muutoksia.",
-      connection: "Toteutat asiakkaan valitseman muutoksen Unity-projektissa niin, että alkuperäinen pelin toimintakierto säilyy toimivana.",
+      connection: "Toteutat asiakkaan valitseman muutoksen niin, että pelin alkuperäinen toimintakierto säilyy toimivana.",
       deliverable: "Asiakaspalautteeseen jäljitettävä, katselmoitu ja testattu muutos omassa Git-haarassa.",
-      why: "Erillinen Git-haara eli branch pitää toimivan main-haaran eli pääversion turvassa ja näyttää, miten palaute muuttui tehtäväksi, koodiksi, testiksi ja hyväksytyksi muutokseksi.",
-      done: "Muutos täyttää hyväksymisehdon, vanha pelipolku toimii, katselmointiin on vastattu ja muutos on yhdistetty main-haaraan.",
-      record: "Kirjoita Vko 43 -merkintään ketju: asiakaspalaute → GitHub-issue → Git-haara → pull request (PR) tai suora yhdistäminen eli merge → commit → hyväksymistesti. Lisää täsmälliset linkit.",
-      skills: ["GitHub-issue", "feature-branch", "katselmointi"],
-      steps: [
-        ["Kirjoita muutos pelitehtäväksi", "Liitä asiakkaan palaute GitHub-issueen ja kerro, mitä kahvilapelin näkymää tai toimintoa muutetaan."],
-        ["Toteuta erillään", "Aloita toimivasta mainista, tee pieniä committeja feature-branchiin ja testaa tilaus–toimitus–pisteet jokaisen ehjän muutoksen jälkeen."],
-        ["Katselmoi ja yhdistä", "Pyydä ihmiseltä kommentti, vastaa siihen ja yhdistä eli mergeä muutos mainiin vasta, kun hyväksymisehto sekä vanha pelin toimintakierto läpäisevät testin."]
-      ],
-      example: "GitHub-issue: Suurenna tilauskortti. Valmis kun uusi käyttäjä löytää tilauksen 5 sekunnissa. Pull request (PR) sisältää muutoksen ja testin.",
-      notEnough: "Suuri suora muutos mainiin tai yksi massacommit katkaisee yhteyden palautteen, toteutuksen ja testin välillä."
+      why: "Oma haara pitää toimivan pääversion turvassa ja näyttää, miten palaute muuttui tehtäväksi, koodiksi, testiksi ja hyväksytyksi muutokseksi.",
+      done: "Muutos täyttää Valmis kun -ehdon, vanha pelipolku toimii, katselmointikommenttiin on vastattu ja muutos on yhdistetty main-haaraan.",
+      record: "Kirjoita Vko 43 -merkintään ketju: asiakaspalaute → GitHub-issue → haara → pull request → commit → hyväksymistesti. Lisää jokaisesta linkki.",
+      skills: ["GitHub-issue", "Git-haara", "katselmointi"],
+      tehtavat: {
+        "43-1": {
+          perii: ["43-1"],
+          miksi: "Kun muutos on pieni ja testi on kirjoitettu etukäteen, tiedät, milloin muutos on valmis.",
+          osat: [
+            "Avaa viikolla 41 tekemäsi muutosissue GitHubissa ja lue asiakkaan alkuperäinen palaute.",
+            "Arvioi, onko muutos enintään yhden päivän työ. Jos se on isompi, jaa se kahdeksi issueksi.",
+            "Kirjoita issueen hyväksymistesti: mitä asiakas tekee ja mitä hän näkee, kun muutos on valmis.",
+            "Kirjoita issueen myös vanhan pelipolun testi: Aloita → toimita tilaus → tulosruutu toimii kuten ennen."
+          ],
+          valmis: "Issuessa ovat arvio, hyväksymistesti ja vanhan pelipolun testi.",
+          tallenna: "Issuen linkki viikon 43 päiväkirjaan.",
+          sanat: ["GitHub-issue"],
+          esimerkki: "Issue: Suurenna tilauskortti · 0,5 päivää · Hyväksymistesti: uusi pelaaja löytää tilauksen viidessä sekunnissa."
+        },
+        "43-2": {
+          perii: ["43-2"],
+          miksi: "Kun teet muutoksen omassa haarassa, toimiva pääversio pysyy ehjänä, vaikka muutos menisi pieleen.",
+          osat: [
+            "Varmista ensin, että main-haara eli pääversio toimii: pelaa yksi kierros.",
+            "Luo uusi haara eli branch: valitse GitHub Desktopissa Current Branch → New Branch. Anna nimeksi esimerkiksi feature/suurempi-tilaus.",
+            "Tee muutos pienissä osissa. Tee commit aina, kun yksi osa toimii.",
+            "Testaa jokaisen commitin jälkeen, että tilaus, toimitus ja pisteet toimivat edelleen.",
+            "Tee push, jolloin haara näkyy GitHubissa. Uuden haaran ensimmäisessä pushissa GitHub Desktopin painike on nimeltään Publish branch."
+          ],
+          valmis: "Haara näkyy GitHubissa, ja siinä on vähintään kaksi pientä committia.",
+          tallenna: "Haaran nimi ja commit-linkit viikon 43 päiväkirjaan.",
+          sanat: ["branch", "commit", "push"],
+          eiRiita: "Yksi suuri commit suoraan main-haaraan katkaisee yhteyden palautteen, muutoksen ja testin välillä."
+        },
+        "43-3": {
+          perii: ["43-3"],
+          miksi: "Pull requestissa toinen ihminen voi katsoa muutoksen ennen kuin se siirtyy pääversioon.",
+          osat: [
+            "Avaa repository GitHubissa ja paina Compare & pull request. Jos painiketta ei näy, valitse Pull requests → New pull request ja vertailtavaksi oma haarasi. Pull request on pyyntö yhdistää oma haara main-haaraan.",
+            "Kirjoita pull requestiin, mitä muutit ja miten testasit. Lisää rivi Closes #numero, jossa numero on muutosissuen numero. Se sulkee issuen, kun pull request yhdistetään.",
+            "Pyydä ohjaajaa tai vertaista kommentoimaan. Vastaa jokaiseen kommenttiin tai korjaa koodi samaan haaraan ja tee push: korjaus näkyy pull requestissa itsestään.",
+            "Aja hyväksymistesti ja vanhan pelipolun testi vielä kerran.",
+            "Paina Merge pull request ja Confirm merge, jolloin muutos siirtyy main-haaraan. Vaihda sitten GitHub Desktopissa haaraksi main ja paina Fetch origin ja Pull origin, jotta koneesi main on ajan tasalla.",
+            "Kirjaa päiväkirjaan ketju: palaute → issue → haara → pull request → commit → testi. Lisää jokaisesta linkki.",
+            "Rastita Näyttömatriisi-näkymässä kohdan Osan liittäminen. Kirjoita sen työnäytteen linkki päiväkirjan kenttään Missä työnäyte on?"
+          ],
+          valmis: "Pull request on yhdistetty, siinä on kommentti ja vastaus, ja molemmat testit menivät odotetusti.",
+          tallenna: "Pull requestin linkki ja koko ketju viikon 43 päiväkirjaan.",
+          sanat: ["pull request"]
+        }
+      }
     },
 
     44: {
       type: "feature",
       feature: "Uusi pelaaja ymmärtää tavoitteen ja pelaa kierroksen ilman, että kukaan neuvoo vieressä.",
       excerpt: "Lopullinen peli pitää julkaista niin, että voin itse kokeilla sitä.",
-      connection: "Unity-kahvilapelin täytyy kertoa tavoitteensa ilman opettajan vieressä antamia ohjeita. Siksi testaat juuri Canvasin tilausta, tuotepainikkeita, Toimita-painiketta ja palautetta.",
-      deliverable: "Lyhyt käytettävyystesti, kaksi perusteltua käyttöliittymämuutosta ja uusintatesti.",
-      why: "Julkaistu peli ei saa vaatia tekijää neuvomaan vieressä. Havainnointi paljastaa epäselvyydet, joita oma pelaaminen ei enää huomaa.",
-      done: "Toinen käyttäjä löytää tavoitteen ja pelaa yhden tilauksen loppuun ilman suullista ohjetta. Kahdelle muutokselle näkyy ennen- ja jälkeen-tilanne.",
-      record: "Kirjoita Vko 44 -merkintään annettu pelitehtävä, alkuperäiset havainnot, tehdyt kaksi muutosta ja uusintatestin tulos. Lisää ennen/jälkeen-kuvat ja commit-linkki.",
-      skills: ["Unity UI", "Canvas-palaute", "käyttäjätesti"],
+      connection: "Pelin täytyy kertoa tavoitteensa itse. Siksi testaat tilausta, tuotepainikkeita, Toimita-painiketta ja palautetta uudella pelaajalla.",
+      deliverable: "Vertailu luonnokseen, lyhyt käytettävyystesti, kaksi perusteltua korjausta ja uusintatesti.",
+      why: "Julkaistu peli ei saa vaatia tekijää neuvomaan vieressä. Kun katsot uutta pelaajaa, näet epäselvyydet, joita et enää itse huomaa.",
+      done: "Uusi pelaaja ymmärtää tavoitteen ja pelaa yhden tilauksen loppuun ilman neuvoja. Kahdesta korjauksesta on kuvat ennen korjausta ja sen jälkeen.",
+      record: "Kirjoita Vko 44 -merkintään annettu pelitehtävä, havainnot, kaksi korjausta ja uusintatestin tulos. Lisää ennen/jälkeen-kuvat ja commit-linkki.",
+      skills: ["Unity UI", "palaute pelaajalle", "käyttäjätesti"],
       resources: [
         ["Kenney.nl – käyttöliittymäpaketit ja ikonit (CC0)", "https://kenney.nl/assets", false],
         ["Game-icons.net – tuhansia ikoneita (CC BY, mainitse tekijä)", "https://game-icons.net/", false]
       ],
-      steps: [
-        ["Anna oikea pelitehtävä", "Pyydä vertaista aloittamaan peli, toimittamaan yksi tilaus ja tarkistamaan tulos ilman suullista ohjetta."],
-        ["Kirjaa havainto ennen ratkaisua", "Merkitse esimerkiksi epäröinti, väärä painallus tai kohta, jossa tilaus jäi huomaamatta."],
-        ["Korjaa ja testaa uudelleen", "Tee kaksi tärkeintä muutosta kahvilapelin käyttöliittymään ja toista sama tehtävä toisella käyttäjällä."]
-      ],
-      example: "Havainto: käyttäjä ei löytänyt Aloita-painiketta → kontrasti ja paikka muutettiin → uusintatestissä löytyi ilman vihjettä.",
-      notEnough: "Oma mielipide “käyttöliittymä näyttää hyvältä” tai vain kosmeettinen värinvaihto ei ole käytettävyystesti."
+      tehtavat: {
+        "44-1": {
+          perii: ["44-1"],
+          miksi: "Luonnos kertoo, mitä suunnittelit. Kun vertaat, huomaat, mitä muutit matkan varrella ja miksi.",
+          osat: [
+            "Avaa viikon 35 luonnos project-docs/evidence/week-35/mockup.png.",
+            "Ota kuvakaappaus pelisi valikosta, peliruudusta ja tulosruudusta.",
+            "Kirjoita jokaisesta ruudusta, mikä on erilaista kuin luonnoksessa.",
+            "Kirjoita jokaisen eron perään, miksi muutit sen, tai merkitse se korjattavaksi."
+          ],
+          valmis: "Jokaisesta kolmesta ruudusta on kirjattu erot ja niiden syyt.",
+          tallenna: "Kuvakaappaukset kansioon project-docs/evidence/week-44/, commit ja push. Vertailu viikon 44 päiväkirjaan."
+        },
+        "44-2": {
+          perii: ["44-3"],
+          miksi: "Et itse enää huomaa, mikä pelissä on epäselvää. Uusi pelaaja huomaa sen heti.",
+          osat: [
+            "Pyydä kokeilijaksi vertainen, joka ei ole pelannut peliäsi.",
+            "Anna hänelle yksi tehtävä: ”Aloita peli, toimita yksi tilaus ja katso tuloksesi.” Älä neuvo.",
+            "Kirjaa havainnot: missä hän epäröi, mitä hän painoi väärin ja mitä hän kysyi.",
+            "Mittaa, kauanko aloituksesta kestää ensimmäiseen oikeaan toimitukseen."
+          ],
+          valmis: "Päiväkirjassa ovat testaajan rooli ja päivä, annettu tehtävä, havainnot ja aika ensimmäiseen toimitukseen.",
+          tallenna: "Havainnot viikon 44 päiväkirjaan.",
+          sanat: ["vertainen"],
+          eiRiita: "Oma mielipide ”käyttöliittymä näyttää hyvältä” ei ole käytettävyystesti eli testi, jossa uusi käyttäjä kokeilee peliä ja sinä havainnoit."
+        },
+        "44-3": {
+          perii: ["44-2"],
+          miksi: "Kun korjaat havaitun ongelman ja testaat uudelleen, näet, auttoiko korjaus oikeasti.",
+          osat: [
+            "Valitse havainnoista kaksi, jotka haittasivat pelaamista eniten.",
+            "Ota kuvakaappaus molemmista kohdista ennen muutosta.",
+            "Tee korjaukset, esimerkiksi isompi teksti, selkeämpi painike tai lyhyt ohjeteksti.",
+            "Ota kuvakaappaus molemmista kohdista muutoksen jälkeen. Tee commit ja push.",
+            "Anna sama tehtävä toiselle uudelle pelaajalle ja kirjaa, auttoivatko korjaukset.",
+            "Sulje GitHubissa tämän viikon valmiit issuet. Kirjoita jokaiseen ennen sulkemista kommentti, jossa on linkki commitiin, jossa työ tehtiin.",
+            "Rastita Näyttömatriisi-näkymässä kohdan Käyttöliittymä. Kirjoita sen työnäytteen linkki päiväkirjan kenttään Missä työnäyte on?"
+          ],
+          valmis: "Kahdesta korjauksesta on kuvat ennen korjausta ja sen jälkeen, ja uusintatestin tulos on kirjattu.",
+          tallenna: "Ennen/jälkeen-kuvat kansioon project-docs/evidence/week-44/. Uusintatestin tulos ja commit-linkki viikon 44 päiväkirjaan.",
+          esimerkki: "Havainto: pelaaja ei löytänyt Aloita-painiketta → painike suuremmaksi ja keskelle → uusintatestissä löytyi heti.",
+          eiRiita: "Pelkkä värinvaihto, joka ei ratkaise havaittua ongelmaa."
+        }
+      }
     },
 
     45: {
       type: "laatu",
       termit: ["T01"],
-      feature: "Peli ei kaadu rajatapauksissa: aika nollaan, tuplaklikit ja rikottu tuotelista on testattu.",
+      feature: "Peli ei kaadu rajatilanteissa. Ajan loppuminen, kaksoispainallukset ja rikottu tuotelista on testattu.",
       excerpt: "Pelissä pitää olla aloitusvalikko, itse peli, pistelasku ja pelin päättymisnäkymä.",
-      connection: "Testaat Unity WebGL -buildin koko toimintakierron järjestelmällisesti: aloitus, tilaus, valinta, toimitus, pisteet, aika, vaikeus, PlayerPrefs ja uusi peli.",
-      deliverable: "Vähintään 12 testitapauksen testausmatriisi ja kolme täydellistä virheenkorjausketjua.",
-      why: "Järjestelmällinen testaus näyttää, että peli toimii myös rajoilla ja virhetilanteissa. Korjausketju todistaa, että osaat löytää syyn etkä vain peittää oiretta.",
-      done: "Kaikissa 12 testitapauksessa näkyvät build, lähtötila, toiminta, odotus, havainto ja tulos. Kolmessa ketjussa näkyvät havainto, syy, korjauscommit ja onnistunut uusintatesti.",
-      record: "Kirjoita Vko 45 -merkintään testitapaukset T01–T12 ja linkki testausmatriisiin. Nimeä kolme ketjua muodossa havainto tai merkitty vikatehtävä → syy → commit → uusintatesti.",
-      skills: ["testitapaus", "virheenkorjaus", "regressiotesti = vanhan toiminnan uusintatesti"],
+      connection: "Testaat selainversion koko toimintakierron järjestelmällisesti: aloitus, tilaus, valinta, toimitus, pisteet, aika, vaikeus, tallennus ja uusi peli.",
+      deliverable: "Vähintään 12 testitapauksen testaustaulukko ja kolme täydellistä virheenkorjausketjua.",
+      why: "Järjestelmällinen testaus näyttää, että peli toimii myös rajoilla ja virhetilanteissa. Korjausketju todistaa, että osaat löytää syyn etkä vain peitä oiretta.",
+      done: "Kaikissa 12 testitapauksessa näkyvät lähtötila, toiminta, odotettu tulos, todellinen tulos ja läpäisy. Kolmessa ketjussa näkyvät havainto, syy, korjauscommit ja onnistunut uusintatesti.",
+      record: "Kirjoita Vko 45 -merkintään testitapaukset T01–T12 ja linkki testaustaulukkoon. Nimeä kolme ketjua muodossa havainto → syy → commit → uusintatesti.",
+      skills: ["testitapaus", "virheenkorjaus", "uusintatesti"],
       resources: [
         ["Avaa näyttöaineisto", "#view-naytto", false]
       ],
-      steps: [
-        ["Kirjoita 12 testitapausta ennen ajoa", "Jaa ne normaaliin kahvilavuoroon, rajoihin kuten aika 0 sekä puuttuvaan tai rikkinäiseen dataan."],
-        ["Tutki aito havainto", "Kirjaa build, lähtötila, toistamisohje, odotus, havainto, syy ja korjaus. Älä keksi bugeja jälkikäteen."],
-        ["Riko ja aja uudelleen", "Irrota products.json, käytä rikkinäistä JSONia ja tyhjennä PlayerPrefs. Testaa korjauksen jälkeen myös vähintään yksi viereinen toiminto."]
-      ],
-      example: "Testitapaus T05 / aika 0 / odotus: tulos näkyy kerran / havainto: näkyi kahdesti / ei läpäissyt / korjauscommit [linkki].",
-      notEnough: "Tekoälyn ehdottamaa testiä ei saa merkitä ajetuksi eikä bugia löytyneeksi ilman omaa testiajoa."
+      tehtavat: {
+        "45-1": {
+          perii: ["45-1"],
+          miksi: "Kun kirjoitat odotetun tuloksen ennen testiä, et voi jälkikäteen muuttaa mieltäsi siitä, mikä oli oikein.",
+          osat: [
+            "Luo tiedosto project-docs/testaus.md avun taulukkopohjasta.",
+            "Numeroi testitapaukset T01, T02, T03 ja niin edelleen. T tarkoittaa testitapausta ja numero sen järjestystä. Tunnuksella viittaat testiin myöhemmin.",
+            "Kirjoita neljä testitapausta tavalliselle pelaamiselle: aloitus, oikea toimitus, väärä toimitus ja uusi peli.",
+            "Kirjoita neljä testitapausta rajatilanteille: aika 0, kaksoispainallus, tyhjä nimimerkki ja liian pitkä nimimerkki.",
+            "Kirjoita neljä testitapausta datalle eli tiedostoille ja tallennukselle: puuttuva products.json, rikkinäinen products.json, tyhjä tallennus ja kuudes tulos top 5 -listaan.",
+            "Täytä jokaiseen testitapaukseen sarakkeet Lähtötila, Mitä teen ja Odotettu tulos ennen kuin ajat yhtään testiä. Käytä omia arvojasi: kierroksen pituus, väärän toimituksen pisteet ja nimimerkin enimmäispituus."
+          ],
+          valmis: "Tiedostossa on 12 testitapausta T01–T12, ja jokaisella on odotettu tulos.",
+          tallenna: "project-docs/testaus.md, commit ja push.",
+          sanat: ["T01"],
+          apu: {
+            title: "Testaustaulukon pohja",
+            code: "| Tunnus | Lähtötila | Mitä teen | Odotettu tulos | Mitä tapahtui | Läpäisi |\n|---|---|---|---|---|---|\n| T01 | Peli auki, valikko näkyy | Painan Aloita | Peliruutu ja tilaus näkyvät | | |\n| T02 | | | | | |",
+            test: "Lue yksi testitapaus toiselle ihmiselle. Hän osaa ajaa testin pelkän rivin perusteella."
+          }
+        },
+        "45-2": {
+          perii: ["45-1", "45-3"],
+          miksi: "Vain itse ajettu testi kertoo, toimiiko peli. Selainversio paljastaa virheet, joita editori ei näytä.",
+          osat: [
+            "Tee selainversio (Build And Run) ja kirjaa version tunniste testaustaulukon alkuun.",
+            "Aloita puhtaasta tilanteesta: avaa peli yksityisessä selainikkunassa, jolloin vanhat tulokset eivät ole mukana.",
+            "Aja testitapaukset T01–T12 järjestyksessä. Kirjaa jokaisesta, mitä tapahtui ja läpäisikö testi.",
+            "Tyhjennä datatestejä varten Products Json -kenttä tai poista products.json-tiedostosta pilkku. Tee uusi selainversio ja palauta kenttä tai tiedosto testin jälkeen.",
+            "Älä merkitse testiä läpäistyksi, jos et ajanut sitä itse."
+          ],
+          valmis: "Jokaisella testitapauksella T01–T12 on todellinen tulos ja merkintä, läpäisikö se.",
+          tallenna: "Päivitetty project-docs/testaus.md, commit ja push.",
+          sanat: ["T01"],
+          eiRiita: "Tekoälyn ehdottamaa testitapausta ei saa merkitä ajetuksi eikä virhettä löydetyksi ilman omaa testiajoa."
+        },
+        "45-3": {
+          perii: ["45-2"],
+          miksi: "Kun kirjaat koko ketjun, näytät, että osaat löytää virheen syyn etkä vain peitä oiretta.",
+          osat: [
+            "Valitse kolme testitapausta, jotka eivät läpäisseet. Jos aitoja virheitä ei ole kolmea, pyydä ohjaajalta vikatehtävä eli ohjaajan valmistelema virhe, jonka etsit ja korjaat.",
+            "Kirjaa jokaisesta, miten virhe toistetaan, mikä oli odotettu tulos ja mitä tapahtui.",
+            "Etsi syy ennen kuin korjaat. Kirjoita syy yhdellä virkkeellä.",
+            "Korjaa ja tee commit, jonka viestissä on testitapauksen tunnus. Esimerkiksi: ”Korjaa testitapaus T05, tulosruutu aukeaa vain kerran.”",
+            "Aja sama testitapaus uudelleen. Aja myös regressiotesti eli toinen testitapaus, joka käyttää samaa koodia: se näyttää, ettei korjaus rikkonut muuta.",
+            "Kirjaa jokainen ketju päiväkirjaan: havainto → toistamisohje → syy → korjauscommit → uusintatesti → regressiotesti.",
+            "Rastita Näyttömatriisi-näkymässä kohdat Toimintojen testaus, Virheenkorjaus ja Suunnittelu, toteutus ja testaus kirjastolla. Kirjoita niiden työnäytteiden linkit päiväkirjan kenttään Missä työnäyte on?"
+          ],
+          valmis: "Päiväkirjassa on kolme täydellistä ketjua, ja jokaisen uusintatesti meni odotetusti.",
+          tallenna: "Kolme ketjua commit-linkkeineen viikon 45 päiväkirjaan.",
+          sanat: ["T01", "regressiotesti"],
+          esimerkki: "Testitapaus T05 · aika 0 · odotus: tulos näkyy kerran · havainto: näkyi kahdesti · syy: EndGame kutsuttiin kahdesti · korjauscommit [linkki] · uusintatesti läpäisi."
+        }
+      }
     },
 
     46: {
       type: "laatu",
-      feature: "Peli toimii kuten ennen. Koodi on selkeämpi, ja osaat selittää ratkaisut.",
+      termit: ["refaktorointi"],
+      feature: "Peli toimii kuten ennen. Koodi on selkeämpi, ja osaat selittää ratkaisusi.",
       excerpt: "Tuotteiden tiedot eivät saa olla kovakoodattuna pelilogiikkaan, vaan niiden pitää tulla erillisestä tietolähteestä.",
-      connection: "Selkeytät nyt Unity-projektin C#-koodia: tilauksen luonti, pisteiden lasku ja Canvasin päivitys eivät saa olla yhtenä pitkänä MonoBehaviour-metodina.",
-      deliverable: "Yksi rajattu refaktorointi eli koodin rakenteen selkeytys pelin toimintaa muuttamatta, sitä ympäröivät testit ja ihmisen tekemä koodikatselmointi.",
-      why: "Selkeästi nimetyt ja rajatut vastuut helpottavat virheiden löytämistä sekä myöhempiä muutoksia. Testi varmistaa, ettei rakenteen parantaminen muuta pelin toimintaa.",
-      done: "Sama nimetty testi läpäisee ennen ja jälkeen refaktoroinnin. Katselmointikommenttiin on vastattu ja pystyt selittämään ratkaisun ilman tekoälyn vastausta.",
-      record: "Kirjoita Vko 46 -merkintään havaittu laatuhaitta, ennen/jälkeen-muutos, testitunniste, katselmoijan rooli, saatu kommentti ja oma vastaus. Lisää diffi- tai commit-linkki.",
+      connection: "Selkeytät nyt C#-koodia: tilauksen luonti, pisteiden lasku ja tekstien päivitys eivät saa olla yhdessä pitkässä metodissa.",
+      deliverable: "Yksi rajattu refaktorointi, sama testi ennen ja jälkeen, ihmisen tekemä koodikatselmointi ja kahden ratkaisun selitys.",
+      why: "Selkeät nimet ja rajatut tehtävät helpottavat virheiden löytämistä ja myöhempiä muutoksia. Testi varmistaa, ettei rakenteen parantaminen muuta pelin toimintaa.",
+      done: "Sama testitapaus läpäisee ennen ja jälkeen refaktoroinnin. Katselmointikommenttiin on vastattu, ja osaat selittää ratkaisut ilman tekoälyä.",
+      record: "Kirjoita Vko 46 -merkintään valittu kohta ja sen ongelma, muutos ennen ja jälkeen, testitapauksen tunnus, katselmoijan rooli, saatu kommentti ja oma vastaus. Lisää commit-linkki.",
       skills: ["C#-ylläpidettävyys", "refaktorointi", "koodikatselmointi"],
-      steps: [
-        ["Valitse yksi oikea laatuhaitta", "Etsi C#-skripteistä toisto, epäselvä nimi, pitkä Update-metodi tai MonoBehaviour, joka hoitaa sekä tilauksen, pisteet että käyttöliittymän."],
-        ["Refaktoroi toimintaa muuttamatta", "Tee yksi rajattu muutos ja aja sama pelin toimintakierron testi ennen ja jälkeen."],
-        ["Selitä ratkaisu", "Pyydä ihmisen katselmointi ja selitä yksi oma sekä yksi tekoälyavusteinen kohta omin sanoin."]
-      ],
-      example: "Ennen: a() laskee pisteet. Jälkeen: CalculateOrderScore() kertoo nimestä, mitä kahvilapelin sääntöä metodi toteuttaa.",
-      notEnough: "Pelkkä automaattinen muotoilu tai koko tiedoston tekoälyuudelleenkirjoitus ei osoita perusteltua refaktorointia."
+      tehtavat: {
+        "46-1": {
+          perii: ["46-1"],
+          miksi: "Kun tiedät, mikä koodissa on vaikeaa, voit korjata juuri sen etkä muuta koodia turhaan.",
+          osat: [
+            "Avaa C#-skriptit ja etsi yksi näistä: sama koodi kahdessa paikassa, nimi, joka ei kerro tehtäväänsä (esimerkiksi a tai temp) tai yli 30 rivin metodi.",
+            "Etsi myös skripti, joka tekee monta eri asiaa, esimerkiksi laskee pisteet ja päivittää tekstit.",
+            "Valitse näistä yksi kohta. Kirjoita päiväkirjaan, mikä kohdassa on vaikeaa ja miksi.",
+            "Valitse testaustaulukosta testitapaus, joka kulkee tämän koodin kautta. Kirjaa testitapauksen tunnus, esimerkiksi T03."
+          ],
+          valmis: "Päiväkirjassa on yksi valittu kohta, sen ongelma ja siihen liittyvä testitapaus.",
+          tallenna: "Kuvaus ja testitapauksen tunnus viikon 46 päiväkirjaan.",
+          sanat: ["T01"]
+        },
+        "46-2": {
+          perii: ["46-1"],
+          miksi: "Refaktorointi eli koodin rakenteen selkeyttäminen on onnistunut vain, jos peli toimii täsmälleen kuten ennen.",
+          osat: [
+            "Aja valitsemasi testitapaus ennen muutosta ja kirjaa tulos.",
+            "Tee yksi rajattu muutos, esimerkiksi anna metodille kuvaava nimi tai siirrä toistuva koodi omaan metodiinsa.",
+            "Aja sama testitapaus muutoksen jälkeen. Tuloksen pitää olla sama kuin ennen.",
+            "Tee commit, jonka viesti kertoo muutoksen, esimerkiksi ”Selkeytä pisteiden laskua: CalculateOrderScore”."
+          ],
+          valmis: "Sama testitapaus läpäisee ennen ja jälkeen muutoksen, ja muutos on yhdessä commitissa.",
+          tallenna: "Commit-linkki sekä ennen- ja jälkeen-tulokset viikon 46 päiväkirjaan.",
+          sanat: ["refaktorointi", "T01"],
+          esimerkki: "Ennen: a() laskee pisteet. Jälkeen: CalculateOrderScore() kertoo nimellään, mitä pelin sääntöä se toteuttaa.",
+          eiRiita: "Pelkkä automaattinen muotoilu tai koko tiedoston kirjoittaminen uudelleen tekoälyllä."
+        },
+        "46-3": {
+          perii: ["46-2"],
+          miksi: "Toinen ihminen huomaa koodista asioita, joita et itse enää näe.",
+          osat: [
+            "Pyydä ohjaajaa tai vertaista lukemaan muuttamasi koodi. Koodikatselmointi tarkoittaa, että toinen ihminen lukee koodin ja kommentoi sitä.",
+            "Näytä hänelle koodi ennen ja jälkeen muutoksen, esimerkiksi GitHubin commit-näkymästä.",
+            "Kirjaa saamasi kommentti sellaisenaan.",
+            "Vastaa kommenttiin: korjaa koodia tai perustele, miksi pidät ratkaisun."
+          ],
+          valmis: "Päiväkirjassa ovat katselmoijan rooli, kommentti ja oma vastauksesi.",
+          tallenna: "Kommentti ja vastaus viikon 46 päiväkirjaan.",
+          sanat: ["katselmointi"]
+        },
+        "46-4": {
+          perii: ["46-3"],
+          miksi: "Näytössä sinun pitää osata selittää koodisi itse, myös ne kohdat, joissa käytit tekoälyä.",
+          osat: [
+            "Valitse kaksi kohtaa koodista: yksi, jonka kirjoitit itse, ja yksi, jossa käytit tekoälyä apuna. Jos et käyttänyt tekoälyä, valitse avun työpohjasta otettu kohta.",
+            "Kirjoita kummastakin 3–5 virkettä ilman tekoälyä: mitä koodi tekee ja miksi se on tehty näin.",
+            "Selitä toinen kohdista suullisesti ohjaajalle tai vertaiselle.",
+            "Tarkista, että tekoälyn käyttö on kirjattu AI-lokiin eli sivuston AI-loki-näkymään, johon kirjaat tekoälyn avun.",
+            "Rastita Näyttömatriisi-näkymässä kohdat Rakenteinen ohjelmointi, Ylläpidettävä koodi ja Ratkaisujen arviointi. Kirjoita niiden työnäytteiden linkit päiväkirjan kenttään Missä työnäyte on?"
+          ],
+          valmis: "Molemmat selitykset ja suullisen selityksen kuulijan rooli ovat päiväkirjassa, ja tekoälyn käyttö on AI-lokissa.",
+          tallenna: "Selitykset viikon 46 päiväkirjaan ja merkintä AI-lokiin."
+        }
+      }
     },
 
     47: {
@@ -587,88 +1355,235 @@ window.NAYTTOPROJEKTI = {
       termit: ["RC", "tagi"],
       feature: "Koko peli on pelattavana täsmälleen siinä muodossa, jossa se julkaistaan. Uusia ominaisuuksia ei enää lisätä.",
       excerpt: "Lopullinen peli pitää julkaista niin, että voin itse kokeilla sitä.",
-      connection: "RC1 on lyhenne sanoista release candidate 1 eli ensimmäinen julkaisuehdokas: koko pelin toimintakierto testataan selaimessa täsmälleen sellaisena kuin se aiotaan julkaista.",
-      deliverable: "Jäädytetty RC1-build, kahden henkilön testipalaute ja päätetty julkaisun korjauslista.",
+      connection: "Ensimmäinen julkaisuehdokas (RC1, release candidate 1) on versio, joka julkaistaan, jos testeissä ei löydy vakavia virheitä. Se testataan selaimessa täsmälleen sellaisena kuin se aiotaan julkaista.",
+      deliverable: "Tagilla merkitty ensimmäinen julkaisuehdokas (RC1), kahden ihmisen testipalaute ja päätetty korjauslista.",
       why: "Ominaisuusjäädytys estää uusia muutoksia rikkomasta lähes valmista peliä. Palautteen luokittelu kohdistaa ajan vain julkaisuun vaikuttaviin virheisiin.",
-      done: "RC1 on sidottu yhteen committiin. Asiakas ja toinen käyttäjä ovat testanneet sen, ja jokaisella havainnolla on vakavuus, toistettavuus sekä päätös.",
-      record: "Kirjoita Vko 47 -merkintään RC1-tagi eli versionhallintaan merkitty nimetty versio ja sen commit, testaajien roolit, heidän havaintonsa sekä päätös: korjataan nyt, tunnettu puute tai myöhemmin.",
-      skills: ["release candidate", "palautteen luokittelu", "julkaisupäätös"],
-      steps: [
-        ["Nimeä RC1", "Tee yhdestä main-haaran commitista Unity WebGL -build, jossa valikko, kahvilavuoro, tulos ja PlayerPrefs-tallennus toimivat."],
-        ["Anna kahden ihmisen testata", "Asiakas ja toinen käyttäjä pelaavat alusta loppuun sekä sulkevat ja avaavat pelin tallennuksen tarkistamiseksi."],
-        ["Tee julkaisupäätös", "Kirjaa jokaiselle havainnolle vakavuus, toistettavuus ja päätös: korjataan, tunnettu puute tai myöhemmin."]
-      ],
-      example: "Pisteet eivät nollaudu / vakava / toistuu aina / korjataan ennen julkaisua / testitapaus T14.",
-      notEnough: "Opiskelija tai tekoäly ei voi esiintyä kahtena testaajana, eikä ominaisuusjäädytyksen jälkeen lisätä uusia peliominaisuuksia."
+      done: "Ensimmäinen julkaisuehdokas (RC1) on merkitty yhteen committiin. Asiakas ja toinen käyttäjä ovat testanneet sen, ja jokaisella havainnolla on vakavuus, toistuvuus ja päätös.",
+      record: "Kirjoita Vko 47 -merkintään RC1-tagi ja sen commit, testaajien roolit, heidän havaintonsa sekä päätös jokaisesta: korjataan nyt, tunnettu puute tai myöhemmin.",
+      skills: ["julkaisuehdokas", "palautteen luokittelu", "julkaisupäätös"],
+      tehtavat: {
+        "47-1": {
+          perii: ["47-1"],
+          miksi: "Kun uusia ominaisuuksia ei enää lisätä, voit testata version, joka oikeasti julkaistaan.",
+          osat: [
+            "Kirjaa päiväkirjaan päivä, josta alkaen peliin ei lisätä uusia ominaisuuksia vaan korjataan vain virheitä. Tätä kutsutaan ominaisuusjäädytykseksi.",
+            "Pelaa main-haaran versio läpi ja varmista, että valikko, peliruutu, tulosruutu ja tallennus toimivat.",
+            "Tarkista, että viimeisin commit on pushattu GitHubiin: merkitset sen seuraavassa osassa tagilla RC1. RC1 tarkoittaa ensimmäistä julkaisuehdokasta (release candidate 1): versiota, joka julkaistaan, jos testeissä ei löydy vakavia virheitä.",
+            "Avaa GitHubissa Releases → Draft a new release. Kirjoita Choose a tag -kenttään RC1 ja valitse Create new tag. Rastita Set as a pre-release ja paina Publish release.",
+            "Tee julkaisuehdokkaasta (RC1) selainversio Build And Run -toiminnolla. Testaajat pelaavat sitä sinun koneellasi."
+          ],
+          valmis: "Tagi RC1 näkyy GitHubissa, ja se osoittaa main-haaran viimeisimpään committiin.",
+          tallenna: "RC1-tagin linkki ja commitin tunniste viikon 47 päiväkirjaan.",
+          sanat: ["RC", "tagi"]
+        },
+        "47-2": {
+          perii: ["47-2"],
+          miksi: "Kaksi eri ihmistä löytää eri virheitä. Asiakas kertoo lisäksi, täyttääkö peli hänen toiveensa.",
+          osat: [
+            "Pyydä asiakasta ja yhtä muuta ihmistä testaamaan julkaisuehdokas (RC1).",
+            "Anna molemmille sama tehtävä: ”Pelaa peli alusta loppuun ja tallenna tulos.”",
+            "Pyydä heitä sulkemaan peli ja avaamaan se uudelleen, jotta näet, toimiiko tallennus.",
+            "Kirjaa jokainen havainto erikseen: kuka testasi (rooli), mitä tapahtui ja missä kohdassa."
+          ],
+          valmis: "Kahden testaajan havainnot on kirjattu erikseen, ja testaajien roolit näkyvät.",
+          tallenna: "Havainnot viikon 47 päiväkirjaan.",
+          sanat: ["RC"],
+          eiRiita: "Et voi itse esiintyä toisena testaajana, eikä tekoäly voi olla testaaja."
+        },
+        "47-3": {
+          perii: ["47-3"],
+          miksi: "Aikaa on vähän. Kun luokittelet havainnot, käytät ajan vain virheisiin, jotka estävät julkaisun.",
+          osat: [
+            "Kirjoita jokainen havainto omalle rivilleen.",
+            "Merkitse vakavuus: vakava (peli ei toimi tai kaatuu), haitallinen (peli toimii mutta hankalasti) tai pieni (ulkonäköasia).",
+            "Merkitse toistuvuus: toistuu aina, joskus tai kerran.",
+            "Päätä jokaisesta: korjataan nyt, tunnettu puute (kerrotaan käyttöohjeessa) tai myöhemmin (parannus, joka ei haittaa pelaajaa).",
+            "Tee jokaisesta korjattavasta havainnosta GitHub-issue. Lisää sille uusi testitapaus project-docs/testaus.md-tiedostoon, esimerkiksi testitapaus T13.",
+            "Rastita Näyttömatriisi-näkymässä kohdan Version katselmointi. Kirjoita sen työnäytteen linkki päiväkirjan kenttään Missä työnäyte on?"
+          ],
+          valmis: "Jokaisella havainnolla on vakavuus, toistuvuus ja päätös, ja korjattavista on issuet.",
+          tallenna: "Luokiteltu lista ja issueiden linkit viikon 47 päiväkirjaan.",
+          esimerkki: "Pisteet eivät nollaudu · vakava · toistuu aina · korjataan nyt · testitapaus T14."
+        }
+      }
     },
 
     48: {
       type: "julkaisu",
       feature: "Peli on julkaistu. Linkki toimii muillakin koneilla, ja asiakas voi kokeilla peliä itse.",
       excerpt: "Lopullinen peli pitää julkaista niin, että voin itse kokeilla sitä.",
-      connection: "Unity-kahvilapelin toimintakierto siirtyy nyt Editorista GitHub Pagesiin. Testaat julkaistua WebGL-versiota, et Play Modea.",
-      deliverable: "GitHub Pagesissa toimiva Unity WebGL v1.0, käyttöohje ja tunnettujen puutteiden lista.",
-      why: "Asiakkaan pitää pystyä avaamaan peli itse. Vain julkisen linkin testaaminen osoittaa, että buildin tiedostot, palvelimen asetukset ja tallennus toimivat oikeassa ympäristössä.",
-      done: "v1.0-tagin commit vastaa julkaistua versiota. Toinen henkilö avaa linkin toisella selaimella tai laitteella ja pelaa yhden kierroksen ohjeen avulla.",
+      connection: "Peli siirtyy nyt Unity-editorista GitHub Pagesiin eli GitHubin ilmaiseen sivustojulkaisuun. Testaat julkaistua selainversiota, et editoria.",
+      deliverable: "GitHub Pagesissa toimiva versio v1.0, käyttöohje ja tunnettujen puutteiden lista.",
+      why: "Asiakkaan pitää pystyä avaamaan peli itse. Vain julkisen linkin testaus osoittaa, että pelin tiedostot, asetukset ja tallennus toimivat oikeassa ympäristössä.",
+      done: "v1.0-tagin commit vastaa julkaistua versiota. Toinen ihminen avaa linkin toisella selaimella tai laitteella ja pelaa kierroksen käyttöohjeen avulla.",
       record: "Kirjoita Vko 48 -merkintään ketju v1.0-tagi → commit → julkaisulinkki. Lisää testattu selain tai laite, testaajan rooli, testitulos ja tunnetut puutteet.",
       skills: ["Unity WebGL", "GitHub Pages", "käyttöohje"],
-      steps: [
-        ["Rakenna puhtaasta mainista", "Vaihda Unityn Build Profiles -näkymässä WebGL-alustaan (vanhemmassa versiossa Build Settings). Tee v1.0-tagi ja build repositoryn docs-kansioon."],
-        ["Testaa oikea julkaisu", "Avaa linkki toisella laitteella tai selaimella ja pelaa aloituksesta tulokseen sekä tarkista tallennus."],
-        ["Kirjoita lyhyt ohje", "Kerro: avaa linkki → Aloita → valitse tilauksen tuotteet → Toimita. Lisää tunnetut puutteet."]
-      ],
-      help: {
-        title: "Julkaise Unity WebGL GitHub Pagesiin",
-        tree: "repository/\n├─ Assets/\n├─ Packages/\n├─ ProjectSettings/\n└─ docs/ (GitHub Pagesin julkaisulähde)\n   ├─ .nojekyll\n   ├─ index.html (Unityn luoma)\n   ├─ Build/\n   └─ TemplateData/",
-        actions: [
-          "Avaa Build Profiles (tai Build Settings), valitse WebGL ja lisää CafeGame scene listaan.",
-          "Avaa Player Settings → Web → Publishing Settings. GitHub Pagesissa et voi itse asettaa palvelimen pakkausotsakkeita, joten ota Decompression Fallback käyttöön ensimmäisessä julkaisussa.",
-          "Tee build repositoryn docs-kansioon ja lisää sinne tyhjä .nojekyll-tiedosto. Varmista, että docs/index.html, Build ja TemplateData ovat mukana Gitissä.",
-          "Avaa GitHubissa Settings → Pages → Deploy from a branch → main → /docs ja tallenna.",
-          "Odota julkaisua, avaa annettu https-linkki ja tarkista selaimen konsolista, ettei latauksessa tule 404-virhettä (tiedostoa ei löydy) tai purkuvirhettä."
-        ],
-        code: "Julkaisun tarkistuslista\n[ ] WebGL valittu\n[ ] CafeGame mukana scene-listassa\n[ ] Decompression Fallback käytössä\n[ ] docs/.nojekyll mukana\n[ ] docs/index.html + Build + TemplateData Gitissä\n[ ] Pages: main /docs\n[ ] julkaistu linkki testattu toisella selaimella",
-        test: "Avaa julkaistu linkki yksityisessä selainikkunassa. Pelaa yksi kierros, päivitä sivu ja tarkista top 5. Jos build ei lataudu, tarkista ensin tiedostopolut ja selaimen Console.",
-        images: [
-          ["assets/unity/vko48-decompression-fallback.png", "Unityn Player Settings, Settings for Web: Publishing Settings avattuna ja Decompression Fallback -valinta käytössä.", "Player Settings → Web → Publishing Settings: Decompression Fallback päälle ensimmäisessä julkaisussa."],
-          ["assets/unity/vko48-github-pages.png", "GitHubin Pages-asetussivu: Source-valintana Deploy from a branch ja Branch-valinnassa main-haara.", "GitHub: Settings → Pages → Deploy from a branch → valitse main ja pelisivustollesi /docs-kansio."]
-        ],
-        links: [
-          ["Unity: Web-julkaisun asetukset", "https://docs.unity3d.com/6000.0/Documentation/Manual/webgl-deploying.html"],
-          ["GitHub: Pages-julkaisulähde", "https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site"]
-        ]
-      },
-      example: "README: Avaa [linkki] → Aloita → valitse tuotteet → Toimita. Testattu Chrome 128 / v1.0 / tunnettu puute: [asia].",
-      notEnough: "Editorikuva tai “toimii omalla koneella” ei osoita, että asiakas pystyy avaamaan julkaistun pelin."
+      tehtavat: {
+        "48-1": {
+          perii: ["48-1"],
+          miksi: "Ominaisuusjäädytyksen jälkeen korjataan vain se, mikä estää julkaisun. Muu jää tunnetuksi puutteeksi.",
+          osat: [
+            "Avaa viikon 47 luokiteltu lista. Ota työn alle vain havainnot, joiden päätös on ”korjataan nyt”.",
+            "Korjaa yksi virhe kerrallaan ja tee jokaisesta oma commit.",
+            "Aja jokaisen korjauksen jälkeen siihen liittyvä testitapaus ja regressiotesti eli toinen testitapaus, joka käyttää samaa koodia.",
+            "Sulje korjatut GitHub-issuet ja lisää niihin linkki korjauscommitiin."
+          ],
+          valmis: "Kaikki korjataan nyt -havainnot on korjattu ja testattu, ja niiden issuet on suljettu.",
+          tallenna: "Korjauscommitien linkit viikon 48 päiväkirjaan.",
+          sanat: ["T01", "regressiotesti"]
+        },
+        "48-2": {
+          perii: ["48-2"],
+          miksi: "GitHub Pages julkaisee pelin verkkoon, jolloin asiakas voi avata sen omalla koneellaan.",
+          osat: [
+            "Avaa File → Build Profiles, valitse Web ja tarkista, että CafeGame on scene-listassa.",
+            "Avaa Player Settings → Web → Publishing Settings ja ota käyttöön Decompression Fallback. Ilman sitä GitHub Pages ei osaa avata pakattua peliä.",
+            "Paina Build ja valitse kansioksi repositoryn docs-kansio. Luo VS Codella docs-kansioon tyhjä tiedosto .nojekyll: se kertoo GitHub Pagesille, että kansio julkaistaan sellaisenaan.",
+            "Tee commit ja push. Tarkista GitHubista, että docs-kansiossa näkyvät index.html, Build ja TemplateData.",
+            "Avaa GitHubissa Settings → Pages. Valitse Deploy from a branch, haaraksi main ja kansioksi /docs. Paina Save.",
+            "Odota muutama minuutti, avaa Pages-sivun antama linkki ja pelaa yksi kierros.",
+            "Kun peli aukeaa linkistä, merkitse sama commit tagilla v1.0: Releases → Draft a new release → tagi v1.0 → Publish release."
+          ],
+          valmis: "Peli aukeaa julkaisulinkistä, ja tagi v1.0 osoittaa samaan committiin kuin julkaisu.",
+          tallenna: "Julkaisulinkki ja v1.0-tagin linkki viikon 48 päiväkirjaan.",
+          sanat: ["tagi", "build", "WebGL"],
+          apu: {
+            title: "Julkaisun rakenne ja tarkistuslista",
+            tree: "repository/\n├─ Assets/\n├─ Packages/\n├─ ProjectSettings/\n└─ docs/ (GitHub Pagesin julkaisukansio)\n   ├─ .nojekyll\n   ├─ index.html (Unityn tekemä)\n   ├─ Build/\n   └─ TemplateData/",
+            code: "JULKAISUN TARKISTUSLISTA\n[ ] Web valittuna\n[ ] CafeGame mukana scene-listassa\n[ ] Decompression Fallback käytössä\n[ ] docs/.nojekyll mukana\n[ ] docs/index.html + Build + TemplateData GitHubissa\n[ ] Pages: main /docs\n[ ] linkki testattu toisella selaimella",
+            vinkit: [
+              "Vanhemmissa Unity-versioissa valinnat ovat Build Settings ja WebGL.",
+              "Jos peli ei lataudu, avaa selaimen Console (F12) ja etsi virhe 404. Se tarkoittaa, että tiedostoa ei löydy: tarkista kansiopolut."
+            ],
+            test: "Avaa julkaisulinkki yksityisessä selainikkunassa. Pelaa yksi kierros, päivitä sivu ja tarkista top 5 -lista.",
+            images: [
+              ["assets/unity/vko48-decompression-fallback.png", "Unityn Player Settings, Settings for Web: Publishing Settings avattuna ja Decompression Fallback -valinta käytössä.", "Player Settings → Web → Publishing Settings: Decompression Fallback päälle."],
+              ["assets/unity/vko48-github-pages.png", "GitHubin Pages-asetussivu: Source-valintana Deploy from a branch ja Branch-valinnassa main-haara.", "GitHub: Settings → Pages → Deploy from a branch → main ja /docs."]
+            ],
+            links: [
+              ["Unity: Web-julkaisun asetukset", "https://docs.unity3d.com/6000.0/Documentation/Manual/webgl-deploying.html"],
+              ["GitHub: Pages-julkaisulähde", "https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site"]
+            ]
+          }
+        },
+        "48-3": {
+          perii: ["48-3"],
+          miksi: "Käyttöohje kertoo asiakkaalle, miten peliä pelataan. Tunnetut puutteet kertovat rehellisesti, mikä jäi kesken.",
+          osat: [
+            "Lisää README.md-tiedostoon otsikko ”Näin pelaat”. Lisää sen alle julkaisulinkki.",
+            "Kirjoita ohje neljänä vaiheena: avaa linkki → Aloita → valitse tilauksen tuotteet → Toimita.",
+            "Lisää otsikko ”Tunnetut puutteet” ja listaa sen alle viikon 47 tunnetut puutteet.",
+            "Lisää otsikko ”Lähteet ja lisenssit”. Listaa sen alle käytetyt grafiikkapaketit ja niiden lisenssit.",
+            "Pyydä toista ihmistä aloittamaan peli pelkän ohjeen avulla, ilman suullista apua. Kirjaa hänen roolinsa ja kohdat, joissa hän epäröi, ja korjaa ne ohjeeseen."
+          ],
+          valmis: "README:ssä ovat julkaisulinkki, käyttöohje, tunnetut puutteet ja lähteet.",
+          tallenna: "README.md, commit ja push.",
+          esimerkki: "README: Avaa [linkki] → Aloita → valitse tuotteet → Toimita. Testattu Chrome 128 / v1.0 / tunnettu puute: [asia]."
+        },
+        "48-4": {
+          perii: ["48-3"],
+          miksi: "Peli voi toimia omalla koneella mutta ei muualla. Vain toisella laitteella tehty testi todistaa, että julkaisu toimii.",
+          osat: [
+            "Pyydä toista ihmistä avaamaan julkaisulinkki eri laitteella tai eri selaimella.",
+            "Pyydä häntä pelaamaan kierros README:n käyttöohjeen avulla aloituksesta tulosruutuun ja tallentamaan tulos.",
+            "Pyydä häntä päivittämään sivu ja tarkistamaan, että tulos näkyy yhä.",
+            "Kirjaa testattu laite ja selain, testaajan rooli ja tulos.",
+            "Rastita Näyttömatriisi-näkymässä kohdat Versionhallinta, Tuotantojulkaisu, Julkaisu asiakkaan ympäristöön, Kirjaston mahdollisuudet ja rajoitteet ja Ulkoiset komponentit. Kirjoita niiden työnäytteiden linkit päiväkirjan kenttään Missä työnäyte on?"
+          ],
+          valmis: "Toinen ihminen on pelannut julkaistun pelin toisella laitteella tai selaimella, ja tulos on kirjattu.",
+          tallenna: "Laite, selain, testaajan rooli ja tulos viikon 48 päiväkirjaan.",
+          eiRiita: "Kuva editorista tai ”toimii omalla koneella” ei osoita, että asiakas pystyy avaamaan pelin."
+        }
+      }
     },
 
     49: {
       type: "naytto",
       feature: "Peli, repository ja projektipäiväkirja todistavat osaamisesi ilman suullista selitystä.",
       excerpt: "Lopullinen peli pitää julkaista niin, että voin itse kokeilla sitä.",
-      connection: "Et enää muuta Unity-projektin gameplayta. Yhdistät jokaisen kahvilapelin vaatimuksen täsmälliseen C#-tiedostoon, testiin, buildiin ja Gitin työnäytteeseen.",
-      deliverable: "Valmis projektipäiväkirja, näyttömatriisi, itsearviointi, jäädytetty v1.0 ja harjoiteltu demo.",
-      why: "Arvioija voi arvioida vain näkyvän ja löydettävän osaamisen. Täsmälliset linkit säästävät aikaa ja osoittavat, miten vaatimus muuttui suunnitelmaksi, toteutukseksi ja testiksi.",
-      done: "Jokaisella arviointikohdalla on avautuva täsmälinkki tai tunniste. Projektipäiväkirja ja AI-loki ovat repositoryssä, ja demo käyttää samaa jäädytettyä v1.0-versiota.",
-      record: "Kirjoita Vko 49 -merkintään itsearviointi: kolme vahvuutta työnäytteineen ja yksi seuraava kehitysaskel. Lisää linkit näyttömatriisiin, AI-lokiin, v1.0-versioon ja demon runkoon.",
+      connection: "Et enää muuta peliä. Yhdistät jokaisen vaatimuksen tarkkaan C#-tiedostoon, testitapaukseen, julkaisuun tai Gitin työnäytteeseen.",
+      deliverable: "Valmis projektipäiväkirja, itsearviointi, täytetty näyttömatriisi, harjoiteltu demo ja luovutettu aineisto.",
+      why: "Arvioija voi arvioida vain näkyvän ja löydettävän osaamisen. Tarkat linkit säästävät aikaa ja näyttävät, miten vaatimus muuttui suunnitelmaksi, toteutukseksi ja testiksi.",
+      done: "Jokaisessa näyttömatriisin kohdassa on tarkka linkki, joka aukeaa. Projektipäiväkirja ja AI-loki ovat repositoryssa, ja demo käyttää samaa v1.0-versiota.",
+      record: "Kirjoita Vko 49 -merkintään itsearviointi: kolme vahvuutta työnäytteineen ja yksi seuraava kehitysaskel. Lisää linkit näyttömatriisiin, AI-lokiin ja v1.0-versioon.",
       skills: ["näyttömatriisi", "itsearviointi", "demo"],
       resources: [
         ["Avaa näyttömatriisi", "#view-naytto", false],
         ["Avaa ja lataa AI-loki", "#view-ailoki", false]
       ],
-      steps: [
-        ["Viimeistele päiväkirja", "Jäädytä v1.0, tarkista jokaisen viikon merkintä, lataa koko projektipäiväkirja project-docs-kansioon ja kirjoita itsearviointi omaan aineistoon nojaten."],
-        ["Tee syvälinkit", "Liitä jokainen näyttömatriisin vaatimus suoraan issueen, C#-tiedostoon, commitiin, testiriviin tai palautepäätökseen."],
-        ["Harjoittele ja luovuta", "Näytä 8–10 minuutissa pelin toimintakierto, JSON-tuotelista, tallennus, bugikorjaus, Git ja AI-loki. Anna toisen henkilön avata palautus ennen 4.12."]
-      ],
-      example: "Näyttömatriisin kohta Toimintojen testaus → project-docs/projektipaivakirja.md#vko-45 → testitapaukset T05–T16 → build v1.0 → tarkka linkki.",
-      notEnough: "Pelkkä rastitettu matriisi, repositoryn etusivulinkki tai tekoälyn kirjoittama kokemuksellinen itsearviointi ei riitä.",
+      tehtavat: {
+        "49-1": {
+          perii: ["49-1"],
+          miksi: "Projektipäiväkirja on näyttösi hakemisto. Jos viikko puuttuu, sen työnäytteitä ei löydy.",
+          osat: [
+            "Avaa Projektipäiväkirja-näkymä ja tarkista, että jokainen viikko on merkitty kirjatuksi.",
+            "Täydennä puuttuvat kentät viikkonäkymissä.",
+            "Tarkista jokaisen viikon Missä työnäyte on? -kentästä, että linkki aukeaa.",
+            "Paina Projektipäiväkirja-näkymän painiketta Lataa koko päiväkirja (.md). Korvaa tiedosto project-docs/projektipaivakirja.md ladatulla tiedostolla. Tee commit ja push."
+          ],
+          valmis: "Kaikki 15 viikkoa on kirjattu, ja ladattu päiväkirja on repositoryssa.",
+          tallenna: "project-docs/projektipaivakirja.md, commit ja push."
+        },
+        "49-2": {
+          perii: ["49-1"],
+          miksi: "Itsearviointi näyttää, että tunnistat oman osaamisesi ja tiedät, mitä opettelet seuraavaksi.",
+          osat: [
+            "Valitse projektista kolme asiaa, jotka osaat nyt hyvin.",
+            "Liitä jokaiseen vahvuuteen työnäyte: linkki commitiin, testitapaukseen tai päiväkirjan viikkoon.",
+            "Kirjoita yksi asia, jota haluat kehittää seuraavaksi. Kirjoita myös, miten aiot kehittää sitä.",
+            "Kirjoita itsearviointi itse. Älä käytä tekoälyä tekstin kirjoittamiseen."
+          ],
+          valmis: "Viikon 49 päiväkirjassa on kolme vahvuutta työnäytteineen ja yksi kehitysaskel.",
+          tallenna: "Itsearviointi viikon 49 päiväkirjaan.",
+          eiRiita: "Tekoälyn kirjoittama yleinen itsearviointi, jossa ei ole linkkejä omiin työnäytteisiin."
+        },
+        "49-3": {
+          perii: ["49-2"],
+          miksi: "Arvioija löytää jokaisen osaamisen yhdellä klikkauksella, eikä hänen tarvitse etsiä sitä repositorysta.",
+          osat: [
+            "Avaa Näyttömatriisi-näkymä eli luettelo osaamisvaatimuksista, joihin tarvitset työnäytteen, ja lue ensimmäinen vaatimus.",
+            "Etsi työnäyte, joka osoittaa, että vaatimus täyttyy: issue, C#-tiedosto, commit, testitapaus tai päiväkirjan viikko.",
+            "Kopioi työnäytteen tarkka linkki. Linkin pitää avata juuri se kohta, ei repositoryn etusivua.",
+            "Kirjoita viikon 49 päiväkirjaan omalle rivilleen vaatimuksen nimi ja linkki. Rastita sitten vaatimus Näyttömatriisi-näkymässä.",
+            "Toista osatehtävät 1–4 jokaiselle vaatimukselle."
+          ],
+          valmis: "Jokaisella näyttömatriisin vaatimuksella on tarkka linkki, joka aukeaa.",
+          tallenna: "Vaatimusten linkit viikon 49 päiväkirjaan, josta ne tulevat mukaan projektipaivakirja.md-tiedostoon.",
+          esimerkki: "Toimintojen testaus → project-docs/testaus.md → testitapaukset T01–T12 → versio v1.0 → tarkka linkki.",
+          eiRiita: "Pelkkä rastitettu matriisi tai linkki repositoryn etusivulle."
+        },
+        "49-4": {
+          perii: ["49-3"],
+          miksi: "Demossa näytät osaamisesi itse. Harjoittelu varmistaa, että ehdit näyttää tärkeimmät asiat.",
+          osat: [
+            "Kirjoita demon runko kuutena kohtana: pelin kulku, tuotelista JSON-tiedostossa, tallennus, yksi virheenkorjaus, Git-historia ja AI-loki.",
+            "Harjoittele demo kerran ääneen toiselle ihmiselle ja ota aika. Kirjaa kuulijan rooli ja yksi hänen palautteensa. Tavoite on 8–10 minuuttia.",
+            "Harjoittele, miten selität yhden C#-metodin omin sanoin.",
+            "Varmista, että demossa käytät julkaistua versiota v1.0."
+          ],
+          valmis: "Demo kestää 8–10 minuuttia ja käy läpi kaikki kuusi kohtaa.",
+          tallenna: "Demon runko viikon 49 päiväkirjaan.",
+          sanat: ["JSON"]
+        },
+        "49-5": {
+          perii: ["49-4"],
+          miksi: "Luovutus on näytön viimeinen vaihe. Kun toinen ihminen tarkistaa aineiston, et unohda mitään.",
+          osat: [
+            "Lataa projektipäiväkirja uudelleen, koska viikon 49 merkinnät muuttuivat tehtävissä 2–4, ja korvaa repositoryn tiedosto. Tarkista, että repositoryssa ovat peli, README.md, gdd.md, testaus.md ja projektipaivakirja.md.",
+            "Avaa ladattu projektipaivakirja.md ja tarkista, että sen lopussa on otsikko AI-loki ja omat merkintäsi.",
+            "Pyydä toista ihmistä avaamaan julkaisulinkki ja repository. Kirjaa, löysikö hän kaiken.",
+            "Luovuta peli, repository, projektipäiväkirja ja näyttöaineisto ohjaajalle viimeistään pe 4.12.2026."
+          ],
+          valmis: "Aineisto on luovutettu viimeistään pe 4.12.2026, ja toinen ihminen on tarkistanut sen.",
+          tallenna: "Luovutuksen päivä viikon 49 päiväkirjaan."
+        }
+      },
       paivat: [
-        ["Ma 30.11.", "Koodijäädytys: Viimeinen hyväksytty build."],
-        ["Ti 1.12.", "Aineisto: Päiväkirja, testit ja linkit."],
-        ["Ke 2.12.", "Harjoittelu: 8–10 min demo ja itsearviointi."],
-        ["To 3.12.", "Puskuri: Tarkistus toisen henkilön kanssa."],
-        ["Pe 4.12.", "Luovutus: Peli, repository, projektipäiväkirja ja näyttö."]
+        ["Ma 30.11.", "Koodijäädytys: viimeinen hyväksytty versio."],
+        ["Ti 1.12.", "Aineisto: päiväkirja, itsearviointi ja linkit."],
+        ["Ke 2.12.", "Harjoittelu: 8–10 minuutin demo."],
+        ["To 3.12.", "Puskuri: tarkistus toisen ihmisen kanssa."],
+        ["Pe 4.12.", "Luovutus: peli, repository, projektipäiväkirja ja näyttö."]
       ]
     }
   }

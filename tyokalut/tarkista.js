@@ -16,6 +16,10 @@
  * lyhyetViikot (esim. {51: 4} → data-week-label ma–to), dokumentoidut
  * mitoituspoikkeamat (poikkeamat.vaiheita = "perustelu" → INFO, ei HUOM),
  * sekä opt-in-ominaisuuksien tarkistukset: teema (14), sykli (15), kuvaohjeet (16).
+ *
+ * v2.5: pilkottu tehtävänanto. Tehtäväkorttien rakenne ja mekaaniset selkeyssäännöt (4b)
+ * sekä tehtävän itsenäinen ymmärrettävyys: tunnukset sanallistetaan tehtävän omassa
+ * tekstissä, ei vain sanastossa (13c).
  */
 const fs = require("fs");
 const path = require("path");
@@ -89,10 +93,15 @@ if ((P.vaiheet || []).length !== MITOITUS.vaiheita) {
 
 /* ---------- 2. viikkoOhjeet ---------- */
 const GUIDE_FIELDS = ["type", "feature", "connection", "deliverable", "why", "done", "record", "skills", "steps", "example", "notEnough"];
+/* v2.5: tehtäväkorttiviikolla osatehtävät korvaavat steps-listan ja kalibrointi on tehtävätasolla. */
+const TASK_CARD_OPTIONAL = ["steps", "example", "notEnough"];
 workWeeks.forEach((w) => {
   const g = P.viikkoOhjeet[w];
   if (!g) { err(`sisalto.js: viikolta ${w} puuttuu viikkoOhjeet`); return; }
-  GUIDE_FIELDS.forEach((f) => { if (g[f] === undefined || g[f] === "") err(`viikko ${w}: viikkoOhjeet.${f} puuttuu`); });
+  GUIDE_FIELDS.forEach((f) => {
+    if (g.tehtavat && TASK_CARD_OPTIONAL.includes(f)) return;
+    if (g[f] === undefined || g[f] === "") err(`viikko ${w}: viikkoOhjeet.${f} puuttuu`);
+  });
   if (g.type && !P.kehykset[g.type]) err(`viikko ${w}: viikkotyyppi '${g.type}' puuttuu kehykset-objektista`);
   if (Array.isArray(g.steps) && g.steps.length < 3) warn(`viikko ${w}: vain ${g.steps.length} askelta (3–6 on tavoite)`);
   if (Array.isArray(g.skills) && g.skills.length < 2) warn(`viikko ${w}: alle 2 tekniikkatagia`);
@@ -141,8 +150,13 @@ if (new Set(cardWeeks).size !== cardWeeks.length) err("index.html: sama viikkoko
 /* Kortin sisäinen rakenne */
 const cardBlocks = [...html.matchAll(/<article class="week-card" id="week-(\d+)"[\s\S]*?<\/article>/g)];
 const allTaskIds = [];
+const taskIdsByWeek = {};
+const taskTitle = {};
 cardBlocks.forEach(([block, num]) => {
   const ids = [...block.matchAll(/data-task="([\d-]+)"/g)].map((m) => m[1]);
+  taskIdsByWeek[num] = ids;
+  [...block.matchAll(/data-task="([\d-]+)"[^>]*>[\s\S]*?<span class="task-text">([\s\S]*?)<\/span><\/label>/g)]
+    .forEach((m) => { taskTitle[m[1]] = m[2].replace(/<[^>]+>/g, " ").replace(/&amp;/g, "&").replace(/\s+/g, " ").trim(); });
   if (ids.length < 2) err(`viikko ${num}: alle 2 tehtävää`);
   if (ids.length > 5) warn(`viikko ${num}: ${ids.length} tehtävää — 2–4 pitää viikon hallittavana`);
   ids.forEach((id) => {
@@ -160,6 +174,43 @@ cardBlocks.forEach(([block, num]) => {
   const status = block.match(/<span class="week-status"[^>]*>(\d+) \/ (\d+)<\/span>/);
   if (!status) err(`viikko ${num}: week-status puuttuu`);
   else if (Number(status[2]) !== ids.length) err(`viikko ${num}: week-status sanoo ${status[2]}, tehtäviä on ${ids.length}`);
+});
+
+/* ---------- 4b. tehtäväkortit (v2.5, viikkoOhjeet[w].tehtavat) ----------
+ * Tehtävän otsikko on index.html:n tehtävärivi, kuvaus sisalto.js:ssä samalla tunnuksella.
+ * Mekaaniset selkeyssäännöt: 2–8 osatehtävää (3–7 tavoite), osatehtävä on yksi toiminto
+ * (≤ 35 sanaa), valmis kun on pakollinen, otsikko ei luettele useaa asiaa.
+ */
+let taskCardCount = 0;
+let substepCount = 0;
+workWeeks.forEach((w) => {
+  const defs = P.viikkoOhjeet?.[w]?.tehtavat;
+  if (!defs) return;
+  if (typeof defs !== "object" || Array.isArray(defs)) { err(`viikko ${w}: tehtavat pitää olla objekti { "${w}-1": {…} }`); return; }
+  const ids = taskIdsByWeek[w] || [];
+  ids.filter((id) => !defs[id]).forEach((id) => warn(`tehtävä ${id}: tehtavat-kuvaus puuttuu — tehtävä näkyy vanhana rastirivinä ilman osatehtäviä`));
+  Object.entries(defs).forEach(([id, d]) => {
+    if (!ids.includes(id)) { err(`viikko ${w}: tehtavat['${id}'] ei vastaa mitään index.html:n tehtäväriviä`); return; }
+    taskCardCount += 1;
+    const osat = Array.isArray(d.osat) ? d.osat : [];
+    substepCount += osat.length;
+    if (osat.length < 2) err(`tehtävä ${id}: vähintään 2 osatehtävää (nyt ${osat.length})`);
+    else if (osat.length > 8) warn(`tehtävä ${id}: ${osat.length} osatehtävää — pilko kahdeksi tehtäväksi (3–7 on tavoite)`);
+    if (!d.valmis) err(`tehtävä ${id}: valmis (valmis kun -ehto) puuttuu`);
+    if (!d.miksi) warn(`tehtävä ${id}: miksi puuttuu`);
+    if (!d.tallenna) warn(`tehtävä ${id}: tallenna puuttuu — mihin työnäyte menee?`);
+    osat.forEach((o, j) => {
+      if (Array.isArray(o) && (o.length !== 2 || !o[1])) err(`tehtävä ${id}, osa ${j + 1}: muoto on "teksti" tai ["Otsikko", "teksti"]`);
+      const words = (Array.isArray(o) ? o.join(" ") : String(o)).split(/\s+/).filter(Boolean).length;
+      if (words > 35) warn(`tehtävä ${id}, osa ${j + 1}: ${words} sanaa — yksi osatehtävä = yksi toiminto (≤ 35 sanaa)`);
+    });
+    (d.perii || []).forEach((k) => { if (!/^\d+-\d+$/.test(String(k))) err(`tehtävä ${id}: perii-tunnus '${k}' ei ole muotoa viikko-numero`); });
+    const title = taskTitle[id] || "";
+    const items = title.replace(/\([^)]*\)/g, "").split(/,|\sja\s|\sand\s/).filter((x) => x.trim()).length;
+    if (items > 3) warn(`tehtävä ${id}: otsikko luettelee ${items} asiaa — yksi tehtävä = yksi tavoite ("${title}")`);
+    if (title.length > 110) warn(`tehtävä ${id}: otsikko on ${title.length} merkkiä — lyhennä ja siirrä yksityiskohdat osatehtäviin`);
+    if (d.apu && typeof d.apu !== "object") err(`tehtävä ${id}: apu pitää olla objekti {tree, actions, code, test, images, links}`);
+  });
 });
 
 /* ---------- 5. viikkojen "small-rivi" / data-week-label ---------- */
@@ -391,13 +442,15 @@ const lohkot = [
   ...workWeeks.map((w) => {
     const card = html.match(new RegExp(`<article class="week-card" id="week-${w}"[\\s\\S]*?<\\/article>`));
     const g = P.viikkoOhjeet[w] || {};
-    const guideText = stringsOf({ ...g, termit: undefined, kuvaohjeet: undefined }).join(" ");
+    const tehtavatTeksti = Object.fromEntries(Object.entries(g.tehtavat || {}).map(([k, d]) => [k, { ...d, sanat: undefined, perii: undefined }]));
+    const guideText = stringsOf({ ...g, termit: undefined, kuvaohjeet: undefined, tehtavat: tehtavatTeksti }).join(" ");
+    const tehtavaSanat = Object.values(g.tehtavat || {}).flatMap((d) => (d && d.sanat) || []);
     /* v2.4: syklin yhteiset tekstit ja viikon kuvaohjeet kuuluvat viikon lukujärjestykseen. */
     const sykliTeksti = (g.sykli ? stringsOf(P.sykli || {}).join(" ") : "")
       + (P.josJumissa && g.josJumissa !== false ? " " + stringsOf(P.josJumissa).join(" ") : "")
       + (P.viikkorutiini && g.rutiini !== false ? " " + stringsOf(P.viikkorutiini).join(" ") : "");
     const kuvaTekstit = [...kuvaViittaukset.entries()].filter(([, missa]) => missa.includes(w)).map(([id]) => kuvaTeksti(kuvaMap.get(id))).join(" ");
-    return { nimi: `viikko ${w}`, viikko: w, teksti: `${card ? stripHtml(card[0]) : ""} ${guideText} ${sykliTeksti} ${kuvaTekstit}`, termit: (g.termit || []).map((k) => String(k).toLowerCase()) };
+    return { nimi: `viikko ${w}`, viikko: w, teksti: `${card ? stripHtml(card[0]) : ""} ${guideText} ${sykliTeksti} ${kuvaTekstit}`, termit: [...(g.termit || []), ...tehtavaSanat].map((k) => String(k).toLowerCase()) };
   })
 ];
 const muuTeksti = ["galleria", "paivakirja", "ailoki", "naytto"].map(viewBlock).join(" ")
@@ -419,7 +472,7 @@ const PERHEET = [
   { nimi: "RC (release candidate)", re: /(?<![\w-])RC\d?(?![\w])/g, termi: (k) => /^rc/.test(k), maarittely: /release candidate|julkaisuehdok/i, vakava: true },
   { nimi: "PR (pull request)", re: /(?<![\w-])PR(?![\w])/g, termi: (k) => k === "pr" || k === "pull request", maarittely: /pull request/i, vakava: false,
     huomio: "jos pull requestit eivät kuulu projektin työtapaan, poista PR esimerkeistä" },
-  A("MVP", /minimum viable product/i), A("GDD", /game design document/i), A("DFS", /depth-first/i),
+  A("MVP", /minimum viable product/i), A("GDD", /game design document|suunnitteludokument/i), A("DFS", /depth-first/i),
   A("API"), A("CDN"), A("CSV"), A("JSON"), A("JWT"), A("CRUD"), A("REST"), A("SQL"), A("SPA"), A("DOM"), A("ORM"), A("WebGL"), A("UI"), A("UX"), A("CI")
 ];
 PERHEET.forEach((f) => {
@@ -437,6 +490,30 @@ PERHEET.forEach((f) => {
   if (!selitetty) {
     raportoi(`termistö: '${f.nimi}' tulee ensimmäisen kerran vastaan lohkossa "${eka.nimi}" ilman selitystä — selitä samassa kohdassa${eka.viikko ? ` tai lisää se viikon ${eka.viikko} termit-listaan` : ""}`);
   }
+});
+
+/* ---------- 13c. tehtäväkortti on itsenäisesti ymmärrettävä (v2.5) ----------
+ * Opiskelija ei saa joutua avaamaan sanastoa ymmärtääkseen tehtävän. Tunnusperheet
+ * (P0/P1/P2, T01…, RC) sanallistetaan tehtävän omassa tekstissä joka kerta, esim.
+ * "pakollinen (P0)" tai "testitapaus T05". Muut lyhenteet (JSON, UI, WebGL…) joko
+ * tekstissä tai tehtävän sanat-listassa, joka näkyy tehtäväkortissa.
+ */
+workWeeks.forEach((w) => {
+  Object.entries(P.viikkoOhjeet?.[w]?.tehtavat || {}).forEach(([id, d]) => {
+    if (!d || typeof d !== "object") return;
+    const sanat = (d.sanat || []).map((k) => String(k).toLowerCase());
+    sanat.forEach((k) => { if (!termiAvaimet.has(k)) err(`tehtävä ${id}: sanat-listan '${k}' puuttuu termistosta`); });
+    const teksti = `${taskTitle[id] || ""} ${stringsOf({ ...d, sanat: undefined, perii: undefined }).join(" ")}`;
+    PERHEET.forEach((f) => {
+      f.re.lastIndex = 0;
+      const kaytetty = f.re.test(teksti);
+      f.re.lastIndex = 0;
+      if (!kaytetty) return;
+      const auki = f.maarittely.test(teksti);
+      if (f.vakava && !auki) err(`tehtävä ${id}: '${f.nimi}' pitää sanallistaa tehtävän omassa tekstissä (esim. "pakollinen (P0)", "testitapaus T05") — sanasto ei riitä`);
+      else if (!auki && !sanat.some(f.termi)) warn(`tehtävä ${id}: '${f.nimi}' ei avaudu tehtävässä — selitä tekstissä tai lisää tehtävän sanat-listaan`);
+    });
+  });
 });
 
 /* ---------- 13b. lyhyetViikot ---------- */
@@ -550,7 +627,8 @@ const total = allTaskIds.length;
 const matriisiOsa = matrixUsed
   ? ` · ${evidenceIds.length} osaamisvaatimusta · ${matrixCount} tutkinnon osaa`
   : " · ei näyttömatriisia (projektisivusto)";
-console.log(`${P.nimi} · ${workWeeks.length} työviikkoa · ${total} tehtävää${matriisiOsa}`);
+const korttiOsa = taskCardCount ? ` (${taskCardCount} tehtäväkorttia, ${substepCount} osatehtävää)` : "";
+console.log(`${P.nimi} · ${workWeeks.length} työviikkoa · ${total} tehtävää${korttiOsa}${matriisiOsa}`);
 infos.forEach((m) => console.log("  INFO  " + m));
 warnings.forEach((w) => console.log("  HUOM  " + w));
 errors.forEach((e) => console.log("  VIRHE " + e));
