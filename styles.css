@@ -848,7 +848,7 @@ html[data-teema] .task-card-done, html[data-teema] .task-card-save { background:
 .week-card.is-unified .week-terms { margin-top: 16px; }
 .week-finish { margin-top: 28px; border-left: 3px solid var(--accent); }
 .week-finish h2 { margin: 0; font-size: 18px; }
-.week-finish h3 { margin: 14px 0 4px; font-size: 13px; font-weight: 700; color: var(--muted); }
+.week-finish h3 { margin: 14px 0 4px; font-family: var(--font-sans); font-size: 13px; font-weight: 700; line-height: 1.35; color: var(--muted); }
 .week-finish p { margin: 0; font-size: 14px; }
 .week-skills-details, .week-days-details, .week-workflow, details.week-kuvaohjeet, details.week-routine, .project-reference { margin-top: 16px; padding: 0 16px; background: var(--card-bg); border: 1px solid var(--line); border-radius: var(--radius-card); }
 .week-skills-details > summary, .week-days-details > summary, .week-workflow > summary, details.week-kuvaohjeet > summary, details.week-routine > summary, .project-reference > summary { padding: 12px 0; cursor: pointer; font-size: 14px; font-weight: 600; }
