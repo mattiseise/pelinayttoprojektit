@@ -9,6 +9,11 @@
  * Rakenne, jota tämä moottori odottaa index.html:ltä, on kuvattu tarkasti
  * tiedostossa skillin references/layout-rakenne.md.
  *
+ * v2.6: projektin tavoitekuva (opt-in, P.lopputulos). Näin käytät sivua -näkymän alkuun
+ *   rakennetaan [data-goal]-lohko: otsikko, lyhyt kuvaus, luonnoskuva valmiista työstä
+ *   numeroiduin kehyksin ja samat kohdat tekstinä, aloitusnappi. Ensimmäisellä avauksella
+ *   (ei hashia, ei rasteja) sivu avautuu tähän näkymään eikä viikkoon 1. Muilla projekteilla
+ *   mikään ei muutu.
  * v2.5: pilkottu tehtävänanto (opt-in, viikkoOhjeet[w].tehtavat). index.html:n tehtävärivi
  *   antaa tehtävän otsikon; app.js rakentaa siitä tehtäväkortin, jossa on miksi, tehtävän
  *   omat sanat, rastitettavat osatehtävät, valmis kun, tallenna, kalibrointi ja tehtävän
@@ -190,6 +195,13 @@
     kuvaohjeMeta: (pvm, teema) => [pvm ? `Kuvattu ${pvm}` : "", teema || ""].filter(Boolean).join(" · "),
     kuvaohjeLoadError: "Kuvaohje ei latautunut. Avaa sivu verkko-osoitteesta, älä tiedostona.",
     kuvaohjeMissing: (id) => `Kuvaohjetta ${id} ei löydy.`,
+    /* v2.6: projektin tavoitekuva (P.lopputulos). */
+    goalLabel: "Projektin tavoite",
+    goalTitle: (nimi) => `Tältä valmis ${nimi} näyttää`,
+    goalListLabel: "Valmiissa työssä",
+    goalNote: "Kuva on luonnos, ei malli, jota pitää kopioida. Ulkoasusta päätät itse, mutta numeroidut asiat kuuluvat valmiiseen työhön.",
+    goalPlaceholder: "valmiin työn luonnoskuva",
+    goalBrief: "Lue toimeksianto",
     /* v2.4: joka viikon vakiolohkot (P.josJumissa, P.viikkorutiini). */
     lostHeading: "Jos et tiedä, mitä tehdä",
     routineHeading: "Viikkorutiini",
@@ -918,6 +930,60 @@
     }));
   }
 
+  /* ---------- v2.6: projektin tavoitekuva (P.lopputulos, opt-in) ----------
+   * P.lopputulos = { otsikko?, kuvaus, kuva, leveys, korkeus, alt,
+   *   kohdat: [{ n, teksti, alue?: [x, y, l, k] }] }. Kuva on luonnos valmiista
+   * työstä (esim. project-docs/lopputulos/proto.html kuvattuna). leveys ja korkeus
+   * ovat kuvan CSS-koko (2x-kuva: puolet pikseleistä). Lohko rakennetaan
+   * Näin käytät sivua -näkymän alkuun; [data-goal] index.html:ssä kelpaa myös paikaksi.
+   * Kuvaohjeiden tavoin kuva ei ole ainoa tiedon kantaja: kohdat ovat myös tekstinä.
+   */
+  const GOAL_KEY = `${SLUG}-tavoite-v1`;
+  const goalData = P.lopputulos && typeof P.lopputulos === "object" ? P.lopputulos : null;
+
+  function renderGoal() {
+    if (!goalData) return;
+    const view = document.querySelector('.view[data-view="kaytto"]');
+    if (!view) return;
+    let slot = view.querySelector("[data-goal]");
+    if (!slot) {
+      slot = document.createElement("section");
+      slot.setAttribute("data-goal", "");
+      view.prepend(slot);
+    }
+    slot.classList.add("goal-hero");
+    slot.setAttribute("aria-labelledby", "goal-title");
+    const title = goalData.otsikko || t("goalTitle", P.nimi);
+    const k = {
+      otsikko: title,
+      tiedosto: goalData.kuva || "",
+      leveys: goalData.leveys,
+      korkeus: goalData.korkeus,
+      alt: goalData.alt || "",
+      kuvaa: t("goalPlaceholder"),
+      kohdat: goalData.kohdat || []
+    };
+    slot.innerHTML = `<p class="section-label section-label-accent">${escapeText(t("goalLabel"))}</p>
+      <h2 class="goal-title" id="goal-title">${escapeText(title)}</h2>
+      ${goalData.kuvaus ? `<p class="goal-lead">${richText(goalData.kuvaus)}</p>` : ""}
+      <figure class="goal-figure">
+        ${kuvaStageHtml(k, false)}
+        <figcaption class="goal-note">${escapeText(t("goalNote"))}</figcaption>
+      </figure>
+      ${k.kohdat.length ? `<p class="section-label goal-list-label">${escapeText(t("goalListLabel"))}</p>${kuvaStepsHtml(k)}` : ""}
+      <div class="goal-actions">
+        <button type="button" class="button button-primary" data-continue><span>${escapeText(P.aloitusNappi || t("resumeLabel"))}</span><span aria-hidden="true">→</span></button>
+        ${k.tiedosto ? `<button type="button" class="button button-secondary kuvaohje-open-button" data-goal-open>${escapeText(t("kuvaohjeOpen"))}</button>` : ""}
+        <a class="button button-ghost" href="#view-toimeksianto" data-open-view="toimeksianto">${escapeText(t("goalBrief"))}</a>
+      </div>`;
+    bindImageFallback(slot, k);
+    slot.querySelectorAll("[data-kuvaohje-open], [data-goal-open]").forEach((el) => el.addEventListener("click", () => {
+      if (slot.querySelector(".kuvaohje-stage img")) openKuvaDialog(k, slot.querySelector("[data-goal-open]"));
+    }));
+  }
+  /* Ennen [data-continue]- ja [data-open-view]-nappien sidontaa, jotta lohkon napit toimivat. */
+  renderGoal();
+
   /* ---------- v2.4: työsykli (P.sykli + viikkoOhjeet[w].sykli, opt-in) ----------
    * P.sykli.askeleet = [{ nimi, paikka, tyokalu, oma, ohje: [..], pohja: {otsikko, teksti} | [{…}, …],
    *   valmis, jumissa: [{ kysymys, ohje, pohja, jatko: [...] }], kuvaohjeet: [..] }].
@@ -1168,7 +1234,18 @@
       state.view = viewMatch[1];
       return true;
     }
-    if (initial) { state.view = "viikko"; state.week = currentWeek(); }
+    if (initial) {
+      state.view = "viikko";
+      state.week = currentWeek();
+      /* v2.6: ensimmäinen avaus näyttää tavoitekuvan (Näin käytät sivua), ei viikkoa 1.
+         Kerran nähty, tai jo aloitettu työ (rasteja), avaa viikon kuten ennenkin. */
+      if (goalData && !readStorage(GOAL_KEY, false)) {
+        const started = taskBoxes.some((box) => box.checked)
+          || Object.values(substepState).some((list) => Array.isArray(list) && list.some(Boolean));
+        if (!started) state.view = "kaytto";
+        writeStorage(GOAL_KEY, true);
+      }
+    }
     return false;
   }
 
@@ -1589,6 +1666,7 @@
     cycleState = {};
     routineState = {};
     try { localStorage.removeItem(ROUTINE_KEY); } catch (_) { /* ei tallennusta */ }
+    try { localStorage.removeItem(GOAL_KEY); } catch (_) { /* ei tallennusta */ }
     taskWeekCards.forEach((card) => { renderCycle(card, false); renderRoutine(card); });
     taskBoxes.forEach((box) => { box.checked = false; });
     /* v2.5: osatehtävät tyhjiksi. Tila kirjoitetaan heti, jotta vanhoja rasteja ei siirretä uudelleen. */

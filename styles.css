@@ -1,5 +1,5 @@
 /*
- * Näyttöprojekti – geneerinen kaksipalstainen leiska (moottori v2.5).
+ * Näyttöprojekti – geneerinen kaksipalstainen leiska (moottori v2.6).
  * TÄTÄ TIEDOSTOA EI MUOKATA PROJEKTIKOHTAISESTI, PAITSI :root-paletti.
  * Projektikohtainen väri tulee AINA :root:sta (--accent, --accent-dark,
  * --phase-a..--phase-f) — muualle ei kovakoodata värejä.
@@ -550,6 +550,39 @@ figure.view-figure figcaption strong { color: var(--ink); display: block; margin
 .kuvaohje-dialog-body { padding: 16px; display: flex; flex-direction: column; gap: 16px; overflow: auto; }
 .kuvaohje-dialog-body .kuvaohje-stage { margin: 12px 0 0 12px; }
 @media (max-width: 860px) { .kuvaohje-body { grid-template-columns: 1fr; } }
+
+/* ---- v2.6: projektin tavoitekuva (P.lopputulos) ----
+   Näin käytät sivua -näkymän alussa. Kuva levenee työpöydällä palstan yli
+   (enintään 1040 px, aina ikkunan sisällä), jotta luonnoksen teksti on luettavaa. */
+.goal-hero { margin: 0 0 40px; padding-bottom: 32px; border-bottom: 1px solid var(--line); }
+.view .goal-title { font-size: clamp(30px, 4.4vw, 38px); line-height: 1.12; margin: 6px 0 0; }
+.goal-lead { margin: 12px 0 0; font-size: 16px; max-width: 62ch; }
+.goal-figure { margin: 22px 0 0; }
+.goal-figure .kuvaohje-stage { border-radius: 12px; }
+.goal-figure .kuvaohje-stage img { border-radius: 11px; }
+/* Tavoitekuvan kehykset ovat kevyemmät kuin kuvaohjeissa: kuva hahmotetaan kokonaisuutena. */
+.goal-figure .kuvaohje-mark { border-width: 3px; border-radius: 8px; }
+.goal-note { margin-top: 8px; font-size: 13px; color: var(--meta); }
+.goal-list-label { margin-top: 24px; }
+.goal-hero .kuvaohje-steps { margin-top: 12px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 24px; }
+.goal-hero .kuvaohje-steps li { font-size: 15px; }
+.goal-actions { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 10px; }
+/* .button asettaa displayn, joten hidden tarvitsee oman sääntönsä (myös kuvaohjeen avausnappi). */
+.button[hidden] { display: none; }
+@media (min-width: 861px) {
+  .goal-figure {
+    --goal-w: max(100%, min(1040px, calc(100vw - var(--sidebar-w) - 72px)));
+    width: var(--goal-w);
+    margin-left: calc(50% - var(--goal-w) / 2);
+  }
+}
+@media (max-width: 860px) {
+  .goal-hero .kuvaohje-steps { grid-template-columns: 1fr; }
+  .goal-figure .kuvaohje-mark { border-width: 2px; }
+  .goal-figure .kuvaohje-mark-n { font-size: 11px; }
+}
+html[data-teema] .goal-hero .kuvaohje-steps { grid-template-columns: 1fr; }
+html[data-teema-asettelu="yksi"] .goal-figure { width: auto; margin-left: 0; }
 
 /* =====================================================================
    v2.4 · SAAVUTETTAVA TEEMA (opt-in: <html data-teema>)

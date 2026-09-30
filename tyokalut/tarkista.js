@@ -434,8 +434,10 @@ const stringsOf = (v, out = []) => {
 };
 let planText = "";
 try { planText = P.suunnitelma?.markdown ? P.suunnitelma.markdown({ arvo: () => "", onTäytetty: () => false, raaka: {}, pvm: "" }) : ""; } catch (_) { /* raportoitu kohdassa 7 */ }
+/* v2.6: tavoitekuvan tekstit ovat Näin käytät sivua -näkymän alussa, eli ensimmäinen luettava lohko. */
+const lopputulosTeksti = P.lopputulos ? stringsOf([P.lopputulos.otsikko, P.lopputulos.kuvaus, P.lopputulos.alt, (P.lopputulos.kohdat || []).map((c) => c && c.teksti)]).join(" ") : "";
 const lohkot = [
-  { nimi: "Näin käytät sivua", teksti: viewBlock("kaytto") },
+  { nimi: "Näin käytät sivua", teksti: `${lopputulosTeksti} ${viewBlock("kaytto")}` },
   { nimi: "Toimeksianto", teksti: viewBlock("toimeksianto") },
   { nimi: "Työtapa", teksti: viewBlock("tyotapa") },
   { nimi: "Suunnitelma", teksti: `${viewBlock("suunnitelma")} ${planText}` },
@@ -620,6 +622,28 @@ if (kuvaLista) {
     if (!kuvaViittaukset.has(k.tunnus)) info(`kuvaohje ${nimi} ei ole vielä käytössä millään viikolla`);
   });
   kuvaViittaukset.forEach((missa, id) => { if (!kuvaMap.has(id)) err(`kuvaohje '${id}' (${[...new Set(missa)].join(", ")}) puuttuu kuvakaappaukset.json:sta`); });
+}
+
+/* ---------- 17. tavoitekuva (v2.6, opt-in) ---------- */
+if (P.lopputulos) {
+  const L = P.lopputulos;
+  if (typeof L !== "object") err("sisalto.js: lopputulos pitää olla objekti");
+  else {
+    if (!L.kuvaus) err("lopputulos: kuvaus puuttuu — 1–2 virkettä siitä, mitä valmis työ tekee");
+    else if (L.kuvaus.length > 320) warn(`lopputulos: kuvaus on pitkä (${L.kuvaus.length} merkkiä) — tavoite pitää hahmottaa yhdellä silmäyksellä`);
+    if (!L.alt) err("lopputulos: alt-teksti puuttuu");
+    else if (L.alt.length < 40) warn(`lopputulos: alt-teksti on lyhyt (${L.alt.length} merkkiä) — kerro mitä kuvassa näkyy`);
+    if (!(Number(L.leveys) > 0 && Number(L.korkeus) > 0)) err("lopputulos: leveys ja korkeus puuttuvat (kuvan CSS-koko, 2x-kuvassa puolet pikseleistä)");
+    if (!L.kuva) warn("lopputulos: kuva puuttuu — sivulla näkyy paikanpitäjä");
+    else if (!/^https?:/.test(L.kuva) && !fs.existsSync(path.join(ROOT, L.kuva))) err(`lopputulos: kuvatiedosto puuttuu: ${L.kuva}`);
+    const kohdat = L.kohdat || [];
+    if (kohdat.length < 3 || kohdat.length > 5) warn(`lopputulos: ${kohdat.length} kohtaa — 3–5 kohtaa riittää hahmottamaan tavoitteen`);
+    kohdat.forEach((c, j) => {
+      if (Number(c.n) !== j + 1) err(`lopputulos: kohtien numerointi ei ole 1…N (kohta ${j + 1} = ${c.n})`);
+      if (!c.teksti) err(`lopputulos: kohdalta ${c.n} puuttuu teksti`);
+      if (c.alue && (!Array.isArray(c.alue) || c.alue.length !== 4 || c.alue.some((v) => !(Number(v) >= 0 && Number(v) <= 100)))) err(`lopputulos: kohdan ${c.n} alue pitää olla [x, y, leveys, korkeus] prosentteina 0–100`);
+    });
+  }
 }
 
 /* ---------- tulos ---------- */
