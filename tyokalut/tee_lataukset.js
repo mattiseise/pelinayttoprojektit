@@ -360,16 +360,17 @@ dp.push(table(qw, qRows));
 dp.push(pageBreak());
 
 dp.push(h1(`2 · Vaihtoehtojen vertailumuistio (vko ${T.vertailuVko ?? ""})`));
-blanks(["Vaihtoehto A", "Vaihtoehto B", "Työmäärä (pv): A / B", "Vaikutus lopputulokseen: A / B", "Riski: A / B", "Valinta ja perustelu (2–3 virkettä)", "Keskustelukumppani, rooli ja pvm"]);
+blanks(["Vaihtoehto A", "Vaihtoehto B", "Työmäärä (pv): A / B", "Vaikutus lopputulokseen: A / B", "Riski: A / B", "Valinta ja perustelu (2–3 virkettä)", "Keskustelukumppanin rooli (ei nimeä) ja pvm"]);
 dp.push(pageBreak());
 
-dp.push(h1(`3 · Katselmointiloki (vkot ${T.katselmointiVkot ?? ""})`));
+const katsVkot = String(T.katselmointiVkot ?? "");
+dp.push(h1(`3 · Katselmointiloki (${/[,–-]|\sja\s/.test(katsVkot) ? "vkot" : "vko"} ${katsVkot})`));
 const kw = widths([35, 65]);
 dp.push(table(kw, [
-  "Päivä ja versio (commit)", "Osallistujat ja roolit", "Testaajan alkuperäinen havainto (hänen sanoillaan)",
+  "Päivä ja versio (commit)", "Osallistujien roolit (ei nimiä)", "Testaajan havainto hänen sanoillaan (merkitse rooli, ei nimeä)",
   "Oma tulkinta", "Päätös ja hyväksyjä", "Sovittu muutos (issue + arvio + valmis kun -ehto)",
 ].map((k) => new TableRow({ children: [cell(k, { w: kw[0], bold: true, fill: TINT2 }), cell("", { w: kw[1] })] }))));
-dp.push(p("Erota aina testaajan sanat omasta tulkinnastasi.", { before: 120, italics: true, color: GREY }));
+dp.push(p("Erota aina testaajan sanat omasta tulkinnastasi. Julkiseen repositoryyn kirjataan henkilöistä vain rooli; nimet ohjaajalle Teamsissa tarvittaessa.", { before: 120, italics: true, color: GREY }));
 dp.push(pageBreak());
 
 dp.push(h1(`4 · Testimatriisi (vko ${T.testiVko ?? ""})`));
