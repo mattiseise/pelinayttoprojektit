@@ -16,14 +16,10 @@
  * KÄYNNISSÄ OLEVA PROJEKTI: tehtavat-osien järjestystä ei muuteta eikä väliin lisätä
  * osia (osatehtävien tila tallentuu järjestysnumerolla). Uusi osa vain loppuun.
  *
- * HUOM opettaja-lohkosta: tälle projektille ei löytynyt rakenteista
- * näyttösuunnitelma-/työnäytemäppäysdataa (ei tee_lataukset.js:ää, ei
- * opettaja.nayttosuunnitelma-tyyppistä sisältöä missään lähteessä – downloads/
- * -kansion kolme legacy-docx-tiedostoa ovat opettajan alkuperäistä lähdeaineistoa
- * sellaisenaan, eivät konedataa). Siksi `opettaja`-lohko on jätetty kokonaan pois
- * tästä tiedostosta migraatio-ohjeen mukaisesti, eikä tyokalut/tee_lataukset.js:ää
- * ole ajettu. Vanhat downloads/-tiedostot on jätetty ennalleen ja index.html
- * linkittää niihin edelleen samoilla nimillä.
+ * HUOM opettaja-lohkosta: tälle projektille ei ole näyttösuunnitelma- tai
+ * työnäytemäppäysdataa, joten `opettaja`-lohkossa on vain dokumentointipohjien
+ * mitoitus (pohjat). downloads/-kansion työpaketti ja dokumentointipohjat
+ * generoidaan tyokalut/tee_lataukset.js:llä (moottori v2.5 alkaen).
  */
 window.NAYTTOPROJEKTI = {
   /* ---- perustiedot ---- */
@@ -203,6 +199,11 @@ window.NAYTTOPROJEKTI = {
   },
 
   /* ---- projektipäiväkirja ---- */
+  /* ---- opettajan aineisto: vain dokumentointipohjien mitoitus ---- */
+  opettaja: {
+    pohjat: { aloitusVko: 34, kysymyksia: 6, vertailuVko: 40, katselmointiVkot: "41 ja 47", testiVko: 45, testeja: 12, ketjuja: 3, lisenssiVko: 48 }
+  },
+
   paivakirja: {
     tiedostonimi: "projektipaivakirja.md",
     polku: "project-docs/projektipaivakirja.md",
@@ -323,7 +324,7 @@ window.NAYTTOPROJEKTI = {
           miksi: "Vain asiakas voi kertoa, mitä hän toivoo. Kun vastaukset on kirjattu, voit myöhemmin näyttää, mihin päätöksesi perustuvat.",
           osat: [
             "Sovi ohjaajan kanssa, kuka on asiakkaana ja milloin keskustelette.",
-            "Kysy kysymykset yksi kerrallaan. Kirjoita vastaus heti ylös asiakkaan omin sanoin.",
+            "Kysy kysymykset yksi kerrallaan. Kirjoita vastauksen sisältö heti ylös. Nimet ja sanatarkat lausumat lähetät tarvittaessa ohjaajalle Teamsissa.",
             "Jos asiakas ei osaa vastata, kirjoita kohtaan sana avoin. Älä keksi vastausta itse tai tekoälyllä.",
             "Sovi lopuksi, mitkä ominaisuudet ovat pakollisia. Yhdessä ne ovat pakollinen perusversio (P0). Ilman niitä peliä ei voi antaa asiakkaalle.",
             "Kirjaa päiväkirjaan keskustelun päivä ja osallistujien roolit, esimerkiksi asiakas ja ohjaaja. Älä kirjoita muiden ihmisten nimiä."
@@ -889,7 +890,7 @@ window.NAYTTOPROJEKTI = {
       connection: "Viikon 38 kello ja pisteet tekevät pelistä kierroksen, mutta kiire pysyy samana alusta loppuun. Toimeksianto vaatii kasvavaa vaikeutta, joten vertaat ensin kahta tapaa ja rakennat valitun tavan tasot yhteen Inspectorissa säädettävään listaan. Kun tasot ovat yhdessä paikassa, niitä voi säätää testien ja palautteen jälkeen koskematta koodiin.",
       deliverable: "Kahden vaikeutustavan vertailu, perusteltu valinta ja kolme vaikeustasoa, joita voi säätää Inspectorissa.",
       why: "Vertailu osoittaa, ettet valinnut ratkaisua sattumalta. Yhdestä paikasta säädettävät arvot helpottavat tasapainotusta ja tekevät muutoksista testattavia.",
-      done: "Valinta on perusteltu. Pisteillä 0, 31 ja 61 tilauksen koko tai asiakkaan odotusaika muuttuu tasojen mukaan joka kerta, eikä jokaiselle tasolle tarvita omaa if-lausetta.",
+      done: "Valinta on perusteltu. Omilla raja-arvoillasi (esimerkiksi 0, 31 ja 61) tilauksen koko tai asiakkaan odotusaika muuttuu tasojen mukaan joka kerta, eikä jokaiselle tasolle tarvita omaa if-lausetta.",
       record: "Kirjoita Vko 39 -merkintään vaihtoehdot A ja B, vertailun kolme kysymystä, keskustelukumppanin rooli, valinta perusteluineen ja raja-arvojen testitulokset commit-linkkeineen. Rastita lopuksi Näyttömatriisi-näkymässä kohdat Toimintalogiikka ja Ratkaisuvaihtoehdot.",
       skills: ["vaihtoehtojen vertailu", "vaikeuskäyrä", "pelitilat"],
       tehtavat: {
@@ -920,7 +921,7 @@ window.NAYTTOPROJEKTI = {
             "Jos valitsit tavan B: aseta jokaiselle asiakkaalle odotusaika tason customerTime-arvosta. Kun aika loppuu, asiakas lähtee ja tulee uusi tilaus.",
             "Muuta yhden tason arvoa Inspectorissa ja paina Play. Muutos näkyy pelissä ilman koodimuutosta."
           ],
-          valmis: "Pisteillä 0, 31 ja 61 peli käyttää eri tasoa, ja tason arvot voi muuttaa Inspectorissa.",
+          valmis: "Omilla raja-arvoillasi (esimerkiksi 0, 31 ja 61) peli käyttää eri tasoa, ja tason arvot voi muuttaa Inspectorissa.",
           tallenna: "Commit ja push. Commit-linkki ja tasotaulukko viikon 39 päiväkirjaan.",
           sanat: ["Inspector"],
           apu: {
@@ -961,8 +962,8 @@ window.NAYTTOPROJEKTI = {
       connection: "Viikon 39 jälkeen kierros päättyy pisteisiin, mutta tulos katoaa, kun peli suljetaan. Nyt tulosruutu saa nimimerkin ja top 5 -listan, jonka SaveService tallentaa PlayerPrefsiin selaimen muistiin, koska toimeksianto vaatii parhaiden tulosten tallentamista. Tämän jälkeen toimeksiannon kaikki vaatimukset toimivat, ja asiakas pelaa koko peliä viikolla 41.",
       deliverable: "Nimimerkki ja Tallenna-painike tulosruudulla, toimiva top 5 -tallennus, nimimerkin tarkistus ja ratkaisun rajoitusten perustelu.",
       why: "Toimeksianto vaatii pysyvän tuloksen. Samalla osoitat, että osaat valita pieneen selainpeliin sopivan tallennustavan ja käsitellä pelaajan syötettä turvallisesti.",
-      done: "Kuudesta tuloksesta näkyy vain viisi parasta myös silloin, kun sivu avataan uudelleen. Tasapisteet ja liian pitkä nimimerkki on testattu.",
-      record: "Kirjoita Vko 40 -merkintään, miksi tulokset tallennetaan PlayerPrefsiin, missä selain säilyttää ne, mitä ratkaisu ei suojaa ja mitä tietoja peli ei tallenna. Lisää commit-linkit ja kolmen testin tulokset. Rastita lopuksi Näyttömatriisi-näkymässä kohdat Toimintojen toteutus, Tietovaraston valinta, Yhteys tietovarastoon ja Tietoturva.",
+      done: "Kuudesta tuloksesta näkyy vain viisi parasta myös silloin, kun sivu avataan uudelleen. Tasapisteet ja liian pitkä nimimerkki on testattu, ja PlayerPrefs on perusteltu vertaamalla sitä vähintään yhteen vaihtoehtoon.",
+      record: "Kirjoita Vko 40 -merkintään, miksi tulokset tallennetaan PlayerPrefsiin ja mihin vaihtoehtoon vertasit sitä (esimerkiksi JSON-tiedosto tai palvelin), miksi se sopii pieneen selainpeliin, missä selain säilyttää tulokset, mitä ratkaisu ei suojaa ja mitä tietoja peli ei tallenna. Lisää commit-linkit ja kolmen testin tulokset. Rastita lopuksi Näyttömatriisi-näkymässä kohdat Toimintojen toteutus, Tietovaraston valinta, Yhteys tietovarastoon ja Tietoturva.",
       skills: ["PlayerPrefs", "syötteen tarkistus", "tietoturva"],
       tehtavat: {
         "40-1": {
@@ -1065,10 +1066,11 @@ window.NAYTTOPROJEKTI = {
             "Testi 2: tallenna kaksi yhtä suurta tulosta. Tarkista, että järjestys noudattaa asiakkaan kanssa sovittua sääntöä. Jos sääntöä ei ole sovittu, aiempi tulos on ylempänä, ja asia on avoin.",
             "Testi 3: kopioi pelin osoite, sulje välilehti ja avaa sama osoite uudelleen samassa selaimessa ilman uutta buildia. Sama lista näkyy.",
             "Kirjoita päiväkirjan Miksi tein näin? -kenttään, miksi PlayerPrefs sopii tähän peliin. Kirjoita myös, että tiedot säilyvät vain tässä selaimessa ja että pelaaja voi itse muuttaa tai poistaa ne.",
-            "Kirjoita GitHubissa jokaiseen tämän viikon valmiiseen issueen kommentti. Lisää kommenttiin linkki siihen commitiin, jossa työ tehtiin. Sulje issuet vasta sen jälkeen."
+            "Kirjoita GitHubissa jokaiseen tämän viikon valmiiseen issueen kommentti. Lisää kommenttiin linkki siihen commitiin, jossa työ tehtiin. Sulje issuet vasta sen jälkeen.",
+            "Vertaa sovittua PlayerPrefsiä vähintään yhteen vaihtoehtoon, esimerkiksi JSON-tiedostoon tai palvelimeen, ja kirjaa päiväkirjaan, miksi se sopii pieneen selainpeliin. Jos vertailu puoltaa selvästi muuta, poikkeamasta sovitaan ohjaajan kanssa ennen seuraavaa toteutusviikkoa."
           ],
-          valmis: "Kolmen testin tulokset ja ratkaisun perustelu ovat päiväkirjassa.",
-          tallenna: "Testitulokset, perustelu ja commit-linkit viikon 40 päiväkirjaan.",
+          valmis: "Kolmen testin tulokset ja ratkaisun perustelu vertailuineen ovat päiväkirjassa.",
+          tallenna: "Testitulokset, perustelu, vertailu ja commit-linkit viikon 40 päiväkirjaan.",
           esimerkki: "ScoreList → JsonUtility.ToJson → PlayerPrefs.SetString(\"HighScores\", json) → sivu suljetaan ja avataan → sama top 5 näkyy.",
           eiRiita: "Testaus pelkästään Unity-editorissa. Editorissa näkyvä arvo ei todista, että tulokset säilyvät selaimessa."
         }
@@ -1080,11 +1082,11 @@ window.NAYTTOPROJEKTI = {
       termit: ["katselmointi"],
       feature: "Asiakas pelaa pelin alusta loppuun, ja yhdessä sovitaan yksi rajattu muutos GitHub-issueksi.",
       excerpt: "Haluan nähdä pelistä toimivan version vähintään kerran ennen lopullista versiota, jotta voin pyytää muutoksia.",
-      connection: "Viikoilla 36–40 rakensit toimeksiannon kaikki vaatimukset, ja nyt asiakas kokeilee niitä ensimmäistä kertaa omin käsin. Tarkkailet neuvomatta, missä tilaus, tuotteiden valinta tai palaute jää epäselväksi, ja erotat asiakkaan sanat omasta tulkinnastasi. Sovittu muutos tehdään syysloman jälkeen viikolla 43.",
+      connection: "Viikoilla 36–40 rakensit toimeksiannon kaikki vaatimukset, ja nyt asiakas kokeilee niitä ensimmäistä kertaa omin käsin. Tarkkailet neuvomatta, missä tilaus, tuotteiden valinta tai palaute jää epäselväksi, ja erotat asiakkaan palautteen omasta tulkinnastasi. Sovittu muutos tehdään syysloman jälkeen viikolla 43.",
       deliverable: "Asiakkaan kokeilema selainversio, katselmointimuistio ja yksi sovittu muutosissue GitHubissa.",
-      why: "Palaute tarvitaan ennen viimeistelyä, jotta muutokselle jää aikaa. Kun erotat asiakkaan omat sanat omasta tulkinnastasi, päätös on luotettava.",
-      done: "Asiakas on pelannut pelin alusta loppuun. Muistiossa näkyvät asiakkaan sanat, oma tulkinta, päätös, hyväksyjä ja yksi rajattu issue.",
-      record: "Kirjoita Vko 41 -merkintään version tunniste, katselmoinnin päivä, osallistujien roolit, asiakkaan sanat, oma tulkinta ja linkki sovittuun muutosissueen. Rastita lopuksi Näyttömatriisi-näkymässä kohdat Asiakaslähtöinen viestintä, Priorisointi ja Suunnittelu ja arviointi.",
+      why: "Palaute tarvitaan ennen viimeistelyä, jotta muutokselle jää aikaa. Kun erotat asiakkaan palautteen omasta tulkinnastasi, päätös on luotettava.",
+      done: "Asiakas on pelannut pelin alusta loppuun. Muistiossa näkyvät asiakkaan palaute, oma tulkinta, päätös, hyväksyjän rooli ja yksi rajattu issue.",
+      record: "Kirjoita Vko 41 -merkintään version tunniste, katselmoinnin päivä, osallistujien roolit, asiakkaan palaute, oma tulkinta ja linkki sovittuun muutosissueen. Rastita lopuksi Näyttömatriisi-näkymässä kohdat Asiakaslähtöinen viestintä, Priorisointi ja Suunnittelu ja arviointi.",
       skills: ["asiakasviestintä", "katselmointi", "priorisointi"],
       tehtavat: {
         "41-1": {
@@ -1094,7 +1096,7 @@ window.NAYTTOPROJEKTI = {
             "Käy läpi tarkistuslista. Tarkista, että valikko, 1–3 tuotteen tilaus, toimitus, pisteet, ajastin, vaikeus, tulosruutu ja tallennus toimivat.",
             "Tee selainversio (Build And Run) ja pelaa se kerran itse alusta loppuun.",
             "Kirjoita muistiin version tunniste: päivämäärä ja viimeisimmän commitin tunniste.",
-            "Sovi ohjaajan kanssa katselmoinnin aika. Katselmointi on tapaaminen, jossa asiakas kokeilee keskeneräistä peliä ja antaa palautetta.",
+            "Sovi ohjaajan kanssa katselmoinnin aika ja se, kuka nimetty edustaja esittää asiakasta. Katselmointi on tapaaminen, jossa asiakas kokeilee keskeneräistä peliä ja antaa palautetta.",
             "Valmistele viiden minuutin esittely: mitä peli tekee, mikä on valmista ja mikä vielä puuttuu."
           ],
           valmis: "Selainversio toimii alusta loppuun, ja katselmoinnin aika on sovittu.",
@@ -1106,12 +1108,12 @@ window.NAYTTOPROJEKTI = {
           miksi: "Kun katsot vierestä neuvomatta, näet, missä kohdissa peli on vielä epäselvä.",
           osat: [
             "Pyydä asiakasta pelaamaan peli alusta loppuun. Älä neuvo, ellei hän pyydä apua.",
-            "Kirjoita ylös asiakkaan sanat sellaisinaan, esimerkiksi ”En huomannut tilausta”.",
+            "Kirjoita ylös asiakkaan palaute ilman nimiä, esimerkiksi: asiakkaan edustaja ei huomannut tilausta. Sanatarkat lausumat lähetät tarvittaessa ohjaajalle Teamsissa.",
             "Kirjoita erikseen, mitä itse näit: missä asiakas epäröi tai painoi väärää painiketta.",
             "Selitä yksi tekninen ratkaisu arkikielellä, esimerkiksi miten tulokset tallentuvat. Kirjaa, ymmärsikö asiakas.",
             "Kysy lopuksi: mikä yksi asia pitäisi muuttaa ensin?"
           ],
-          valmis: "Muistiinpanoissa ovat asiakkaan sanat ja omat havaintosi erikseen.",
+          valmis: "Muistiinpanoissa ovat asiakkaan palaute ja omat havaintosi erikseen, ja henkilöistä on kirjattu vain roolit.",
           tallenna: "Muistiinpanot viikon 41 päiväkirjaan.",
           eiRiita: "Itse tai tekoälyllä keksitty asiakaspalaute ei ole katselmointi."
         },
@@ -1120,16 +1122,16 @@ window.NAYTTOPROJEKTI = {
           miksi: "Yksi selvästi rajattu muutos ehditään tehdä kunnolla. Monta epämääräistä toivetta jää kesken.",
           osat: [
             "Valitse palautteesta yhdessä asiakkaan kanssa yksi muutos, jonka ehdit tehdä viikolla 43.",
-            "Tee muutoksesta GitHub-issue: otsikko verbillä, asiakkaan alkuperäinen palaute, arvio ja Valmis kun -ehto.",
+            "Tee muutoksesta GitHub-issue: otsikko verbillä, asiakkaan palaute ilman nimiä, arvio ja Valmis kun -ehto.",
             "Jos asiakas pitää muutosta välttämättömänä, se on pakollinen (P0): anna label P0 pakollinen. Muuten se on tärkeä (P1): anna label P1 tärkeä.",
             "Pyydä asiakkaalta hyväksyntä issuelle. Kirjaa hyväksyjän rooli ja päivä.",
             "Vertaa kolmen viikolla 35 tehdyn issuen arviota siihen, kauanko työ oikeasti kesti. Kirjaa ero ja sen syy päiväkirjaan.",
-            "Kirjoita katselmointimuistio päiväkirjaan: päivä, osallistujien roolit, asiakkaan sanat, oma tulkinta ja päätös."
+            "Kirjoita katselmointimuistio päiväkirjaan: päivä, osallistujien roolit, asiakkaan palaute, oma tulkinta ja päätös."
           ],
           valmis: "GitHubissa on yksi hyväksytty muutosissue, ja katselmointimuistio on päiväkirjassa.",
           tallenna: "Issuen linkki ja katselmointimuistio viikon 41 päiväkirjaan.",
           sanat: ["GitHub-issue", "P0", "P1"],
-          esimerkki: "Palaute: ”Tilausta ei huomaa.” Päätös: suurennetaan tilauskortti · P0 pakollinen · 0,5 päivää · hyväksytty 9.10."
+          esimerkki: "Palaute (asiakkaan edustaja): tilausta ei huomaa. Päätös: suurennetaan tilauskortti · P0 pakollinen · 0,5 päivää · hyväksytty 9.10."
         }
       }
     },
@@ -1150,7 +1152,7 @@ window.NAYTTOPROJEKTI = {
           perii: ["43-1"],
           miksi: "Kun muutos on pieni ja testi on kirjoitettu etukäteen, tiedät, milloin muutos on valmis.",
           osat: [
-            "Avaa viikolla 41 tekemäsi muutosissue GitHubissa ja lue asiakkaan alkuperäinen palaute.",
+            "Avaa viikolla 41 tekemäsi muutosissue GitHubissa ja lue siihen kirjattu asiakkaan palaute.",
             "Arvioi, onko muutos enintään yhden päivän työ. Jos se on isompi, jaa se kahdeksi issueksi.",
             "Kirjoita issueen hyväksymistesti: mitä asiakas tekee ja mitä hän näkee, kun muutos on valmis.",
             "Kirjoita issueen myös vanhan pelipolun testi: Aloita → toimita tilaus → tulosruutu toimii kuten ennen."
@@ -1367,7 +1369,7 @@ window.NAYTTOPROJEKTI = {
           miksi: "Toinen ihminen huomaa koodista asioita, joita et itse enää näe. Näytössä sinun pitää osata selittää koodisi itse, myös ne kohdat, joissa käytit tekoälyä.",
           osat: [
             "Pyydä ohjaajaa tai vertaista lukemaan muuttamasi koodi. Koodikatselmointi tarkoittaa, että toinen ihminen lukee koodin ja kommentoi sitä.",
-            "Näytä hänelle koodi ennen ja jälkeen muutoksen, esimerkiksi GitHubin commit-näkymästä. Kirjaa saamasi kommentti sellaisenaan.",
+            "Näytä hänelle koodi ennen ja jälkeen muutoksen, esimerkiksi GitHubin commit-näkymästä. Kirjaa saamasi kommentin sisältö ja katselmoijan rooli.",
             "Vastaa kommenttiin: korjaa koodia tai perustele, miksi pidät ratkaisun.",
             "Selitä samalla tapaamisella suullisesti yksi kohta, jossa käytit tekoälyä apuna. Jos et käyttänyt tekoälyä, selitä avun työpohjasta otettu kohta.",
             "Tarkista, että tekoälyn käyttö on kirjattu AI-lokiin eli sivuston AI-loki-näkymään, johon kirjaat tekoälyn avun."
@@ -1409,10 +1411,10 @@ window.NAYTTOPROJEKTI = {
           perii: ["47-2"],
           miksi: "Kaksi eri ihmistä löytää eri virheitä. Asiakas kertoo lisäksi, täyttääkö peli hänen toiveensa.",
           osat: [
-            "Pyydä asiakasta ja yhtä muuta ihmistä testaamaan julkaisuehdokas (RC1).",
+            "Pyydä asiakkaan nimettyä edustajaa ja yhtä muuta ihmistä testaamaan julkaisuehdokas (RC1).",
             "Anna molemmille sama tehtävä: ”Pelaa peli alusta loppuun ja tallenna tulos.”",
             "Pyydä heitä sulkemaan peli ja avaamaan se uudelleen, jotta näet, toimiiko tallennus.",
-            "Kirjaa jokainen havainto erikseen: kuka testasi (rooli), mitä tapahtui ja missä kohdassa."
+            "Kirjaa jokainen havainto erikseen: kuka testasi (rooli, esimerkiksi asiakkaan edustaja tai testaaja A), mitä tapahtui ja missä kohdassa."
           ],
           valmis: "Kahden testaajan havainnot on kirjattu erikseen, ja testaajien roolit näkyvät.",
           tallenna: "Havainnot viikon 47 päiväkirjaan.",
@@ -1444,7 +1446,7 @@ window.NAYTTOPROJEKTI = {
       deliverable: "GitHub Pagesissa toimiva versio v1.0, käyttöohje ja tunnettujen puutteiden lista.",
       why: "Asiakkaan pitää pystyä avaamaan peli itse. Vain julkisen linkin testaus osoittaa, että pelin tiedostot, asetukset ja tallennus toimivat oikeassa ympäristössä.",
       done: "v1.0-tagin commit vastaa julkaistua versiota. Toinen ihminen avaa linkin toisella selaimella tai laitteella ja pelaa kierroksen käyttöohjeen avulla.",
-      record: "Kirjoita Vko 48 -merkintään ketju v1.0-tagi → commit → julkaisulinkki. Lisää testattu selain tai laite, testaajan rooli, testitulos ja tunnetut puutteet. Rastita lopuksi Näyttömatriisi-näkymässä kohdat Versionhallinta, Tuotantojulkaisu, Julkaisu asiakkaan ympäristöön, Kirjaston mahdollisuudet ja rajoitteet ja Ulkoiset komponentit.",
+      record: "Kirjoita Vko 48 -merkintään ketju v1.0-tagi → commit → julkaisulinkki. Lisää testattu selain tai laite, testaajan rooli, testitulos, tunnetut puutteet ja linkki perustamaasi tiedostoon project-docs/nayttomatriisi.md. Rastita lopuksi Näyttömatriisi-näkymässä kohdat Versionhallinta, Tuotantojulkaisu, Julkaisu asiakkaan ympäristöön, Kirjaston mahdollisuudet ja rajoitteet ja Ulkoiset komponentit.",
       skills: ["Unity WebGL", "GitHub Pages", "käyttöohje"],
       tehtavat: {
         "48-1": {
@@ -1502,10 +1504,11 @@ window.NAYTTOPROJEKTI = {
             "Kirjoita ohje neljänä vaiheena: avaa linkki → Aloita → valitse tilauksen tuotteet → Toimita.",
             "Lisää otsikko ”Tunnetut puutteet” ja listaa sen alle viikon 47 tunnetut puutteet.",
             "Lisää otsikko ”Lähteet ja lisenssit”. Listaa sen alle käytetyt grafiikkapaketit ja niiden lisenssit.",
-            "Pyydä toista ihmistä aloittamaan peli pelkän ohjeen avulla, ilman suullista apua. Kirjaa hänen roolinsa ja kohdat, joissa hän epäröi, ja korjaa ne ohjeeseen."
+            "Pyydä toista ihmistä aloittamaan peli pelkän ohjeen avulla, ilman suullista apua. Kirjaa hänen roolinsa ja kohdat, joissa hän epäröi, ja korjaa ne ohjeeseen.",
+            "Perusta tiedosto project-docs/nayttomatriisi.md: jokaista vaatimusta kohti rivi, jossa ovat tunnus, työnäytteen linkki ja viikko. Täytä jo rivit, joiden linkin tiedät, esimerkiksi julkaisu ja v1.0-tagi."
           ],
-          valmis: "README:ssä ovat julkaisulinkki, käyttöohje, tunnetut puutteet ja lähteet.",
-          tallenna: "README.md, commit ja push.",
+          valmis: "README:ssä ovat julkaisulinkki, käyttöohje, tunnetut puutteet ja lähteet, ja project-docs/nayttomatriisi.md on perustettu.",
+          tallenna: "README.md ja project-docs/nayttomatriisi.md, commit ja push.",
           esimerkki: "README: Avaa [linkki] → Aloita → valitse tuotteet → Toimita. Testattu Chrome 128 / v1.0 / tunnettu puute: [asia]."
         },
         "48-4": {
@@ -1529,10 +1532,10 @@ window.NAYTTOPROJEKTI = {
       feature: "Peli, repository ja projektipäiväkirja on luovutettu, ja jokaisella näyttömatriisin vaatimuksella on toimiva linkki.",
       excerpt: "Lopullinen peli pitää julkaista niin, että voin itse kokeilla sitä.",
       connection: "Peliä ei enää muuteta: julkaistu v1.0 ja viikkojen 34–48 työnäytteet ovat näyttösi aineisto. Tarkistat päiväkirjan, kirjoitat itsearvioinnin ja liität jokaiseen näyttömatriisin vaatimukseen tarkan linkin, koska arvioija voi arvioida vain löydettävän osaamisen. Demossa näytät saman version ja selität ratkaisusi itse.",
-      deliverable: "Valmis projektipäiväkirja, itsearviointi, täytetty näyttömatriisi, harjoiteltu demo ja luovutettu aineisto.",
+      deliverable: "Valmis projektipäiväkirja, itsearviointi, täytetty project-docs/nayttomatriisi.md, harjoiteltu demo ja luovutettu aineisto.",
       why: "Arvioija voi arvioida vain näkyvän ja löydettävän osaamisen. Tarkat linkit säästävät aikaa ja näyttävät, miten vaatimus muuttui suunnitelmaksi, toteutukseksi ja testiksi.",
-      done: "Jokaisessa näyttömatriisin kohdassa on tarkka linkki, joka aukeaa. Projektipäiväkirja ja AI-loki ovat repositoryssa, ja demo käyttää samaa v1.0-versiota.",
-      record: "Kirjoita Vko 49 -merkintään itsearviointi: kolme vahvuutta työnäytteineen ja yksi seuraava kehitysaskel. Lisää linkit näyttömatriisiin, AI-lokiin ja v1.0-versioon.",
+      done: "Tiedoston project-docs/nayttomatriisi.md jokaisella rivillä on tarkka linkki, joka aukeaa. Projektipäiväkirja ja AI-loki ovat repositoryssa, ja demo käyttää samaa v1.0-versiota.",
+      record: "Kirjoita Vko 49 -merkintään itsearviointi: kolme vahvuutta työnäytteineen ja yksi seuraava kehitysaskel. Lisää linkit tiedostoon project-docs/nayttomatriisi.md, AI-lokiin ja v1.0-versioon.",
       skills: ["näyttömatriisi", "itsearviointi", "demo"],
       resources: [
         ["Avaa näyttömatriisi", "#view-naytto", false],
@@ -1570,12 +1573,12 @@ window.NAYTTOPROJEKTI = {
             "Avaa Näyttömatriisi-näkymä eli luettelo osaamisvaatimuksista, joihin tarvitset työnäytteen, ja lue ensimmäinen vaatimus.",
             "Etsi työnäyte, joka osoittaa, että vaatimus täyttyy: issue, C#-tiedosto, commit, testitapaus tai päiväkirjan viikko.",
             "Kopioi työnäytteen tarkka linkki. Linkin pitää avata juuri se kohta, ei repositoryn etusivua.",
-            "Kirjoita viikon 49 päiväkirjaan omalle rivilleen vaatimuksen nimi ja linkki. Rastita sitten vaatimus Näyttömatriisi-näkymässä.",
+            "Kirjoita tiedostoon project-docs/nayttomatriisi.md vaatimuksen riville tunnus, linkki ja viikko. Rastita sitten vaatimus Näyttömatriisi-näkymässä: rasti on oma muistilistasi.",
             "Toista osatehtävät 1–4 jokaiselle vaatimukselle."
           ],
-          valmis: "Jokaisella näyttömatriisin vaatimuksella on tarkka linkki, joka aukeaa.",
-          tallenna: "Vaatimusten linkit viikon 49 päiväkirjaan, josta ne tulevat mukaan projektipaivakirja.md-tiedostoon.",
-          esimerkki: "Toimintojen testaus → project-docs/testaus.md → testitapaukset T01–T12 → versio v1.0 → tarkka linkki.",
+          valmis: "Tiedostossa project-docs/nayttomatriisi.md on jokaiselle 32 vaatimukselle rivi, ja jokaisen rivin tarkka linkki aukeaa.",
+          tallenna: "project-docs/nayttomatriisi.md, commit ja push. Linkki tiedostoon viikon 49 päiväkirjaan.",
+          esimerkki: "p3 Toimintojen testaus | project-docs/testaus.md v1.0-tagissa (testitapaukset T01–T12) | vko 45. Sama työnäyte saa olla usealla rivillä.",
           eiRiita: "Pelkkä rastitettu matriisi tai linkki repositoryn etusivulle."
         },
         "49-4": {
@@ -1595,7 +1598,7 @@ window.NAYTTOPROJEKTI = {
           perii: ["49-4"],
           miksi: "Luovutus on näytön viimeinen vaihe. Kun toinen ihminen tarkistaa aineiston, et unohda mitään.",
           osat: [
-            "Paina Projektipäiväkirja-näkymän painiketta Lataa koko päiväkirja (.md) ja korvaa repositoryn tiedosto project-docs/projektipaivakirja.md. Tee commit ja push. Tarkista, että repositoryssa ovat peli, README.md, gdd.md, testaus.md ja projektipaivakirja.md.",
+            "Paina Projektipäiväkirja-näkymän painiketta Lataa koko päiväkirja (.md) ja korvaa repositoryn tiedosto project-docs/projektipaivakirja.md. Tee commit ja push. Tarkista, että repositoryssa ovat peli, README.md, gdd.md, testaus.md, projektipaivakirja.md ja nayttomatriisi.md.",
             "Avaa ladattu projektipaivakirja.md ja tarkista, että sen lopussa on otsikko AI-loki ja omat merkintäsi.",
             "Pyydä toista ihmistä avaamaan julkaisulinkki ja repository. Kirjaa, löysikö hän kaiken.",
             "Luovuta peli, repository, projektipäiväkirja ja näyttöaineisto ohjaajalle viimeistään pe 4.12.2026."

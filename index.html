@@ -24,9 +24,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Instrument+Serif:ital@0;1&display=swap">
-  <link rel="stylesheet" href="styles.css?v2.7.1-20260930">
-  <script src="sisalto.js?v2.7.1-20260930" defer></script>
-  <script src="app.js?v2.7.1-20260930" defer></script>
+  <link rel="stylesheet" href="styles.css?v2.7.2-20260930">
+  <script src="sisalto.js?v2.7.2-20260930" defer></script>
+  <script src="app.js?v2.7.2-20260930" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#sisalto">Siirry sisältöön</a>
@@ -130,23 +130,23 @@
             <dt>README.md</dt><dd>Pelin kuvaus, käyttöohje, julkaisulinkki, tunnetut puutteet sekä lähteet ja lisenssit.</dd>
             <dt>Projektipäiväkirja</dt><dd>Viikon yhteenveto, testien tulokset, asiakkaan vastaukset, muistiot ja linkit työnäytteisiin. Viikon lopussa vastaat kolmeen kysymykseen: mitä tein ja miten, miksi tein näin ja missä työnäyte on. Lataat tiedoston ja viet sen polkuun <code>project-docs/projektipaivakirja.md</code>.</dd>
             <dt>AI-loki</dt><dd>Mitä kysyit tekoälyltä ja mitä teit vastauksella: käytit, muutit tai hylkäsit. Loki tulee mukaan päiväkirjan lataukseen.</dd>
-            <dt>Näyttömatriisi</dt><dd>Linkit työnäytteisiin, jotka osoittavat tutkinnon vaatimukset. Sama työnäyte voi osoittaa useita vaatimuksia.</dd>
+            <dt>Linkitetty näyttömatriisi (<code>project-docs/nayttomatriisi.md</code>)</dt><dd>Jokaista vaatimusta kohti rivi: vaatimuksen tunnus, työnäytteen linkki (commit, issue, tiedosto, tagi tai kuva) ja viikko. Sama työnäyte saa olla usealla rivillä. Perustat tiedoston viikolla 48 ja viimeistelet sen viikolla 49. Sivun Näyttömatriisi-näkymän rastit ovat oma muistilistasi.</dd>
           </dl>
-          <p>Et täytä samoja asioita erilliseen Word-pohjaan. Sivuston rastit ja kentät tallentuvat vain tähän selaimeen: rasti ei ole palautus, ja työnäyte on aina Git-repositoryssa.</p>
+          <p>Et täytä samoja asioita erilliseen Word-pohjaan. Sivuston rastit ja kentät tallentuvat vain tähän selaimeen: rasti ei ole palautus, ja työnäyte on aina Git-repositoryssa. Henkilöistä kirjataan repositoryyn vain rooli, esimerkiksi ohjaaja, asiakkaan edustaja tai testaaja A. Nimet ja sanatarkat lausumat lähetät tarvittaessa ohjaajalle Teamsissa.</p>
         </details>
 
         <details class="view-section project-reference">
           <summary>Vaatimus, ehdotus vai oma päätös?</summary>
           <p><strong>Vaatimus</strong> tulee asiakkaan toimeksiannosta, ja se toteutetaan aina: aloitusvalikko, itse peli, pistelasku ja päättymisnäkymä, 1–3 tuotteen tilaus, kasvava vaikeus, parhaiden tulosten tallennus, tuotteet erillisessä tietolähteessä, toimiva väliversio asiakkaalle ja julkaistu peli, jota asiakas voi itse kokeilla. Yhdessä ne ovat pakollinen perusversio (P0). Tärkeä jatko (P1) tehdään vasta, kun koko P0 toimii, ja valinnainen lisä (P2) saa jäädä pois.</p>
-          <p><strong>Sovittu toteutustapa</strong> on toimeksiannon ja GDD:n teknologiaosion tekniikka: Unity 2D ja C#, yksi CafeGame-scene, tuotteet <code>products.json</code>-tiedostossa, tulokset PlayerPrefsillä ja julkaisu WebGL-buildina GitHub Pagesiin. <strong>Ehdotus</strong> on esimerkki tai oletusarvo, jonka voit vaihtaa perustellusti, esimerkiksi 10 pistettä oikeasta toimituksesta, vaikeustasojen rajat 0, 31 ja 61 pistettä tai nimimerkin 12 merkin enimmäispituus. Toteutusavun työpohjat ovat valmis runko: täydennät kohdat itse ja osaat selittää jokaisen rivin.</p>
+          <p><strong>Sovittu toteutustapa</strong> on toimeksiannon ja GDD:n teknologiaosion tekniikka: Unity 2D ja C#, yksi CafeGame-scene, tuotteet <code>products.json</code>-tiedostossa, tulokset PlayerPrefsillä ja julkaisu WebGL-buildina GitHub Pagesiin. Tietovarasto on sovittu toteutustapa: tuotteet luetaan <code>products.json</code>-tiedostosta JsonUtilityllä ja tulokset tallennetaan PlayerPrefsillä, koska myöhemmät viikot rakentuvat niiden varaan. Viikolla 40 perustelet PlayerPrefsin vertaamalla sitä vähintään yhteen vaihtoehtoon. Jos vertailu puoltaa selvästi muuta, poikkeamasta sovitaan ohjaajan kanssa ennen seuraavaa toteutusviikkoa. <strong>Ehdotus</strong> on esimerkki tai oletusarvo, jonka voit vaihtaa perustellusti, esimerkiksi 10 pistettä oikeasta toimituksesta, vaikeustasojen rajat 0, 31 ja 61 pistettä tai nimimerkin 12 merkin enimmäispituus. Toteutusavun työpohjat ovat valmis runko: täydennät kohdat itse ja osaat selittää jokaisen rivin.</p>
           <p><strong>Oma päätös</strong> perustellaan GDD:ssä tai päiväkirjassa: pelin nimi, tyyli, grafiikka ja pisteytys (viikko 35), pelisäännöt (viikko 38), vaikeutustapa ja tasojen arvot (viikko 39), nimimerkin enimmäispituus (viikko 40) ja se, mitkä testaajien havainnot korjataan ennen julkaisua (viikko 47).</p>
-          <p><strong>Asiakkaan kanssa sovittavat asiat</strong> ovat toimeksiannon Sovi asiakkaan kanssa -laatikossa ja GDD:n ASIAKAS-kentissä: kierroksen pituus, testiselaimet ja -laitteet, kohderyhmä, top 5 -listan tasatilanteet ja se, kuka hyväksyy rajauksen ja väliversion. <strong>Ohjaajan kanssa</strong> sovit, kuka toimii asiakkaana ja milloin tapaatte, ja ohjaaja hyväksyy rajauksen viikolla 35. Älä keksi vastausta itse tai tekoälyllä: tyhjä kenttä on oikea tulos, kunnes asia on sovittu.</p>
+          <p><strong>Asiakkaan kanssa sovittavat asiat</strong> ovat toimeksiannon Sovi asiakkaan kanssa -laatikossa ja GDD:n ASIAKAS-kentissä: kierroksen pituus, testiselaimet ja -laitteet, kohderyhmä, top 5 -listan tasatilanteet ja se, kuka hyväksyy rajauksen ja väliversion. <strong>Ohjaajan kanssa:</strong> Kunnes asiakkaan ulkopuolinen edustaja on nimetty, ohjaava opettaja toimii asiakkaan sijaisena ja vastaanottaa kysymyslistat ja tilannekatsaukset. Katselmoinneissa (viikot 41 ja 47) asiakasta esittää nimetty edustaja. Ohjaaja hyväksyy rajauksen viikolla 35. Älä keksi vastausta itse tai tekoälyllä: tyhjä kenttä on oikea tulos, kunnes asia on sovittu.</p>
           <a href="#view-toimeksianto" data-open-view="toimeksianto">Avaa toimeksianto →</a>
         </details>
 
         <details class="view-section project-reference">
           <summary>Mitä näytössä arvioidaan?</summary>
-          <p>Projekti kattaa kolme tutkinnon osaa: Ohjelmointi (11 osaamisvaatimusta), Ohjelmistokehittäjänä toimiminen (14) ja Ohjelmiston toteuttaminen ohjelmistokomponenttikirjastolla (7). Näyttömatriisissa on kaikki 32 vaatimusta, ja jokaiseen liität tarkan linkin työnäytteeseen viimeistään viikolla 49.</p>
+          <p>Projekti kattaa kolme tutkinnon osaa: Ohjelmointi (11 osaamisvaatimusta), Ohjelmistokehittäjänä toimiminen (14) ja Ohjelmiston toteuttaminen ohjelmistokomponenttikirjastolla (7). Näyttömatriisissa on kaikki 32 vaatimusta. Jokaisen tarkka työnäytelinkki kirjataan tiedostoon <code>project-docs/nayttomatriisi.md</code>, jonka perustat viikolla 48 ja viimeistelet viikolla 49.</p>
           <p>Ohjelmoinnin osaaminen näkyy C#-koodissa, jonka kirjoitat, testaat ja korjaat itse: tilauksessa, pisteissä, ajassa, vaikeudessa ja tallennuksessa sekä virheenkorjausketjuissa. Ohjelmistokehittäjänä toimiminen on työtapa: selvität asiakkaan tarpeen, pilkot ja priorisoit työn GitHub-issueiksi, katselmoit version asiakkaan kanssa, teet muutoksen haarassa ja julkaiset pelin. Komponenttikirjasto-osassa kirjasto on Unity: rakennat käyttöliittymän Canvasille, kytket osat Inspectorissa, otat ulkoiset komponentit (TextMeshPro ja grafiikkapaketit) käyttöön lisensseineen ja julkaiset WebGL-buildin.</p>
           <p>Tutkinnon osissa on tiimissä tehtäviä kokonaisuuksia. Siksi työvaiheissa ovat mukana asiakas, vertainen ja ohjaaja, vaikka teet pelin muuten yksin. Katselmoinnit ja sopimiset ovat osa arvioitavaa osaamista.</p>
           <a href="#view-naytto" data-open-view="naytto">Avaa näyttömatriisi →</a>
@@ -179,7 +179,7 @@
         <details class="source-role">
           <summary>Opettajan lähdeaineisto · ei erillistä täyttämistä ilman ohjetta</summary>
           <p>Nämä ovat opettajan lähdeaineistoa. Opiskelija ei täytä niitä ilman erillistä ohjetta. Viikkojen työvaiheet, GDD ja projektipäiväkirja kattavat saman sisällön.</p>
-          <p><a href="downloads/nayton-dokumentointipohjat.docx" download>Näytön dokumentointipohjat (.docx)</a> – opiskelijan paperinen työpaketti: suunnitelma, katselmoinnit, testaus, virheenkorjaus ja AI-loki.</p>
+          <p><a href="downloads/nayton-dokumentointipohjat.docx" download>Näytön dokumentointipohjat (.docx)</a> – aloituskeskustelu, vertailumuistio, katselmointiloki, testimatriisi, virheenkorjausketju, lisenssikirjaus ja AI-lokin paperiversio.</p>
         </details>
       </section>
 
@@ -224,6 +224,7 @@
             </ul>
             <p style="margin-top:8px">WebGL on Unityn julkaisumuoto, joka toimii selaimessa ilman asennusta, ja build on Unityn tekemä ajettava versio pelistä. WebGL-build on siis selaimessa pelattava julkaisuversio.</p>
             <p style="margin-top:8px">Toimeksiannon PC/selaimessa-vaihtoehdosta tässä polussa on valittu selain. Käytä oppilaitoksen määrittämää Unity-versiota koko projektin ajan.</p>
+            <p style="margin-top:8px">Tietovarasto on sovittu toteutustapa: tuotteet luetaan <code>products.json</code>-tiedostosta JsonUtilityllä ja tulokset tallennetaan PlayerPrefsillä, koska myöhemmät viikot rakentuvat niiden varaan. Viikolla 40 perustelet PlayerPrefsin vertaamalla sitä vähintään yhteen vaihtoehtoon. Jos vertailu puoltaa selvästi muuta, poikkeamasta sovitaan ohjaajan kanssa ennen seuraavaa toteutusviikkoa.</p>
           </div>
           <div class="card">
             <p class="section-label">Pidä rajaus · sovittu, ei toteuteta</p>
@@ -246,6 +247,7 @@
             <li>Kuka hyväksyy rajauksen ja väliversion?</li>
           </ul>
           <p class="note"><strong>Älä keksi vastauksia itse tai tekoälyllä.</strong> Merkitse vastaamattomat kohdat avoimiksi.</p>
+          <p class="note">Kunnes asiakkaan ulkopuolinen edustaja on nimetty, ohjaava opettaja toimii asiakkaan sijaisena ja vastaanottaa kysymyslistat ja tilannekatsaukset. Katselmoinneissa (viikot 41 ja 47) asiakasta esittää nimetty edustaja.</p>
         </div>
 
         <figure class="view-figure view-section">
@@ -690,7 +692,7 @@
 
           <div class="outcome-grid">
             <div class="card"><p class="section-label">Valmis kun</p><p class="checkpoint">Ennen kuin jatkat: tarkista viikon valmis kun -ehto.</p></div>
-            <div class="card"><p class="section-label section-label-accent">Näytä</p><p class="evidence"><strong>Työnäyte Git-repositoryyn ennen rastia:</strong> tallennuksen commitit, neljän testin tulokset (kuusi tulosta, tasapisteet, uudelleenavaus ja nimimerkin tarkistus) ja ratkaisun perustelu päiväkirjassa.</p></div>
+            <div class="card"><p class="section-label section-label-accent">Näytä</p><p class="evidence"><strong>Työnäyte Git-repositoryyn ennen rastia:</strong> tallennuksen commitit, neljän testin tulokset (kuusi tulosta, tasapisteet, uudelleenavaus ja nimimerkin tarkistus) sekä ratkaisun perustelu ja vertailu päiväkirjassa.</p></div>
           </div>
 
           <section class="week-journal" data-week-journal="40">
@@ -1026,7 +1028,7 @@
 
           <div class="outcome-grid">
             <div class="card"><p class="section-label">Valmis kun</p><p class="checkpoint">Ennen kuin jatkat: tarkista viikon valmis kun -ehto.</p></div>
-            <div class="card"><p class="section-label section-label-accent">Näytä</p><p class="evidence"><strong>Työnäyte Git-repositoryyn ennen rastia:</strong> julkaisulinkki, v1.0-tagi, testitulos toiselta laitteelta ja README käyttöohjeineen.</p></div>
+            <div class="card"><p class="section-label section-label-accent">Näytä</p><p class="evidence"><strong>Työnäyte Git-repositoryyn ennen rastia:</strong> julkaisulinkki, v1.0-tagi, testitulos toiselta laitteelta, README käyttöohjeineen ja perustettu project-docs/nayttomatriisi.md.</p></div>
           </div>
 
           <section class="week-journal" data-week-journal="48">
@@ -1075,7 +1077,7 @@
 
           <div class="outcome-grid">
             <div class="card"><p class="section-label">Valmis</p><p class="checkpoint">Ennen kuin jatkat: tarkista viikon valmis kun -ehto.</p></div>
-            <div class="card"><p class="section-label section-label-accent">Näytä</p><p class="evidence"><strong>Työnäyte Git-repositoryyn ennen rastia:</strong> peli, repository, project-docs/projektipaivakirja.md, näyttömatriisi, AI-loki ja demo.</p></div>
+            <div class="card"><p class="section-label section-label-accent">Näytä</p><p class="evidence"><strong>Työnäyte Git-repositoryyn ennen rastia:</strong> peli, repository, project-docs/projektipaivakirja.md, project-docs/nayttomatriisi.md, AI-loki ja demo.</p></div>
           </div>
 
           <section class="week-journal" data-week-journal="49">
@@ -1144,7 +1146,7 @@
           </div>
 
           <div class="plan-row"><span class="plan-tag plan-tag-oma">OMA</span><label class="plan-row-field">Pelin nimi<input type="text" data-plan-field="name" placeholder="Työnimi riittää, esim. Välkkäkahvila"></label><span class="plan-row-week">viikko 35</span></div>
-          <div class="plan-row"><span class="plan-tag plan-tag-oma">OMA</span><label class="plan-row-field">Tekijä<input type="text" data-plan-field="author" placeholder="Oma nimesi"></label><span class="plan-row-week">viikko 35</span></div>
+          <div class="plan-row"><span class="plan-tag plan-tag-oma">OMA</span><label class="plan-row-field">Tekijä<input type="text" data-plan-field="author" placeholder="Oma nimesi tai ohjaajan kanssa sovittu tekijänimi"></label><span class="plan-row-week">viikko 35</span></div>
           <div class="plan-row"><span class="plan-tag plan-tag-oma">OMA</span><label class="plan-row-field">Tavoite ja oma roolini omin sanoin<textarea rows="3" data-plan-field="goal" placeholder="Mitä peli tavoittelee ja kenelle? Mikä on sinun roolisi tässä projektissa?"></textarea></label><span class="plan-row-week">viikko 35</span></div>
           <div class="plan-row"><span class="plan-tag plan-tag-oma">OMA</span><label class="plan-row-field">Visuaalinen tyyli
             <select data-plan-field="style">
@@ -1226,7 +1228,7 @@
       <section class="view" data-view="naytto" id="view-naytto">
         <p class="view-eyebrow">Näyttöaineisto syntyy työn aikana</p>
         <h1 class="view-title">Näyttömatriisi</h1>
-        <p class="view-lead">Pelkkä valmis peli ei näytä koko osaamista. Työnäyte on yksi tuotos, joka osoittaa osaamisesi: commit, kuva, testirivi tai muistio. Sama työnäyte voi kelvata useaan kohtaan: esimerkiksi repository ja testibuild todentavat sekä kehitysympäristön että sen käyttöönoton. Kokoa jokaisesta kohdasta linkki, commit, kuva, lokimerkintä tai päätösmuistio.</p>
+        <p class="view-lead">Pelkkä valmis peli ei näytä koko osaamista. Työnäyte on yksi tuotos, joka osoittaa osaamisesi: commit, kuva, testirivi tai muistio. Sama työnäyte voi kelvata useaan kohtaan: esimerkiksi repository ja testibuild todentavat sekä kehitysympäristön että sen käyttöönoton. Kokoa jokaisesta kohdasta linkki, commit, kuva, lokimerkintä tai päätösmuistio tiedostoon <code>project-docs/nayttomatriisi.md</code>: rivillä vaatimuksen tunnus, työnäytteen linkki ja viikko. Tämän sivun rastit ovat oma muistilistasi.</p>
 
         <div class="card card-tint evidence-summary"><strong data-evidence-count>0 / 32</strong><span>osaamisvaatimuksen työnäyte merkitty</span></div>
 
