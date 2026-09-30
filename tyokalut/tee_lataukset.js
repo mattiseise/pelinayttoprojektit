@@ -20,7 +20,7 @@
 const fs = require("fs");
 const path = require("path");
 const {
-  Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType,
+  Document, Packer, Paragraph, TextRun, ExternalHyperlink, HeadingLevel, AlignmentType,
   Table, TableRow, TableCell, WidthType, ShadingType, PageBreak,
 } = require("docx");
 
@@ -83,6 +83,13 @@ const lt = (key, ...args) => {
   const value = L[key];
   return typeof value === "function" ? value(...args) : value;
 };
+
+/* Viikon verkkolinkit myös paperiversioon. Perusosoite tulee projektin
+   lataukset-asetuksista; paikalliset resurssit toimivat verkossa PDF/Wordista. */
+function weekResources(g) {
+  if (!L.resurssienPerusosoite) return [];
+  return (g.resources || []).map(([label, href]) => [label, new URL(href, L.resurssienPerusosoite).href]);
+}
 
 const html = fs.readFileSync(path.join(SITE, "index.html"), "utf8");
 
@@ -275,6 +282,11 @@ tp.push(pageBreak());
     if (unified && g.connection) tp.push(p(`${lt("yhteysLabel")} ${plainTick(g.connection)}`, { size: 19, after: 60 }));
     if (unified && g.feature) tp.push(p(`${lt("tavoiteLabel")} ${plainTick(g.feature)}`, { size: 19, bold: true, after: 80 }));
     else if (g.feature) tp.push(p(g.feature, { italics: true, color: GREY }));
+    weekResources(g).forEach(([label, href]) => tp.push(new Paragraph({
+      children: [new TextRun({ text: "Kuvaohje tai materiaali: ", size: 19 }),
+        new ExternalHyperlink({ link: href, children: [new TextRun({ text: label, style: "Hyperlink", size: 19 })] })],
+      spacing: { after: 80 }
+    })));
     wk.tasks.forEach((t, i) => {
       const d = taskDef(g, wk.taskIds[i]);
       if (!d) { tp.push(box(t)); return; }
@@ -631,6 +643,7 @@ ${printCss(style)}
       if (unified && g.connection) H.push(`<p class="conn"><strong>${esc(lt("yhteysLabel"))}</strong> ${esc(g.connection)}</p>`);
       if (unified && g.feature) H.push(`<p class="goal"><strong>${esc(lt("tavoiteLabel"))}</strong> ${esc(g.feature)}</p>`);
       else if (g.feature) H.push(`<p class="feature">${esc(g.feature)}</p>`);
+      weekResources(g).forEach(([label, href]) => H.push(`<p class="ev"><a href="${esc(href)}">${esc(label)}</a></p>`));
       wk.tasks.forEach((t, i) => {
         const d = taskDef(g, wk.taskIds[i]);
         if (!d) { H.push(`<p class="task">☐&nbsp; ${esc(t)}</p>`); return; }
