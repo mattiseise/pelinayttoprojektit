@@ -1,5 +1,5 @@
 /*
- * Näyttöprojekti – geneerinen kaksipalstainen leiska (moottori v2.6).
+ * Näyttöprojekti – geneerinen kaksipalstainen leiska (moottori v2.7).
  * TÄTÄ TIEDOSTOA EI MUOKATA PROJEKTIKOHTAISESTI, PAITSI :root-paletti.
  * Projektikohtainen väri tulee AINA :root:sta (--accent, --accent-dark,
  * --phase-a..--phase-f) — muualle ei kovakoodata värejä.
@@ -10,14 +10,15 @@
      Poimittu vanhasta styles.css:stä: --coral → --accent, --coral-dark → --accent-dark. */
   --accent: #2563eb;
   --accent-dark: #1d4ed8;
-  /* ---- PROJEKTIKOHTAINEN: vaihevärit A–F ----
-     Vanhat --phase-a..d siirretty sellaisenaan (A ydin, B featuret, C valmiiksi, D julkaisu).
-     Kahvilassa on vain neljä vaihetta, joten phase-e/f jäävät moottorin oletusarvoihin. */
+  /* ---- PROJEKTIKOHTAINEN: vaihevärit ----
+     v2.7: viisi numeroitua vaihetta, vaihe N = --phase-a, -b … (1 valmistelu, 2 pelattava peli,
+     3 asiakkaan palaute, 4 laatu, 5 julkaisu). Vanhat värit a–d säilyivät; phase-e on
+     sininen, jotta se erottuu vaiheen 1 turkoosista. Sama heksa sisalto.js:n vaiheet[].vari. */
   --phase-a: #0d9488;
   --phase-b: #d97706;
   --phase-c: #7c3aed;
   --phase-d: #db2777;
-  --phase-e: #0f766e;
+  --phase-e: #1e40af;
   --phase-f: #a16207;
 
   /* Designin alias: prototyypin koodi viittaa --ak:hon. */
@@ -50,6 +51,16 @@
   --radius-pill: 999px;
   --sidebar-w: 296px;
   --main-max: 740px;
+}
+
+/* v2.7: numeroidut vaiheet (vaiheet[].tunnus "1"–"6") käyttävät samoja värejä kuin A–F. */
+:root {
+  --phase-1: var(--phase-a);
+  --phase-2: var(--phase-b);
+  --phase-3: var(--phase-c);
+  --phase-4: var(--phase-d);
+  --phase-5: var(--phase-e);
+  --phase-6: var(--phase-f);
 }
 
 * { box-sizing: border-box; }
@@ -819,3 +830,48 @@ html[data-teema] .substep-row input:focus-visible ~ .task-box { outline: none !i
 html[data-teema] .substep-row input:checked ~ .task-box { background: var(--accent); border-color: var(--accent); }
 html[data-teema] .substep-row input:checked ~ .substep-text { color: var(--ink); }
 html[data-teema] .task-card-done, html[data-teema] .task-card-save { background: transparent; }
+
+/* ---------- v2.7: yhtenäiset viikko-ohjeet (P.yhtenaisetViikot) ---------- */
+.project-phase-path { display: flex; flex-wrap: wrap; gap: 6px; margin: 14px 0 18px; }
+.project-phase-path a { display: inline-flex; align-items: center; min-height: 32px; padding: 4px 12px; border: 1px solid var(--line); border-radius: var(--radius-pill); background: var(--card-bg); color: var(--muted); font-size: 13px; text-decoration: none; }
+.project-phase-path a:hover { border-color: var(--line-hover); color: var(--ink); }
+.project-phase-path a[aria-current="step"] { border: 2px solid var(--phase-color, var(--accent)); background: color-mix(in srgb, var(--phase-color, var(--accent)) 12%, var(--card-bg)); color: var(--ink); font-weight: 700; }
+.project-phase-path a:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.project-connection { margin-top: 4px; }
+.project-connection h2.section-label { font-family: var(--font-sans); font-size: 13px; font-weight: 700; line-height: 1.35; letter-spacing: .01em; text-transform: none; color: var(--accent-dark); }
+.view[data-view="kaytto"] > .view-lead + p { margin-top: 12px; color: var(--muted); }
+.view[data-view="kaytto"] > .goal-hero:not(:first-child) { margin-top: 28px; }
+.project-connection > p { margin: 6px 0 0; font-size: 15px; }
+.project-connection .project-week-goal { margin-top: 16px; }
+.project-connection .project-week-goal-text { font-weight: 600; color: var(--ink); }
+.project-connection .week-quote { margin: 14px 0 0; }
+.week-card.is-unified .week-terms { margin-top: 16px; }
+.week-finish { margin-top: 28px; border-left: 3px solid var(--accent); }
+.week-finish h2 { margin: 0; font-size: 18px; }
+.week-finish h3 { margin: 14px 0 4px; font-size: 13px; font-weight: 700; color: var(--muted); }
+.week-finish p { margin: 0; font-size: 14px; }
+.week-skills-details, .week-days-details, .week-workflow, details.week-kuvaohjeet, details.week-routine, .project-reference { margin-top: 16px; padding: 0 16px; background: var(--card-bg); border: 1px solid var(--line); border-radius: var(--radius-card); }
+.week-skills-details > summary, .week-days-details > summary, .week-workflow > summary, details.week-kuvaohjeet > summary, details.week-routine > summary, .project-reference > summary { padding: 12px 0; cursor: pointer; font-size: 14px; font-weight: 600; }
+.week-skills-details[open], .week-days-details[open], .week-workflow[open], details.week-kuvaohjeet[open], details.week-routine[open], .project-reference[open] { padding-bottom: 14px; }
+.week-skills-details .week-skills { margin-top: 4px; }
+.week-skills-details .expectation-grid { margin-top: 14px; }
+.week-days-details .day-rhythm { margin-top: 0; }
+.project-figure { margin: 18px 0; }
+.project-figure img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: var(--radius-card); background: #fff; }
+.project-figure figcaption { margin-top: 8px; font-size: 13px; color: var(--muted); }
+.project-figure .kuvaohje-open-button { margin-top: 8px; }
+.impl-help-images .help-figure { margin: 0; }
+.substep-text, .task-card-body p, .week-finish p, .project-connection p { overflow-wrap: anywhere; }
+.project-roadmap-list { padding-left: 22px; }
+.project-roadmap-list li { margin: 10px 0; }
+.project-roles dt { margin-top: 12px; font-weight: 600; }
+.project-roles dd { margin: 2px 0 0; color: var(--muted); }
+.project-reference > p { margin: 10px 0 0; }
+.project-reference > p:first-of-type { margin-top: 2px; }
+.project-reference > a { display: inline-block; margin-top: 10px; }
+html[data-teema] .project-phase-path a { border: 2px solid currentColor; color: var(--ink); }
+html[data-teema] .project-phase-path a[aria-current="step"] { background: var(--accent); color: var(--bg); }
+@media (max-width: 640px) { .project-phase-path a { font-size: 12px; padding: 4px 10px; } }
+/* Kapeassa asettelussa sivupalkki on kiinteä yläpalkki: näkymän alku ei jää sen alle. */
+@media (max-width: 860px) { .view, .week-card, .holiday-card { scroll-margin-top: 84px; } }
+@media print { .project-phase-path, [data-figure-open] { display: none; } }

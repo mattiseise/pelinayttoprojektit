@@ -11,6 +11,11 @@
  *   tyopaketti-tuloste.html → <slug>-tyopaketti-tuloste.pdf  tulostettava: vaalea tausta, isokirjainen
  * ja työpaketin docx on isokirjainen (sama perusfonttikoko). Opettajan
  * aineisto (näyttösuunnitelma, dokumentointipohjat) pysyy normaalina.
+ *
+ * v2.7: yhtenäiset viikko-ohjeet (P.yhtenaisetViikot): työpaketin alkuun "Mitä rakennat ja
+ * miten etenet" (lopputulos, vaiheet[].kuvaus, lataukset.aloitusHuomio, print-HTML:ssä myös
+ * P.vaihekuva) ja jokaisen viikon alkuun yhteys kokonaisprojektiin ja viikon tavoite.
+ * Tehtävät numeroidaan työvaiheiksi. Lomakortin teksti on kortin viimeinen kappale.
  */
 const fs = require("fs");
 const path = require("path");
@@ -62,9 +67,18 @@ const L_OLETUS = {
   sanastoViikko: (w) => `vko ${w}`,
   /* v2.5: tehtäväkortit paperilla */
   tehtavaNumero: (i, n) => `Tehtävä ${i} / ${n}`,
-  tallennaLabel: "Tallenna työnäyte:"
+  tallennaLabel: "Tallenna työnäyte:",
+  /* v2.7: yhtenäiset viikko-ohjeet */
+  aloitusOtsikko: "Mitä rakennat ja miten etenet",
+  aloitusVaiheetOtsikko: (n) => `Projektin ${n} vaihetta`,
+  aloitusVaiheViikot: (first, last, dateless) => `${dateless ? "työviikot" : "viikot"} ${first === last ? first : `${first}–${last}`}`,
+  aloitusHuomio: "",
+  yhteysLabel: "Yhteys kokonaisprojektiin:",
+  tavoiteLabel: "Viikon tavoite:",
+  lopputarkistusLabel: "Viikon lopputarkistus:"
 };
-const L = Object.assign({}, L_OLETUS, P.lataukset || {});
+const L_YHTENAINEN = { tehtavaNumero: (i, n) => `Työvaihe ${i} / ${n}` };
+const L = Object.assign({}, L_OLETUS, P.yhtenaisetViikot ? L_YHTENAINEN : {}, P.lataukset || {});
 const lt = (key, ...args) => {
   const value = L[key];
   return typeof value === "function" ? value(...args) : value;
@@ -89,15 +103,18 @@ while ((m = cardRe.exec(html))) {
   const tasks = taskMatches.map((t) => stripTags(t[2]).replace(/tällä sivulla/g, "sivustolla").replace(/on this page/g, "on the site"));
   const taskIds = taskMatches.map((t) => t[1]);
   const ev = block.match(/<p class="evidence">([\s\S]*?)<\/p>/);
-  weeks.push({ num: +num, dates, title, tasks, taskIds, evidence: ev ? stripTags(ev[1]) : "" });
+  /* v2.7: "Näytä:"-tyyppinen etuliite on jo evidenceLabel-otsikossa. */
+  const evHtml = ev ? (P.yhtenaisetViikot ? ev[1].trim().replace(/^<strong>[^<]{1,40}:<\/strong>\s*/, "") : ev[1]) : "";
+  weeks.push({ num: +num, dates, title, tasks, taskIds, evidence: stripTags(evHtml) });
 }
 
 /* Lomaviikot holiday-cardeista (sama otsikkomuoto kuin week-cardeissa:
    view-eyebrow kantaa data-week-label-attribuutin, h1.view-title on nimi). */
 const holidays = {};
-const holRe = /<article class="holiday-card" id="week-(\d+)" data-week="\d+">\s*<p class="view-eyebrow" data-week-label="([^"]+)"[^>]*>[^<]*<\/p>\s*<h1 class="view-title">([^<]+)<\/h1>\s*<p>([\s\S]*?)<\/p>/g;
+const holRe = /<article class="holiday-card" id="week-(\d+)" data-week="\d+">\s*<p class="view-eyebrow" data-week-label="([^"]+)"[^>]*>[^<]*<\/p>\s*<h1 class="view-title">([^<]+)<\/h1>([\s\S]*?)<\/article>/g;
 while ((m = holRe.exec(html))) {
-  holidays[+m[1]] = { dates: stripTags(m[2]), title: stripTags(m[3]), text: stripTags(m[4]) };
+  const paragraphs = [...m[4].matchAll(/<p>([\s\S]*?)<\/p>/g)];
+  holidays[+m[1]] = { dates: stripTags(m[2]), title: stripTags(m[3]), text: paragraphs.length ? stripTags(paragraphs[paragraphs.length - 1][1]) : "" };
 }
 
 /* Näyttömatriisi (kaksipalstainen layout: otsikko + laskuri omissa <span>:eissä) */
@@ -202,6 +219,27 @@ tp.push(p(lt("kansiJohdanto"), { size: 21, align: AlignmentType.CENTER, color: G
 tpKansiHuomiot.forEach((note) => tp.push(p(note, { size: 21, align: AlignmentType.CENTER, color: GREY, before: 200 })));
 tp.push(pageBreak());
 
+/* v2.7: kokonaiskuva ennen aikataulua. Vaiheet samasta vaiheet-datasta kuin sivun vaihekuvaus. */
+const unified = Boolean(P.yhtenaisetViikot);
+function phaseWeeksLabel(phase) {
+  const work = (P.viikot || []).filter((w) => (phase.viikot || []).includes(w) && !(P.lomaViikot || []).includes(w));
+  return work.length ? lt("aloitusVaiheViikot", work[0], work[work.length - 1], Boolean(P.paivaton)) : "";
+}
+if (unified) {
+  tp.push(h1(lt("aloitusOtsikko")));
+  const kuvaus = (P.lopputulos && P.lopputulos.kuvaus) || "";
+  if (kuvaus) tp.push(p(plainTick(kuvaus)));
+  ((P.lopputulos && P.lopputulos.kohdat) || []).forEach((c) => tp.push(p(`${c.n}. ${plainTick(c.teksti)}`, { indent: 360, after: 60 })));
+  tp.push(h2(lt("aloitusVaiheetOtsikko", (P.vaiheet || []).length)));
+  (P.vaiheet || []).forEach((phase, i) => {
+    const wl = phaseWeeksLabel(phase);
+    tp.push(p(`${i + 1}. ${phase.otsikko}${wl ? ` · ${wl}` : ""}`, { bold: true, before: 120, after: 40 }));
+    if (phase.kuvaus) tp.push(p(plainTick(phase.kuvaus), { indent: 360, after: 80 }));
+  });
+  if (lt("aloitusHuomio")) tp.push(p(plainTick(lt("aloitusHuomio")), { before: 200, italics: true, color: GREY }));
+  tp.push(pageBreak());
+}
+
 tp.push(h1(lt("aikatauluOtsikko")));
 const schedW = widths([9, 18, 51, 18]);
 const schedRows = [headerRow([[lt("sarakeViikko"), schedW[0]], [lt("sarakePvm"), schedW[1]], [lt("sarakeAihe"), schedW[2]], [lt("sarakeVaihe"), schedW[3]]])];
@@ -234,7 +272,9 @@ tp.push(pageBreak());
     if (!wk) return;
     const g = P.viikkoOhjeet[num] || {};
     tp.push(h2(lt("viikkoOtsikko", wk.num, wk.dates, wk.title)));
-    if (g.feature) tp.push(p(g.feature, { italics: true, color: GREY }));
+    if (unified && g.connection) tp.push(p(`${lt("yhteysLabel")} ${plainTick(g.connection)}`, { size: 19, after: 60 }));
+    if (unified && g.feature) tp.push(p(`${lt("tavoiteLabel")} ${plainTick(g.feature)}`, { size: 19, bold: true, after: 80 }));
+    else if (g.feature) tp.push(p(g.feature, { italics: true, color: GREY }));
     wk.tasks.forEach((t, i) => {
       const d = taskDef(g, wk.taskIds[i]);
       if (!d) { tp.push(box(t)); return; }
@@ -243,7 +283,7 @@ tp.push(pageBreak());
       if (d.valmis) tp.push(p(lt("valmisKun") + plainTick(d.valmis), { size: 19, color: ACCENT, after: 40, indent: 360 }));
       if (d.tallenna) tp.push(p(`${lt("tallennaLabel")} ${plainTick(d.tallenna)}`, { size: 19, color: GREY, after: 80, indent: 360 }));
     });
-    if (g.done) tp.push(p(lt("valmisKun") + g.done, { size: 19, color: ACCENT, after: 60 }));
+    if (g.done) tp.push(p((unified ? `${lt("lopputarkistusLabel")} ` : lt("valmisKun")) + plainTick(g.done), { size: 19, color: ACCENT, bold: unified, after: 60 }));
     if (wk.evidence) tp.push(p(`${lt("evidenceLabel")} ${wk.evidence}`, { size: 19, color: GREY, after: 240 }));
   });
 });
@@ -342,8 +382,8 @@ for (let i = 1; i <= testCount; i++) {
   ]}));
 }
 dp.push(table(tw, tRows));
-const third = Math.ceil(testCount / 3);
-dp.push(p(`Luokat: T01–T${String(third).padStart(2, "0")} normaali käyttö · T${String(third + 1).padStart(2, "0")}–T${String(third * 2).padStart(2, "0")} rajat · loput virhetilanteet. Kirjoita odotus ennen testiajoa.`, { before: 120, italics: true, color: GREY }));
+/* v2.7: luokka kirjataan tapauskohtaisesti; kolmannesjako ei vastannut projektien omaa numerointia. */
+dp.push(p(T.testiLuokat || "Merkitse jokaiselle testitapaukselle luokka: normaali käyttö, raja tai virhetilanne. Kirjoita odotus ennen testiajoa.", { before: 120, italics: true, color: GREY }));
 dp.push(pageBreak());
 
 dp.push(h1(`5 · Virheenkorjausketju (vko ${T.testiVko ?? ""}, ${T.ketjuja || 3} kpl)`));
@@ -498,7 +538,14 @@ th { background: #${TINT}; }
 .ev { color: #555; font-size: 9pt; margin: 2pt 0 0; }
 .page { page-break-before: always; }
 .muted { color: #555; }
-.item { font-size: 9pt; margin: 2pt 0; }`;
+.item { font-size: 9pt; margin: 2pt 0; }
+.conn { font-size: 9pt; margin: 0 0 3pt; }
+code { font-family: Menlo, Consolas, monospace; font-size: 8.5pt; }
+.wk.u { page-break-inside: auto; }
+.wkdone { margin-top: 8pt; padding-top: 4pt; border-top: 0.5pt solid #bbb; }
+.tblock { page-break-inside: avoid; }
+.goal { font-size: 9.5pt; margin: 0 0 4pt; }
+img.figure { display: block; max-width: 100%; max-height: 96mm; margin: 4pt auto 6pt; }`;
   }
   /* Teema ja tuloste: sama perusfonttikoko, ei kursiivia, ei pienempää tekstiä. */
   const T = TEEMA || {};
@@ -532,6 +579,9 @@ th { font-weight: 700; }
 .page { page-break-before: always; }
 .muted, .item { }
 strong { font-weight: 700; }
+.conn, .goal { margin: 0 0 .4em; }
+.tblock { page-break-inside: avoid; }
+img.figure { display: block; max-width: 100%; margin: .5em 0 1em; }
 code { font-family: Consolas, "Courier New", monospace; font-size: 1em; }`;
 }
 
@@ -539,11 +589,26 @@ function printHtml(style) {
   const H = [];
   /* Teema- ja tulosteversiossa takahipsut `näin` muuttuvat koodiksi kuten sivustolla.
      Oletusversio pysyy ennallaan, jotta muiden projektien työpaketit eivät muutu. */
-  const esc = style === "oletus" ? escBase : (s) => escBase(s).replace(/`([^`\n]+)`/g, "<code>$1</code>");
+  const esc = style === "oletus" && !unified ? escBase : (s) => escBase(s).replace(/`([^`\n]+)`/g, "<code>$1</code>");
   H.push(`<!doctype html><html lang="${esc(lt("lang"))}"><head><meta charset="utf-8"><title>${esc(P.nimi)} – ${esc(lt("tyopakettiTiedostoOtsikko"))}</title><style>
 ${printCss(style)}
 </style></head><body>`);
   H.push(`<div class="cover"><h1>${esc(P.nimi)}</h1><p style="font-size:${style === "oletus" ? "14pt" : "1.2em"}">${esc(lt("tyopakettiOtsikko"))}</p><p>${esc(tpKansiKuvaus || "")}</p><p${style === "oletus" ? ' style="font-size:12pt"' : ""}><strong>${esc(tpJakso)}${tpDeadline ? ` · ${esc(lt("luovutus", tpDeadline))}` : ""}</strong></p><p style="${style === "oletus" ? "max-width:120mm;margin:18pt auto 0" : "margin-top:1em"}">${esc(lt("kansiJohdanto"))}</p>${tpKansiHuomiot.map((n) => `<p style="${style === "oletus" ? "max-width:120mm;margin:10pt auto 0" : "margin-top:.6em"}">${esc(n)}</p>`).join("")}</div>`);
+  if (unified) {
+    H.push(`<h1>${esc(lt("aloitusOtsikko"))}</h1>`);
+    if (P.lopputulos && P.lopputulos.kuvaus) H.push(`<p>${esc(P.lopputulos.kuvaus)}</p>`);
+    const goalImg = P.lopputulos && P.lopputulos.kuva;
+    if (goalImg && style !== "oletus") H.push(`<img class="figure" src="../${esc(goalImg)}" alt="${esc(P.lopputulos.alt || "")}">`);
+    if (P.lopputulos && (P.lopputulos.kohdat || []).length) H.push(`<ol class="osat">${P.lopputulos.kohdat.map((c) => `<li>${esc(c.n)}. ${esc(c.teksti)}</li>`).join("")}</ol>`);
+    H.push(`<h2>${esc(lt("aloitusVaiheetOtsikko", (P.vaiheet || []).length))}</h2>`);
+    if (P.vaihekuva && P.vaihekuva.kuva) H.push(`<img class="figure" src="../${esc(P.vaihekuva.kuva)}" alt="${esc(P.vaihekuva.alt || "")}">`);
+    (P.vaiheet || []).forEach((phase, i) => {
+      const wl = phaseWeeksLabel(phase);
+      H.push(`<p class="task"><strong>${i + 1}. ${esc(phase.otsikko)}${wl ? ` · ${esc(wl)}` : ""}.</strong> ${esc(phase.kuvaus || "")}</p>`);
+    });
+    if (lt("aloitusHuomio")) H.push(`<p class="muted">${esc(lt("aloitusHuomio"))}</p>`);
+    H.push(`<div class="page"></div>`);
+  }
   H.push(`<h1>${esc(lt("aikatauluLyhyt"))}</h1><table><tr><th>${esc(lt("sarakeViikko"))}</th><th>${esc(lt("sarakePvm"))}</th><th>${esc(lt("sarakeAihe"))}</th><th>${esc(lt("sarakeVaihe"))}</th></tr>`);
   walkWeeks(
     (wk, g, phase) => H.push(`<tr><td><strong>${wk.num}</strong></td><td>${esc(wk.dates)}</td><td>${esc(wk.title)}</td><td>${phase ? esc(phase.tunnus) : "–"}</td></tr>`),
@@ -561,17 +626,20 @@ ${printCss(style)}
       const wk = weeks.find((w) => w.num === num);
       if (!wk) return;
       const g = P.viikkoOhjeet[num] || {};
-      H.push(`<div class="wk"><h2>${esc(lt("viikkoOtsikko", wk.num, wk.dates, wk.title))}</h2>`);
-      if (g.feature) H.push(`<p class="feature">${esc(g.feature)}</p>`);
+      H.push(`<div class="wk${unified ? " u" : ""}"><h2>${esc(lt("viikkoOtsikko", wk.num, wk.dates, wk.title))}</h2>`);
+      if (unified && g.connection) H.push(`<p class="conn"><strong>${esc(lt("yhteysLabel"))}</strong> ${esc(g.connection)}</p>`);
+      if (unified && g.feature) H.push(`<p class="goal"><strong>${esc(lt("tavoiteLabel"))}</strong> ${esc(g.feature)}</p>`);
+      else if (g.feature) H.push(`<p class="feature">${esc(g.feature)}</p>`);
       wk.tasks.forEach((t, i) => {
         const d = taskDef(g, wk.taskIds[i]);
         if (!d) { H.push(`<p class="task">☐&nbsp; ${esc(t)}</p>`); return; }
-        H.push(`<p class="task tcard"><strong>${esc(lt("tehtavaNumero", i + 1, wk.tasks.length))} · ${esc(t)}</strong></p>`);
+        H.push(`<div class="tblock"><p class="task tcard"><strong>${esc(lt("tehtavaNumero", i + 1, wk.tasks.length))} · ${esc(t)}</strong></p>`);
         H.push(`<ol class="osat">${(d.osat || []).map((o) => `<li>☐&nbsp; ${esc(osaTeksti(o))}</li>`).join("")}</ol>`);
         if (d.valmis) H.push(`<p class="done osa-done"><strong>${esc(lt("valmisKunLabel"))}</strong> ${esc(d.valmis)}</p>`);
         if (d.tallenna) H.push(`<p class="ev osa-done"><strong>${esc(lt("tallennaLabel"))}</strong> ${esc(d.tallenna)}</p>`);
+        H.push(`</div>`);
       });
-      if (g.done) H.push(`<p class="done"><strong>${esc(lt("valmisKunLabel"))}</strong> ${esc(g.done)}</p>`);
+      if (g.done) H.push(`<p class="done${unified ? " wkdone" : ""}"><strong>${esc(unified ? lt("lopputarkistusLabel") : lt("valmisKunLabel"))}</strong> ${esc(g.done)}</p>`);
       if (wk.evidence) H.push(`<p class="ev"><strong>${esc(lt("evidenceLabel"))}</strong> ${esc(wk.evidence)}</p>`);
       H.push(`</div>`);
     });

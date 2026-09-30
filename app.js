@@ -9,6 +9,17 @@
  * Rakenne, jota tämä moottori odottaa index.html:ltä, on kuvattu tarkasti
  * tiedostossa skillin references/layout-rakenne.md.
  *
+ * v2.7: yhtenäiset viikko-ohjeet (opt-in, P.yhtenaisetViikot). Jokainen viikkokortti saa saman
+ *   lukujärjestyksen: vaihepolku (P.vaiheet), "Miten tämän viikon asiat liittyvät
+ *   kokonaisprojektiin" (connection) ja viikon tavoite (feature), työvaiheet (tehtavat),
+ *   avattavat apuosiot (kuvaohjeet, viikkorutiini, päivärytmi, toteutusapu), yksi viikon
+ *   lopputarkistus (done + Näytä-rivi) ja avattava osaamiskuvaus (skills + kalibrointi).
+ *   Rakenne kootaan index.html:n nykyisistä elementeistä, joten työpaketti ja tarkistus
+ *   lukevat samaa lähdettä. Staattisesti valmiiksi rakennettua korttia (.project-connection)
+ *   ei kosketa. [data-roadmap] Näin käytät sivua -näkymässä renderöi vaihekuvauksen
+ *   (vaiheet[].kuvaus, P.vaihekuva). [data-open-week] avaa viikon alusta. Tehtävän
+ *   `tyosykli: true` lisää napin, joka avaa viikon työsyklin. lopputulos.naytaKuvaus: false
+ *   piilottaa tavoitekuvan johdannon, kun aloitus kertoo saman jo.
  * v2.6: projektin tavoitekuva (opt-in, P.lopputulos). Näin käytät sivua -näkymän alkuun
  *   rakennetaan [data-goal]-lohko: otsikko, lyhyt kuvaus, luonnoskuva valmiista työstä
  *   numeroiduin kehyksin ja samat kohdat tekstinä, aloitusnappi. Ensimmäisellä avauksella
@@ -221,9 +232,47 @@
     taskOpenCurrent: "Näytä vain nykyinen tehtävä",
     taskLiveDone: (i) => `Tehtävä ${i} valmis.`,
     weekBackground: "Miksi tämä viikko tehdään · tausta ja arvioitavat taidot",
-    resumeTask: (i, n) => `tehtävä ${i} / ${n}`
+    resumeTask: (i, n) => `tehtävä ${i} / ${n}`,
+    /* v2.7: yhtenäiset viikko-ohjeet (P.yhtenaisetViikot). */
+    phasePathLabel: "Projektin vaiheet",
+    phaseLink: (n, name) => `${n}. ${name}`,
+    projectConnectionHeading: "Miten tämän viikon asiat liittyvät kokonaisprojektiin",
+    weekGoalHeading: "Viikon tavoite",
+    weekFinishHeading: "Viikon lopputarkistus",
+    weekFinishCheck: "Toiminta on tarkistettu, kun",
+    weekFinishEvidence: "Työnäyte talteen",
+    weekSkillsSummary: "Mitä osaamista viikon työ osoittaa?",
+    dayRhythmSummary: "Viikon päivärytmi · avaa tarvittaessa",
+    kuvaohjeetSummary: "Kuvaohjeet · avaa tarvittaessa",
+    routineSummary: "Viikkorutiini",
+    taskOpenWorkflow: "Käytä työsykliä tämän muutoksen tekemiseen →",
+    cycleSummary: "Työsykli · yksi toteutusmuutos kerrallaan",
+    tasksHeading: "",
+    roadmapHeading: (n) => `Projektin ${n} vaihetta`,
+    roadmapWeeks: (first, last, dateless) => `${dateless ? "työviikot" : "viikot"} ${first === last ? first : `${first}–${last}`}`,
+    roadmapOpen: "Avaa vaiheen ensimmäinen viikko →",
+    roadmapFigureCaption: "Havainnekuva: vaiheet ja niiden tulokset. Tarkat työvaiheet ovat viikkosivuilla."
   };
-  const UI = Object.assign({}, UI_OLETUS, P.tekstit || {});
+  /* v2.7: yhtenäisissä viikko-ohjeissa sivun tehtävä on työvaihe (GitHub-issue tai muu
+     toteutustehtävä on eri asia). Projekti voi korvata nämäkin tekstit-objektilla. */
+  const UI_YHTENAINEN = {
+    tasksHeading: "Viikon työvaiheet",
+    progressCopy: (done, total) => `${done} / ${total} työvaihetta`,
+    resumeDone: "Kaikki työvaiheet valmiina",
+    resumeTask: (i, n) => `työvaihe ${i} / ${n}`,
+    tasksLead: "Tee työvaiheet järjestyksessä. Ensimmäinen keskeneräinen vaihe on auki. Rastita osatehtävä heti, kun olet tehnyt sen.",
+    taskNumber: (i, n) => `Työvaihe ${i} / ${n}`,
+    taskOpenAll: "Avaa kaikki työvaiheet",
+    taskOpenCurrent: "Näytä vain seuraava työvaihe",
+    taskLiveDone: (i) => `Työvaihe ${i} valmis.`,
+    taskHelpTitle: "Tarvitsen apua tähän työvaiheeseen",
+    taskWords: "Sanat tässä työvaiheessa",
+    resetConfirm: (plan, files) => `Nollataanko työvaiheet, projektipäiväkirja${plan}, rastit ja AI-loki tästä selaimesta? Lataa projektipäiväkirja${files} ensin, jos haluat säilyttää vastaukset.`,
+    exampleLabel: "✓ Esimerkki riittävästä tarkkuudesta · älä kopioi sisältöä",
+    notEnoughLabel: "✗ Tämä ei vielä riitä"
+  };
+  const unifiedWeeks = Boolean(P.yhtenaisetViikot);
+  const UI = Object.assign({}, UI_OLETUS, unifiedWeeks ? UI_YHTENAINEN : {}, P.tekstit || {});
   const t = (key, ...args) => {
     const value = UI[key];
     return typeof value === "function" ? value(...args) : value;
@@ -416,7 +465,7 @@
      -vaiheet, vinkit = taustatietoa koodista tai työkalusta ("Hyvä tietää"). */
   function helpContentHtml(h) {
     const helpLinks = h.links?.length ? `<p class="impl-help-links">${h.links.map(([label, url]) => `<a href="${url}" target="_blank" rel="noreferrer">${escapeText(label)} ↗</a>`).join("")}</p>` : "";
-    const helpImages = h.images?.length ? `<div class="impl-help-images">${h.images.map(([src, alt, caption]) => `<figure><img src="${src}" alt="${escapeText(alt)}" loading="lazy">${caption ? `<figcaption>${escapeText(caption)}</figcaption>` : ""}</figure>`).join("")}</div>` : "";
+    const helpImages = h.images?.length ? `<div class="impl-help-images">${h.images.map(([src, alt, caption]) => `<figure class="project-figure help-figure"><img src="${src}" alt="${escapeText(alt)}" loading="lazy">${caption ? `<figcaption>${escapeText(caption)}</figcaption>` : ""}</figure>`).join("")}</div>` : "";
     return `
         ${h.title ? `<p style="font-size:13px;color:var(--muted)"><small>${escapeText(h.title)}</small></p>` : ""}
         ${h.tree ? `<div><p class="help-label">${escapeText(t("helpTreeLabel"))}</p><pre><code>${escapeText(h.tree)}</code></pre></div>` : ""}
@@ -490,6 +539,7 @@
         <ol class="substep-list" aria-label="${escapeText(t("taskStepsLabel", plainTitle))}">${osat.map((o, j) => `
           <li><label class="substep-row"><input type="checkbox" data-substep="${escapeText(id)}" data-substep-n="${j}"><span class="task-box" aria-hidden="true"></span><span class="substep-n" aria-hidden="true">${j + 1}</span><span class="substep-text">${o.otsikko ? `<strong>${richText(o.otsikko)}.</strong> ` : ""}${richText(o.teksti)}</span></label></li>`).join("")}
         </ol>
+        ${def.tyosykli ? `<button class="button button-secondary" type="button" data-open-workflow>${escapeText(t("taskOpenWorkflow"))}</button>` : ""}
         ${def.valmis ? `<p class="task-card-done"><strong>${escapeText(t("taskDone"))}</strong> ${richText(def.valmis)}</p>` : ""}
         ${def.tallenna ? `<p class="task-card-save"><strong>${escapeText(t("taskSave"))}</strong> ${richText(def.tallenna)}</p>` : ""}
         ${calibration}
@@ -524,6 +574,13 @@
       el.querySelectorAll("[data-substep]").forEach((box) => {
         box.checked = state[Number(box.dataset.substepN)];
         box.addEventListener("change", () => onSubstepChange(el));
+      });
+      el.querySelector("[data-open-workflow]")?.addEventListener("click", () => {
+        const workflow = card.querySelector(".week-workflow");
+        if (!workflow) return;
+        workflow.open = true;
+        workflow.scrollIntoView({ block: "start" });
+        workflow.querySelector("summary")?.focus();
       });
       taskCardEls.push(el);
     });
@@ -726,14 +783,14 @@
     if ((guide.kuvaohjeet || []).length) {
       let section = card.querySelector("[data-week-kuvaohjeet]");
       if (!section) {
-        section = document.createElement("section");
+        section = document.createElement(unifiedWeeks ? "details" : "section");
         section.className = "view-section week-kuvaohjeet";
         section.setAttribute("data-week-kuvaohjeet", "");
         const anchor = card.querySelector(".lesson-instructions");
         if (anchor) anchor.insertAdjacentElement("afterend", section);
         else card.querySelector(".outcome-grid")?.insertAdjacentElement("beforebegin", section);
       }
-      section.innerHTML = `<h2>${escapeText(t("kuvaohjeetHeading"))}</h2>` +
+      section.innerHTML = (unifiedWeeks ? `<summary>${escapeText(t("kuvaohjeetSummary"))}</summary>` : `<h2>${escapeText(t("kuvaohjeetHeading"))}</h2>`) +
         guide.kuvaohjeet.map((id) => `<div class="kuvaohje-slot" data-kuvaohje="${escapeText(id)}" data-kuvaohje-taso="3"></div>`).join("");
       section.hidden = false;
     }
@@ -775,7 +832,7 @@
        steps-listaa; resurssilinkit ja viestipohjat siirtyvät silloin tehtävien yhteyteen. */
     if (enhanceTaskCards(card, guide)) {
       card.classList.add("has-task-cards");
-      collapseWeekBackground(card);
+      if (!unifiedWeeks) collapseWeekBackground(card);
       const lesson = card.querySelector(".lesson-instructions");
       const taskList = card.querySelector(".task-list");
       if (lesson && taskList && !steps.length) {
@@ -965,7 +1022,7 @@
     };
     slot.innerHTML = `<p class="section-label section-label-accent">${escapeText(t("goalLabel"))}</p>
       <h2 class="goal-title" id="goal-title">${escapeText(title)}</h2>
-      ${goalData.kuvaus ? `<p class="goal-lead">${richText(goalData.kuvaus)}</p>` : ""}
+      ${goalData.kuvaus && goalData.naytaKuvaus !== false ? `<p class="goal-lead">${richText(goalData.kuvaus)}</p>` : ""}
       <figure class="goal-figure">
         ${kuvaStageHtml(k, false)}
         <figcaption class="goal-note">${escapeText(t("goalNote"))}</figcaption>
@@ -983,6 +1040,177 @@
   }
   /* Ennen [data-continue]- ja [data-open-view]-nappien sidontaa, jotta lohkon napit toimivat. */
   renderGoal();
+
+  /* ---------- v2.7: yhtenäiset viikko-ohjeet (P.yhtenaisetViikot, opt-in) ----------
+   * Viikkokortin lukujärjestys: otsikko → vaihepolku → yhteys kokonaisprojektiin ja viikon
+   * tavoite → uudet termit → työvaiheet → avattava apu → viikon lopputarkistus → avattava
+   * osaamiskuvaus → projektipäiväkirja → sivutus. Elementit siirretään index.html:n
+   * nykyisistä paikoista, joten data-task-rivit, Näytä-rivi ja päiväkirja pysyvät lähteenä.
+   * Vanhat taustalohkot (kärki, yhteysrivi, valmistuu/miksi-ruudukko) jäävät pois:
+   * connection-tekstin pitää kertoa, miksi viikko tehdään nyt.
+   */
+  const phaseWeeks = (phase) => (phase.viikot || []).map(Number);
+
+  function phasePathNav(week) {
+    const nav = document.createElement("nav");
+    nav.className = "project-phase-path";
+    nav.setAttribute("aria-label", t("phasePathLabel"));
+    nav.innerHTML = phases.map((phase, i) => {
+      const first = weekList.find((w) => phaseWeeks(phase).includes(w));
+      if (first == null) return "";
+      const current = phaseWeeks(phase).includes(Number(week)) ? ' aria-current="step"' : "";
+      return `<a href="#week-${first}" data-open-week="${first}"${current} style="--phase-color:var(--phase-${escapeText(String(phase.tunnus).toLowerCase())})">${escapeText(t("phaseLink", i + 1, phase.lyhyt || phase.otsikko))}</a>`;
+    }).join("");
+    return nav;
+  }
+
+  function wrapInDetails(el, summary, className) {
+    const box = document.createElement("details");
+    box.className = className;
+    box.innerHTML = `<summary>${escapeText(summary)}</summary>`;
+    el.insertAdjacentElement("beforebegin", box);
+    box.appendChild(el);
+    return box;
+  }
+
+  function unifyWeekCard(card) {
+    const week = card.dataset.week;
+    const guide = weekGuidance[week];
+    if (!guide || card.querySelector(".project-connection")) return;
+    card.classList.add("is-unified");
+    const title = card.querySelector(".view-title");
+    if (!title) return;
+    let anchor = title;
+    if (phases.length) {
+      anchor = phasePathNav(week);
+      title.insertAdjacentElement("afterend", anchor);
+    }
+
+    const headId = `week-${week}-project-connection`;
+    const box = document.createElement("section");
+    box.className = "card project-connection";
+    box.setAttribute("aria-labelledby", headId);
+    box.innerHTML = `<h2 class="section-label" id="${headId}">${escapeText(t("projectConnectionHeading"))}</h2>
+      ${guide.connection ? `<p>${richText(guide.connection)}</p>` : ""}
+      <h2 class="section-label project-week-goal">${escapeText(t("weekGoalHeading"))}</h2>
+      <p class="project-week-goal-text">${richText(guide.feature || "")}</p>`;
+    anchor.insertAdjacentElement("afterend", box);
+    const quote = card.querySelector("[data-week-quote]");
+    if (quote && !quote.hidden) box.querySelector(".project-week-goal").insertAdjacentElement("beforebegin", quote);
+    else quote?.remove();
+    ["[data-week-kicker]", "[data-week-connection]", "[data-week-why]"].forEach((sel) => card.querySelector(sel)?.remove());
+    const terms = card.querySelector("[data-week-terms]");
+    if (terms) box.insertAdjacentElement("afterend", terms);
+
+    const tasksSection = card.querySelector(".task-list")?.closest(".view-section");
+    const tasksHeading = tasksSection?.querySelector(".section-heading-row h2");
+    if (tasksHeading && t("tasksHeading")) tasksHeading.textContent = t("tasksHeading");
+
+    /* Työsykli avataan työvaiheen napista; paikka luodaan, jos index.html ei tuo omaa. */
+    if (P.sykli && guide.sykli && tasksSection && !card.querySelector("[data-week-cycle]")) {
+      const workflow = document.createElement("details");
+      workflow.className = "view-section week-workflow";
+      workflow.innerHTML = `<summary>${escapeText(t("cycleSummary"))}</summary><section data-week-cycle hidden></section>`;
+      tasksSection.insertAdjacentElement("afterend", workflow);
+    }
+
+    const days = card.querySelector("[data-week-days]");
+    if (days && !days.hidden) {
+      days.querySelector(".section-label")?.remove();
+      wrapInDetails(days, t("dayRhythmSummary"), "view-section week-days-details");
+    }
+
+    const outcome = card.querySelector(".outcome-grid");
+    const checkpoint = card.querySelector(".checkpoint");
+    const evidence = card.querySelector(".evidence");
+    const finish = document.createElement("section");
+    finish.className = "card view-section week-finish";
+    finish.innerHTML = `<h2>${escapeText(t("weekFinishHeading"))}</h2>`;
+    if (checkpoint) {
+      const h = document.createElement("h3");
+      h.textContent = t("weekFinishCheck");
+      finish.append(h, checkpoint);
+    }
+    if (evidence) {
+      /* "Näytä:"-etuliite on otsikossa, ei tarvita tekstissä. */
+      const lead = evidence.firstElementChild;
+      if (lead && lead.tagName === "STRONG" && /:\s*$/.test(lead.textContent) && evidence.innerHTML.trim().startsWith("<strong")) lead.remove();
+      const h = document.createElement("h3");
+      h.textContent = t("weekFinishEvidence");
+      finish.append(h, evidence);
+    }
+    const journal = card.querySelector("[data-week-journal]");
+    if (outcome) outcome.replaceWith(finish);
+    else if (journal) journal.insertAdjacentElement("beforebegin", finish);
+    else card.appendChild(finish);
+
+    const skills = card.querySelector("[data-week-skills]");
+    const expectations = card.querySelector("[data-week-expectations]");
+    const showSkills = skills && !skills.hidden;
+    if (showSkills || expectations) {
+      const details = document.createElement("details");
+      details.className = "view-section week-skills-details";
+      details.innerHTML = `<summary>${escapeText(t("weekSkillsSummary"))}</summary>`;
+      if (showSkills) details.appendChild(skills); else skills?.remove();
+      if (expectations) details.appendChild(expectations);
+      finish.insertAdjacentElement("afterend", details);
+    }
+  }
+
+  function unifyHolidayCard(card) {
+    if (card.querySelector(".project-phase-path") || !phases.length) return;
+    card.querySelector(".view-title")?.insertAdjacentElement("afterend", phasePathNav(card.dataset.week));
+  }
+
+  /* Vaihekuvaus Näin käytät sivua -näkymään: [data-roadmap] + vaiheet[].kuvaus + P.vaihekuva. */
+  function renderRoadmap() {
+    const slot = document.querySelector("[data-roadmap]");
+    if (!slot || !phases.length) return;
+    const fig = P.vaihekuva && P.vaihekuva.kuva ? P.vaihekuva : null;
+    const items = phases.map((phase) => {
+      const work = weekList.filter((w) => phaseWeeks(phase).includes(w) && !holidayWeeks.has(w));
+      const first = work[0];
+      const label = first != null ? t("roadmapWeeks", first, work[work.length - 1], Boolean(P.paivaton)) : "";
+      return `<li><strong>${escapeText(phase.otsikko)}${label ? ` · ${escapeText(label)}` : ""}.</strong> ${richText(phase.kuvaus || "")}${first != null ? ` <a href="#week-${first}" data-open-week="${first}">${escapeText(phase.avaa || t("roadmapOpen"))}</a>` : ""}</li>`;
+    }).join("");
+    slot.classList.add("view-section", "project-roadmap");
+    slot.setAttribute("aria-labelledby", "roadmap-title");
+    slot.innerHTML = `<h2 id="roadmap-title">${escapeText(P.vaiheetOtsikko || t("roadmapHeading", phases.length))}</h2>
+      ${P.vaiheetJohdanto ? `<p>${richText(P.vaiheetJohdanto)}</p>` : ""}
+      ${fig ? `<figure class="project-figure"><img src="${escapeText(fig.kuva)}" width="${Number(fig.leveys) || 880}" height="${Number(fig.korkeus) || 600}" alt="${escapeText(fig.alt || "")}" loading="lazy"><figcaption>${escapeText(fig.kuvateksti || t("roadmapFigureCaption"))}</figcaption></figure>` : ""}
+      <ol class="project-roadmap-list">${items}</ol>
+      ${P.vaiheetHuomio ? `<p class="note">${richText(P.vaiheetHuomio)}</p>` : ""}`;
+  }
+
+  /* Havainnekuvat (figure.project-figure) aukeavat isona samaan ikkunaan kuin kuvaohjeet. */
+  function bindProjectFigures() {
+    document.querySelectorAll("figure.project-figure").forEach((figure) => {
+      const img = figure.querySelector("img");
+      if (!img || figure.querySelector("[data-figure-open]")) return;
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "button button-secondary kuvaohje-open-button";
+      button.setAttribute("data-figure-open", "");
+      button.textContent = t("kuvaohjeOpen");
+      figure.appendChild(button);
+      img.addEventListener("error", () => { button.hidden = true; }, { once: true });
+      button.addEventListener("click", () => openKuvaDialog({
+        otsikko: figure.querySelector("figcaption")?.textContent?.trim() || img.alt,
+        tiedosto: img.getAttribute("src"),
+        leveys: img.naturalWidth || img.getAttribute("width"),
+        korkeus: img.naturalHeight || img.getAttribute("height"),
+        alt: img.alt,
+        kohdat: []
+      }, button));
+    });
+  }
+
+  if (unifiedWeeks) {
+    taskWeekCards.forEach(unifyWeekCard);
+    weekCardEls.filter((el) => el.classList.contains("holiday-card")).forEach(unifyHolidayCard);
+    renderRoadmap();
+  }
+  bindProjectFigures();
 
   /* ---------- v2.4: työsykli (P.sykli + viikkoOhjeet[w].sykli, opt-in) ----------
    * P.sykli.askeleet = [{ nimi, paikka, tyokalu, oma, ohje: [..], pohja: {otsikko, teksti} | [{…}, …],
@@ -1165,7 +1393,7 @@
     if (!routine || !g || g.rutiini === false) return;
     let box = card.querySelector("[data-week-routine]");
     if (!box) {
-      box = document.createElement("section");
+      box = document.createElement(unifiedWeeks ? "details" : "section");
       box.setAttribute("data-week-routine", "");
       const tasks = card.querySelector(".task-list")?.closest(".view-section");
       if (tasks) tasks.insertAdjacentElement("afterend", box);
@@ -1174,7 +1402,9 @@
     box.className = "view-section week-routine";
     const saved = routineState[week] || {};
     const done = routine.kohdat.filter((_, i) => saved[i]).length;
-    box.innerHTML = `<div class="section-heading-row"><h2>${escapeText(routine.otsikko || t("routineHeading"))}</h2><span class="week-status" data-routine-status>${done} / ${routine.kohdat.length}</span></div>
+    box.innerHTML = (unifiedWeeks
+      ? `<summary>${escapeText(routine.otsikko || t("routineSummary"))} <span class="week-status" data-routine-status>${done} / ${routine.kohdat.length}</span></summary>`
+      : `<div class="section-heading-row"><h2>${escapeText(routine.otsikko || t("routineHeading"))}</h2><span class="week-status" data-routine-status>${done} / ${routine.kohdat.length}</span></div>`) + `
       ${routine.johdanto ? `<p class="week-routine-lead">${richText(routine.johdanto)}</p>` : ""}
       <div class="task-list">${routine.kohdat.map((k, i) => `<label class="task-row routine-row"><input type="checkbox" data-routine="${week}-${i}"${saved[i] ? " checked" : ""}><span class="task-box" aria-hidden="true"></span><span class="task-text">${k.milloin ? `<strong>${escapeText(k.milloin)}:</strong> ` : ""}${richText(weekFill(week)(k.teksti))}</span></label>`).join("")}</div>`;
     box.querySelectorAll("[data-routine]").forEach((input) => input.addEventListener("change", () => {
@@ -1321,7 +1551,28 @@
     event.currentTarget.setAttribute("aria-expanded", String(open));
   });
 
-  window.addEventListener("hashchange", () => { if (applyHashFromLocation(false)) render(); });
+  /* v2.7: yhtenäisissä viikko-ohjeissa hash-muutos avaa näkymän alusta (setView vierittää ja
+     siirtää fokuksen), ettei uusi viikko jää vierityksen keskelle. */
+  window.addEventListener("hashchange", () => {
+    if (!applyHashFromLocation(false)) return;
+    if (unifiedWeeks) setView(state.view, state.week);
+    else render();
+  });
+  /* v2.7: [data-open-week] missä tahansa (vaihepolku, vaihekuvaus, aloitus) avaa viikon alusta. */
+  document.addEventListener("click", (event) => {
+    const link = event.target.closest?.("[data-open-week]");
+    if (!link || !weekList.includes(Number(link.dataset.openWeek))) return;
+    event.preventDefault();
+    goToWeek(Number(link.dataset.openWeek));
+    /* Linkki jäi piilotettuun näkymään: fokus uuden viikon otsikkoon myös ilman teemaa. */
+    if (!focusOnViewChange) {
+      const h1 = activeHeading();
+      if (h1) {
+        if (!h1.hasAttribute("tabindex")) h1.setAttribute("tabindex", "-1");
+        h1.focus({ preventScroll: true });
+      }
+    }
+  });
 
   /* ---------- sivupalkin viikkonavigaatio ---------- */
 

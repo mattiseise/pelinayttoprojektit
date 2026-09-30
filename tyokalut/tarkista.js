@@ -105,6 +105,9 @@ workWeeks.forEach((w) => {
   if (g.type && !P.kehykset[g.type]) err(`viikko ${w}: viikkotyyppi '${g.type}' puuttuu kehykset-objektista`);
   if (Array.isArray(g.steps) && g.steps.length < 3) warn(`viikko ${w}: vain ${g.steps.length} askelta (3–6 on tavoite)`);
   if (Array.isArray(g.skills) && g.skills.length < 2) warn(`viikko ${w}: alle 2 tekniikkatagia`);
+  ((g.help && g.help.images) || []).forEach(([src]) => {
+    if (!/^https?:/.test(src) && !fs.existsSync(path.join(ROOT, src))) err(`viikko ${w}: toteutusavun kuva puuttuu: ${src}`);
+  });
   if (g.help) {
     ["title", "tree", "actions", "code", "test"].forEach((f) => {
       if (!g.help[f]) err(`viikko ${w}: help.${f} puuttuu`);
@@ -124,8 +127,11 @@ holidays.forEach((w) => { if (!P.viikkoNimet[w]) warn(`lomaviikolta ${w} puuttuu
 const covered = [];
 (P.vaiheet || []).forEach((ph) => {
   if (!ph.tunnus || !ph.otsikko || !Array.isArray(ph.viikot)) err(`vaihe ${ph.tunnus || "?"}: tunnus, otsikko tai viikot puuttuu`);
-  if (ph.tunnus && !"ABCDEF".includes(String(ph.tunnus).toUpperCase())) {
-    err(`vaihe ${ph.tunnus}: tunnuksen pitää olla A–F (styles.css tuntee vain ne värit)`);
+  /* v2.7: numeroidut vaiheet 1–6 käyvät, jos styles.css määrittelee niille värin. */
+  if (ph.tunnus && !/^[A-F1-6]$/i.test(String(ph.tunnus))) {
+    err(`vaihe ${ph.tunnus}: tunnuksen pitää olla A–F tai 1–6`);
+  } else if (ph.tunnus && !read("styles.css").includes(`--phase-${String(ph.tunnus).toLowerCase()}:`)) {
+    err(`vaihe ${ph.tunnus}: vastaava vaiheväri --phase-${String(ph.tunnus).toLowerCase()} puuttuu styles.css:stä`);
   }
   (ph.viikot || []).forEach((w) => {
     if (covered.includes(w)) err(`viikko ${w} on useammassa vaiheessa`);
@@ -210,6 +216,10 @@ workWeeks.forEach((w) => {
     if (items > 3) warn(`tehtävä ${id}: otsikko luettelee ${items} asiaa — yksi tehtävä = yksi tavoite ("${title}")`);
     if (title.length > 110) warn(`tehtävä ${id}: otsikko on ${title.length} merkkiä — lyhennä ja siirrä yksityiskohdat osatehtäviin`);
     if (d.apu && typeof d.apu !== "object") err(`tehtävä ${id}: apu pitää olla objekti {tree, actions, code, test, images, links}`);
+    ((d.apu && d.apu.images) || []).forEach(([src, alt]) => {
+      if (!/^https?:/.test(src) && !fs.existsSync(path.join(ROOT, src))) err(`tehtävä ${id}: apukuva puuttuu: ${src}`);
+      if (!alt || String(alt).length < 20) warn(`tehtävä ${id}: apukuvan ${src} alt-teksti puuttuu tai on lyhyt`);
+    });
   });
 });
 
@@ -437,7 +447,7 @@ try { planText = P.suunnitelma?.markdown ? P.suunnitelma.markdown({ arvo: () => 
 /* v2.6: tavoitekuvan tekstit ovat Näin käytät sivua -näkymän alussa, eli ensimmäinen luettava lohko. */
 const lopputulosTeksti = P.lopputulos ? stringsOf([P.lopputulos.otsikko, P.lopputulos.kuvaus, P.lopputulos.alt, (P.lopputulos.kohdat || []).map((c) => c && c.teksti)]).join(" ") : "";
 const lohkot = [
-  { nimi: "Näin käytät sivua", teksti: `${lopputulosTeksti} ${viewBlock("kaytto")}` },
+  { nimi: "Näin käytät sivua", teksti: `${lopputulosTeksti} ${viewBlock("kaytto")} ${P.yhtenaisetViikot ? stringsOf([P.vaiheetJohdanto, (P.vaiheet || []).map((v) => [v.otsikko, v.kuvaus]), P.vaiheetHuomio]).join(" ") : ""}` },
   { nimi: "Toimeksianto", teksti: viewBlock("toimeksianto") },
   { nimi: "Työtapa", teksti: viewBlock("tyotapa") },
   { nimi: "Suunnitelma", teksti: `${viewBlock("suunnitelma")} ${planText}` },
@@ -468,7 +478,7 @@ const A = (acr, maarittely) => ({
 });
 const PERHEET = [
   { nimi: "testitapaustunnus (T01…)", re: /(?<![\w-])T\d{2}(?![\w])/g, termi: (k) => /^t\d{2}/.test(k), maarittely: /testitapau|test case|numbered test|numeroi/i, vakava: true },
-  { nimi: "P0", re: /(?<![\w-])P0(?![\w])/g, termi: (k) => k === "p0", maarittely: /P0\)|\(P0|P0\s*(?:=|eli|tarkoittaa|on|means|is)|pakollinen ydin|must-have|minimum content|pakollinen perus/i, vakava: true },
+  { nimi: "P0", re: /(?<![\w-])P0(?![\w])/g, termi: (k) => k === "p0", maarittely: /P0\)|\(P0|P0\s*(?:=|eli|tarkoittaa|on|means|is)|pakollinen ydin|must-have|must have|required core|minimum content|pakollinen perus/i, vakava: true },
   { nimi: "P1", re: /(?<![\w-])P1(?![\w])/g, termi: (k) => k === "p1", maarittely: /P1\)|\(P1|P1\s*(?:=|eli|tarkoittaa|on|means|is)/i, vakava: true },
   { nimi: "P2", re: /(?<![\w-])P2(?![\w])/g, termi: (k) => k === "p2", maarittely: /P2\)|\(P2|P2\s*(?:=|eli|tarkoittaa|on|means|is)/i, vakava: true },
   { nimi: "RC (release candidate)", re: /(?<![\w-])RC\d?(?![\w])/g, termi: (k) => /^rc/.test(k), maarittely: /release candidate|julkaisuehdok/i, vakava: true },
@@ -644,6 +654,49 @@ if (P.lopputulos) {
       if (c.alue && (!Array.isArray(c.alue) || c.alue.length !== 4 || c.alue.some((v) => !(Number(v) >= 0 && Number(v) <= 100)))) err(`lopputulos: kohdan ${c.n} alue pitää olla [x, y, leveys, korkeus] prosentteina 0–100`);
     });
   }
+}
+
+/* ---------- 18. yhtenäiset viikko-ohjeet (v2.7, opt-in P.yhtenaisetViikot) ----------
+ * Jokaisella työviikolla on oma yhteys kokonaisprojektiin ja konkreettinen tavoite, työvaiheet
+ * ovat yhdessä ensisijaisessa ohjeessa (tehtavat, ei rinnakkaista steps-listaa) ja jokaisesta
+ * työvaiheesta käy ilmi miksi, valmis kun ja mihin työnäyte tallennetaan.
+ */
+if (P.yhtenaisetViikot) {
+  const sentences = (s) => String(s || "").split(/(?<=[.!?])\s+(?=[A-ZÅÄÖ0-9”"`])/).filter((x) => x.trim()).length;
+  const seen = new Map();
+  workWeeks.forEach((w) => {
+    const g = P.viikkoOhjeet[w];
+    if (!g) return;
+    const n = sentences(g.connection);
+    if (n < 2) warn(`viikko ${w}: connection on ${n} virke — kerro 2–3 virkkeellä, mitä aiempaa tulosta viikko käyttää, mitä nyt lisätään ja mitä se mahdollistaa`);
+    else if (n > 4) warn(`viikko ${w}: connection on ${n} virkettä — 2–3 riittää, siirrä yksityiskohdat työvaiheisiin`);
+    const key = String(g.connection || "").trim();
+    if (key && seen.has(key)) err(`viikko ${w}: connection on sama kuin viikolla ${seen.get(key)} — kirjoita viikon oma yhteys`);
+    seen.set(key, w);
+    if (!g.feature) err(`viikko ${w}: feature (viikon tavoite) puuttuu`);
+    const ids = taskIdsByWeek[w] || [];
+    if (!g.tehtavat) { err(`viikko ${w}: tehtavat puuttuu — yhtenäisissä viikoissa työvaiheet ovat tehtavat-kuvauksia`); return; }
+    ids.filter((id) => !g.tehtavat[id]).forEach((id) => err(`työvaihe ${id}: tehtavat-kuvaus puuttuu`));
+    ids.filter((id) => g.tehtavat[id]).forEach((id) => {
+      const d = g.tehtavat[id];
+      if (!d.miksi) err(`työvaihe ${id}: miksi puuttuu`);
+      if (!d.tallenna) err(`työvaihe ${id}: tallenna (työnäytteen paikka) puuttuu`);
+    });
+    if (Array.isArray(g.steps) && g.steps.length) warn(`viikko ${w}: steps-lista näkyy tehtävien rinnalla — siirrä askeleet työvaiheiden osatehtäviin`);
+  });
+  (P.vaiheet || []).forEach((ph) => { if (!ph.kuvaus) err(`vaihe ${ph.tunnus}: kuvaus puuttuu (vaihekuvaus: mitä vaiheessa valmistuu ja miksi)`); });
+  if (!/<[a-z]+ [^>]*data-roadmap[\s>]/.test(htmlNoComments)) warn("Näin käytät sivua: [data-roadmap] puuttuu — vaihekuvaus ei näy aloituksessa");
+  if (P.vaihekuva) {
+    const V = P.vaihekuva;
+    if (!V.kuva) err("vaihekuva: kuva puuttuu");
+    else if (!/^https?:/.test(V.kuva) && !fs.existsSync(path.join(ROOT, V.kuva))) err(`vaihekuva: kuvatiedosto puuttuu: ${V.kuva}`);
+    if (!V.alt || V.alt.length < 40) err("vaihekuva: alt-teksti puuttuu tai on lyhyt — kerro vaiheet myös tekstinä");
+  }
+  [...htmlNoComments.matchAll(/<figure class="project-figure">[\s\S]*?<\/figure>/g)].forEach(([fig]) => {
+    const alt = fig.match(/<img[^>]*\salt="([^"]*)"/);
+    if (!alt || alt[1].trim().length < 40) err(`havainnekuva ilman riittävää alt-tekstiä: ${fig.slice(0, 90)}…`);
+    if (!/<figcaption>/.test(fig)) warn(`havainnekuvalta puuttuu kuvateksti: ${fig.slice(0, 90)}…`);
+  });
 }
 
 /* ---------- tulos ---------- */
