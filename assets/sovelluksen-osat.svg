@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="616" viewBox="0 0 880 616" role="img" aria-labelledby="title desc">
+<title id="title">Miten KahvilaKoodin osat liittyvät toisiinsa</title>
+<desc id="desc">Havainnekuva pelin rakenteesta, ei kuvakaappaus Unitysta. Koko peli on yhdessä CafeGame-scenessä. Sen Canvasilla on kolme ruutua: MenuPanel, jossa ovat pelin nimi ja Aloita-painike, GamePanel, jossa ovat tilaus, tuotepainikkeet, Toimita-painike, palaute, aika ja pisteet, sekä ResultPanel, jossa ovat pisteet, nimimerkki, top 5 -lista ja Pelaa uudelleen -painike. Tekstit ja painikkeet tehdään TextMeshProlla. Painikkeen painallus kutsuu C#-skriptin metodia (On Click), ja skriptit päivittävät ruudut ja tekstit. C#-skriptit ovat kansiossa Assets/Scripts: GameManager hoitaa ruudut, ajan ja pisteet, OrderManager tilauksen ja toimituksen tarkistuksen, DifficultyController vaikeustason pisteiden mukaan, ProductDatabase lukee products.json-tiedoston ja SaveService tallentaa top 5 -listan. Data on erillään koodista: products.json kansiossa Assets/Data sisältää tuotteet ja pisteet, ja PlayerPrefs säilyttää top 5 -tulokset selaimen muistissa. Unity-editorissa Hierarchy näyttää objektit, Inspectorissa tehdään kytkennät, Play Modessa kokeillaan ja Build Profilesista tehdään build. Julkaisu selaimeen: Unity-projekti on GitHub-repositoryssa commit ja push -periaatteella, WebGL-build tehdään Build Profilesin Web-alustalla docs-kansioon, GitHub Pages julkaisee docs-kansion julkisena linkkinä ja pelaajan selain avaa pelin linkistä ilman asennusta. Testiversio tehdään Build And Run -toiminnolla omalle koneelle, eikä Builds-kansio mene Gitiin.</desc>
+<rect width="880" height="616" fill="#ffffff"/>
+<defs>
+  <marker id="nuoli" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto-start-reverse"><path d="M0 0L8 4L0 8Z" fill="#5c5347"/></marker>
+</defs>
+<text x="20" y="40" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">Miten KahvilaKoodin osat liittyvät toisiinsa?</text>
+<text x="20" y="64" fill="#5c5347" font-family="Arial, Helvetica, sans-serif" font-size="15">Havainnekuva pelin rakenteesta, ei kuvakaappaus Unitysta.</text>
+
+<!-- A: CafeGame-scene ja Canvas -->
+<rect x="20" y="84" width="250" height="350" rx="12" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+<text x="36" y="114" fill="#1d4ed8" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="700">CafeGame-scene</text>
+<text x="36" y="136" fill="#5c5347" font-family="Arial, Helvetica, sans-serif" font-size="14">Canvas: pelin kolme ruutua</text>
+<rect x="36" y="150" width="218" height="54" rx="8" fill="#eaf1fd"/>
+<text x="50" y="172" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700">MenuPanel</text>
+<text x="50" y="193" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="14">pelin nimi ja Aloita-painike</text>
+<rect x="36" y="212" width="218" height="92" rx="8" fill="#eaf1fd"/>
+<text x="50" y="234" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700">GamePanel</text>
+<text x="50" y="255" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="14">tilaus ja tuotepainikkeet</text>
+<text x="50" y="274" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="14">Toimita-painike ja palaute</text>
+<text x="50" y="293" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="14">aika ja pisteet</text>
+<rect x="36" y="312" width="218" height="74" rx="8" fill="#eaf1fd"/>
+<text x="50" y="334" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700">ResultPanel</text>
+<text x="50" y="355" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="14">pisteet, nimimerkki ja top 5</text>
+<text x="50" y="374" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="14">Pelaa uudelleen -painike</text>
+<text x="36" y="414" fill="#5c5347" font-family="Arial, Helvetica, sans-serif" font-size="14">Tekstit: TextMeshPro</text>
+
+<!-- B: C#-skriptit -->
+<rect x="370" y="84" width="260" height="350" rx="12" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+<text x="386" y="114" fill="#1d4ed8" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="700">C#-skriptit</text>
+<text x="386" y="136" fill="#5c5347" font-family="Arial, Helvetica, sans-serif" font-size="14">Assets/Scripts</text>
+<rect x="386" y="150" width="228" height="48" rx="8" fill="#eaf1fd"/>
+<text x="400" y="170" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700">GameManager</text>
+<text x="400" y="189" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="14">ruudut, aika ja pisteet</text>
+<rect x="386" y="204" width="228" height="48" rx="8" fill="#eaf1fd"/>
+<text x="400" y="224" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700">OrderManager</text>
+<text x="400" y="243" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="14">tilaus ja toimituksen tarkistus</text>
+<rect x="386" y="258" width="228" height="48" rx="8" fill="#eaf1fd"/>
+<text x="400" y="278" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700">DifficultyController</text>
+<text x="400" y="297" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="14">vaikeustaso pisteiden mukaan</text>
+<rect x="386" y="312" width="228" height="48" rx="8" fill="#eaf1fd"/>
+<text x="400" y="332" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700">ProductDatabase</text>
+<text x="400" y="351" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="14">lukee products.json-tiedoston</text>
+<rect x="386" y="366" width="228" height="48" rx="8" fill="#eaf1fd"/>
+<text x="400" y="386" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700">SaveService</text>
+<text x="400" y="405" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="14">top 5 -listan tallennus</text>
+
+<!-- C1: Unity-editori -->
+<rect x="670" y="84" width="190" height="140" rx="12" fill="#ffffff" stroke="#d4cbbb" stroke-width="2"/>
+<text x="686" y="112" fill="#1d4ed8" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700">Unity-editori</text>
+<text x="686" y="138" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="14">Hierarchy: objektit</text>
+<text x="686" y="160" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="14">Inspector: kytkennät</text>
+<text x="686" y="182" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="14">Play Mode: kokeilu</text>
+<text x="686" y="204" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="14">Build Profiles: build</text>
+
+<!-- C2: Data -->
+<rect x="670" y="236" width="190" height="198" rx="12" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+<text x="686" y="262" fill="#1d4ed8" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700">Data</text>
+<text x="686" y="282" fill="#5c5347" font-family="Arial, Helvetica, sans-serif" font-size="14">erillään koodista</text>
+<rect x="684" y="296" width="162" height="60" rx="8" fill="#eaf1fd"/>
+<text x="698" y="318" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700">products.json</text>
+<text x="698" y="340" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="14">tuotteet ja pisteet</text>
+<rect x="684" y="364" width="162" height="60" rx="8" fill="#eaf1fd"/>
+<text x="698" y="386" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700">PlayerPrefs</text>
+<text x="698" y="408" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="14">top 5 selaimessa</text>
+
+<!-- Nuolet: käyttöliittymä ↔ skriptit ↔ data -->
+<text x="320" y="152" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" text-anchor="middle">ruudut ja</text>
+<text x="320" y="168" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" text-anchor="middle">tekstit</text>
+<path d="M384 178H260" stroke="#5c5347" stroke-width="2.5" marker-end="url(#nuoli)"/>
+<text x="320" y="230" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" text-anchor="middle">painallus</text>
+<path d="M256 240H378" stroke="#5c5347" stroke-width="2.5" marker-end="url(#nuoli)"/>
+<text x="320" y="260" fill="#5c5347" font-family="Arial, Helvetica, sans-serif" font-size="13" text-anchor="middle">On Click</text>
+<path d="M682 332H622" stroke="#5c5347" stroke-width="2.5" marker-end="url(#nuoli)"/>
+<path d="M624 392H674" stroke="#5c5347" stroke-width="2.5" marker-start="url(#nuoli)" marker-end="url(#nuoli)"/>
+
+<!-- Julkaisu selaimeen -->
+<text x="20" y="466" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">Julkaisu selaimeen</text>
+<rect x="20" y="478" width="174" height="90" rx="10" fill="#f4f8fe" stroke="#2563eb" stroke-width="1.5"/>
+<text x="34" y="502" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700">Unity-projekti</text>
+<text x="34" y="524" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="14">GitHub-repository</text>
+<text x="34" y="544" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="14">commit ja push</text>
+<rect x="242" y="478" width="174" height="90" rx="10" fill="#f4f8fe" stroke="#2563eb" stroke-width="1.5"/>
+<text x="256" y="502" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700">WebGL-build</text>
+<text x="256" y="524" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="14">Build Profiles → Web</text>
+<text x="256" y="544" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="14">docs-kansioon</text>
+<rect x="464" y="478" width="174" height="90" rx="10" fill="#f4f8fe" stroke="#2563eb" stroke-width="1.5"/>
+<text x="478" y="502" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700">GitHub Pages</text>
+<text x="478" y="524" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="14">docs-kansio verkkoon</text>
+<text x="478" y="544" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="14">julkisena linkkinä</text>
+<rect x="686" y="478" width="174" height="90" rx="10" fill="#f4f8fe" stroke="#2563eb" stroke-width="1.5"/>
+<text x="700" y="502" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700">Pelaajan selain</text>
+<text x="700" y="524" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="14">peli aukeaa linkistä</text>
+<text x="700" y="544" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="14">ilman asennusta</text>
+<path d="M196 523H236" stroke="#5c5347" stroke-width="2.5" marker-end="url(#nuoli)"/>
+<path d="M418 523H458" stroke="#5c5347" stroke-width="2.5" marker-end="url(#nuoli)"/>
+<path d="M640 523H680" stroke="#5c5347" stroke-width="2.5" marker-end="url(#nuoli)"/>
+<text x="20" y="598" fill="#5c5347" font-family="Arial, Helvetica, sans-serif" font-size="14">Testiversio: Build And Run avaa pelin omalla koneella. Builds-kansio ei mene Gitiin.</text>
+</svg>

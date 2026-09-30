@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="874" viewBox="0 0 880 874" role="img" aria-labelledby="title desc">
+<title id="title">KahvilaKoodi: projektin vaiheet</title>
+<desc id="desc">1. Valmistelu ja suunnitelma (viikot 34–35): Selvität asiakkaan tarpeen, teet Unity-projektin ja Git-repositoryn ja kokeilet tyhjää peliä selaimessa. Suunnitelma, GitHub-issuet ja hyväksytty rajaus valmistuvat ennen koodia, jotta rakennat oikeaa peliä. 2. Pelattava peli (viikot 36–40): Rakennat pelin toiminto kerrallaan: kierros, tuotelista, kello ja pisteet, kasvava vaikeus ja top 5 -lista. Vaiheen lopussa toimeksiannon kaikki vaatimukset toimivat, joten asiakas voi kokeilla koko peliä. 3. Asiakkaan palaute ja käytettävyys (viikot 41–44): Asiakas pelaa väliversiota, ja toteutat yhdessä sovitun muutoksen omassa Git-haarassa. Sen jälkeen uusi pelaaja kokeilee peliä ilman neuvoja, ja korjaat kaksi suurinta ongelmaa. Syysloma · viikko 42. 4. Testaus ja koodin laatu (viikot 45–46): Testaat koko pelin 12 testitapauksella, korjaat kolme virhettä ketjuna ja selkeytät yhden koodikohdan katselmoinnin avulla. Laatu varmistetaan ennen julkaisuehdokasta, koska sen jälkeen peliin ei lisätä uutta. 5. Julkaisu ja näyttö (viikot 47–49): Jäädytät ominaisuudet, annat julkaisuehdokkaan RC1 asiakkaan testattavaksi ja julkaiset version v1.0 GitHub Pagesiin. Lopuksi kokoat näyttöaineiston ja harjoittelet demon.</desc>
+<rect width="880" height="874" fill="#ffffff"/>
+<defs><marker id="nuoli" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6" fill="none" stroke="#5c5347" stroke-width="1.4"/></marker></defs>
+<text x="40" y="49" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">Mitä syntyy missäkin vaiheessa?</text>
+<rect x="90" y="78" width="752" height="132" rx="12" fill="#ffffff" stroke="#0d9488" stroke-width="2"/>
+<circle cx="45" cy="107" r="24" fill="#0d9488"/>
+<text x="45" y="117" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" text-anchor="middle">1</text>
+<text x="112" y="114" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">Valmistelu ja suunnitelma</text>
+<text x="822" y="114" fill="#5c5347" font-family="Arial, Helvetica, sans-serif" font-size="20" text-anchor="end">Viikot 34–35</text>
+<text x="112" y="150" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="21">Asiakkaan tarve → Unity ja Git → GDD ja issuet</text>
+<text x="112" y="180" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="21">Tyhjä peli aukeaa selaimessa, rajaus on hyväksytty.</text>
+<path d="M45 136V224" stroke="#d4cbbb" stroke-width="2" marker-end="url(#nuoli)"/>
+<rect x="90" y="230" width="752" height="132" rx="12" fill="#ffffff" stroke="#d97706" stroke-width="2"/>
+<circle cx="45" cy="259" r="24" fill="#d97706"/>
+<text x="45" y="269" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" text-anchor="middle">2</text>
+<text x="112" y="266" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">Pelattava peli</text>
+<text x="822" y="266" fill="#5c5347" font-family="Arial, Helvetica, sans-serif" font-size="20" text-anchor="end">Viikot 36–40</text>
+<text x="112" y="302" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="21">Kierros → tuotelista → kello → vaikeus → top 5</text>
+<text x="112" y="332" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="21">Toimeksiannon kaikki vaatimukset toimivat.</text>
+<path d="M45 288V376" stroke="#d4cbbb" stroke-width="2" marker-end="url(#nuoli)"/>
+<rect x="90" y="382" width="752" height="162" rx="12" fill="#ffffff" stroke="#7c3aed" stroke-width="2"/>
+<circle cx="45" cy="411" r="24" fill="#7c3aed"/>
+<text x="45" y="421" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" text-anchor="middle">3</text>
+<text x="112" y="418" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">Asiakkaan palaute ja käytettävyys</text>
+<text x="822" y="418" fill="#5c5347" font-family="Arial, Helvetica, sans-serif" font-size="20" text-anchor="end">Viikot 41–44</text>
+<text x="112" y="454" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="21">Asiakas pelaa → muutos haarassa → uusi pelaaja</text>
+<text x="112" y="484" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="21">Peli vastaa asiakkaan toivetta ja neuvoo itse.</text>
+<text x="112" y="518" fill="#5c5347" font-family="Arial, Helvetica, sans-serif" font-size="18" font-style="italic">Syysloma · viikko 42</text>
+<path d="M45 440V558" stroke="#d4cbbb" stroke-width="2" marker-end="url(#nuoli)"/>
+<rect x="90" y="564" width="752" height="132" rx="12" fill="#ffffff" stroke="#db2777" stroke-width="2"/>
+<circle cx="45" cy="593" r="24" fill="#db2777"/>
+<text x="45" y="603" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" text-anchor="middle">4</text>
+<text x="112" y="600" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">Testaus ja koodin laatu</text>
+<text x="822" y="600" fill="#5c5347" font-family="Arial, Helvetica, sans-serif" font-size="20" text-anchor="end">Viikot 45–46</text>
+<text x="112" y="636" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="21">12 testitapausta → 3 korjausketjua → selkeä koodi</text>
+<text x="112" y="666" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="21">Peli kestää rajatilanteet, ja koodi on luettavaa.</text>
+<path d="M45 622V710" stroke="#d4cbbb" stroke-width="2" marker-end="url(#nuoli)"/>
+<rect x="90" y="716" width="752" height="132" rx="12" fill="#ffffff" stroke="#1e40af" stroke-width="2"/>
+<circle cx="45" cy="745" r="24" fill="#1e40af"/>
+<text x="45" y="755" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" text-anchor="middle">5</text>
+<text x="112" y="752" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">Julkaisu ja näyttö</text>
+<text x="822" y="752" fill="#5c5347" font-family="Arial, Helvetica, sans-serif" font-size="20" text-anchor="end">Viikot 47–49</text>
+<text x="112" y="788" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="21">Julkaisuehdokas RC1 → v1.0 GitHub Pagesissa → näyttö</text>
+<text x="112" y="818" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="21">Asiakas voi avata pelin linkistä omalla koneellaan.</text>
+</svg>

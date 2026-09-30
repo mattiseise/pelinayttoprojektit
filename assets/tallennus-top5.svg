@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="524" viewBox="0 0 700 524" role="img" aria-labelledby="title desc">
+<title id="title">Top 5 -listan tallennus ja lataus</title>
+<desc id="desc">Havainnekuva viikon 40 työpohjien tiedon kulusta, ei kuvakaappaus. Tallennus, kun pelaaja painaa Tallenna tulos: GameManager.SaveCurrentScore hakee nimimerkin ja pisteet. SaveService.SaveScore siistii nimimerkin CleanNickname-metodilla, lisää tuloksen, järjestää listan ja jättää enintään viisi tulosta. JsonUtility.ToJson muuttaa ScoreList-listan tekstiksi. PlayerPrefs.SetString ja Save tallentavat tekstin avaimella HighScores selaimen muistiin. Lataus, kun tulosruutu avautuu: GameManager.EndGame kutsuu LoadScores-metodia. SaveService.LoadScores tarkistaa HasKey-metodilla, onko tallennusta jo. PlayerPrefs.GetString hakee tekstin avaimella HighScores. JsonUtility.FromJson muuttaa tekstin takaisin ScoreList-listaksi. ShowHighScores kirjoittaa viisi riviä HighScoresText-tekstiin. Tiedot säilyvät vain siinä selaimessa, jossa peliä pelattiin.</desc>
+<rect width="700" height="524" fill="#ffffff"/>
+<defs>
+  <marker id="nuoli" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" refX="12" refY="6" orient="auto"><path d="M0 0L12 6L0 12Z" fill="#5c5347"/></marker>
+  <marker id="nuoli-sin" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" refX="12" refY="6" orient="auto"><path d="M0 0L12 6L0 12Z" fill="#2563eb"/></marker>
+</defs>
+<text x="20" y="36" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700">Top 5 -listan tallennus ja lataus</text>
+<text x="20" y="60" fill="#5c5347" font-family="Arial, Helvetica, sans-serif" font-size="14">Havainnekuva viikon 40 työpohjien tiedon kulusta, ei kuvakaappaus.</text>
+
+<text x="20" y="96" fill="#1d4ed8" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700">Tallennus: Tallenna tulos</text>
+<text x="390" y="96" fill="#1d4ed8" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700">Lataus: tulosruutu avautuu</text>
+
+<!-- Tallennus -->
+<rect x="20" y="110" width="290" height="56" rx="8" fill="#eaf1fd"/>
+<text x="34" y="133" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700">GameManager.SaveCurrentScore</text>
+<text x="34" y="154" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="14">hakee nimimerkin ja pisteet</text>
+<rect x="20" y="188" width="290" height="56" rx="8" fill="#eaf1fd"/>
+<text x="34" y="211" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700">SaveService.SaveScore</text>
+<text x="34" y="232" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="14">CleanNickname, lisää, järjestä, max 5</text>
+<rect x="20" y="266" width="290" height="56" rx="8" fill="#eaf1fd"/>
+<text x="34" y="289" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700">JsonUtility.ToJson</text>
+<text x="34" y="310" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="14">ScoreList muuttuu tekstiksi</text>
+<rect x="20" y="344" width="290" height="56" rx="8" fill="#eaf1fd"/>
+<text x="34" y="367" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700">PlayerPrefs.SetString ja Save</text>
+<text x="34" y="388" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="14">tallentaa avaimella HighScores</text>
+<rect x="20" y="422" width="290" height="56" rx="8" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+<text x="34" y="445" fill="#1d4ed8" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700">Selaimen muisti</text>
+<text x="34" y="466" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="14">teksti avaimella HighScores</text>
+<path d="M165 167V186" stroke="#5c5347" stroke-width="2.5" marker-end="url(#nuoli)"/>
+<path d="M165 245V264" stroke="#5c5347" stroke-width="2.5" marker-end="url(#nuoli)"/>
+<path d="M165 323V342" stroke="#5c5347" stroke-width="2.5" marker-end="url(#nuoli)"/>
+<path d="M165 401V420" stroke="#5c5347" stroke-width="2.5" marker-end="url(#nuoli)"/>
+
+<!-- Lataus -->
+<rect x="390" y="110" width="290" height="56" rx="8" fill="#eaf1fd"/>
+<text x="404" y="133" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700">GameManager.EndGame</text>
+<text x="404" y="154" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="14">kutsuu LoadScores-metodia</text>
+<rect x="390" y="188" width="290" height="56" rx="8" fill="#eaf1fd"/>
+<text x="404" y="211" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700">SaveService.LoadScores</text>
+<text x="404" y="232" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="14">HasKey: onko tallennusta jo?</text>
+<rect x="390" y="266" width="290" height="56" rx="8" fill="#eaf1fd"/>
+<text x="404" y="289" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700">PlayerPrefs.GetString</text>
+<text x="404" y="310" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="14">hakee tekstin avaimella HighScores</text>
+<rect x="390" y="344" width="290" height="56" rx="8" fill="#eaf1fd"/>
+<text x="404" y="367" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700">JsonUtility.FromJson</text>
+<text x="404" y="388" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="14">teksti muuttuu ScoreList-listaksi</text>
+<rect x="390" y="422" width="290" height="56" rx="8" fill="#eaf1fd"/>
+<text x="404" y="445" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700">ShowHighScores</text>
+<text x="404" y="466" fill="#241f1a" font-family="Arial, Helvetica, sans-serif" font-size="14">viisi riviä HighScoresText-tekstiin</text>
+<path d="M535 167V186" stroke="#5c5347" stroke-width="2.5" marker-end="url(#nuoli)"/>
+<path d="M535 245V264" stroke="#5c5347" stroke-width="2.5" marker-end="url(#nuoli)"/>
+<path d="M535 323V342" stroke="#5c5347" stroke-width="2.5" marker-end="url(#nuoli)"/>
+<path d="M535 401V420" stroke="#5c5347" stroke-width="2.5" marker-end="url(#nuoli)"/>
+
+<!-- Muisti → GetString -->
+<path d="M312 446L380 300" stroke="#2563eb" stroke-width="2.5" stroke-dasharray="7 5" fill="none" marker-end="url(#nuoli-sin)"/>
+<text x="20" y="506" fill="#5c5347" font-family="Arial, Helvetica, sans-serif" font-size="14">Tiedot säilyvät vain siinä selaimessa, jossa peliä pelattiin.</text>
+</svg>

@@ -4,10 +4,10 @@
   "nimi": "KahvilaKoodi",
   "kieli": "fi",
   "paivaton": false,
-  "generoitu": "2026-09-28",
+  "generoitu": "2026-09-30",
   "lahde": {
-    "sisalto.js": "cfc7eb9b486adc53",
-    "index.html": "f89585fdec698586"
+    "sisalto.js": "5da8be602416ff67",
+    "index.html": "b5a550e4d91397b0"
   },
   "viikot": [
     34,
@@ -71,12 +71,12 @@
     "34": {
       "jarjestys": 1,
       "tyyppi": "pohjustus",
-      "vaihe": "A",
+      "vaihe": "1",
       "otsikko": "Aloitus: peli-idea ja työkalut",
       "tehtavat": [
         {
           "id": "34-1",
-          "teksti": "Lue toimeksianto ja kirjoita kahdeksan kysymystä asiakkaalle.",
+          "teksti": "Lue toimeksianto ja kirjoita kuusi kysymystä asiakkaalle.",
           "valmis": "Sinulla on kuusi erilaista kysymystä, ja jokaisen perässä lukee, minkä päätöksen vastaus ratkaisee.",
           "tallenna": "Kysymyslista viikon 34 päiväkirjaan, kenttään Mitä tein ja miten?"
         },
@@ -90,7 +90,7 @@
           "id": "34-3",
           "teksti": "Luo Unity-projekti ja kokeile, aukeaako se selaimessa.",
           "valmis": "Tyhjä CafeGame-peli aukeaa selaimeen, ja tiedät käyttämäsi Unity-version.",
-          "tallenna": "Unity-versio viikon 34 päiväkirjaan. Kuvakaappaus auenneesta selainversiosta, jonka viet tehtävässä 4 polkuun project-docs/evidence/week-34/web-test.png."
+          "tallenna": "Unity-versio viikon 34 päiväkirjaan. Kuvakaappaus auenneesta selainversiosta, jonka viet työvaiheessa 5 polkuun project-docs/evidence/week-34/web-test.png."
         },
         {
           "id": "34-4",
@@ -138,24 +138,24 @@
     "35": {
       "jarjestys": 2,
       "tyyppi": "pohjustus",
-      "vaihe": "A",
+      "vaihe": "1",
       "otsikko": "Pelin suunnitelma: ruudut ja feature-lista",
       "tehtavat": [
         {
           "id": "35-1",
           "teksti": "Täytä pelin suunnitteludokumentti (GDD) ja vie se repositoryyn.",
-          "valmis": "Tiedosto project-docs/gdd.md näkyy GitHubissa, eikä yhdessäkään OMA-merkityssä kentässä ole tyhjää kohtaa. OHJAAJA-merkitty kierroksen pituus saa jäädä avoimeksi.",
+          "valmis": "Tiedosto project-docs/gdd.md näkyy GitHubissa, eikä yhdessäkään OMA-merkityssä kentässä ole tyhjää kohtaa. ASIAKAS-merkitty kierroksen pituus saa jäädä avoimeksi.",
           "tallenna": "project-docs/gdd.md ja commit-linkki viikon 35 päiväkirjaan."
         },
         {
           "id": "35-2",
-          "teksti": "Pilko ensimmäiset featuret pieniksi tehtäviksi GitHubiin.",
+          "teksti": "Pilko ensimmäiset featuret pieniksi GitHub-issueiksi.",
           "valmis": "GitHubissa on issuet kahdelle ensimmäiselle featurelle ja yksi issue kustakin muusta. Jokaisessa on arvio ja Valmis kun -ehto.",
           "tallenna": "Linkki GitHubin Issues-listaan viikon 35 päiväkirjaan."
         },
         {
           "id": "35-3",
-          "teksti": "Merkitse jokaiselle tehtävälle, onko se pakollinen, tärkeä vai lisä.",
+          "teksti": "Merkitse jokaiselle issuelle, onko se pakollinen, tärkeä vai lisä.",
           "valmis": "Jokaisella issuella on yksi label: P0 pakollinen, P1 tärkeä tai P2 lisä. Ohjaaja on hyväksynyt listan.",
           "tallenna": "Linkki Issues-listaan sekä hyväksyjän rooli ja päivä viikon 35 päiväkirjaan."
         },
@@ -173,7 +173,7 @@
         }
       ],
       "nayta": "gdd.md, Issues-lista prioriteetteineen, rajauksen hyväksyntä, mockup.png ja unity-rakenne.png.",
-      "tuotos": "Täytetty gdd.md, tehtävälista GitHubissa, prioriteetit, ruutujen luonnos ja skriptien kartta.",
+      "tuotos": "Täytetty gdd.md, issue-lista GitHubissa, prioriteetit, ruutujen luonnos ja skriptien kartta.",
       "valmis": "Tiedosto gdd.md on repositoryssa, jokaisella issuella on arvio, tärkeysluokka – pakollinen (P0), tärkeä (P1) tai lisä (P2) – ja Valmis kun -ehto, ja ohjaaja on hyväksynyt rajauksen. Luonnoksessa näkyvät valikko, peli ja tulos.",
       "tarkistukset": [
         {
@@ -205,7 +205,7 @@
     "36": {
       "jarjestys": 3,
       "tyyppi": "feature",
-      "vaihe": "A",
+      "vaihe": "2",
       "otsikko": "Feature 1 · Ensimmäinen pelattava kierros",
       "tehtavat": [
         {
@@ -239,7 +239,7 @@
           "tallenna": "Kolme kuvaa tai lyhyt video pelipolusta kansioon project-docs/evidence/week-36/, commit ja push. Testikirjaukset ja commit-linkki viikon 36 päiväkirjaan."
         }
       ],
-      "nayta": "video tai kuvat pelipolusta, viisi testikierrosta päiväkirjassa ja commit-linkit.",
+      "nayta": "video tai kuvat pelipolusta, kolme testikierrosta päiväkirjassa ja commit-linkit.",
       "tuotos": "Ensimmäinen pelattava selainversio: valikosta yhden tilauksen kautta tulosruutuun.",
       "valmis": "Aloita → Kahvi → Toimita → tulosruutu näyttää pisteet. Polku toimii selainversiossa ilman, että kosket Unity-editoriin kesken pelin.",
       "tarkistukset": [
@@ -272,7 +272,7 @@
     "37": {
       "jarjestys": 4,
       "tyyppi": "feature",
-      "vaihe": "A",
+      "vaihe": "2",
       "otsikko": "Feature 2 · Kahvilan oikea tuotelista",
       "tehtavat": [
         {
@@ -351,7 +351,7 @@
     "38": {
       "jarjestys": 5,
       "tyyppi": "feature",
-      "vaihe": "B",
+      "vaihe": "2",
       "otsikko": "Feature 3 · Kello, pisteet ja palaute",
       "tehtavat": [
         {
@@ -379,7 +379,7 @@
           "tallenna": "Testien tulokset ja korjausten commit-linkit viikon 38 päiväkirjaan."
         }
       ],
-      "nayta": "pelisäännöt, ajastimen ja palautteen commitit sekä neljän rajatestin tulokset.",
+      "nayta": "pelisäännöt, ajastimen ja palautteen commitit sekä kolmen rajatestin tulokset.",
       "tuotos": "Kirjatut pelisäännöt sekä toimiva ajastin, pisteet, palaute ja pelin päättyminen.",
       "valmis": "Peli päättyy kerran, kun aika loppuu. Nopea kaksoispainallus ei anna kahta tulosta, ja uusi peli nollaa ajan sekä pisteet.",
       "tarkistukset": [
@@ -412,7 +412,7 @@
     "39": {
       "jarjestys": 6,
       "tyyppi": "feature",
-      "vaihe": "B",
+      "vaihe": "2",
       "otsikko": "Feature 4 · Kasvava kiire",
       "tehtavat": [
         {
@@ -461,7 +461,7 @@
     "40": {
       "jarjestys": 7,
       "tyyppi": "feature",
-      "vaihe": "B",
+      "vaihe": "2",
       "otsikko": "Feature 5 · Top 5 -tuloslista",
       "tehtavat": [
         {
@@ -495,7 +495,7 @@
           "tallenna": "Testitulokset, perustelu ja commit-linkit viikon 40 päiväkirjaan."
         }
       ],
-      "nayta": "tallennuksen commitit, neljän testin tulokset ja ratkaisun perustelu päiväkirjassa.",
+      "nayta": "tallennuksen commitit, neljän testin tulokset (kuusi tulosta, tasapisteet, uudelleenavaus ja nimimerkin tarkistus) ja ratkaisun perustelu päiväkirjassa.",
       "tuotos": "Nimimerkki ja Tallenna-painike tulosruudulla, toimiva top 5 -tallennus, nimimerkin tarkistus ja ratkaisun rajoitusten perustelu.",
       "valmis": "Kuudesta tuloksesta näkyy vain viisi parasta myös silloin, kun sivu avataan uudelleen. Tasapisteet ja liian pitkä nimimerkki on testattu.",
       "tarkistukset": [
@@ -528,7 +528,7 @@
     "41": {
       "jarjestys": 8,
       "tyyppi": "katselmointi",
-      "vaihe": "B",
+      "vaihe": "3",
       "otsikko": "Katselmointi · Asiakas pelaa peliäsi",
       "tehtavat": [
         {
@@ -551,7 +551,7 @@
         }
       ],
       "nayta": "version tunniste, katselmointimuistio ja hyväksytty muutosissue.",
-      "tuotos": "Asiakkaan kokeilema selainversio, katselmointimuistio ja yksi sovittu muutostehtävä GitHubissa.",
+      "tuotos": "Asiakkaan kokeilema selainversio, katselmointimuistio ja yksi sovittu muutosissue GitHubissa.",
       "valmis": "Asiakas on pelannut pelin alusta loppuun. Muistiossa näkyvät asiakkaan sanat, oma tulkinta, päätös, hyväksyjä ja yksi rajattu issue.",
       "tarkistukset": [
         {
@@ -577,7 +577,7 @@
     "43": {
       "jarjestys": 9,
       "tyyppi": "feature",
-      "vaihe": "C",
+      "vaihe": "3",
       "otsikko": "Feature 6 · Asiakkaan toivoma parannus",
       "tehtavat": [
         {
@@ -632,7 +632,7 @@
     "44": {
       "jarjestys": 10,
       "tyyppi": "feature",
-      "vaihe": "C",
+      "vaihe": "3",
       "otsikko": "Feature 7 · Peli ohjaa pelaajaa itse",
       "tehtavat": [
         {
@@ -687,7 +687,7 @@
     "45": {
       "jarjestys": 11,
       "tyyppi": "laatu",
-      "vaihe": "C",
+      "vaihe": "4",
       "otsikko": "Pelin laatu · Peli kestää pelaamista",
       "tehtavat": [
         {
@@ -742,7 +742,7 @@
     "46": {
       "jarjestys": 12,
       "tyyppi": "laatu",
-      "vaihe": "C",
+      "vaihe": "4",
       "otsikko": "Pelin laatu · Koodi, jonka toinen ymmärtää",
       "tehtavat": [
         {
@@ -791,12 +791,12 @@
     "47": {
       "jarjestys": 13,
       "tyyppi": "julkaisu",
-      "vaihe": "D",
+      "vaihe": "5",
       "otsikko": "Pelin julkaisu · Ensimmäinen julkaisuehdokas RC1 testipelattavana",
       "tehtavat": [
         {
           "id": "47-1",
-          "teksti": "Merkitse ensimmäinen julkaisuehdokas (RC1) ja lopeta uusien ominaisuuksien lisääminen.",
+          "teksti": "Merkitse julkaisuehdokas RC1 ja jäädytä uudet ominaisuudet.",
           "valmis": "Tagi RC1 näkyy GitHubissa, ja se osoittaa main-haaran viimeisimpään committiin.",
           "tallenna": "RC1-tagin linkki ja commitin tunniste viikon 47 päiväkirjaan."
         },
@@ -840,7 +840,7 @@
     "48": {
       "jarjestys": 14,
       "tyyppi": "julkaisu",
-      "vaihe": "D",
+      "vaihe": "5",
       "otsikko": "Pelin julkaisu · v1.0 julki",
       "tehtavat": [
         {
@@ -901,14 +901,14 @@
     "49": {
       "jarjestys": 15,
       "tyyppi": "naytto",
-      "vaihe": "D",
+      "vaihe": "5",
       "otsikko": "Näyttö · Aineisto ja luovutus",
       "tehtavat": [
         {
           "id": "49-1",
           "teksti": "Tarkista projektipäiväkirja ja vie se repositoryyn.",
           "valmis": "Kaikki 15 viikkoa on kirjattu, ja jokaisen viikon työnäytelinkki aukeaa.",
-          "tallenna": "Täydennetyt viikkomerkinnät sivuston projektipäiväkirjassa. Lataat tiedoston repositoryyn tehtävässä 5."
+          "tallenna": "Täydennetyt viikkomerkinnät sivuston projektipäiväkirjassa. Lataat tiedoston repositoryyn työvaiheessa 5."
         },
         {
           "id": "49-2",
