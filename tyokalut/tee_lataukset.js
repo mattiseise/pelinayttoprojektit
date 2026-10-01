@@ -15,7 +15,9 @@
  * v2.7: yhtenäiset viikko-ohjeet (P.yhtenaisetViikot): työpaketin alkuun "Mitä rakennat ja
  * miten etenet" (lopputulos, vaiheet[].kuvaus, lataukset.aloitusHuomio, print-HTML:ssä myös
  * P.vaihekuva) ja jokaisen viikon alkuun yhteys kokonaisprojektiin ja viikon tavoite.
- * Tehtävät numeroidaan työvaiheiksi. Lomakortin teksti on kortin viimeinen kappale.
+ * Tehtävät numeroidaan työvaiheiksi. Lomakortin teksti on kortin viimeinen kappale. Oletustyylissä
+ * työvaihe pidetään samalla sivulla; suurikirjaimisessa teema- ja tulosteversiossa taitto jatkuu
+ * (muuten sivuille jää isoja aukkoja).
  */
 const fs = require("fs");
 const path = require("path");
@@ -230,7 +232,9 @@ tp.push(pageBreak());
 const unified = Boolean(P.yhtenaisetViikot);
 function phaseWeeksLabel(phase) {
   const work = (P.viikot || []).filter((w) => (phase.viikot || []).includes(w) && !(P.lomaViikot || []).includes(w));
-  return work.length ? lt("aloitusVaiheViikot", work[0], work[work.length - 1], Boolean(P.paivaton)) : "";
+  const label = work.length ? lt("aloitusVaiheViikot", work[0], work[work.length - 1], Boolean(P.paivaton)) : "";
+  /* Ei toisteta, jos vaiheen kuvaus kertoo viikot jo itse ("Viikot 40–41: …"). */
+  return label && String(phase.kuvaus || "").toLowerCase().includes(label.toLowerCase()) ? "" : label;
 }
 if (unified) {
   tp.push(h1(lt("aloitusOtsikko")));
@@ -593,7 +597,6 @@ th { font-weight: 700; }
 .muted, .item { }
 strong { font-weight: 700; }
 .conn, .goal { margin: 0 0 .4em; }
-.tblock { page-break-inside: avoid; }
 img.figure { display: block; max-width: 100%; margin: .5em 0 1em; }
 code { font-family: Consolas, "Courier New", monospace; font-size: 1em; }`;
 }
@@ -611,7 +614,7 @@ ${printCss(style)}
     H.push(`<h1>${esc(lt("aloitusOtsikko"))}</h1>`);
     if (P.lopputulos && P.lopputulos.kuvaus) H.push(`<p>${esc(P.lopputulos.kuvaus)}</p>`);
     const goalImg = P.lopputulos && P.lopputulos.kuva;
-    if (goalImg && style !== "oletus") H.push(`<img class="figure" src="../${esc(goalImg)}" alt="${esc(P.lopputulos.alt || "")}">`);
+    if (goalImg && style === "teema") H.push(`<img class="figure" src="../${esc(goalImg)}" alt="${esc(P.lopputulos.alt || "")}">`);
     if (P.lopputulos && (P.lopputulos.kohdat || []).length) H.push(`<ol class="osat">${P.lopputulos.kohdat.map((c) => `<li>${esc(c.n)}. ${esc(c.teksti)}</li>`).join("")}</ol>`);
     H.push(`<h2>${esc(lt("aloitusVaiheetOtsikko", (P.vaiheet || []).length))}</h2>`);
     if (P.vaihekuva && P.vaihekuva.kuva) H.push(`<img class="figure" src="../${esc(P.vaihekuva.kuva)}" alt="${esc(P.vaihekuva.alt || "")}">`);

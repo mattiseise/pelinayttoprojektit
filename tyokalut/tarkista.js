@@ -685,7 +685,8 @@ if (P.yhtenaisetViikot) {
     if (Array.isArray(g.steps) && g.steps.length) warn(`viikko ${w}: steps-lista näkyy tehtävien rinnalla — siirrä askeleet työvaiheiden osatehtäviin`);
   });
   (P.vaiheet || []).forEach((ph) => { if (!ph.kuvaus) err(`vaihe ${ph.tunnus}: kuvaus puuttuu (vaihekuvaus: mitä vaiheessa valmistuu ja miksi)`); });
-  if (!/<[a-z]+ [^>]*data-roadmap[\s>]/.test(htmlNoComments)) warn("Näin käytät sivua: [data-roadmap] puuttuu — vaihekuvaus ei näy aloituksessa");
+  /* Vaihekuvaus joko datasta ([data-roadmap]) tai staattisena osiona (section.project-roadmap). */
+  if (!/<[a-z]+ [^>]*data-roadmap[\s>]/.test(htmlNoComments) && !/class="[^"]*\bproject-roadmap\b/.test(htmlNoComments)) warn("Näin käytät sivua: [data-roadmap] puuttuu — vaihekuvaus ei näy aloituksessa");
   if (P.vaihekuva) {
     const V = P.vaihekuva;
     if (!V.kuva) err("vaihekuva: kuva puuttuu");

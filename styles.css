@@ -831,47 +831,69 @@ html[data-teema] .substep-row input:checked ~ .task-box { background: var(--acce
 html[data-teema] .substep-row input:checked ~ .substep-text { color: var(--ink); }
 html[data-teema] .task-card-done, html[data-teema] .task-card-save { background: transparent; }
 
-/* ---------- v2.7: yhtenäiset viikko-ohjeet (P.yhtenaisetViikot) ---------- */
-.project-phase-path { display: flex; flex-wrap: wrap; gap: 6px; margin: 14px 0 18px; }
-.project-phase-path a { display: inline-flex; align-items: center; min-height: 32px; padding: 4px 12px; border: 1px solid var(--line); border-radius: var(--radius-pill); background: var(--card-bg); color: var(--muted); font-size: 13px; text-decoration: none; }
-.project-phase-path a:hover { border-color: var(--line-hover); color: var(--ink); }
-.project-phase-path a[aria-current="step"] { border: 2px solid var(--phase-color, var(--accent)); background: color-mix(in srgb, var(--phase-color, var(--accent)) 12%, var(--card-bg)); color: var(--ink); font-weight: 700; }
-.project-phase-path a:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
-.project-connection { margin-top: 4px; }
-.project-connection h2.section-label { font-family: var(--font-sans); font-size: 13px; font-weight: 700; line-height: 1.35; letter-spacing: .01em; text-transform: none; color: var(--accent-dark); }
-.view[data-view="kaytto"] > .view-lead + p { margin-top: 12px; color: var(--muted); }
-.view[data-view="kaytto"] > .goal-hero:not(:first-child) { margin-top: 28px; }
-.project-connection > p { margin: 6px 0 0; font-size: 15px; }
-.project-connection .project-week-goal { margin-top: 16px; }
-.project-connection .project-week-goal-text { font-weight: 600; color: var(--ink); }
-.project-connection .week-quote { margin: 14px 0 0; }
-.week-card.is-unified .week-terms { margin-top: 16px; }
-.week-finish { margin-top: 28px; border-left: 3px solid var(--accent); }
-.week-finish h2 { margin: 0; font-size: 18px; }
-.week-finish h3 { margin: 14px 0 4px; font-family: var(--font-sans); font-size: 13px; font-weight: 700; line-height: 1.35; color: var(--muted); }
-.week-finish p { margin: 0; font-size: 14px; }
-.week-skills-details, .week-days-details, .week-workflow, details.week-kuvaohjeet, details.week-routine, .project-reference { margin-top: 16px; padding: 0 16px; background: var(--card-bg); border: 1px solid var(--line); border-radius: var(--radius-card); }
-.week-skills-details > summary, .week-days-details > summary, .week-workflow > summary, details.week-kuvaohjeet > summary, details.week-routine > summary, .project-reference > summary { padding: 12px 0; cursor: pointer; font-size: 14px; font-weight: 600; }
-.week-skills-details[open], .week-days-details[open], .week-workflow[open], details.week-kuvaohjeet[open], details.week-routine[open], .project-reference[open] { padding-bottom: 14px; }
-.week-skills-details .week-skills { margin-top: 4px; }
-.week-skills-details .expectation-grid { margin-top: 14px; }
-.week-days-details .day-rhythm { margin-top: 0; }
-.project-figure { margin: 18px 0; }
-.project-figure img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: var(--radius-card); background: #fff; }
-.project-figure figcaption { margin-top: 8px; font-size: 13px; color: var(--muted); }
-.project-figure .kuvaohje-open-button { margin-top: 8px; }
-.impl-help-images .help-figure { margin: 0; }
+/* ---------- v2.7: yhtenäiset viikko-ohjeet (P.yhtenaisetViikot) ----------
+ * :where() rajaa säännöt teemattomille sivuille nostamatta spesifisyyttä: järjestys muihin
+ * sääntöihin pysyy samana kuin ilman rajausta. */
+:where(html:not([data-teema])) .project-phase-path { display: flex; flex-wrap: wrap; gap: 6px; margin: 14px 0 18px; }
+:where(html:not([data-teema])) .project-phase-path a { display: inline-flex; align-items: center; min-height: 32px; padding: 4px 12px; border: 1px solid var(--line); border-radius: var(--radius-pill); background: var(--card-bg); color: var(--muted); font-size: 13px; text-decoration: none; }
+:where(html:not([data-teema])) .project-phase-path a:hover { border-color: var(--line-hover); color: var(--ink); }
+:where(html:not([data-teema])) .project-phase-path a[aria-current="step"] { border: 2px solid var(--phase-color, var(--accent)); background: color-mix(in srgb, var(--phase-color, var(--accent)) 12%, var(--card-bg)); color: var(--ink); font-weight: 700; }
+:where(html:not([data-teema])) .project-phase-path a:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+:where(html:not([data-teema])) .project-connection { margin-top: 4px; }
+:where(html:not([data-teema])) .project-connection h2.section-label { font-family: var(--font-sans); font-size: 13px; font-weight: 700; line-height: 1.35; letter-spacing: .01em; text-transform: none; color: var(--accent-dark); }
+:where(html:not([data-teema])) .view[data-view="kaytto"] > .view-lead + p { margin-top: 12px; color: var(--muted); }
+:where(html:not([data-teema])) .view[data-view="kaytto"] > .goal-hero:not(:first-child) { margin-top: 28px; }
+:where(html:not([data-teema])) .project-connection > p { margin: 6px 0 0; font-size: 15px; }
+:where(html:not([data-teema])) .project-connection .project-week-goal { margin-top: 16px; }
+:where(html:not([data-teema])) .project-connection .project-week-goal-text { font-weight: 600; color: var(--ink); }
+:where(html:not([data-teema])) .project-connection .week-quote { margin: 14px 0 0; }
+:where(html:not([data-teema])) .week-card.is-unified .week-terms { margin-top: 16px; }
+:where(html:not([data-teema])) .week-finish { margin-top: 28px; border-left: 3px solid var(--accent); }
+:where(html:not([data-teema])) .week-finish h2 { margin: 0; font-size: 18px; }
+:where(html:not([data-teema])) .week-finish h3 { margin: 14px 0 4px; font-family: var(--font-sans); font-size: 13px; font-weight: 700; line-height: 1.35; color: var(--muted); }
+:where(html:not([data-teema])) .week-finish p { margin: 0; font-size: 14px; }
+:where(html:not([data-teema])) .week-skills-details, :where(html:not([data-teema])) .week-days-details, :where(html:not([data-teema])) .week-workflow, :where(html:not([data-teema])) details.week-kuvaohjeet, :where(html:not([data-teema])) details.week-routine, :where(html:not([data-teema])) .project-reference { margin-top: 16px; padding: 0 16px; background: var(--card-bg); border: 1px solid var(--line); border-radius: var(--radius-card); }
+:where(html:not([data-teema])) .week-skills-details > summary, :where(html:not([data-teema])) .week-days-details > summary, :where(html:not([data-teema])) .week-workflow > summary, :where(html:not([data-teema])) details.week-kuvaohjeet > summary, :where(html:not([data-teema])) details.week-routine > summary, :where(html:not([data-teema])) .project-reference > summary { padding: 12px 0; cursor: pointer; font-size: 14px; font-weight: 600; }
+:where(html:not([data-teema])) .week-skills-details[open], :where(html:not([data-teema])) .week-days-details[open], :where(html:not([data-teema])) .week-workflow[open], :where(html:not([data-teema])) details.week-kuvaohjeet[open], :where(html:not([data-teema])) details.week-routine[open], :where(html:not([data-teema])) .project-reference[open] { padding-bottom: 14px; }
+:where(html:not([data-teema])) .week-skills-details .week-skills { margin-top: 4px; }
+:where(html:not([data-teema])) .week-skills-details .expectation-grid { margin-top: 14px; }
+:where(html:not([data-teema])) .week-days-details .day-rhythm { margin-top: 0; }
+:where(html:not([data-teema])) .project-figure { margin: 18px 0; }
+:where(html:not([data-teema])) .project-figure img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: var(--radius-card); background: #fff; }
+:where(html:not([data-teema])) .project-figure figcaption { margin-top: 8px; font-size: 13px; color: var(--muted); }
+:where(html:not([data-teema])) .project-figure .kuvaohje-open-button { margin-top: 8px; }
+:where(html:not([data-teema])) .impl-help-images .help-figure { margin: 0; }
 .substep-text, .task-card-body p, .week-finish p, .project-connection p { overflow-wrap: anywhere; }
-.project-roadmap-list { padding-left: 22px; }
-.project-roadmap-list li { margin: 10px 0; }
-.project-roles dt { margin-top: 12px; font-weight: 600; }
-.project-roles dd { margin: 2px 0 0; color: var(--muted); }
-.project-reference > p { margin: 10px 0 0; }
-.project-reference > p:first-of-type { margin-top: 2px; }
-.project-reference > a { display: inline-block; margin-top: 10px; }
-html[data-teema] .project-phase-path a { border: 2px solid currentColor; color: var(--ink); }
-html[data-teema] .project-phase-path a[aria-current="step"] { background: var(--accent); color: var(--bg); }
-@media (max-width: 640px) { .project-phase-path a { font-size: 12px; padding: 4px 10px; } }
+:where(html:not([data-teema])) .project-roadmap-list { padding-left: 22px; }
+:where(html:not([data-teema])) .project-roadmap-list li { margin: 10px 0; }
+:where(html:not([data-teema])) .project-roles dt { margin-top: 12px; font-weight: 600; }
+:where(html:not([data-teema])) .project-roles dd { margin: 2px 0 0; color: var(--muted); }
+:where(html:not([data-teema])) .project-reference > p { margin: 10px 0 0; }
+:where(html:not([data-teema])) .project-reference > p:first-of-type { margin-top: 2px; }
+:where(html:not([data-teema])) .project-reference > a { display: inline-block; margin-top: 10px; }
+@media (max-width: 640px) { :where(html:not([data-teema])) .project-phase-path a { font-size: 12px; padding: 4px 10px; } }
 /* Kapeassa asettelussa sivupalkki on kiinteä yläpalkki: näkymän alku ei jää sen alle. */
 @media (max-width: 860px) { .view, .week-card, .holiday-card { scroll-margin-top: 84px; } }
 @media print { .project-phase-path, [data-figure-open] { display: none; } }
+
+/* ---------- v2.7: yhtenäiset viikko-ohjeet saavutettavassa teemassa (html[data-teema]) ----------
+ * Vektoripajan näkövammaiselle oppijalle suunniteltu ulkoasu: teeman koko, välit, 2 px reunat ja
+ * 3 px fokus periytyvät teemasta (linkit alleviivattuina). Yllä olevat yleiset tyylit eivät koske
+ * teemasivua. Muutokset tähän lohkoon tarkistetaan aina teemasivulla lasketuilla tyyleillä ennen ja
+ * jälkeen, kaikissa näkymissä, leveänä ja kapeana. */
+:where(html[data-teema]) .project-phase-path { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1rem 0 1.5rem; }
+:where(html[data-teema]) .project-phase-path a { border: 2px solid currentColor; padding: .4rem .65rem; font-size: .8em; }
+:where(html[data-teema]) .project-phase-path a[aria-current="step"] { background: var(--accent); color: var(--bg, #000); font-weight: 700; }
+:where(html[data-teema]) .project-phase-path a:focus-visible { outline: 3px solid currentColor; outline-offset: 4px; }
+:where(html[data-teema]) .project-connection p { margin-top: .7rem; }
+:where(html[data-teema]) .project-figure { margin: 1.5rem 0; }
+:where(html[data-teema]) .project-figure img { width: 100%; height: auto; display: block; border: 2px solid currentColor; }
+:where(html[data-teema]) .project-figure figcaption { margin-top: .7rem; font-size: .9em; }
+:where(html[data-teema]) .project-figure .kuvaohje-open-button { margin-top: .7rem; }
+:where(html[data-teema]) .project-roadmap-list li { margin: 1rem 0; }
+:where(html[data-teema]) .project-roadmap-list a { display: inline-block; }
+:where(html[data-teema]) .project-reference summary, :where(html[data-teema]) .week-workflow summary, :where(html[data-teema]) .week-kuvaohjeet summary { cursor: pointer; font-weight: 700; padding: .6rem 0; }
+:where(html[data-teema]) .project-reference[open] summary, :where(html[data-teema]) .week-workflow[open] summary, :where(html[data-teema]) .week-kuvaohjeet[open] summary { margin-bottom: 1rem; }
+:where(html[data-teema]) .project-roles dt { font-weight: 700; margin-top: 1rem; }
+:where(html[data-teema]) .project-roles dd { margin: .3rem 0 1rem; }
+:where(html[data-teema]) .week-finish h3 { margin: 1rem 0 .5rem; }

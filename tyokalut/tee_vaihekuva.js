@@ -21,6 +21,9 @@ global.window = {};
 require(path.join(SITE, "sisalto.js"));
 const P = global.window.NAYTTOPROJEKTI;
 if (!P || !Array.isArray(P.vaiheet) || !P.vaiheet.length) throw new Error("sisalto.js: vaiheet puuttuu");
+/* Generoi vain, kun projekti on ottanut vaihekuvan käyttöön (P.vaihekuva). Esim. Vektoripajan
+   saavutettava vaihekuva on tehty omalla skriptillään suuremmalla tekstillä, eikä sitä saa ylikirjoittaa. */
+if (!P.vaihekuva) { console.log("vaihekuva-kenttä puuttuu sisalto.js:stä: projekti käyttää omaa vaihekuvaa, mitään ei kirjoitettu."); process.exit(0); }
 
 const T = P.teema || null;
 const C = T
