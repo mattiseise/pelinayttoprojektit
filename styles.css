@@ -557,6 +557,11 @@ figure.view-figure figcaption strong { color: var(--ink); display: block; margin
 .kuvaohje-error { margin-top: 10px; font-size: 14px; color: var(--ink); }
 .kuvaohje-dialog { width: min(96vw, 1400px); max-width: 96vw; max-height: 94vh; padding: 0; background: var(--card-bg); color: var(--ink); border: 2px solid var(--line); border-radius: var(--radius-card); }
 .kuvaohje-dialog::backdrop { background: rgba(0, 0, 0, .78); }
+/* v2.8: oman repositoryn osoite (P.repo = "oma") */
+.oma-repo-dialog { width: min(96vw, 640px); }
+.oma-repo-form label { font-weight: 700; }
+.oma-repo-form input { width: 100%; font: inherit; padding: 8px 10px; border: 2px solid var(--line); border-radius: 6px; background: var(--card-bg); color: var(--ink); }
+.oma-repo-error { color: var(--danger, #b00020); font-weight: 700; }
 .kuvaohje-dialog-head { position: sticky; top: 0; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 10px 14px; background: var(--card-bg); border-bottom: 1px solid var(--line); }
 .kuvaohje-dialog-body { padding: 16px; display: flex; flex-direction: column; gap: 16px; overflow: auto; }
 .kuvaohje-dialog-body .kuvaohje-stage { margin: 12px 0 0 12px; }
@@ -877,7 +882,7 @@ html[data-teema] .task-card-done, html[data-teema] .task-card-save { background:
 @media print { .project-phase-path, [data-figure-open] { display: none; } }
 
 /* ---------- v2.7: yhtenäiset viikko-ohjeet saavutettavassa teemassa (html[data-teema]) ----------
- * Vektoripajan näkövammaiselle oppijalle suunniteltu ulkoasu: teeman koko, välit, 2 px reunat ja
+ * Saavutettava ulkoasu (data-teema): teeman koko, välit, 2 px reunat ja
  * 3 px fokus periytyvät teemasta (linkit alleviivattuina). Yllä olevat yleiset tyylit eivät koske
  * teemasivua. Muutokset tähän lohkoon tarkistetaan aina teemasivulla lasketuilla tyyleillä ennen ja
  * jälkeen, kaikissa näkymissä, leveänä ja kapeana. */
@@ -897,3 +902,52 @@ html[data-teema] .task-card-done, html[data-teema] .task-card-save { background:
 :where(html[data-teema]) .project-roles dt { font-weight: 700; margin-top: 1rem; }
 :where(html[data-teema]) .project-roles dd { margin: .3rem 0 1rem; }
 :where(html[data-teema]) .week-finish h3 { margin: 1rem 0 .5rem; }
+
+/* ---------- v2.8: selkeys (P.selkeys, P.perusohjeet, P.tiedostokortit, P.dokumentitRepossa) ----------
+ * Säännöt koskevat vain v2.8:n omia luokkia, joita moottori tuottaa vain opt-in-projekteissa, joten
+ * muiden projektien lasketut tyylit eivät muutu. Teemasivun säännöt ovat :where(html[data-teema]) tai
+ * html[data-teema] -etuliitteellä, kun yleisen teemasäännön spesifisyys pitää ohittaa. */
+.np-link { text-decoration: underline; text-underline-offset: .15em; }
+.np-link code { text-decoration: inherit; }
+.substep-row.substep-row-rich { flex-direction: column; align-items: stretch; gap: 6px; cursor: default; }
+.substep-label { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; }
+.substep-title { font-weight: 700; }
+.substep-row-rich input:checked + .substep-label .task-box { background: var(--accent); border-color: var(--accent); }
+.substep-row-rich input:checked + .substep-label .task-box::after { content: "✓"; }
+.substep-row-rich input:focus-visible + .substep-label .task-box { outline: 2px solid var(--accent); outline-offset: 2px; }
+.substep-row-rich input:disabled + .substep-label { cursor: default; }
+.substep-body { display: flex; flex-direction: column; gap: 4px; padding-left: 56px; }
+.substep-line .substep-key, .basic-step .substep-key { font-weight: 700; }
+.substep-body .copy-block, .basic-step .copy-block { margin-top: 6px; }
+.basics-section > h2, .docs-section > h2 { margin-bottom: 6px; }
+.basic-guide > summary h3, .doc-card > summary h3 { display: inline; margin: 0; }
+.basic-steps { margin: 6px 0 0; padding-left: 22px; display: flex; flex-direction: column; gap: 10px; }
+.basic-step { display: list-item; }
+.basic-step > * + * { margin-top: 4px; }
+.basic-step::marker { font-weight: 700; }
+.basic-lead, .basics-lead, .docs-lead { margin-top: 6px; }
+.doc-card-facts { margin: 4px 0 0; }
+.doc-card-facts dt { margin-top: 10px; font-weight: 700; }
+.doc-card-facts dd { margin: 2px 0 0; }
+.doc-card-facts dd ul { margin: 4px 0 0; padding-left: 20px; }
+.doc-card-calibration { margin-top: 14px; }
+.doc-card-sample { margin: 6px 0 0; white-space: pre-wrap; overflow-wrap: anywhere; font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; font-size: 13px; }
+.doc-card-inline { margin-top: 20px; }
+.doc-card-inline > .doc-card-title { font-family: var(--font-sans); font-size: 18px; font-weight: 700; }
+.migrate-box { margin-top: 16px; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; border-left: 3px solid var(--accent); }
+.migrate-empty { padding: 8px 12px; border-left: 3px solid var(--line-hover); }
+.link-return { display: block; margin: 0 0 10px; }
+.journal-repo { margin-top: 10px; }
+.journal-repo-steps { margin: 10px 0 0; padding-left: 22px; display: flex; flex-direction: column; gap: 6px; }
+:where(html[data-teema]) .substep-row-rich input:checked + .substep-label .task-box { background: var(--accent); border-color: var(--accent); }
+html[data-teema] .substep-row.substep-row-rich:focus-within { outline: none; }
+html[data-teema] .substep-row-rich input:focus-visible + .substep-label { outline: var(--focus-w) solid var(--ink); outline-offset: 3px; }
+html[data-teema] .substep-row-rich input:focus-visible + .substep-label .task-box { outline: none; }
+:where(html[data-teema]) .substep-body { padding-left: 0; gap: .5em; }
+:where(html[data-teema]) .basic-steps { padding-left: 1.6em; gap: 1em; }
+:where(html[data-teema]) .doc-card-facts dt { margin-top: 1em; }
+:where(html[data-teema]) .doc-card-facts dd { margin: .3em 0 0; }
+:where(html[data-teema]) .migrate-box, :where(html[data-teema]) .migrate-empty { border-left-width: var(--bw); }
+:where(html[data-teema]) .migrate-empty { border-left: var(--bw) solid var(--ink); padding: .5em .8em; }
+:where(html[data-teema]) .doc-card-inline { margin-top: 1.5em; }
+:where(html[data-teema]) .journal-repo-steps { padding-left: 1.6em; gap: .6em; }

@@ -18,6 +18,12 @@
  * Tehtävät numeroidaan työvaiheiksi. Lomakortin teksti on kortin viimeinen kappale. Oletustyylissä
  * työvaihe pidetään samalla sivulla; suurikirjaimisessa teema- ja tulosteversiossa taitto jatkuu
  * (muuten sivuille jää isoja aukkoja).
+ *
+ * v2.8: linkkimerkinnät ([[toimeksianto]], [[ohje:commit]], [[tiedosto:x]], [[github:actions]],
+ * [teksti](https://…) …) muuttuvat paperilla luettaviksi: sivuston kohde kerrotaan sanoin
+ * ("Commit ja push (Vektoripaja-sivusto: Työtapa → Näin teet)") ja verkko-osoite kokonaan.
+ * Objektimuotoinen osatehtävä tulostuu riveinä Missä / Tee / Näet nyt. Ajo pysähtyy, jos
+ * tulosteeseen jää raaka [[-merkintä.
  */
 const fs = require("fs");
 const path = require("path");
@@ -77,7 +83,17 @@ const L_OLETUS = {
   aloitusHuomio: "",
   yhteysLabel: "Yhteys kokonaisprojektiin:",
   tavoiteLabel: "Viikon tavoite:",
-  lopputarkistusLabel: "Viikon lopputarkistus:"
+  lopputarkistusLabel: "Viikon lopputarkistus:",
+  /* v2.8: selkeys */
+  missaLabel: "Missä:",
+  teeLabel: "Tee:",
+  naetLabel: "Näet nyt:",
+  sivusto: "",
+  sivustonOsoite: "",
+  perusohjeetPolku: (tyotapa, otsikko) => `${tyotapa} → ${otsikko}`,
+  kuvaohjePolku: "kuvaohje",
+  viikkoPolku: (w) => `viikko ${w}`,
+  dokumentointipohjatJohdanto: (nimi) => `${nimi} · kopioi tarvitsemasi pohja project-docs-kansioon tai täytä paperilla ja skannaa. Jokainen pohja vastaa sivuston viikkotehtävää.`
 };
 const L_YHTENAINEN = { tehtavaNumero: (i, n) => `Työvaihe ${i} / ${n}` };
 const L = Object.assign({}, L_OLETUS, P.yhtenaisetViikot ? L_YHTENAINEN : {}, P.lataukset || {});
@@ -94,6 +110,50 @@ function weekResources(g) {
 }
 
 const html = fs.readFileSync(path.join(SITE, "index.html"), "utf8");
+
+/* ---------- v2.8: linkkimerkinnät paperille ---------- */
+const LINK_RE = /\[\[([^\]|\n]+?)(?:\|([^\]\n]+))?\]\]|\[([^\]\n]+)\]\((https?:\/\/[^)\s]+|(?:\.\.?\/)?[\w-]+\/[\w./-]+\.\w+)\)/g;
+const linksOn = Boolean(P.selkeys || P.perusohjeet || P.tiedostokortit);
+const navLabels = Object.fromEntries([...html.matchAll(/data-view-nav="([a-z]+)">([^<]+)</g)].map((m) => [m[1], m[2].trim()]));
+const viewName = (v) => (P.nakymaNimet && P.nakymaNimet[v]) || navLabels[v] || v;
+const basicsMap = new Map((Array.isArray(P.perusohjeet) ? P.perusohjeet : []).map((o) => [String(o.tunnus), o]));
+const cardsMap = P.tiedostokortit && typeof P.tiedostokortit === "object" ? P.tiedostokortit : {};
+const cardName = (id) => (cardsMap[id] && (cardsMap[id].otsikko || String(cardsMap[id].polku || id).replace(/\/+$/, "").split("/").pop())) || id;
+const templateWeek = new Map();
+Object.entries(P.viikkoOhjeet || {}).forEach(([w, g]) => (g.pohjat || []).forEach((t) => { if (t && t.tunnus) templateWeek.set(String(t.tunnus), [Number(w), t.otsikko]); }));
+let kuvaTitles = new Map();
+try {
+  const kp = path.join(SITE, P.kuvakaappauksetPolku || "kuvakaappaukset.json");
+  if (fs.existsSync(kp)) { const d = JSON.parse(fs.readFileSync(kp, "utf8")); kuvaTitles = new Map((Array.isArray(d) ? d : d.kuvat || []).map((k) => [k.tunnus, k.otsikko || k.kuvaa || k.tunnus])); }
+} catch (_) { /* kuvaohjeet valinnaisia */ }
+function paperLinks(value) {
+  const s = String(value ?? "");
+  if (!linksOn || !/\[\[|\]\(/.test(s)) return s;
+  const site = (L && L.sivusto) || `${P.nimi}-sivusto`;
+  const where = (label, place) => `${label} (${site}${place ? `: ${place}` : ""})`;
+  return s.replace(LINK_RE, (m, target, label, extLabel, url) => {
+    if (url && !/^https?:/.test(url)) url = L.sivustonOsoite ? new URL(url, L.sivustonOsoite).href : url;
+    if (url) return extLabel && extLabel !== url ? `${extLabel} (${url})` : url;
+    const tg = String(target).trim();
+    const week = tg.match(/^vk\s*(\d+)$/i);
+    if (week) return label || lt("viikkoPolku", week[1]);
+    const c = tg.indexOf(":");
+    if (c > 0) {
+      const kind = tg.slice(0, c).trim(), id = tg.slice(c + 1).trim();
+      if (kind === "github") { if (P.repo === "oma") return `${label || `GitHub: ${id}`} (oma GitHub-repositorysi, sivu ${id.replace(/^\/+/, "") || "etusivu"})`; const u = `${String(P.repo || "").replace(/\/+$/, "")}/${id.replace(/^\/+/, "")}`; return `${label || `GitHub: ${id}`} (${u})`; }
+      if (kind === "ohje") return where(label || (basicsMap.get(id) || {}).otsikko || id, lt("perusohjeetPolku", viewName("tyotapa"), P.perusohjeetOtsikko || "Näin teet"));
+      if (kind === "tiedosto") return where(label || cardName(id), lt("perusohjeetPolku", viewName("tyotapa"), P.tiedostokortitOtsikko || "Dokumentit"));
+      if (kind === "pohja") { const [w, otsikko] = templateWeek.get(id) || ["", id]; return where(label || otsikko, w ? lt("viikkoPolku", w) : ""); }
+      if (kind === "kuvaohje") return where(label || kuvaTitles.get(id) || id, lt("kuvaohjePolku"));
+      return label || tg;
+    }
+    const [view] = tg.split("#");
+    const name = viewName(view);
+    const text = label || name;
+    return text.toLowerCase() === String(name).toLowerCase() ? where(text, "") : where(text, name);
+  });
+}
+const ensurePaper = (out, name) => { if (/\[\[[^\]]*\]\]/.test(out)) throw new Error(`${name}: tulosteeseen jäi raaka [[ ]] -merkintä`); return out; };
 
 function stripTags(s) {
   return s.replace(/<[^>]+>/g, "")
@@ -162,7 +222,7 @@ const sz = (half) => (iso ? Math.max(ISO.half, Math.round(half * ISO.half / 21))
 const col = (c) => (iso && c ? (c === ACCENT ? String(TULOSTE.otsikot).replace("#", "") : ISO.ink) : c);
 
 const p = (text, opts = {}) => new Paragraph({
-  children: [new TextRun({ text: iso ? String(text).replace(/`/g, "") : text, size: sz(opts.size || 21), bold: opts.bold, italics: iso ? false : opts.italics, color: col(opts.color), font: iso ? ISO.font : undefined })],
+  children: [new TextRun({ text: iso ? paperLinks(text).replace(/`/g, "") : paperLinks(text), size: sz(opts.size || 21), bold: opts.bold, italics: iso ? false : opts.italics, color: col(opts.color), font: iso ? ISO.font : undefined })],
   spacing: { after: opts.after ?? 120, before: opts.before ?? 0, line: iso ? 384 : undefined },
   alignment: opts.align,
   indent: opts.indent ? { left: opts.indent } : undefined,
@@ -171,8 +231,11 @@ const h1 = (text) => new Paragraph({ heading: HeadingLevel.HEADING_1, children: 
 const h2 = (text, color = ACCENT) => new Paragraph({ heading: HeadingLevel.HEADING_2, children: [new TextRun({ text, color: col(color), bold: true, size: iso ? Math.round(ISO.half * 1.25) : undefined, font: iso ? ISO.font : undefined })], spacing: { before: 260, after: 120 } });
 const box = (text) => p("☐  " + text, { after: 80 });
 /* v2.5: tehtäväkortin osat paperille (viikkoOhjeet[w].tehtavat[id]). Takahipsut pois. */
-const plainTick = (s) => String(s || "").replace(/`([^`\n]+)`/g, "$1");
-const osaTeksti = (o) => (Array.isArray(o) ? `${o[0]}. ${o[1]}` : String(o));
+const plainTick = (s) => paperLinks(String(s || "")).replace(/`([^`\n]+)`/g, "$1");
+const osaObj = (o) => o && typeof o === "object" && !Array.isArray(o);
+const osaTeksti = (o) => (Array.isArray(o) ? `${o[0]}. ${o[1]}` : osaObj(o) ? `${o.otsikko}` : String(o));
+/* v2.8: objektimuotoisen osatehtävän rivit paperille. */
+const osaRivit = (o) => (osaObj(o) ? [["missa", "missaLabel"], ["tee", "teeLabel"], ["naet", "naetLabel"]].filter(([k]) => o[k]).map(([k, l]) => `${lt(l)} ${o[k]}`) : []);
 function taskDef(g, id) { return g && g.tehtavat && g.tehtavat[id] ? g.tehtavat[id] : null; }
 const pageBreak = () => new Paragraph({ children: [new PageBreak()] });
 
@@ -181,7 +244,7 @@ function cell(text, { w, bold, fill, size = 19, color } = {}) {
     width: { size: w, type: WidthType.DXA },
     shading: fill && !iso ? { type: ShadingType.CLEAR, fill } : undefined,
     margins: { top: 60, bottom: 60, left: 100, right: 100 },
-    children: [new Paragraph({ children: [new TextRun({ text: iso ? String(text).replace(/`/g, "") : text, bold, size: sz(size), color: col(color), font: iso ? ISO.font : undefined })], spacing: { after: 0 } })],
+    children: [new Paragraph({ children: [new TextRun({ text: iso ? paperLinks(text).replace(/`/g, "") : paperLinks(text), bold, size: sz(size), color: col(color), font: iso ? ISO.font : undefined })], spacing: { after: 0 } })],
   });
 }
 function table(colWidths, rows) {
@@ -295,7 +358,11 @@ tp.push(pageBreak());
       const d = taskDef(g, wk.taskIds[i]);
       if (!d) { tp.push(box(t)); return; }
       tp.push(p(`${lt("tehtavaNumero", i + 1, wk.tasks.length)} · ${t}`, { bold: true, before: 120, after: 60 }));
-      (d.osat || []).forEach((o, j) => tp.push(p(`☐  ${j + 1}. ${plainTick(osaTeksti(o))}`, { size: 19, after: 40, indent: 360 })));
+      (d.osat || []).forEach((o, j) => {
+        tp.push(p(`☐  ${j + 1}. ${plainTick(osaTeksti(o))}`, { size: 19, after: osaObj(o) ? 20 : 40, indent: 360, bold: osaObj(o) || undefined }));
+        osaRivit(o).forEach((r) => tp.push(p(plainTick(r), { size: 19, after: 20, indent: 720 })));
+        if (osaObj(o) && o.koodi) tp.push(p(o.koodi, { size: 19, after: 40, indent: 720 }));
+      });
       if (d.valmis) tp.push(p(lt("valmisKun") + plainTick(d.valmis), { size: 19, color: ACCENT, after: 40, indent: 360 }));
       if (d.tallenna) tp.push(p(`${lt("tallennaLabel")} ${plainTick(d.tallenna)}`, { size: 19, color: GREY, after: 80, indent: 360 }));
     });
@@ -358,7 +425,7 @@ const T = O.pohjat || {};
 const testCount = T.testeja || 12;
 const dp = [];
 dp.push(new Paragraph({ children: [new TextRun({ text: "Projektin dokumentointipohjat", size: 48, bold: true, color: ACCENT })], spacing: { before: 200, after: 120 } }));
-dp.push(p(`${P.nimi} · kopioi tarvitsemasi pohja project-docs-kansioon tai täytä paperilla ja skannaa. Jokainen pohja vastaa sivuston viikkotehtävää.`, { size: 22, after: 300, color: GREY }));
+dp.push(p(lt("dokumentointipohjatJohdanto", P.nimi), { size: 22, after: 300, color: GREY }));
 
 function blanks(labels) {
   labels.forEach((k) => {
@@ -605,7 +672,7 @@ function printHtml(style) {
   const H = [];
   /* Teema- ja tulosteversiossa takahipsut `näin` muuttuvat koodiksi kuten sivustolla.
      Oletusversio pysyy ennallaan, jotta muiden projektien työpaketit eivät muutu. */
-  const esc = style === "oletus" && !unified ? escBase : (s) => escBase(s).replace(/`([^`\n]+)`/g, "<code>$1</code>");
+  const esc = style === "oletus" && !unified ? (s) => escBase(paperLinks(s)) : (s) => escBase(paperLinks(s)).replace(/`([^`\n]+)`/g, "<code>$1</code>");
   H.push(`<!doctype html><html lang="${esc(lt("lang"))}"><head><meta charset="utf-8"><title>${esc(P.nimi)} – ${esc(lt("tyopakettiTiedostoOtsikko"))}</title><style>
 ${printCss(style)}
 </style></head><body>`);
@@ -651,7 +718,9 @@ ${printCss(style)}
         const d = taskDef(g, wk.taskIds[i]);
         if (!d) { H.push(`<p class="task">☐&nbsp; ${esc(t)}</p>`); return; }
         H.push(`<div class="tblock"><p class="task tcard"><strong>${esc(lt("tehtavaNumero", i + 1, wk.tasks.length))} · ${esc(t)}</strong></p>`);
-        H.push(`<ol class="osat">${(d.osat || []).map((o) => `<li>☐&nbsp; ${esc(osaTeksti(o))}</li>`).join("")}</ol>`);
+        H.push(`<ol class="osat">${(d.osat || []).map((o) => (osaObj(o)
+          ? `<li>☐&nbsp; <strong>${esc(osaTeksti(o))}</strong>${osaRivit(o).map((r) => `<br>${esc(r)}`).join("")}${o.koodi ? `<br><code>${escBase(o.koodi).replace(/\n/g, "<br>")}</code>` : ""}</li>`
+          : `<li>☐&nbsp; ${esc(osaTeksti(o))}</li>`)).join("")}</ol>`);
         if (d.valmis) H.push(`<p class="done osa-done"><strong>${esc(lt("valmisKunLabel"))}</strong> ${esc(d.valmis)}</p>`);
         if (d.tallenna) H.push(`<p class="ev osa-done"><strong>${esc(lt("tallennaLabel"))}</strong> ${esc(d.tallenna)}</p>`);
         H.push(`</div>`);
@@ -682,10 +751,10 @@ ${printCss(style)}
   return H.join("\n");
 }
 
-fs.writeFileSync(path.join(__dirname, "tyopaketti-print.html"), printHtml(TEEMA ? "teema" : "oletus"));
+fs.writeFileSync(path.join(__dirname, "tyopaketti-print.html"), ensurePaper(printHtml(TEEMA ? "teema" : "oletus"), "tyopaketti-print.html"));
 console.log(`tyopaketti-print.html kirjoitettu${TEEMA ? " (teema, näytölle)" : ""}`);
 if (TEEMA) {
-  fs.writeFileSync(path.join(__dirname, "tyopaketti-tuloste.html"), printHtml("tuloste"));
+  fs.writeFileSync(path.join(__dirname, "tyopaketti-tuloste.html"), ensurePaper(printHtml("tuloste"), "tyopaketti-tuloste.html"));
   console.log("tyopaketti-tuloste.html kirjoitettu (vaalea, isokirjainen)");
   console.log(`PDF:t: <chrome> --headless --no-pdf-header-footer --print-to-pdf=downloads/${P.slug}-tyopaketti.pdf tyokalut/tyopaketti-print.html`);
   console.log(`       <chrome> --headless --no-pdf-header-footer --print-to-pdf=downloads/${P.slug}-tyopaketti-tuloste.pdf tyokalut/tyopaketti-tuloste.html`);

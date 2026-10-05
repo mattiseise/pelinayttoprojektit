@@ -9,6 +9,29 @@
  * Rakenne, jota tämä moottori odottaa index.html:ltä, on kuvattu tarkasti
  * tiedostossa skillin references/layout-rakenne.md.
  *
+ * v2.8: selkeys (opt-in, oletuksena pois päältä; muiden projektien ulkoasu ei muutu):
+ *   - linkkimerkinnät tekstissä, kun P.selkeys, P.perusohjeet tai P.tiedostokortit on käytössä:
+ *     [[toimeksianto]] ja muut näkymät (myös [[toimeksianto#ankkuri]]), [[vk 41]], [[ohje:commit]],
+ *     [[tiedosto:kysymykset]], [[kuvaohje:python-asennus]] (avaa dialogin), [[pohja:kysymyslista]],
+ *     [[github:actions]] (perusosoite P.repo), [teksti](https://…) ja [[kohde|oma teksti]].
+ *     Sama merkintä toimii index.html:n staattisessa tekstissä. Ulkoinen linkki avautuu uuteen
+ *     välilehteen, ja siitä kerrotaan merkillä ↗ ja ruudunlukijalle. Linkki vie kohteeseen,
+ *     siirtää fokuksen kohteen otsikkoon ja tuo kohteen viereen Palaa-napin.
+ *   - osatehtävän objektimuoto { otsikko, missa, tee, naet, koodi? }: rastin selitteenä on vain
+ *     otsikko, ja muu teksti on labelin ulkopuolella aria-describedby-kytkettynä. Vanhat muodot
+ *     ("teksti" ja ["Otsikko", "teksti"]) renderöidään kuten ennen.
+ *   - P.perusohjeet = [{ tunnus, otsikko, johdanto?, vaiheet: [{ missa, tee, naet, koodi? }],
+ *     kuvaohjeet: [ids] }] → Työtapa-näkymän osio "Näin teet", ankkurit #ohje-<tunnus>.
+ *   - P.tiedostokortit = { tunnus: { polku, milloin, mitaKirjoitetaan, esimerkki, eiRiita,
+ *     commitViesti } } → Työtapa-näkymän osio "Dokumentit", ankkurit #tiedosto-<tunnus>.
+ *   - P.dokumentitRepossa: Suunnitelma-, Päiväkirja- ja AI-loki-näkymissä näytetään lomakkeen
+ *     sijaan dokumentin tiedostokortti, ja viikon päiväkirjaosio ohjaa tiedostoon. Jos selaimen
+ *     muistissa on vanhaa tekstiä, näkymän alkuun tulee nappi, joka lataa kaiken yhtenä
+ *     tiedostona (P.siirtyma kertoo kohdetiedostot ja otsikot). Tehtävän `siirtyma: true` saa
+ *     saman napin; tyhjällä muistilla tehtävä ohitetaan. Näyttömatriisi pysyy ennallaan.
+ *   - viikon pohjan `tunnus` antaa sille ankkurin #pohja-<tunnus>. Toteutusavun `code` saa
+ *     kopiointinapin, kun P.selkeys on käytössä.
+ *
  * v2.7: yhtenäiset viikko-ohjeet (opt-in, P.yhtenaisetViikot). Jokainen viikkokortti saa saman
  *   lukujärjestyksen: vaihepolku (P.vaiheet), "Miten tämän viikon asiat liittyvät
  *   kokonaisprojektiin" (connection) ja viikon tavoite (feature), työvaiheet (tehtavat),
@@ -188,6 +211,20 @@
     cycleRoundDoneTitle: (n) => `Kierros ${n} valmis`,
     cycleRoundDoneText: "Kirjaa tulos päiväkirjaan. Aloita sitten seuraava tehtäväkortti askeleesta 1.",
     cycleNewRound: (n) => `Aloita kierros ${n} →`,
+    cycleBack: (n) => `← Palaa työvaiheeseen ${n}`,
+    /* v2.8: P.repo = "oma" → opiskelija tallentaa oman repositorynsa osoitteen selaimeen. */
+    ownRepoTitle: "Oman repositorysi osoite",
+    ownRepoLead: "Sivun GitHub-linkit vievät omaan repositoryysi. Kirjoita sen osoite kerran. Osoite tallentuu vain tähän selaimeen.",
+    ownRepoHelp: "Löydät osoitteen GitHubista: avaa oma repositorysi ja kopioi osoite selaimen osoiteriviltä. Esimerkki: https://github.com/tunnus/projekti",
+    ownRepoLabel: "Repositoryn osoite",
+    ownRepoError: "Osoitteen pitää alkaa https://github.com/, ja siinä pitää olla tunnus ja repositoryn nimi.",
+    ownRepoSave: "Tallenna ja avaa linkki",
+    ownRepoSaveOnly: "Tallenna",
+    ownRepoCancel: "Peruuta",
+    ownRepoCurrent: "Oma repositorysi:",
+    ownRepoMissing: "Oman repositorysi osoitetta ei ole vielä tallennettu tähän selaimeen.",
+    ownRepoSet: "Tallenna osoite",
+    ownRepoChange: "Vaihda osoite",
     cycleLiveStep: (i, name) => `Askel ${i}: ${name}`,
     cycleStuck: "Olen jumissa",
     cycleStuckLead: "Valitse kysymys, joka kuvaa tilannetta. Avaa se ja tee ohjeen mukaan.",
@@ -251,7 +288,40 @@
     roadmapHeading: (n) => `Projektin ${n} vaihetta`,
     roadmapWeeks: (first, last, dateless) => `${dateless ? "työviikot" : "viikot"} ${first === last ? first : `${first}–${last}`}`,
     roadmapOpen: "Avaa vaiheen ensimmäinen viikko →",
-    roadmapFigureCaption: "Havainnekuva: vaiheet ja niiden tulokset. Tarkat työvaiheet ovat viikkosivuilla."
+    roadmapFigureCaption: "Havainnekuva: vaiheet ja niiden tulokset. Tarkat työvaiheet ovat viikkosivuilla.",
+    /* v2.8: selkeys (P.selkeys, P.perusohjeet, P.tiedostokortit, P.dokumentitRepossa). */
+    linkNewTab: "avautuu uuteen välilehteen",
+    linkWeek: (w) => `viikko ${w}`,
+    linkGithub: (p) => `GitHub: ${p}`,
+    linkKuvaohje: "kuvaohje",
+    linkReturn: (label) => `← Palaa: ${label}`,
+    linkReturnWeek: (w, i) => `viikko ${w}${i ? `, työvaihe ${i}` : ""}`,
+    substepWhere: "Missä:",
+    substepDo: "Tee:",
+    substepSee: "Näet nyt:",
+    substepCode: "Kopioi tämä",
+    basicsHeading: "Näin teet",
+    basicsLead: "",
+    docsHeading: "Dokumentit",
+    docsLead: "",
+    docFile: "Tiedosto",
+    docWhen: "Milloin",
+    docWhat: "Mitä kirjoitetaan",
+    docExample: "✓ Malliesimerkki toisesta aiheesta · älä kopioi sisältöä",
+    docNotEnough: "✗ Tämä on liian vähän",
+    docCommit: "Commit-viesti: kopioi tämä",
+    migrateLead: "Selaimen muistissa on tekstiä, jonka kirjoitit sivun lomakkeisiin. Nappi lataa kaiken yhtenä tiedostona, myös muiden näkymien tekstit, joten paina sitä vain kerran. Tiedostossa lukee, mihin dokumenttiin ja minkä otsikon alle kukin teksti kuuluu. Mitään ei poisteta.",
+    migrateButton: "Lataa kaikki, mitä olet kirjoittanut tälle sivulle",
+    migrateFileNote: (file) => `Tiedosto ${file} tallentuu Lataukset-kansioon.`,
+    migrateEmpty: "Tämän selaimen muistissa ei ole tekstiä, jonka olisit kirjoittanut sivun lomakkeisiin. Tätä työvaihetta ei tarvitse tehdä. Jos kirjoitit toisella koneella, avaa sivu siellä.",
+    migrateEmptyPartial: "Tämän selaimen muistissa ei ole tekstiä, jonka olisit kirjoittanut sivun lomakkeisiin. Tekstin siirron osat on rastitettu valmiiksi. Tee muut osat. Jos kirjoitit toisella koneella, avaa sivu siellä.",
+    migrateTitle: (nimi) => `# ${nimi}: tekstit, jotka kirjoitit sivulle`,
+    migrateIntro: (pvm) => `Ladattu ${pvm}. Liitä jokainen kohta siihen tiedostoon ja sen otsikon alle, jotka kohdan otsikossa mainitaan. Jos sama teksti on jo tiedostossa, älä liitä sitä uudelleen.`,
+    migrateFileHeading: (n, polku) => `## ${n}. Tiedosto ${polku}`,
+    migrateUnder: (otsikko) => `### Otsikon "${otsikko}" alle`,
+    migrateUnderField: (otsikko, kentta) => `### Otsikon "${otsikko}" alle, kohtaan "${kentta}"`,
+    migrateLogEntry: (n) => `### Merkintä ${n}`,
+    journalRepoCopy: "Viikon otsikko tiedostossa: kopioi tämä hakuun"
   };
   /* v2.7: yhtenäisissä viikko-ohjeissa sivun tehtävä on työvaihe (GitHub-issue tai muu
      toteutustehtävä on eri asia). Projekti voi korvata nämäkin tekstit-objektilla. */
@@ -397,15 +467,31 @@
     }, 4000));
   });
 
+  /* Kelpaa sekä tekstiksi että attribuutin arvoksi: myös lainausmerkit escapataan (v2.8). */
   function escapeText(value) {
     const div = document.createElement("div");
     div.textContent = value == null ? "" : value;
-    return div.innerHTML;
+    return div.innerHTML.replace(/"/g, "&quot;").replace(/'/g, "&#39;");
   }
 
   /* Sisältötekstin takahipsut `näin` → <code>näin</code>. Kaikki muu escapataan. */
-  function richText(value) {
+  function codeText(value) {
     return escapeText(value).replace(/`([^`\n]+)`/g, "<code>$1</code>");
+  }
+  /* v2.8: linkkimerkinnät (opt-in). Ilman selkeysominaisuuksia richText toimii kuten ennen. */
+  const linksOn = Boolean(P.selkeys || P.perusohjeet || P.tiedostokortit);
+  const LINK_RE = /\[\[([^\]|\n]+?)(?:\|([^\]\n]+))?\]\]|\[([^\]\n]+)\]\((https?:\/\/[^)\s]+|(?:\.\.?\/)?[\w-]+\/[\w./-]+\.\w+)\)/g;
+  function richText(value) {
+    if (!linksOn) return codeText(value);
+    const s = String(value ?? "");
+    let out = "";
+    let last = 0;
+    s.replace(LINK_RE, (match, target, label, extLabel, url, offset) => {
+      out += codeText(s.slice(last, offset)) + (url ? externalLinkHtml(url, extLabel) : linkHtml(target.trim(), label));
+      last = offset + match.length;
+      return match;
+    });
+    return out + codeText(s.slice(last));
   }
 
   function readStorage(key, fallback) {
@@ -418,6 +504,162 @@
   }
 
   const VALID_VIEWS = ["kaytto", "toimeksianto", "tyotapa", "termit", "galleria", "viikko", "suunnitelma", "paivakirja", "ailoki", "naytto"];
+
+  /* ---------- v2.8: linkkien kohteet ----------
+   * Kohteet ratkaistaan sisalto.js:n datasta: perusohjeet, tiedostokortit, viikkojen pohjat
+   * (pohjat[].tunnus) ja näkymät. Tuntematon kohde näkyy tavallisena tekstinä; tarkista.js
+   * raportoi sen virheenä.
+   */
+  const basics = (Array.isArray(P.perusohjeet) ? P.perusohjeet : []).filter((o) => o && o.tunnus);
+  const basicsById = new Map(basics.map((o) => [String(o.tunnus), o]));
+  const docCards = P.tiedostokortit && typeof P.tiedostokortit === "object" ? P.tiedostokortit : {};
+  const docsInRepo = Boolean(P.dokumentitRepossa);
+  const templateIndex = new Map(); // pohjan tunnus → { viikko, pohja }
+  Object.entries(weekGuidance).forEach(([w, g]) => (g && Array.isArray(g.pohjat) ? g.pohjat : []).forEach((p) => {
+    if (p && p.tunnus) templateIndex.set(String(p.tunnus), { viikko: Number(w), pohja: p });
+  }));
+  const OWN_REPO = P.repo === "oma";
+  const REPO_KEY = `${SLUG}-repo-v1`;
+  let repoBase = OWN_REPO ? String(readStorage(REPO_KEY, "") || "") : String(P.repo || "").replace(/\/+$/, "");
+  const docName = (id) => {
+    const c = docCards[id] || {};
+    return c.otsikko || String(c.polku || id).replace(/\/+$/, "").split("/").pop();
+  };
+  function viewLabel(view) {
+    if (P.nakymaNimet && P.nakymaNimet[view]) return P.nakymaNimet[view];
+    const nav = document.querySelector(`[data-view-nav="${view}"]`);
+    const text = nav ? [...nav.childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent).join("").trim() : "";
+    return text || document.querySelector(`.view[data-view="${view}"] h1`)?.textContent?.trim() || view;
+  }
+
+  /* { kind, hash, label, url? } tai null. */
+  function resolveLink(target) {
+    const week = target.match(/^vk\s*(\d+)$/i);
+    if (week) return weekList.includes(Number(week[1])) ? { kind: "vk", hash: `week-${week[1]}`, id: week[1], label: t("linkWeek", week[1]) } : null;
+    const colon = target.indexOf(":");
+    if (colon > 0) {
+      const kind = target.slice(0, colon).trim();
+      const id = target.slice(colon + 1).trim();
+      if (kind === "ohje") return basicsById.has(id) ? { kind, id, hash: `ohje-${id}`, label: basicsById.get(id).otsikko } : null;
+      if (kind === "tiedosto") return docCards[id] ? { kind, id, hash: `tiedosto-${id}`, label: docName(id) } : null;
+      if (kind === "pohja") return templateIndex.has(id) ? { kind, id, hash: `pohja-${id}`, label: templateIndex.get(id).pohja.otsikko || id } : null;
+      if (kind === "kuvaohje") return id ? { kind, id, hash: `kuvaohje-${id}`, label: "" } : null;
+      if (kind === "github") {
+        if (OWN_REPO) return { kind, id, own: true, url: repoBase ? `${repoBase}/${id.replace(/^\/+/, "")}` : "", label: t("linkGithub", id) };
+        return repoBase ? { kind, id, url: `${repoBase}/${id.replace(/^\/+/, "")}`, label: t("linkGithub", id) } : null;
+      }
+      return null;
+    }
+    const [view, anchor] = target.split("#");
+    if (!VALID_VIEWS.includes(view) || view === "viikko") return null;
+    return { kind: "view", id: view, anchor: anchor || "", hash: anchor || `view-${view}`, label: viewLabel(view) };
+  }
+
+  function externalLinkHtml(url, label) {
+    /* Suhteellinen polku (pohjat/x.zip) on ladattava tiedosto sivuston omasta kansiosta. */
+    if (!/^https?:/.test(url)) return `<a class="np-link" href="${escapeText(url)}" download>${codeText(label || url)}</a>`;
+    return `<a class="np-link np-link-ext" href="${escapeText(url)}" target="_blank" rel="noopener noreferrer">${codeText(label || url)}<span class="np-link-mark" aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (${escapeText(t("linkNewTab"))})</span></a>`;
+  }
+
+  function linkHtml(target, label) {
+    const r = resolveLink(target);
+    if (!r) {
+      console.warn(`Linkin kohdetta ei löydy: [[${target}]]`);
+      return codeText(label || target);
+    }
+    if (r.own) return `<a class="np-link np-link-ext" href="${escapeText(r.url || "#")}" target="_blank" rel="noopener noreferrer" data-np-github="${escapeText(r.id)}">${codeText(label || r.label)}<span class="np-link-mark" aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (${escapeText(t("linkNewTab"))})</span></a>`;
+    if (r.url) return externalLinkHtml(r.url, label || r.label);
+    const text = label || r.label;
+    const auto = r.kind === "kuvaohje" && !label ? " data-np-autolabel" : "";
+    return `<a class="np-link" href="#${escapeText(r.hash)}" data-np-link="${r.kind}" data-np-target="${escapeText(r.kind === "view" ? `${r.id}${r.anchor ? `#${r.anchor}` : ""}` : r.id)}"${auto}>${codeText(text || t("linkKuvaohje"))}</a>`;
+  }
+
+  /* Linkkimerkinnät pelkäksi tekstiksi (aria-label, ilmoitukset). */
+  function plainLinks(value) {
+    if (!linksOn) return String(value ?? "");
+    return String(value ?? "").replace(LINK_RE, (m, target, label, extLabel) => extLabel || label || resolveLink(target.trim())?.label || target);
+  }
+
+  /* index.html:n staattinen teksti: merkinnät linkeiksi tekstisolmuista (ei pre/code/textarea). */
+  function linkifyStatic(root) {
+    if (!linksOn || !root) return;
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: (n) => (/\[\[|\]\(/.test(n.nodeValue) && !n.parentElement.closest("pre, code, textarea, script, style, a, button, label, summary")
+        ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT)
+    });
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach((node) => {
+      const holder = document.createElement("span");
+      holder.innerHTML = richText(node.nodeValue);
+      node.replaceWith(...holder.childNodes);
+    });
+  }
+
+  /* ---------- v2.8: oma repository (P.repo = "oma") ----------
+   * Sivulla ei ole kenenkään repository-osoitetta. Ensimmäinen GitHub-linkki kysyy opiskelijan oman
+   * repositoryn osoitteen; se tallentuu vain selaimeen (REPO_KEY), ja linkit päivittyvät. [data-oma-repo]
+   * näyttää tallennetun osoitteen ja Vaihda-painikkeen. */
+  function normalizeRepo(value) {
+    const m = String(value || "").trim().match(/^https:\/\/github\.com\/([^/\s?#]+)\/([^/\s?#]+)/i);
+    return m ? `https://github.com/${m[1]}/${m[2].replace(/\.git$/i, "")}` : "";
+  }
+  function refreshRepoLinks() {
+    document.querySelectorAll("a[data-np-github]").forEach((a) => {
+      a.setAttribute("href", repoBase ? `${repoBase}/${a.dataset.npGithub.replace(/^\/+/, "")}` : "#");
+    });
+    document.querySelectorAll("[data-oma-repo]").forEach((el) => {
+      el.innerHTML = repoBase
+        ? `${escapeText(t("ownRepoCurrent"))} <a class="np-link np-link-ext" href="${escapeText(repoBase)}" target="_blank" rel="noopener noreferrer">${escapeText(repoBase)}<span class="sr-only"> (${escapeText(t("linkNewTab"))})</span></a> <button type="button" class="button button-secondary" data-oma-repo-edit>${escapeText(t("ownRepoChange"))}</button>`
+        : `${escapeText(t("ownRepoMissing"))} <button type="button" class="button button-secondary" data-oma-repo-edit>${escapeText(t("ownRepoSet"))}</button>`;
+    });
+  }
+  function askOwnRepo(openPath, opener) {
+    let dialog = document.getElementById("oma-repo-dialog");
+    if (!dialog) {
+      dialog = document.createElement("dialog");
+      dialog.id = "oma-repo-dialog";
+      dialog.className = "kuvaohje-dialog oma-repo-dialog";
+      dialog.setAttribute("aria-labelledby", "oma-repo-title");
+      document.body.appendChild(dialog);
+    }
+    dialog.innerHTML = `<form method="dialog" class="kuvaohje-dialog-body oma-repo-form" novalidate>
+        <h2 id="oma-repo-title">${escapeText(t("ownRepoTitle"))}</h2>
+        <p>${escapeText(t("ownRepoLead"))}</p>
+        <p>${escapeText(t("ownRepoHelp"))}</p>
+        <label for="oma-repo-input">${escapeText(t("ownRepoLabel"))}</label>
+        <input id="oma-repo-input" type="url" inputmode="url" autocomplete="url" value="${escapeText(repoBase)}" placeholder="https://github.com/tunnus/projekti">
+        <p class="oma-repo-error" role="alert" hidden>${escapeText(t("ownRepoError"))}</p>
+        <div class="cycle-actions">
+          <button type="submit" class="button button-primary">${escapeText(t(openPath ? "ownRepoSave" : "ownRepoSaveOnly"))}</button>
+          <button type="button" class="button button-secondary" data-oma-repo-cancel>${escapeText(t("ownRepoCancel"))}</button>
+        </div>
+      </form>`;
+    const input = dialog.querySelector("input");
+    const error = dialog.querySelector(".oma-repo-error");
+    dialog.querySelector("[data-oma-repo-cancel]").addEventListener("click", () => dialog.close());
+    dialog.querySelector("form").addEventListener("submit", (event) => {
+      const value = normalizeRepo(input.value);
+      if (!value) { event.preventDefault(); error.hidden = false; input.focus(); return; }
+      repoBase = value;
+      writeStorage(REPO_KEY, value);
+      refreshRepoLinks();
+      if (openPath) window.open(`${repoBase}/${openPath.replace(/^\/+/, "")}`, "_blank", "noopener");
+    });
+    dialog.addEventListener("close", () => { if (opener && opener.focus) opener.focus(); }, { once: true });
+    dialog.showModal();
+    input.focus();
+  }
+  if (OWN_REPO) {
+    document.addEventListener("click", (event) => {
+      const edit = event.target.closest?.("[data-oma-repo-edit]");
+      if (edit) { askOwnRepo("", edit); return; }
+      const a = event.target.closest?.("a[data-np-github]");
+      if (!a || repoBase) return;
+      event.preventDefault();
+      askOwnRepo(a.dataset.npGithub, a);
+    });
+  }
 
   /* ---------- sanasto ----------
    * P.termisto = [{ termi, nimi, selite, viikko? }, …]. Projektikohtainen: vain
@@ -470,7 +712,7 @@
         ${h.title ? `<p style="font-size:13px;color:var(--muted)"><small>${escapeText(h.title)}</small></p>` : ""}
         ${h.tree ? `<div><p class="help-label">${escapeText(t("helpTreeLabel"))}</p><pre><code>${escapeText(h.tree)}</code></pre></div>` : ""}
         ${(h.actions || []).length ? `<div><p class="help-label">${escapeText(t("helpActionsLabel"))}</p><ol>${h.actions.map((a) => `<li>${richText(a)}</li>`).join("")}</ol></div>` : ""}
-        ${h.code ? `<div><p class="help-label">${escapeText(t("helpCodeLabel"))}</p><pre><code>${escapeText(h.code)}</code></pre></div>` : ""}
+        ${h.code ? `<div><p class="help-label">${escapeText(t("helpCodeLabel"))}</p>${P.selkeys ? copyBlockHtml({ otsikko: t("substepCode"), teksti: h.code }, (x) => String(x ?? "")) : `<pre><code>${escapeText(h.code)}</code></pre>`}</div>` : ""}
         ${(h.vinkit || []).length ? `<div><p class="help-label">${escapeText(t("helpTipsLabel"))}</p><ul>${h.vinkit.map((a) => `<li>${richText(a)}</li>`).join("")}</ul></div>` : ""}
         ${h.test ? `<p class="impl-help-test"><strong>${escapeText(t("helpTestLabel"))}</strong> ${richText(h.test)}</p>` : ""}
         ${helpImages}${helpLinks}
@@ -493,10 +735,55 @@
   const taskCardEls = [];
 
   function taskOsat(def) {
-    return (def.osat || []).map((o) => (Array.isArray(o) ? { otsikko: o[0], teksti: o[1] } : { otsikko: "", teksti: String(o) }));
+    return (def.osat || []).map((o) => {
+      if (Array.isArray(o)) return { otsikko: o[0], teksti: o[1] };
+      /* v2.8: objektimuoto { otsikko, missa, tee, naet, koodi?, koodiOtsikko? } */
+      if (o && typeof o === "object") return { ...o, otsikko: o.otsikko || "", rich: true };
+      return { otsikko: "", teksti: String(o) };
+    });
+  }
+
+  /* v2.8: Missä / Tee / Näet nyt -rivit (osatehtävä ja perusohjeen vaihe). */
+  function stepLinesHtml(v) {
+    return [["missa", "substepWhere"], ["tee", "substepDo"], ["naet", "substepSee"]]
+      .filter(([key]) => v[key])
+      .map(([key, label]) => `<p class="substep-line substep-${key}"><span class="substep-key">${escapeText(t(label))}</span> ${richText(v[key])}</p>`).join("")
+      + (v.koodi ? copyBlockHtml({ otsikko: v.koodiOtsikko || t("substepCode"), teksti: v.koodi }, (x) => String(x ?? "")) : "");
+  }
+
+  function substepHtml(id, o, j) {
+    if (!o.rich) {
+      return `
+          <li><label class="substep-row"><input type="checkbox" data-substep="${escapeText(id)}" data-substep-n="${j}"><span class="task-box" aria-hidden="true"></span><span class="substep-n" aria-hidden="true">${j + 1}</span><span class="substep-text">${o.otsikko ? `<strong>${richText(o.otsikko)}.</strong> ` : ""}${richText(o.teksti)}</span></label></li>`;
+    }
+    const base = `osa-${String(id).replace(/[^A-Za-z0-9_-]/g, "-")}-${j + 1}`;
+    return `
+          <li class="substep-item"><div class="substep-row substep-row-rich">
+            <input type="checkbox" id="${base}" data-substep="${escapeText(id)}" data-substep-n="${j}" aria-describedby="${base}-ohje">
+            <label class="substep-label" for="${base}"><span class="task-box" aria-hidden="true"></span><span class="substep-n" aria-hidden="true">${j + 1}</span><strong class="substep-title">${codeText(plainLinks(o.otsikko))}</strong></label>
+            <div class="substep-body" id="${base}-ohje">${stepLinesHtml(o)}</div>
+          </div></li>`;
+  }
+
+  /* v2.8: kun tehtävän osat kirjoitetaan uudelleen, def.versio vaihtuu. Vanhat rastit siirtyvät
+     kerran: osa, jolla on `vanha: n`, saa vanhan osan n rastin; muut osat ovat valmiita vain, jos
+     koko vanha tehtävä oli valmis. */
+  const SUBSTEP_VERSION_KEY = `${SLUG}-osat-versio-v1`;
+  let substepVersions = readStorage(SUBSTEP_VERSION_KEY, {}) || {};
+  function remapSubsteps(id, def, count) {
+    if (!def.versio || substepVersions[id] === def.versio) return;
+    const old = Array.isArray(substepState[id]) ? substepState[id] : null;
+    if (old) {
+      const allDone = old.length > 0 && old.every(Boolean);
+      substepState[id] = taskOsat(def).slice(0, count).map((o) => (o && o.vanha != null ? Boolean(old[Number(o.vanha)]) : allDone));
+      writeStorage(SUBSTEP_KEY, substepState);
+    }
+    substepVersions[id] = def.versio;
+    writeStorage(SUBSTEP_VERSION_KEY, substepVersions);
   }
 
   function substepsFor(id, def, count) {
+    remapSubsteps(id, def, count);
     let saved = Array.isArray(substepState[id]) ? substepState[id].slice(0, count) : null;
     if (!saved) {
       const from = Array.isArray(def.perii) && def.perii.length ? def.perii : [id];
@@ -514,14 +801,79 @@
     return saved.map(Boolean);
   }
 
+  /* ---------- v2.8: siirtymä selaimen muistista repositoryn dokumentteihin ----------
+   * Luetaan suoraan localStoragesta, koska tila-muuttujat alustetaan vasta korttien jälkeen.
+   * P.siirtyma = { tiedosto, suunnitelma: { polku, kentat: { avain: "Otsikko" } },
+   *   paivakirja: { polku, otsikko: "Vko {viikko} – {nimi}", kentat: { work: "Mitä tein ja miten?" } },
+   *   ailoki: { polku } }. Ilman asetuksia käytetään kenttien avaimia.
+   */
+  const JOURNAL_FIELDS = ["work", "reason", "evidence", "next"];
+  function legacyDocs() {
+    const planRaw = readStorage(`${SLUG}-suunnitelma-v1`, {}) || {};
+    const journalRaw = readStorage(`${SLUG}-journal-v1`, {}) || {};
+    const logRaw = readStorage(`${SLUG}-ai-log-v1`, []) || [];
+    const plan = Object.entries(planRaw).filter(([, v]) => String(v || "").trim());
+    const journal = weekList.map((w) => [w, journalRaw[w] || {}])
+      .filter(([, e]) => JOURNAL_FIELDS.some((k) => String(e[k] || "").trim()));
+    const log = Array.isArray(logRaw) ? logRaw.filter((e) => e && (e.question || e.used)) : [];
+    return { plan, journal, log, any: Boolean(plan.length || journal.length || log.length) };
+  }
+
+  function migrationMarkdown() {
+    const d = legacyDocs();
+    const cfg = P.siirtyma || {};
+    const s = cfg.suunnitelma || {};
+    const j = cfg.paivakirja || {};
+    const a = cfg.ailoki || {};
+    const fill = (tpl, w) => String(tpl || `{viikko}`).replace(/\{viikko\}/g, String(w)).replace(/\{nimi\}/g, weekTitleLite(w));
+    const out = [t("migrateTitle", P.nimi), "", t("migrateIntro", new Date().toLocaleDateString(t("dateLocale"))), ""];
+    let n = 0;
+    if (d.plan.length) {
+      out.push(t("migrateFileHeading", ++n, s.polku || "suunnitelma.md"), "");
+      d.plan.forEach(([key, value]) => out.push(t("migrateUnder", (s.kentat || {})[key] || key), "", String(value).trim(), ""));
+    }
+    if (d.journal.length) {
+      out.push(t("migrateFileHeading", ++n, j.polku || journalCfg.polku || "projektipaivakirja.md"), "");
+      d.journal.forEach(([w, e]) => JOURNAL_FIELDS.filter((k) => String(e[k] || "").trim()).forEach((k) => {
+        out.push(t("migrateUnderField", fill(j.otsikko, w), (j.kentat || {})[k] || k), "", String(e[k]).trim(), "");
+      }));
+    }
+    if (d.log.length) {
+      out.push(t("migrateFileHeading", ++n, a.polku || "ai-loki.md"), "");
+      d.log.forEach((e, i) => out.push(t("migrateLogEntry", i + 1), "",
+        `- ${t("aiLogQuestion")} ${e.tool || ""} · ${e.question || ""}`,
+        `- ${t("aiLogUsed")} ${e.used || ""}`,
+        `- ${t("aiLogReference")} ${e.reference || t("aiLogNoReference")}`, ""));
+    }
+    return out.join("\n");
+  }
+  function weekTitleLite(w) { return (P.viikkoNimet || {})[w] || t("weekFallback", w); }
+  const migrationFile = () => (P.siirtyma && P.siirtyma.tiedosto) || `${SLUG}-selaimen-tekstit.md`;
+
+  function migrationBoxHtml(inTask, partial) {
+    if (!docsInRepo) return "";
+    if (!legacyDocs().any) return inTask ? `<p class="migrate-empty" data-migrate-empty>${escapeText(t(partial ? "migrateEmptyPartial" : "migrateEmpty"))}</p>` : "";
+    return `<div class="card migrate-box" data-migrate-box>
+        <p>${escapeText(t("migrateLead"))}</p>
+        <button class="button button-primary" type="button" data-migrate-download>${escapeText(t("migrateButton"))}</button>
+        <p class="migrate-file">${escapeText(t("migrateFileNote", migrationFile()))}</p>
+      </div>`;
+  }
+  document.addEventListener("click", (event) => {
+    if (!event.target.closest?.("[data-migrate-download]")) return;
+    downloadMarkdown(migrationFile(), migrationMarkdown());
+  });
+
+  /* v2.8: linkkitilassa esimerkin ja ei riitä -tekstin rivinvaihdot näkyvät (esim. tiedoston rivit). */
+  const multilineText = (value) => (linksOn ? richText(value).replace(/\n/g, "<br>") : richText(value));
   function taskCardHtml(id, def, titleHtml, index, total) {
     const osat = taskOsat(def);
     const words = (def.sanat || []).map((k) => glossaryByTerm.get(String(k).toLowerCase())).filter(Boolean);
     const plainTitle = titleHtml.replace(/<[^>]+>/g, "").trim();
     const calibration = def.esimerkki || def.eiRiita
       ? `<div class="expectation-grid task-card-expectations">
-          ${def.esimerkki ? `<div class="card expected-example"><p class="section-label section-label-accent">${escapeText(t("exampleLabel"))}</p><p>${richText(def.esimerkki)}</p></div>` : ""}
-          ${def.eiRiita ? `<div class="card not-enough"><p class="section-label">${escapeText(t("notEnoughLabel"))}</p><p>${richText(def.eiRiita)}</p></div>` : ""}
+          ${def.esimerkki ? `<div class="card expected-example"><p class="section-label section-label-accent">${escapeText(t("exampleLabel"))}</p><p>${multilineText(def.esimerkki)}</p></div>` : ""}
+          ${def.eiRiita ? `<div class="card not-enough"><p class="section-label">${escapeText(t("notEnoughLabel"))}</p><p>${multilineText(def.eiRiita)}</p></div>` : ""}
         </div>`
       : "";
     const help = def.apu
@@ -536,8 +888,8 @@
       <div class="task-card-body">
         ${def.miksi ? `<p class="task-card-why"><strong>${escapeText(t("taskWhy"))}</strong> ${richText(def.miksi)}</p>` : ""}
         ${words.length ? `<div class="task-card-words"><p class="section-label">${escapeText(t("taskWords"))}</p><dl class="glossary glossary-compact">${words.map((g) => glossaryItemHtml(g)).join("")}</dl></div>` : ""}
-        <ol class="substep-list" aria-label="${escapeText(t("taskStepsLabel", plainTitle))}">${osat.map((o, j) => `
-          <li><label class="substep-row"><input type="checkbox" data-substep="${escapeText(id)}" data-substep-n="${j}"><span class="task-box" aria-hidden="true"></span><span class="substep-n" aria-hidden="true">${j + 1}</span><span class="substep-text">${o.otsikko ? `<strong>${richText(o.otsikko)}.</strong> ` : ""}${richText(o.teksti)}</span></label></li>`).join("")}
+        ${def.siirtyma ? migrationBoxHtml(true, (def.osat || []).some((o) => o && o.siirtyma)) : ""}
+        <ol class="substep-list" aria-label="${escapeText(t("taskStepsLabel", plainTitle))}">${osat.map((o, j) => substepHtml(id, o, j)).join("")}
         </ol>
         ${def.tyosykli ? `<button class="button button-secondary" type="button" data-open-workflow>${escapeText(t("taskOpenWorkflow"))}</button>` : ""}
         ${def.valmis ? `<p class="task-card-done"><strong>${escapeText(t("taskDone"))}</strong> ${richText(def.valmis)}</p>` : ""}
@@ -575,9 +927,29 @@
         box.checked = state[Number(box.dataset.substepN)];
         box.addEventListener("change", () => onSubstepChange(el));
       });
+      /* v2.8: siirtymätehtävä ohitetaan, kun selaimen muistissa ei ole vanhaa tekstiä. */
+      if (def.siirtyma && docsInRepo && el.querySelector("[data-migrate-empty]")) {
+        /* Vain siirtyma-merkityt osat ohitetaan; jos merkintöjä ei ole, koko tehtävä. */
+        const flagged = osat.map((o, j) => (o.siirtyma ? j : -1)).filter((j) => j >= 0);
+        const skip = new Set(flagged.length ? flagged : osat.map((_, j) => j));
+        if (skip.size === osat.length) el.classList.add("is-skipped");
+        el.querySelectorAll("[data-substep]").forEach((box) => {
+          if (!skip.has(Number(box.dataset.substepN))) return;
+          box.checked = true;
+          box.disabled = true;
+        });
+        substepState[id] = osat.map((_, j) => (skip.has(j) ? true : Boolean(substepState[id] && substepState[id][j])));
+        writeStorage(SUBSTEP_KEY, substepState);
+      }
       el.querySelector("[data-open-workflow]")?.addEventListener("click", () => {
         const workflow = card.querySelector(".week-workflow");
         if (!workflow) return;
+        /* v2.8: työsykli muistaa, mistä työvaiheesta se avattiin (Palaa työvaiheeseen -nappi). */
+        if (linksOn) {
+          if (!el.id) el.id = `tyovaihe-${id}`;
+          cycleOrigin[Number(card.dataset.week)] = { anchorId: el.id, n: index + 1 };
+          renderCycle(card, false);
+        }
         workflow.open = true;
         workflow.scrollIntoView({ block: "start" });
         workflow.querySelector("summary")?.focus();
@@ -717,7 +1089,7 @@
     const skills = card.querySelector("[data-week-skills]");
     if (skills && (guide.skills || []).length) {
       skills.querySelector("[data-skills-label]").textContent = framing.skillsLabel || t("skillsLabel");
-      fillList(skills.querySelector("[data-skills-list]"), guide.skills, (s) => `<li>${escapeText(s)}</li>`);
+      fillList(skills.querySelector("[data-skills-list]"), guide.skills, (s) => `<li>${linksOn ? richText(s) : escapeText(s)}</li>`);
       skills.hidden = false;
     }
 
@@ -1212,6 +1584,200 @@
   }
   bindProjectFigures();
 
+  /* ---------- v2.8: perusohjeet ja tiedostokortit (Työtapa-näkymä) ---------- */
+  function basicHtml(o) {
+    const id = `ohje-${escapeText(o.tunnus)}`;
+    const steps = (o.vaiheet || []).map((v) => `<li class="basic-step">${stepLinesHtml(v)}</li>`).join("");
+    const kuvat = (o.kuvaohjeet || []).map((k) => `<div class="kuvaohje-slot" data-kuvaohje="${escapeText(k)}" data-kuvaohje-taso="4"></div>`).join("");
+    return `<details class="project-reference basic-guide" id="${id}">
+        <summary><h3 class="basic-title" id="${id}-otsikko" tabindex="-1">${codeText(o.otsikko)}</h3></summary>
+        ${o.johdanto ? `<p class="basic-lead">${richText(o.johdanto)}</p>` : ""}
+        <ol class="basic-steps">${steps}</ol>
+        ${kuvat}
+      </details>`;
+  }
+
+  function docCardBodyHtml(c) {
+    const what = Array.isArray(c.mitaKirjoitetaan)
+      ? `<ul>${c.mitaKirjoitetaan.map((x) => `<li>${richText(x)}</li>`).join("")}</ul>`
+      : `<p>${richText(c.mitaKirjoitetaan || "")}</p>`;
+    return `<dl class="doc-card-facts">
+          <dt>${escapeText(t("docFile"))}</dt><dd><code>${escapeText(c.polku || "")}</code></dd>
+          ${c.milloin ? `<dt>${escapeText(t("docWhen"))}</dt><dd>${richText(c.milloin)}</dd>` : ""}
+          ${c.mitaKirjoitetaan ? `<dt>${escapeText(t("docWhat"))}</dt><dd>${what}</dd>` : ""}
+        </dl>
+        ${c.esimerkki || c.eiRiita ? `<div class="expectation-grid doc-card-calibration">
+          ${c.esimerkki ? `<div class="card expected-example"><p class="section-label section-label-accent">${escapeText(t("docExample"))}</p><pre class="doc-card-sample">${escapeText(c.esimerkki)}</pre></div>` : ""}
+          ${c.eiRiita ? `<div class="card not-enough"><p class="section-label">${escapeText(t("docNotEnough"))}</p><pre class="doc-card-sample">${escapeText(c.eiRiita)}</pre></div>` : ""}
+        </div>` : ""}
+        ${c.commitViesti ? copyBlockHtml({ otsikko: t("docCommit"), teksti: c.commitViesti }, (x) => String(x ?? "")) : ""}`;
+  }
+
+  function docCardHtml(id, opts = {}) {
+    const c = docCards[id];
+    if (!c) return "";
+    if (opts.inline) {
+      return `<section class="card doc-card doc-card-inline" aria-labelledby="tiedosto-${escapeText(id)}-${opts.inline}-otsikko">
+        <h2 class="doc-card-title" id="tiedosto-${escapeText(id)}-${opts.inline}-otsikko">${escapeText(docName(id))}</h2>
+        ${docCardBodyHtml(c)}
+      </section>`;
+    }
+    return `<details class="project-reference doc-card" id="tiedosto-${escapeText(id)}">
+        <summary><h3 class="doc-card-title" id="tiedosto-${escapeText(id)}-otsikko" tabindex="-1">${escapeText(docName(id))}</h3></summary>
+        ${docCardBodyHtml(c)}
+      </details>`;
+  }
+
+  function renderBasicsAndDocs() {
+    const view = document.querySelector('.view[data-view="tyotapa"]');
+    if (!view) return;
+    if (basics.length) {
+      let slot = view.querySelector("[data-perusohjeet]");
+      if (!slot) { slot = document.createElement("section"); slot.setAttribute("data-perusohjeet", ""); view.appendChild(slot); }
+      slot.classList.add("view-section", "basics-section");
+      slot.setAttribute("aria-labelledby", "perusohjeet-otsikko");
+      slot.innerHTML = `<h2 id="perusohjeet-otsikko">${escapeText(P.perusohjeetOtsikko || t("basicsHeading"))}</h2>
+        ${P.perusohjeetJohdanto || t("basicsLead") ? `<p class="basics-lead">${richText(P.perusohjeetJohdanto || t("basicsLead"))}</p>` : ""}
+        ${basics.map(basicHtml).join("")}`;
+    }
+    const ids = Object.keys(docCards);
+    if (ids.length) {
+      let slot = view.querySelector("[data-tiedostokortit]");
+      if (!slot) {
+        slot = document.createElement("section");
+        slot.setAttribute("data-tiedostokortit", "");
+        const after = view.querySelector("[data-perusohjeet]");
+        if (after) after.insertAdjacentElement("afterend", slot); else view.appendChild(slot);
+      }
+      slot.classList.add("view-section", "docs-section");
+      slot.setAttribute("aria-labelledby", "tiedostokortit-otsikko");
+      slot.innerHTML = `<h2 id="tiedostokortit-otsikko">${escapeText(P.tiedostokortitOtsikko || t("docsHeading"))}</h2>
+        ${P.tiedostokortitJohdanto || t("docsLead") ? `<p class="docs-lead">${richText(P.tiedostokortitJohdanto || t("docsLead"))}</p>` : ""}
+        ${ids.map((id) => docCardHtml(id)).join("")}`;
+    }
+  }
+
+  /* Dokumentit repositoryssä: näkymän lomake → tiedostokortti (+ siirtymänappi). [data-tiedostokortti="x"]
+     index.html:ssä kelpaa paikaksi; muuten kortti tulee näkymän johdannon jälkeen ja lomakkeet piilotetaan. */
+  function renderDocsInRepo() {
+    if (!docsInRepo) return;
+    const views = P.dokumenttiNakymat || { suunnitelma: "suunnitelma", paivakirja: "projektipaivakirja", ailoki: "ai-loki" };
+    Object.entries(views).forEach(([view, id]) => {
+      const el = document.querySelector(`.view[data-view="${view}"]`);
+      if (!el || !docCards[id]) return;
+      el.querySelectorAll("[data-plan-form], .journal-summary-card, [data-journal-weeks], [data-ai-form], .ai-log-meta, [data-ai-entries]").forEach((x) => x.remove());
+      let slot = el.querySelector(`[data-tiedostokortti="${id}"]`);
+      if (!slot) {
+        slot = document.createElement("div");
+        slot.setAttribute("data-tiedostokortti", id);
+        const anchor = el.querySelector(".view-lead") || el.querySelector("h1");
+        if (anchor) anchor.insertAdjacentElement("afterend", slot); else el.prepend(slot);
+      }
+      slot.innerHTML = migrationBoxHtml(false) + docCardHtml(id, { inline: view });
+    });
+    document.querySelectorAll("[data-plan-status-meta], [data-journal-summary], .nav-group-docs [data-log-count]").forEach((x) => { x.textContent = ""; });
+    /* Viikon päiväkirjaosio: kentät pois, tilalle ohje tiedostoon (P.paivakirja.repo). */
+    const cfg = journalCfg.repo || {};
+    document.querySelectorAll("[data-week-journal]").forEach((journal) => {
+      const week = Number(journal.dataset.weekJournal);
+      /* v2.8: viikkoOhjeet[w].funktio nimeää viikon funktion ({funktio}). Vaihe voi olla
+         { funktio, eiFunktiota } ja pohja { vainFunktio: true }: näkyy vain, kun viikolla on funktio. */
+      const funktio = (weekGuidance[week] || {}).funktio || "";
+      const fill = (s) => String(s ?? "").replace(/\{viikko\}/g, String(week)).replace(/\{nimi\}/g, weekTitleLite(week))
+        .replace(/\{funktio\}/g, funktio)
+        .replace(/\{pvm\}/g, journal.closest("[data-week]")?.querySelector("[data-week-label]")?.dataset.weekLabel || "");
+      const vaiheet = (cfg.vaiheet || []).map((v) => (v && typeof v === "object" ? (funktio ? v.funktio : v.eiFunktiota) : v)).filter(Boolean);
+      const pohjat = (cfg.pohjat || []).filter((p) => !p.vainFunktio || funktio);
+      journal.querySelectorAll(".journal-fields, .journal-lead, [data-journal-status], .journal-actions-top").forEach((x) => x.remove());
+      let box = journal.querySelector("[data-journal-repo]");
+      if (!box) { box = document.createElement("div"); box.setAttribute("data-journal-repo", ""); journal.appendChild(box); }
+      box.className = "journal-repo";
+      box.innerHTML = `${cfg.johdanto ? `<p>${richText(fill(cfg.johdanto))}</p>` : ""}
+        ${cfg.otsikko ? copyBlockHtml({ otsikko: t("journalRepoCopy"), teksti: fill(cfg.otsikko) }, (x) => String(x ?? "")) : ""}
+        ${vaiheet.length ? `<ol class="journal-repo-steps">${vaiheet.map((v) => `<li>${richText(fill(v))}</li>`).join("")}</ol>` : ""}
+        ${pohjat.map((p) => copyBlockHtml({ otsikko: fill(p.otsikko), teksti: fill(p.teksti) }, (x) => String(x ?? ""))).join("")}`;
+    });
+  }
+
+  /* ---------- v2.8: linkkien navigointi ja paluu ---------- */
+  let linkOrigin = null;
+  function focusTarget(el) {
+    if (!el) return;
+    for (let p = el; p; p = p.parentElement) if (p.tagName === "DETAILS") p.open = true;
+    const heading = el.matches("h1, h2, h3, h4, .copy-title") ? el : el.querySelector(":scope > summary h3, :scope > summary h2, h1, h2, h3, .copy-title") || el;
+    if (!heading.hasAttribute("tabindex")) heading.setAttribute("tabindex", "-1");
+    el.scrollIntoView({ block: "start" });
+    heading.focus({ preventScroll: true });
+  }
+  function showReturn(el) {
+    document.querySelectorAll("[data-link-return]").forEach((b) => b.remove());
+    if (!linkOrigin || !el) return;
+    const o = linkOrigin;
+    const label = o.view === "viikko" ? t("linkReturnWeek", o.week, o.task) : viewLabel(o.view);
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "button button-secondary link-return";
+    button.setAttribute("data-link-return", "");
+    button.textContent = t("linkReturn", label);
+    button.addEventListener("click", () => {
+      button.remove();
+      setView(o.view, o.week);
+      const back = o.anchorId ? document.getElementById(o.anchorId) : null;
+      if (back) { if (back.tagName === "DETAILS") back.open = true; focusTarget(back); }
+    });
+    el.insertAdjacentElement("beforebegin", button);
+  }
+  function linkTargetElement(kind, id) {
+    if (kind === "ohje") return document.getElementById(`ohje-${id}`);
+    if (kind === "tiedosto") return document.getElementById(`tiedosto-${id}`);
+    if (kind === "pohja") return document.getElementById(`pohja-${id}`);
+    return null;
+  }
+  /* Palauttaa true, jos kohde löytyi. */
+  function openLinkTarget(kind, id, viaLink) {
+    if (kind === "vk") { setView("viikko", Number(id)); focusTarget(activeHeading()); return true; }
+    if (kind === "view") {
+      const [view, anchor] = id.split("#");
+      setView(view);
+      const el = anchor ? document.getElementById(anchor) : activeHeading();
+      focusTarget(el);
+      if (viaLink && anchor) showReturn(el);
+      return true;
+    }
+    if (kind === "ohje" || kind === "tiedosto") setView("tyotapa");
+    if (kind === "pohja" && templateIndex.has(id)) setView("viikko", templateIndex.get(id).viikko);
+    const el = linkTargetElement(kind, id);
+    if (!el) return false;
+    focusTarget(el);
+    if (viaLink) showReturn(el);
+    history.replaceState(null, "", `#${kind}-${id}`);
+    return true;
+  }
+  document.addEventListener("click", (event) => {
+    const a = event.target.closest?.("a[data-np-link]");
+    if (!a || event.ctrlKey || event.metaKey || event.shiftKey) return;
+    event.preventDefault();
+    const kind = a.dataset.npLink;
+    const id = a.dataset.npTarget;
+    if (kind === "kuvaohje") {
+      loadKuvat().then((map) => { const k = map && map.get(id); if (k) openKuvaDialog(k, a); });
+      return;
+    }
+    const card = a.closest(".task-card");
+    const cards = card ? [...card.parentElement.querySelectorAll(".task-card")] : [];
+    const holder = card || a.closest("details[id], section[id]");
+    if (card && !card.id) card.id = `tyovaihe-${card.dataset.taskCard}`;
+    linkOrigin = { view: state.view, week: state.week, task: card ? cards.indexOf(card) + 1 : 0, anchorId: holder ? holder.id : "" };
+    history.pushState(null, "", window.location.hash || "#");
+    openLinkTarget(kind, id, true);
+  });
+  /* Kuvaohjelinkki ilman omaa tekstiä saa kuvaohjeen otsikon. */
+  function labelKuvaLinks() {
+    const links = [...document.querySelectorAll("a[data-np-link='kuvaohje'][data-np-autolabel]")];
+    if (!links.length) return;
+    loadKuvat().then((map) => links.forEach((a) => { const k = map && map.get(a.dataset.npTarget); if (k) { a.textContent = k.otsikko || k.kuvaa || a.textContent; a.removeAttribute("data-np-autolabel"); } }));
+  }
+
   /* ---------- v2.4: työsykli (P.sykli + viikkoOhjeet[w].sykli, opt-in) ----------
    * P.sykli.askeleet = [{ nimi, paikka, tyokalu, oma, ohje: [..], pohja: {otsikko, teksti} | [{…}, …],
    *   valmis, jumissa: [{ kysymys, ohje, pohja, jatko: [...] }], kuvaohjeet: [..] }].
@@ -1257,6 +1823,12 @@
     const p = typeof pohja === "string" ? { teksti: pohja } : pohja;
     const id = `kopio-${++copySeq}`;
     const title = p.otsikko || t("copyDefaultTitle");
+    /* v2.8: viikon pohjan tunnus → ankkuri #pohja-<tunnus> ([[pohja:tunnus]]). */
+    if (p.tunnus) return `<div class="copy-block" id="pohja-${escapeText(p.tunnus)}">
+        <p class="copy-title" id="${id}-otsikko" tabindex="-1">${escapeText(title)}</p>
+        <pre class="copy-text" id="${id}" tabindex="0" aria-labelledby="${id}-otsikko">${escapeText(fill(p.teksti))}</pre>
+        <button type="button" class="button button-primary copy-button" data-copy="${id}" data-copy-title="${escapeText(title)}">${escapeText(p.nappi || t("copyButton"))}</button>
+      </div>`;
     return `<div class="copy-block">
         <p class="copy-title" id="${id}-otsikko">${escapeText(title)}</p>
         <pre class="copy-text" id="${id}" tabindex="0" aria-labelledby="${id}-otsikko">${escapeText(fill(p.teksti))}</pre>
@@ -1271,6 +1843,11 @@
       </details></li>`).join("")}</ul>`;
   }
 
+  const cycleOrigin = {};
+  function cycleBackHtml(week) {
+    const o = linksOn && cycleOrigin[week];
+    return o ? `<button type="button" class="button button-secondary" data-cycle-back>${escapeText(t("cycleBack", o.n))}</button>` : "";
+  }
   function renderCycle(card, focusNow) {
     const week = Number(card.dataset.week);
     const cycle = cycleFor(week);
@@ -1305,6 +1882,7 @@
           <div class="cycle-actions">
             <button type="button" class="button button-secondary" data-cycle-prev>${escapeText(t("cyclePrev"))}</button>
             <button type="button" class="button button-primary" data-cycle-round>${escapeText(t("cycleNewRound", round + 1))}</button>
+            ${cycleBackHtml(week)}
           </div>
         </div>`;
     } else {
@@ -1324,6 +1902,7 @@
           <div class="cycle-actions">
             <button type="button" class="button button-secondary" data-cycle-prev${current === 1 ? " disabled" : ""}>${escapeText(t("cyclePrev"))}</button>
             <button type="button" class="button button-primary" data-cycle-next>${escapeText(current === total ? t("cycleFinish") : t("cycleNext"))}</button>
+            ${cycleBackHtml(week)}
           </div>
         </div>`;
     }
@@ -1345,6 +1924,10 @@
     box.querySelector("[data-cycle-next]")?.addEventListener("click", () => go(current + 1));
     box.querySelector("[data-cycle-prev]")?.addEventListener("click", () => go(Math.max(1, current - 1)));
     box.querySelector("[data-cycle-round]")?.addEventListener("click", () => go(1, round + 1));
+    box.querySelector("[data-cycle-back]")?.addEventListener("click", () => {
+      const back = document.getElementById((cycleOrigin[week] || {}).anchorId);
+      if (back) { if (back.tagName === "DETAILS") back.open = true; focusTarget(back); }
+    });
     renderKuvaohjeet(box);
     if (focusNow) box.querySelector(".cycle-now-title")?.focus({ preventScroll: false });
   }
@@ -1363,10 +1946,25 @@
   const ROUTINE_KEY = `${SLUG}-rutiini-v1`;
   let routineState = readStorage(ROUTINE_KEY, {});
 
+  /* v2.8: edellinen työviikko (lomaviikot ohitetaan) ja sen funktio ({edellinenViikko}, {edellinenFunktio}). */
+  function previousWorkWeek(week) {
+    const work = weekList.filter((w) => !holidayWeeks.has(w) && weekGuidance[w]);
+    const i = work.indexOf(Number(week));
+    return i > 0 ? work[i - 1] : null;
+  }
   function weekFill(week) {
     const g = weekGuidance[week] || {};
-    return (value) => String(value ?? "").replace(/\{(viikko|nimi|feature|deliverable|done)\}/g, (_, key) =>
-      key === "viikko" ? String(week) : key === "nimi" ? weekTitle(week) : String(g[key] || ""));
+    const prev = previousWorkWeek(week);
+    const prevF = prev ? String((weekGuidance[prev] || {}).funktio || "") : "";
+    return (value) => String(value ?? "").replace(/\{(viikko|nimi|feature|deliverable|done|edellinenViikko|edellinenFunktio)\}/g, (_, key) =>
+      key === "viikko" ? String(week) : key === "nimi" ? weekTitle(week) : key === "edellinenViikko" ? String(prev || "")
+        : key === "edellinenFunktio" ? prevF : String(g[key] || ""));
+  }
+  /* Rutiinikohdan teksti voi olla { funktio, eiFunktiota }: valinta edellisen työviikon funktion mukaan. */
+  function routineText(k, week) {
+    if (!k.teksti || typeof k.teksti !== "object") return k.teksti;
+    const prev = previousWorkWeek(week);
+    return prev && (weekGuidance[prev] || {}).funktio ? k.teksti.funktio : k.teksti.eiFunktiota;
   }
 
   function renderLostTree(card) {
@@ -1396,23 +1994,27 @@
       box = document.createElement(unifiedWeeks ? "details" : "section");
       box.setAttribute("data-week-routine", "");
       const tasks = card.querySelector(".task-list")?.closest(".view-section");
-      if (tasks) tasks.insertAdjacentElement("afterend", box);
+      /* v2.8: P.viikkorutiini.ensin = true → rutiini ennen työvaiheita (maanantain kohdat tehdään ensin). */
+      if (tasks) tasks.insertAdjacentElement(routine.ensin ? "beforebegin" : "afterend", box);
       else card.querySelector(".lesson-instructions")?.insertAdjacentElement("beforebegin", box);
     }
     box.className = "view-section week-routine";
     const saved = routineState[week] || {};
-    const done = routine.kohdat.filter((_, i) => saved[i]).length;
+    /* v2.8: kohta.vainTyosykli = true → kohta näkyy vain viikoilla, joilla on työsyklitehtävä. */
+    const hasCycle = Object.values(g.tehtavat || {}).some((d) => d && d.tyosykli);
+    const shown = routine.kohdat.map((k, i) => [k, i]).filter(([k]) => !k.vainTyosykli || hasCycle);
+    const done = shown.filter(([, i]) => saved[i]).length;
     box.innerHTML = (unifiedWeeks
-      ? `<summary>${escapeText(routine.otsikko || t("routineSummary"))} <span class="week-status" data-routine-status>${done} / ${routine.kohdat.length}</span></summary>`
-      : `<div class="section-heading-row"><h2>${escapeText(routine.otsikko || t("routineHeading"))}</h2><span class="week-status" data-routine-status>${done} / ${routine.kohdat.length}</span></div>`) + `
+      ? `<summary>${escapeText(routine.otsikko || t("routineSummary"))} <span class="week-status" data-routine-status>${done} / ${shown.length}</span></summary>`
+      : `<div class="section-heading-row"><h2>${escapeText(routine.otsikko || t("routineHeading"))}</h2><span class="week-status" data-routine-status>${done} / ${shown.length}</span></div>`) + `
       ${routine.johdanto ? `<p class="week-routine-lead">${richText(routine.johdanto)}</p>` : ""}
-      <div class="task-list">${routine.kohdat.map((k, i) => `<label class="task-row routine-row"><input type="checkbox" data-routine="${week}-${i}"${saved[i] ? " checked" : ""}><span class="task-box" aria-hidden="true"></span><span class="task-text">${k.milloin ? `<strong>${escapeText(k.milloin)}:</strong> ` : ""}${richText(weekFill(week)(k.teksti))}</span></label>`).join("")}</div>`;
+      <div class="task-list">${shown.map(([k, i]) => `<label class="task-row routine-row"><input type="checkbox" data-routine="${week}-${i}"${saved[i] ? " checked" : ""}><span class="task-box" aria-hidden="true"></span><span class="task-text">${k.milloin ? `<strong>${escapeText(k.milloin)}:</strong> ` : ""}${richText(weekFill(week)(routineText(k, week)))}</span></label>`).join("")}</div>`;
     box.querySelectorAll("[data-routine]").forEach((input) => input.addEventListener("change", () => {
       const i = Number(input.dataset.routine.split("-").pop());
       routineState[week] = { ...(routineState[week] || {}), [i]: input.checked };
       writeStorage(ROUTINE_KEY, routineState);
-      const count = routine.kohdat.filter((_, j) => routineState[week][j]).length;
-      box.querySelector("[data-routine-status]").textContent = `${count} / ${routine.kohdat.length}`;
+      const count = shown.filter(([, j]) => routineState[week][j]).length;
+      box.querySelector("[data-routine-status]").textContent = `${count} / ${shown.length}`;
     }));
   }
 
@@ -1450,6 +2052,14 @@
   }
 
   const state = { view: "viikko", week: weekList[0] };
+  let pendingLinkTarget = null;
+  function applyPendingLink() {
+    if (!pendingLinkTarget) return;
+    const [kind, id] = pendingLinkTarget;
+    pendingLinkTarget = null;
+    focusTarget(linkTargetElement(kind, id));
+    history.replaceState(null, "", `#${kind}-${id}`);
+  }
 
   function applyHashFromLocation(initial) {
     const hash = window.location.hash.replace(/^#/, "");
@@ -1462,6 +2072,15 @@
     }
     if (viewMatch && VALID_VIEWS.includes(viewMatch[1])) {
       state.view = viewMatch[1];
+      return true;
+    }
+    /* v2.8: #ohje-x, #tiedosto-x ja #pohja-x avaavat kohteen näkymän; kohde kohdistetaan renderöinnin jälkeen. */
+    const linkMatch = linksOn && hash.match(/^(ohje|tiedosto|pohja)-(.+)$/);
+    if (linkMatch && linkTargetElement(linkMatch[1], linkMatch[2])) {
+      const [, kind, id] = linkMatch;
+      if (kind === "pohja") { state.view = "viikko"; state.week = templateIndex.get(id)?.viikko ?? state.week; }
+      else state.view = "tyotapa";
+      pendingLinkTarget = [kind, id];
       return true;
     }
     if (initial) {
@@ -1557,6 +2176,7 @@
     if (!applyHashFromLocation(false)) return;
     if (unifiedWeeks) setView(state.view, state.week);
     else render();
+    applyPendingLink();
   });
   /* v2.7: [data-open-week] missä tahansa (vaihepolku, vaihekuvaus, aloitus) avaa viikon alusta. */
   document.addEventListener("click", (event) => {
@@ -1711,6 +2331,7 @@
   }
 
   function updateJournalStatus() {
+    if (docsInRepo) return; // v2.8: päiväkirja on repositoryssä, ei selaimessa
     let completeCount = 0;
     document.querySelectorAll("[data-week-journal]").forEach((journal) => {
       const week = journal.dataset.weekJournal;
@@ -1828,7 +2449,7 @@
   function planValue(fieldName, fallback = UI.planEmptyValue) { return planFilled(fieldName) ? String(planData[fieldName]).trim() : fallback; }
 
   function updatePlanStatus() {
-    if (!plan) return;
+    if (!plan || docsInRepo) return;
     const required = plan.pakolliset || [];
     const done = required.filter(planFilled).length;
     const text = done === 0 ? t("planNotStarted") : (done < required.length ? t("planPartial", done, required.length) : t("planDone"));
@@ -1862,7 +2483,7 @@
 
   function renderLog() {
     aiLog = readStorage(LOG_KEY, []);
-    document.querySelectorAll("[data-log-count]").forEach((el) => { el.textContent = t("logCount", aiLog.length); });
+    if (!docsInRepo) document.querySelectorAll("[data-log-count]").forEach((el) => { el.textContent = t("logCount", aiLog.length); });
     const logHolder = document.querySelector("[data-ai-entries]");
     if (!logHolder) return;
     if (!aiLog.length) { logHolder.innerHTML = `<p class="empty-state">${escapeText(t("logEmptyState"))}</p>`; return; }
@@ -1942,7 +2563,13 @@
   /* ---------- käynnistys ---------- */
 
   taskWeekCards.forEach((card) => { renderCycle(card, false); renderLostTree(card); renderRoutine(card); });
+  /* v2.8: perusohjeet, tiedostokortit ja staattisen tekstin linkit ennen kuvaohjeita. */
+  renderBasicsAndDocs();
+  renderDocsInRepo();
+  linkifyStatic(document.querySelector(".view-main"));
+  if (OWN_REPO) refreshRepoLinks();
   renderKuvaohjeet(document);
+  labelKuvaLinks();
   applyHashFromLocation(true);
   buildWeekNavigation();
   initJournal();
@@ -1954,5 +2581,6 @@
   renderGlossary();
   render();
   updateHash();
+  applyPendingLink();
   window.addEventListener("resize", () => { if (window.matchMedia("(min-width: 861px)").matches) closeMobileSidebar(); });
 })();
