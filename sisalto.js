@@ -63,6 +63,7 @@ window.NAYTTOPROJEKTI = {
 
   /* ---- paperiaineiston kielisäädöt (tee_lataukset.js, v2.7) ---- */
   lataukset: {
+    resurssienPerusosoite: "https://mattiseise.github.io/pelinayttoprojektit/",
     aloitusHuomio: "Viikon työvaihe on tämän sivuston työohje. Kun teet muutoksen peliin, kirjaa se GitHub-issueksi ja tee se Työtapa-sivun kuudella askeleella. Valmiiseen issueen lisätään kommentti ja linkki commitiin, testien tulokset ja viikon yhteenveto kirjataan projektipäiväkirjaan."
   },
 
@@ -302,6 +303,9 @@ window.NAYTTOPROJEKTI = {
       done: "Asiakkaan vastaukset ja avoimet asiat ovat päiväkirjassa, tyhjä peli aukeaa selaimessa ja ensimmäinen commit näkyy GitHubissa.",
       record: "Kirjoita Vko 34 -merkintään keskustelun päivä, osallistujien roolit, 6 kysymystä vastauksineen, avoimet asiat, Unity-versio, ensimmäisen commitin tunniste ja testiversion kuvakaappaus. Rastita lopuksi Näyttömatriisi-näkymässä kohdat Kehitysympäristö, Asiakkaan tarpeet ja Kehittämisympäristön käyttöönotto.",
       skills: ["asiakastarve", "Unity 2D", "Git"],
+      resources: [
+        ["GitHub Desktop: kuvaohje ilman Git-komentoja", "https://mattiseise.github.io/projektikoontisivu/ohjeet/github-desktop/?projekti=kahvilakoodi#asennus", false]
+      ],
       tehtavat: {
         "34-1": {
           perii: ["34-1"],
@@ -368,9 +372,10 @@ window.NAYTTOPROJEKTI = {
           perii: ["34-3"],
           miksi: "Repository eli koodivarasto säilyttää pelin ja sen koko muutoshistorian. Siitä ohjaaja ja asiakas näkevät työsi.",
           osat: [
+            "Asenna GitHub Desktop ja kirjaudu sisään kuvaohjeen kohtien 1–2 mukaan. Kirjoita tekijätietoihin sovittu tekijänimi ja GitHubin noreply-sähköposti.",
             "Luo GitHubiin uusi repository. Valitse Public, ellei ohjaaja päätä toisin: ilmaistilillä GitHub Pages toimii vain julkisessa repositoryssa.",
             "Valitse kohtaan Add .gitignore pohja Unity. Se pitää Unityn väliaikaiset kansiot, kuten Library ja Temp, poissa versionhallinnasta.",
-            "Kloonaa eli kopioi repository koneellesi GitHub Desktopilla: File → Clone repository.",
+            "Kloonaa eli kopioi repository koneellesi GitHub Desktopilla: File → Clone repository → URL. Tämä on kuvaohjeen reitti C.",
             "Sulje Unity. Siirrä CafeGame-projektin kansiot ja tiedostot repositoryn kansioon.",
             "Lisää projekti uudesta paikasta Unity Hubiin: Add → Add project from disk. Avaa projekti ja tarkista, että CafeGame-scene aukeaa."
           ],
@@ -382,6 +387,10 @@ window.NAYTTOPROJEKTI = {
             tree: "CafeGame/\n├─ Assets/\n│  └─ Scenes/CafeGame.unity\n├─ Packages/\n├─ ProjectSettings/\n├─ project-docs/\n│  └─ projektipaivakirja.md\n├─ .gitignore\n└─ README.md\n\nLibrary/, Temp/ ja Builds/ jäävät Gitin ulkopuolelle.",
             vinkit: [
               "Jos Unity Hub avaa yhä vanhan kopion, poista vanha rivi Hubin projektilistasta: kolme pistettä → Remove from list."
+            ],
+            links: [
+              ["GitHub Desktop: asennus ja kirjautuminen", "https://mattiseise.github.io/projektikoontisivu/ohjeet/github-desktop/?projekti=kahvilakoodi#asennus"],
+              ["GitHub Desktop: kloonaa oma repository (reitti C)", "https://mattiseise.github.io/projektikoontisivu/ohjeet/github-desktop/?projekti=kahvilakoodi#kloonaa"]
             ]
           }
         },
@@ -401,7 +410,11 @@ window.NAYTTOPROJEKTI = {
           apu: {
             title: "Ensimmäisen commitin tarkistus",
             code: "ENSIMMÄISEN COMMITIN TARKISTUS\n[ ] Assets mukana\n[ ] Packages mukana\n[ ] ProjectSettings mukana\n[ ] project-docs mukana\n[ ] README.md kertoo pelin tavoitteen\n[ ] Library, Temp ja Builds eivät ole mukana\n[ ] commit näkyy GitHubissa",
-            test: "Kloonaa repository toiseen kansioon tai pyydä ohjaajaa avaamaan se. Unity luo puuttuvan Library-kansion itse, ja CafeGame-scene aukeaa, kun kaksoisklikkaat sitä Project-ikkunan Scenes-kansiossa."
+            test: "Kloonaa repository toiseen kansioon tai pyydä ohjaajaa avaamaan se. Unity luo puuttuvan Library-kansion itse, ja CafeGame-scene aukeaa, kun kaksoisklikkaat sitä Project-ikkunan Scenes-kansiossa.",
+            links: [
+              ["GitHub Desktop: commit", "https://mattiseise.github.io/projektikoontisivu/ohjeet/github-desktop/?projekti=kahvilakoodi#commit"],
+              ["GitHub Desktop: Push origin ja tarkistus GitHubista", "https://mattiseise.github.io/projektikoontisivu/ohjeet/github-desktop/?projekti=kahvilakoodi#push"]
+            ]
           }
         }
       },
