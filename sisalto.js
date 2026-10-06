@@ -304,10 +304,12 @@ window.NAYTTOPROJEKTI = {
       record: "Kirjoita Vko 34 -merkintään keskustelun päivä, osallistujien roolit, 6 kysymystä vastauksineen, avoimet asiat, Unity-versio, ensimmäisen commitin tunniste ja testiversion kuvakaappaus. Rastita lopuksi Näyttömatriisi-näkymässä kohdat Kehitysympäristö, Asiakkaan tarpeet ja Kehittämisympäristön käyttöönotto.",
       skills: ["asiakastarve", "Unity 2D", "Git"],
       resources: [
+        ["Kuvallinen tukiohje · viikko 34 · Unity 6", "tuki/viikko-34.html", false],
         ["GitHub Desktop: kuvaohje ilman Git-komentoja", "https://mattiseise.github.io/projektikoontisivu/ohjeet/github-desktop/?projekti=kahvilakoodi#asennus", false]
       ],
       tehtavat: {
         "34-1": {
+          apu: { title: "Kuvallinen tuki · työvaihe 34-1", links: [["Avaa tämän työvaiheen kuvallinen tukiohje", "tuki/viikko-34.html#34-1"]] },
           perii: ["34-1"],
           miksi: "Toimeksianto ei kerro kaikkea. Kysymyksillä saat selville, mitä asiakas oikeasti haluaa, ennen kuin alat rakentaa peliä.",
           osat: [
@@ -324,6 +326,7 @@ window.NAYTTOPROJEKTI = {
           eiRiita: "Kuusi lähes samaa kysymystä tai tekoälyn tekemä valmis lista, jota et ole käynyt itse läpi."
         },
         "34-2": {
+          apu: { title: "Kuvallinen tuki · työvaihe 34-2", links: [["Avaa tämän työvaiheen kuvallinen tukiohje", "tuki/viikko-34.html#34-2"]] },
           perii: ["34-1"],
           miksi: "Vain asiakas voi kertoa, mitä hän toivoo. Kun vastaukset on kirjattu, voit myöhemmin näyttää, mihin päätöksesi perustuvat.",
           osat: [
@@ -355,6 +358,7 @@ window.NAYTTOPROJEKTI = {
           tallenna: "Unity-versio viikon 34 päiväkirjaan. Kuvakaappaus auenneesta selainversiosta, jonka viet työvaiheessa 5 polkuun project-docs/evidence/week-34/web-test.png.",
           sanat: ["build", "WebGL"],
           apu: {
+            links: [["Avaa tämän työvaiheen kuvallinen tukiohje", "tuki/viikko-34.html#34-3"]],
             title: "Unity Hubin uusi projekti ja selainversio",
             vinkit: [
               "Vanhemmissa Unity-versioissa Build Profiles on nimeltään Build Settings, ja Web on nimeltään WebGL.",
@@ -389,6 +393,7 @@ window.NAYTTOPROJEKTI = {
               "Jos Unity Hub avaa yhä vanhan kopion, poista vanha rivi Hubin projektilistasta: kolme pistettä → Remove from list."
             ],
             links: [
+              ["Avaa tämän työvaiheen kuvallinen tukiohje", "tuki/viikko-34.html#34-4"],
               ["GitHub Desktop: asennus ja kirjautuminen", "https://mattiseise.github.io/projektikoontisivu/ohjeet/github-desktop/?projekti=kahvilakoodi#asennus"],
               ["GitHub Desktop: kloonaa oma repository (reitti C)", "https://mattiseise.github.io/projektikoontisivu/ohjeet/github-desktop/?projekti=kahvilakoodi#kloonaa"]
             ]
@@ -412,6 +417,7 @@ window.NAYTTOPROJEKTI = {
             code: "ENSIMMÄISEN COMMITIN TARKISTUS\n[ ] Assets mukana\n[ ] Packages mukana\n[ ] ProjectSettings mukana\n[ ] project-docs mukana\n[ ] README.md kertoo pelin tavoitteen\n[ ] Library, Temp ja Builds eivät ole mukana\n[ ] commit näkyy GitHubissa",
             test: "Kloonaa repository toiseen kansioon tai pyydä ohjaajaa avaamaan se. Unity luo puuttuvan Library-kansion itse, ja CafeGame-scene aukeaa, kun kaksoisklikkaat sitä Project-ikkunan Scenes-kansiossa.",
             links: [
+              ["Avaa tämän työvaiheen kuvallinen tukiohje", "tuki/viikko-34.html#34-5"],
               ["GitHub Desktop: commit", "https://mattiseise.github.io/projektikoontisivu/ohjeet/github-desktop/?projekti=kahvilakoodi#commit"],
               ["GitHub Desktop: Push origin ja tarkistus GitHubista", "https://mattiseise.github.io/projektikoontisivu/ohjeet/github-desktop/?projekti=kahvilakoodi#push"]
             ]
@@ -439,11 +445,13 @@ window.NAYTTOPROJEKTI = {
       record: "Kirjoita Vko 35 -merkintään, mitkä GDD-päätökset teit ja miksi, rajauksen hyväksyjän rooli ja päivä sekä asiakkaalle avoimiksi jääneet asiat. Lisää linkit gdd.md-tiedostoon, GitHubin Issues-listaan, luonnokseen ja skriptien karttaan. Rastita lopuksi Näyttömatriisi-näkymässä kohdat Tehtävistä sopiminen ja Tehtäviksi jakaminen.",
       skills: ["rajaus", "Unity UI", "työn pilkkominen"],
       resources: [
+        ["Kuvallinen tukiohje · viikko 35 · Unity 6", "tuki/viikko-35.html", false],
         ["Täytä GDD tällä sivulla", "#view-suunnitelma", false],
         ["Avaa koko toimeksianto", "#view-toimeksianto", false]
       ],
       tehtavat: {
         "35-1": {
+          apu: { title: "Kuvallinen tuki · työvaihe 35-1", links: [["Avaa tämän työvaiheen kuvallinen tukiohje", "tuki/viikko-35.html#35-1"]] },
           perii: ["35-1"],
           miksi: "Pelin suunnitteludokumentti kokoaa pelin säännöt yhteen paikkaan. Palaat siihen, kun rakennat pistelaskua ja ulkoasua.",
           osat: [
@@ -476,6 +484,7 @@ window.NAYTTOPROJEKTI = {
           tallenna: "Linkki GitHubin Issues-listaan viikon 35 päiväkirjaan.",
           sanat: ["feature", "GitHub-issue"],
           apu: {
+            links: [["Avaa tämän työvaiheen kuvallinen tukiohje", "tuki/viikko-35.html#35-2"]],
             title: "Issuen pohja",
             code: "ISSUEN POHJA\nOtsikko: [verbi + näkyvä toiminto]\n\nMiksi tämä tarvitaan:\n[mikä toimeksiannon vaatimus]\n\nTeen:\n[rajattu muutos]\n\nValmis kun:\n[mitä toinen ihminen näkee pelissä]\n\nArvio:\n[0,5 tai 1 työpäivä]",
             test: "Valitse yksi issue sattumalta. Toinen ihminen osaa sen tekstin perusteella kertoa, mitä peliin muuttuu ja miten tulos testataan."
@@ -484,6 +493,7 @@ window.NAYTTOPROJEKTI = {
           eiRiita: "Yksi issue nimeltä ”Tee peli” tai issue, jossa ei ole Valmis kun -ehtoa."
         },
         "35-3": {
+          apu: { title: "Kuvallinen tuki · työvaihe 35-3", links: [["Avaa tämän työvaiheen kuvallinen tukiohje", "tuki/viikko-35.html#35-3"]] },
           perii: ["35-2"],
           miksi: "Jos aika loppuu, tiedät heti, mistä voit luopua. Pakolliset issuet tehdään aina ensin.",
           osat: [
@@ -496,9 +506,10 @@ window.NAYTTOPROJEKTI = {
           valmis: "Jokaisella issuella on yksi label: P0 pakollinen, P1 tärkeä tai P2 lisä. Ohjaaja on hyväksynyt listan.",
           tallenna: "Linkki Issues-listaan sekä hyväksyjän rooli ja päivä viikon 35 päiväkirjaan.",
           sanat: ["P0", "P1", "P2", "backlog"],
-          eiRiita: "Kaikki issuet on merkitty pakollisiksi (P0). Silloin et tiedä, mistä voit luopua."
+          eiRiita: "Pakollinen asiakkaan vaatimus on merkitty valinnaiseksi tai et osaa perustella tärkeysluokkia. Jos listalla on vain vaatimusten toteutuksia, kaikki voivat olla P0; lisätehtäviä ei tarvitse keksiä."
         },
         "35-4": {
+          apu: { title: "Kuvallinen tuki · työvaihe 35-4", links: [["Avaa tämän työvaiheen kuvallinen tukiohje", "tuki/viikko-35.html#35-4"]] },
           perii: ["35-3"],
           miksi: "Luonnos näyttää ennen koodaamista, mitä pelaaja näkee. Rakennat ruudut viikolla 36 tämän kuvan mukaan.",
           osat: [
@@ -526,6 +537,7 @@ window.NAYTTOPROJEKTI = {
           tallenna: "Kuva polkuun project-docs/evidence/week-35/unity-rakenne.png, commit ja push.",
           sanat: ["JSON"],
           apu: {
+            links: [["Avaa tämän työvaiheen kuvallinen tukiohje", "tuki/viikko-35.html#35-5"]],
             title: "Skriptien tehtävät",
             tree: "CafeGame-scene\n├─ GameManager      pelin kulku: ruudut, aika, pisteet ja näkyvät tekstit\n├─ OrderManager     tilaus: arpoo tuotteet ja tarkistaa toimituksen\n├─ ProductDatabase  tuotelista: lukee products.json-tiedoston\n├─ DifficultyController  vaikeus: kertoo tason pisteiden mukaan (vko 39)\n└─ SaveService      parhaat tulokset: tallentaa ja lataa top 5 -listan",
             test: "Näytä kuva toiselle ihmiselle. Hän osaa sanoa, mikä skripti muuttaa pisteitä ja mikä lukee tuotteet."
@@ -547,6 +559,7 @@ window.NAYTTOPROJEKTI = {
       record: "Kirjoita Vko 36 -merkintään kolme testikierrosta tuloksineen, löydetyt virheet ja niiden korjaukset. Lisää video tai kuvat pelipolusta sekä commit-linkit. Rastita lopuksi Näyttömatriisi-näkymässä kohdan Kirjaston toiminnot ja työkalut.",
       skills: ["Unity Canvas", "pelitilat", "ensimmäinen testi"],
       resources: [
+        ["Kuvallinen tukiohje · viikko 36 · Unity 6", "tuki/viikko-36.html", false],
         ["Kenney.nl – ilmaiset CC0-assetit: hahmot, esineet ja käyttöliittymäkuvat", "https://kenney.nl/assets", false],
         ["OpenGameArt – 2D-hahmot ja taustat (tarkista lisenssi)", "https://opengameart.org/", false],
         ["Piskel – piirrä omat spritet selaimessa", "https://www.piskelapp.com/", false]
@@ -567,6 +580,7 @@ window.NAYTTOPROJEKTI = {
           tallenna: "Commit ja push. Commit-linkki viikon 36 päiväkirjaan.",
           sanat: ["Hierarchy", "Canvas", "UI", "Inspector"],
           apu: {
+            links: [["Avaa tämän työvaiheen kuvallinen tukiohje", "tuki/viikko-36.html#36-1"]],
             title: "Valikkoruudun rakenne",
             tree: "CafeGame (scene)\n├─ Main Camera\n├─ Global Light 2D\n├─ EventSystem       (Unity luo tämän Canvasin kanssa)\n└─ Canvas\n   ├─ MenuPanel\n   │  ├─ Text (TMP)   pelin nimi\n   │  └─ StartButton\n   ├─ GamePanel\n   └─ ResultPanel",
             vinkit: [
@@ -590,6 +604,7 @@ window.NAYTTOPROJEKTI = {
           tallenna: "Kuvakaappaus Hierarchy-ikkunasta polkuun project-docs/evidence/week-36/hierarchy.png, commit ja push. Polku viikon 36 päiväkirjan kenttään Missä työnäyte on?",
           sanat: ["UI", "Inspector", "asset"],
           apu: {
+            links: [["Avaa tämän työvaiheen kuvallinen tukiohje", "tuki/viikko-36.html#36-2"]],
             title: "Scenen rakenne tämän työvaiheen jälkeen",
             tree: "CafeGame (scene)\n└─ Canvas\n   ├─ MenuPanel\n   │  └─ StartButton\n   ├─ GamePanel        (piilossa alussa)\n   │  ├─ OrderText\n   │  ├─ ScoreText\n   │  ├─ TimeText\n   │  ├─ CoffeeButton\n   │  └─ SubmitButton\n   └─ ResultPanel      (piilossa alussa)\n      ├─ FinalScoreText\n      └─ RestartButton",
             vinkit: [
@@ -618,6 +633,7 @@ window.NAYTTOPROJEKTI = {
           tallenna: "Commit ja push. Commit-linkki viikon 36 päiväkirjaan.",
           sanat: ["Inspector", "metodi"],
           apu: {
+            links: [["Avaa tämän työvaiheen kuvallinen tukiohje", "tuki/viikko-36.html#36-3"]],
             title: "GameManager-työpohja (käytät samaa tiedostoa myös työvaiheessa 4)",
             code: "using TMPro;\nusing UnityEngine;\n\npublic class GameManager : MonoBehaviour\n{\n    [SerializeField] private GameObject menuPanel;\n    [SerializeField] private GameObject gamePanel;\n    [SerializeField] private GameObject resultPanel;\n    [SerializeField] private TMP_Text orderText;\n    [SerializeField] private TMP_Text scoreText;\n    [SerializeField] private TMP_Text finalScoreText;\n\n    private int score;\n    private bool coffeeSelected;\n\n    private void Start()\n    {\n        ShowOnly(menuPanel);\n    }\n\n    public void StartGame()\n    {\n        score = 0;\n        coffeeSelected = false;\n        // TODO työvaihe 4: kirjoita orderText-kenttään \"Asiakas tilaa: Kahvi\"\n        // TODO työvaihe 4: näytä pisteet scoreText-kentässä\n        ShowOnly(gamePanel);\n    }\n\n    public void SelectCoffee()\n    {\n        coffeeSelected = true;\n    }\n\n    public void SubmitOrder()\n    {\n        // TODO työvaihe 4: jos coffeeSelected on true, lisää pisteisiin 10\n        // TODO työvaihe 4: näytä uudet pisteet scoreText-kentässä\n        EndGame(); // viikolla 38 peli päättyy vasta, kun aika loppuu\n    }\n\n    public void EndGame()\n    {\n        // TODO työvaihe 4: näytä pisteet finalScoreText-kentässä\n        ShowOnly(resultPanel);\n    }\n\n    public void RestartGame()\n    {\n        StartGame();\n    }\n\n    private void ShowOnly(GameObject panel)\n    {\n        menuPanel.SetActive(panel == menuPanel);\n        gamePanel.SetActive(panel == gamePanel);\n        resultPanel.SetActive(panel == resultPanel);\n    }\n}",
             vinkit: [
@@ -646,6 +662,7 @@ window.NAYTTOPROJEKTI = {
           tallenna: "Commit ja push. Commit-linkki viikon 36 päiväkirjaan.",
           sanat: ["TODO", "hyväksymistesti"],
           apu: {
+            links: [["Avaa tämän työvaiheen kuvallinen tukiohje", "tuki/viikko-36.html#36-4"]],
             title: "Tekstikentän päivitys C#:ssa",
             code: "orderText.text = \"Asiakas tilaa: Kahvi\";\nscoreText.text = \"Pisteet: \" + score;\n\nif (coffeeSelected)\n{\n    score += 10;\n}",
             test: "Paina Toimita valitsematta kahvia. Pisteet pysyvät nollassa."
@@ -654,6 +671,7 @@ window.NAYTTOPROJEKTI = {
           eiRiita: "Kolme irrallista kuvaa ruuduista tai Unity-editorissa käsin vaihdettu ruutu ei ole alusta loppuun pelattava peli."
         },
         "36-5": {
+          apu: { title: "Kuvallinen tuki · työvaihe 36-5", links: [["Avaa tämän työvaiheen kuvallinen tukiohje", "tuki/viikko-36.html#36-5"]] },
           perii: ["36-3"],
           miksi: "Editorissa toimiva peli voi toimia selaimessa eri tavalla. Kun kirjaat virheet ennen korjaamista, näet myöhemmin, mitä korjasit ja miksi.",
           osat: [
