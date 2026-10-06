@@ -21,3 +21,11 @@ Voit avata `index.html`-tiedoston selaimessa tai käynnistää minkä tahansa pa
 ## Tiedot ja yksityisyys
 
 Tehtävien tila ja AI-loki tallentuvat vain käyttäjän selaimen paikalliseen tallennustilaan. Sivusto ei lähetä tietoja palvelimelle.
+
+## Kuvallinen tuki viikoille 34–36
+
+`tuki/index.html` sisältää Unity 6:n ohjatut työvaiheet, aidot tämän koneen Unity 6000.5.8f1 -kuvakaappaukset, suunnittelun havainnekuvat ja ohjaajan tarkistuspisteet. Tukisivut on linkitetty viikkojen alusta ja kunkin työvaiheen avusta. Tehtävätunnukset, osatehtävien järjestys ja selaimeen tallennetut rastit säilyvät. Viikon 35 priorisointiohjeen ristiriita on korjattu: kaikkien toimeksiannon vaatimusten tehtävät voivat olla P0 ilman keksittyjä lisätehtäviä.
+
+Ensimmäiseksi avataan `tuki/ensimmainen-onnistuminen.html`: ohjaajan tukema, erilliseen AloitusKokeilu-sceneen tehtävä nimi- ja painikekokeilu. Tavoitteena välitön näkyvä onnistuminen ja opiskelijan oma pieni muutos ennen viikko-ohjeiden jatkamista.
+
+Unity-kuvat päivitetty 6.10.2026. Aloituskokeilu ja viikon 36 esimerkkikierros (10 / 0 pistettä) testattu Play-tilassa. Selainbuildia ei tässä tarkistuksessa ajettu. Jaettava GameManager-työpohja säilyttää TODO-kohdat.
