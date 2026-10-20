@@ -878,7 +878,7 @@ html[data-teema] .task-card-done, html[data-teema] .task-card-save { background:
 :where(html:not([data-teema])) .project-reference > a { display: inline-block; margin-top: 10px; }
 @media (max-width: 640px) { :where(html:not([data-teema])) .project-phase-path a { font-size: 12px; padding: 4px 10px; } }
 /* Kapeassa asettelussa sivupalkki on kiinteä yläpalkki: näkymän alku ei jää sen alle. */
-@media (max-width: 860px) { .view, .week-card, .holiday-card { scroll-margin-top: 84px; } }
+@media (max-width: 860px) { .view, .week-card, .holiday-card, .task-card, .substep-list > li { scroll-margin-top: calc(var(--sticky-h, 84px) + 8px); } }
 @media print { .project-phase-path, [data-figure-open] { display: none; } }
 
 /* ---------- v2.7: yhtenäiset viikko-ohjeet saavutettavassa teemassa (html[data-teema]) ----------
@@ -951,3 +951,11 @@ html[data-teema] .substep-row-rich input:focus-visible + .substep-label .task-bo
 :where(html[data-teema]) .migrate-empty { border-left: var(--bw) solid var(--ink); padding: .5em .8em; }
 :where(html[data-teema]) .doc-card-inline { margin-top: 1.5em; }
 :where(html[data-teema]) .journal-repo-steps { padding-left: 1.6em; gap: .6em; }
+
+/* v2.8.3: työsyklin nykyinen askelkortti käännetyin värein saavutettavassa teemassa
+   (sininen pohja, teeman korostusteksti), jotta oma kohta erottuu muista korteista muutenkin
+   kuin tekstillä "→ Nyt". Fokuskehys (3 px, 3 px rako) erottuu mustaa taustaa vasten. */
+:where(html[data-teema]) .cycle-step.is-current button,
+:where(html[data-teema]) .cycle-step.is-current button:hover { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+:where(html[data-teema]) .cycle-step.is-current button * { color: inherit; }
+:where(html[data-teema]) .cycle-step.is-current button:hover { text-decoration: underline; }

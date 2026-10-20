@@ -9,6 +9,9 @@
  * Rakenne, jota tämä moottori odottaa index.html:ltä, on kuvattu tarkasti
  * tiedostossa skillin references/layout-rakenne.md.
  *
+ * v2.8.3: "Jatka siitä mihin jäit" vierittää nykyisen tehtävän viimeksi rastittuun osaan ja siirtää
+ *   fokuksen sen ruutuun (ennen tehtävän alkuun). styles.css: työsyklin nykyinen askelkortti
+ *   käännetyin värein saavutettavassa teemassa.
  * v2.8: selkeys (opt-in, oletuksena pois päältä; muiden projektien ulkoasu ei muutu):
  *   - linkkimerkinnät tekstissä, kun P.selkeys, P.perusohjeet tai P.tiedostokortit on käytössä:
  *     [[toimeksianto]] ja muut näkymät (myös [[toimeksianto#ankkuri]]), [[vk 41]], [[ohje:commit]],
@@ -2111,6 +2114,14 @@
     }
   }
 
+  /* v2.8.3: kapeassa asettelussa sivupalkki on kiinteä yläpalkki, jonka korkeus vaihtelee.
+     Mitataan se ennen vieritystä, jotta kohde ei jää palkin alle (styles.css: --sticky-h). */
+  function syncStickyOffset() {
+    const bar = document.getElementById("sivupalkki");
+    const sticky = bar && getComputedStyle(bar).position === "sticky";
+    document.documentElement.style.setProperty("--sticky-h", sticky ? `${Math.ceil(bar.getBoundingClientRect().height)}px` : "0px");
+  }
+
   function setView(view, week) {
     if (!VALID_VIEWS.includes(view)) return;
     state.view = view;
@@ -2118,6 +2129,7 @@
     render();
     updateHash();
     closeMobileSidebar();
+    syncStickyOffset();
     document.querySelector(`.view[data-view="${state.view}"]`)?.scrollIntoView?.({ block: "start" });
     document.getElementById("sisalto").scrollTop = 0;
     /* v2.4 (teema): fokus uuden näkymän otsikkoon, jotta ruudunlukija ja
@@ -2316,9 +2328,22 @@
   document.querySelectorAll("[data-continue]").forEach((button) => button.addEventListener("click", () => {
     const week = currentWeek();
     goToWeek(week);
-    /* v2.5: avaa ja näytä ensimmäinen keskeneräinen tehtävä. */
+    /* v2.5: avaa ensimmäinen keskeneräinen tehtävä. v2.8.3: jos siitä on jo rastittu osia, vieritä
+       viimeksi rastittuun osaan ja siirrä fokus sen ruutuun – sieltä opiskelija jatkaa. Muuten
+       näytä tehtävän alku. */
     const card = document.querySelector(`.week-card[data-week="${week}"].has-task-cards`);
-    if (card) focusCurrentTask(card, true);
+    if (!card) return;
+    const current = focusCurrentTask(card, false);
+    if (!current) return;
+    const ticked = [...current.querySelectorAll("[data-substep]")].filter((box) => box.checked);
+    const last = ticked[ticked.length - 1];
+    if (last) {
+      (last.closest("li") || last).scrollIntoView({ block: "start" });
+      last.focus({ preventScroll: true });
+    } else {
+      current.scrollIntoView({ block: "start" });
+      current.querySelector("summary")?.focus({ preventScroll: true });
+    }
   }));
 
   /* ---------- projektipäiväkirja ---------- */
