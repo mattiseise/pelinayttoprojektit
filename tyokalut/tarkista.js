@@ -14,7 +14,7 @@
  *
  * v2.4: vuodenvaihde (viikot [40, …, 53, 1, …, 9] kun vuosi on [2026, 2027]),
  * lyhyetViikot (esim. {51: 4} → data-week-label ma–to), dokumentoidut
- * mitoituspoikkeamat (poikkeamat.vaiheita = "perustelu" → INFO, ei HUOM),
+ * mitoituspoikkeamat (poikkeamat.vaiheita ja poikkeamat.kesto = "perustelu" → INFO, ei HUOM/VIRHE),
  * sekä opt-in-ominaisuuksien tarkistukset: teema (14), sykli (15), kuvaohjeet (16).
  *
  * v2.5: pilkottu tehtävänanto. Tehtäväkorttien rakenne ja mekaaniset selkeyssäännöt (4b)
@@ -84,7 +84,9 @@ const weekYear = {};
 }
 if (new Set(weeks).size !== weeks.length) err("sisalto.js: sama viikkonumero toistuu viikot-listassa");
 if (workWeeks.length < 3 || workWeeks.length > 18) {
-  err(`${workWeeks.length} työviikkoa — runko on mitoitettu 3–18 viikolle`);
+  /* Tietoinen poikkeama (poikkeamat.kesto = "perustelu") → INFO. */
+  const syy = P.poikkeamat && P.poikkeamat.kesto;
+  (syy ? info : err)(`${workWeeks.length} työviikkoa — runko on mitoitettu 3–18 viikolle${syy ? ` (tietoinen poikkeama: ${syy})` : ""}`);
 }
 
 /* Keston mukainen mitoitus, ks. references/pedagoginen-runko.md § Kesto.
@@ -257,12 +259,14 @@ const EN_MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"
   }
   const w = Number(num);
   /* Vuodenvaihteen yli menevässä jaksossa viikon vuosi tiedetään sen paikasta
-     viikot-listassa. lyhyetViikot = {51: 4}: viikon viimeinen työpäivä on to. */
+     viikot-listassa. lyhyetViikot = {51: 4}: viikon viimeinen työpäivä on to.
+     pitkatViikot = {43: 2}: jakso kestää kaksi kalenteriviikkoa (ma 43 – pe 44). */
   const paivia = Number((P.lyhyetViikot || {})[w]) || 5;
+  const viikkoja = Number((P.pitkatViikot || {})[w]) || 1;
   const candidateYears = weekYear[w] ? [weekYear[w]] : years;
   const candidates = candidateYears.flatMap((y) => {
     const ma = isoMonday(y, w);
-    const pe = new Date(ma.getTime() + (paivia - 1) * 86400000);
+    const pe = new Date(ma.getTime() + ((viikkoja - 1) * 7 + paivia - 1) * 86400000);
     const sameMonth = ma.getUTCMonth() === pe.getUTCMonth();
     const fi = sameMonth
       ? `${ma.getUTCDate()}.–${pe.getUTCDate()}.${pe.getUTCMonth() + 1}.`
@@ -540,7 +544,12 @@ workWeeks.forEach((w) => {
   });
 });
 
-/* ---------- 13b. lyhyetViikot ---------- */
+/* ---------- 13b. lyhyetViikot ja pitkatViikot ---------- */
+Object.entries(P.pitkatViikot || {}).forEach(([w, n]) => {
+  if (!workWeeks.includes(Number(w))) err(`pitkatViikot: viikko ${w} ei ole työviikko`);
+  if (!(Number(n) >= 2 && Number(n) <= 4)) err(`pitkatViikot: viikon ${w} kalenteriviikkojen määrä ${n} ei ole 2–4`);
+  for (let k = 1; k < Number(n); k++) if ((P.viikot || []).map(Number).includes(Number(w) + k)) err(`pitkatViikot: viikko ${Number(w) + k} kuuluu jaksoon ${w}, joten se ei saa olla viikot-listassa`);
+});
 Object.entries(P.lyhyetViikot || {}).forEach(([w, n]) => {
   if (!workWeeks.includes(Number(w))) err(`lyhyetViikot: viikko ${w} ei ole työviikko`);
   if (!(Number(n) >= 1 && Number(n) <= 4)) err(`lyhyetViikot: viikon ${w} päivien määrä ${n} ei ole 1–4`);
@@ -929,9 +938,11 @@ if (linksOn) {
 
     /* project-docs-tiedostoilla tiedostokortti */
     const polut = Object.values(cards).map((c) => String(c.polku || ""));
-    const katettu = (p) => polut.some((q) => q === p || (q.endsWith("/") && (p.startsWith(q) || `${p}/` === q)));
+    const kansio = (x) => x.replace(/\/[^/]*$/, "/");
+    /* Kortin tiedoston kanssa samassa kansiossa oleva tiedosto (esim. AI-loki/ai-loki-vko-6.md) kuuluu samaan korttiin. */
+    const katettu = (p) => polut.some((q) => q === p || q.startsWith(`${p.replace(/\/$/, "")}/`) || (q.endsWith("/") && (p.startsWith(q) || `${p}/` === q)) || (!q.endsWith("/") && q.split("/").length > 2 && kansio(q) === kansio(p)));
     const mainitut = new Set();
-    [...items.map((it) => it.teksti), htmlNoComments].forEach((s) => (String(s).match(/project-docs\/(?:[\w-]+\/)*[\w-]+(?:\.\w+)?\/?/g) || []).forEach((m) => mainitut.add(m)));
+    [...items.map((it) => it.teksti), htmlNoComments].forEach((s) => (String(s).match(/project-docs\/(?:[\wÅÄÖåäö-]+\/)*[\wÅÄÖåäö-]+(?:\.\w+)?\/?/g) || []).forEach((m) => mainitut.add(m)));
     [...mainitut].filter((m) => !/^project-docs\/?$/.test(m)).forEach((m) => { if (!katettu(m)) { err(`${m}: project-docs-tiedostolta puuttuu tiedostokortti`); tiukat++; } });
     selkeysRaportti = ` · selkeys tiukka: ${items.length} tekstiä, ${linkCount} linkkiä, ${tiukat} virhettä`;
   } else {

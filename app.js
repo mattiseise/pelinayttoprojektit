@@ -9,6 +9,13 @@
  * Rakenne, jota tämä moottori odottaa index.html:ltä, on kuvattu tarkasti
  * tiedostossa skillin references/layout-rakenne.md.
  *
+ * v2.8.4 (opt-in, Vektoripaja): P.linkitUuteenValilehteen avaa sisällön linkit (ohjeet, dokumentit,
+ *   pohjat, näkymät, viikot) uuteen välilehteen; kuvaohjeet aukeavat yhä ikkunaan ja navigaatio samaan
+ *   välilehteen. Välilehdet synkronoivat tallennetun tilan (storage-tapahtuma). P.sykliLinkit tekee
+ *   työvaiheiden työsykliviittauksista linkkejä askeleeseen (#sykli-viikko-askel). Suora osoite
+ *   näkymän ankkuriin (#tekninen-ehdotus) avaa näkymän ja kohdistaa ankkurin.
+ *   P.kuvaNumerotReunassa (opt-in) siirtää kuvaohjeiden ja tavoitekuvan numerot kuvan vasempaan reunaan
+ *   ja porrastaa päällekkäiset; kehykset näkyvät kulmamerkkeinä (<html data-kuvanumerot="reuna">).
  * v2.8.3: "Jatka siitä mihin jäit" vierittää nykyisen tehtävän viimeksi rastittuun osaan ja siirtää
  *   fokuksen sen ruutuun (ennen tehtävän alkuun). styles.css: työsyklin nykyinen askelkortti
  *   käännetyin värein saavutettavassa teemassa.
@@ -129,21 +136,21 @@
     weekTileOpen: "avoinna",
     exportWeekButton: "Lataa vain tämä viikko (.md)",
     exportJournalButton: "Lataa koko projektipäiväkirja",
-    weekFallback: (w) => `Viikko ${w}`,
-    weekAria: (w, phase) => `Viikko ${w}${phase ? `, vaihe ${phase}` : ""}`,
+    weekFallback: (w) => `${/–/.test(String(w)) ? "Viikot" : "Viikko"} ${w}`,
+    weekAria: (w, phase) => `${/–/.test(String(w)) ? "Viikot" : "Viikko"} ${w}${phase ? `, vaihe ${phase}` : ""}`,
     weekAriaHoliday: (w, name) => `Viikko ${w}, ${name}`,
     holidayFallback: "loma",
     progressCopy: (done, total) => `${done} / ${total} tehtävää`,
     resumeLabel: "Jatka siitä mihin jäit",
     resumeDone: "Kaikki tehtävät valmiina",
-    resumeNote: (w, title) => `Viikko ${w} · ${title}`,
+    resumeNote: (w, title) => `${/–/.test(String(w)) ? "Viikot" : "Viikko"} ${w} · ${title}`,
     planNotStarted: "Ei vielä aloitettu",
     planPartial: (done, total) => `Kesken: ${done} / ${total}`,
     planDone: "Suunnitelma valmis ✓",
     planEmptyValue: "_(ei vielä täytetty)_",
     dateLocale: "fi-FI",
-    prevWeek: (w, title) => `← Viikko ${w}: ${title}`,
-    nextWeek: (w, title) => `Viikko ${w}: ${title} →`,
+    prevWeek: (w, title) => `← ${/–/.test(String(w)) ? "Viikot" : "Viikko"} ${w}: ${title}`,
+    nextWeek: (w, title) => `${/–/.test(String(w)) ? "Viikot" : "Viikko"} ${w}: ${title} →`,
     prevStart: "Alussa",
     nextEnd: "Viimeinen viikko",
     mdJournalTitle: (name) => `${name} – projektipäiväkirja`,
@@ -294,6 +301,7 @@
     roadmapFigureCaption: "Havainnekuva: vaiheet ja niiden tulokset. Tarkat työvaiheet ovat viikkosivuilla.",
     /* v2.8: selkeys (P.selkeys, P.perusohjeet, P.tiedostokortit, P.dokumentitRepossa). */
     linkNewTab: "avautuu uuteen välilehteen",
+    cycleLinkLabel: (n, nimi) => `Työsykli, askel ${n} ${nimi}`,
     linkWeek: (w) => `viikko ${w}`,
     linkGithub: (p) => `GitHub: ${p}`,
     linkKuvaohje: "kuvaohje",
@@ -324,7 +332,37 @@
     migrateUnder: (otsikko) => `### Otsikon "${otsikko}" alle`,
     migrateUnderField: (otsikko, kentta) => `### Otsikon "${otsikko}" alle, kohtaan "${kentta}"`,
     migrateLogEntry: (n) => `### Merkintä ${n}`,
-    journalRepoCopy: "Viikon otsikko tiedostossa: kopioi tämä hakuun"
+    journalRepoCopy: "Viikon otsikko tiedostossa: kopioi tämä hakuun",
+    formJournalTitle: "Viikon vastaukset",
+    formJournalLead: "Kirjoita vastaukset kenttiin. Teksti tallentuu tähän selaimeen.",
+    formJournalFileTitle: (file) => `Viikon päiväkirja tiedostoksi: ${file}`,
+    formDownloadJournal: "Lataa viikon päiväkirja",
+    formDownloadAi: "Lataa viikon AI-loki",
+    formDownloadSaved: (file) => `Tallennettu: ${file}.`,
+    formDownloadDownloaded: (file) => `Tiedosto ${file} on Lataukset-kansiossa.`,
+    formDownloadEmpty: "Lomakkeessa ei ole vielä tekstiä, joten ladattavaa ei ole.",
+    formDownloadCancelled: "Tallennus peruttiin. Mitään ei tallennettu.",
+    aiWeekFile: (w) => `ai-loki-vko-${w}.md`,
+    aiWeekFileTitle: (name, w) => `# ${name} – AI-loki, viikko ${w}`,
+    formAiTitle: "AI-lokin merkintä",
+    formAiLead: "Merkintä tallentuu tähän selaimeen ja näkyy lomakkeen jälkeen.",
+    formAiDate: "Päivä (pp.kk.vvvv)",
+    formAiTools: "Työkalut ja kaista, esimerkiksi GitHub Copilot, Agentti-kaista",
+    formAiQuestion: "Mihin pyysin apua",
+    formAiDecision: "Päätös",
+    formAiDecisions: ["hyväksyn", "korjautan", "hylkään"],
+    formAiReason: "Peruste",
+    formAiRef: "Aineistoviite",
+    formAiRefHint: "esimerkiksi issue #12, testi 4",
+    formAiPrivacyLine: "Tietosuoja",
+    formAiPrivacy: "En syöttänyt henkilötietoja, salasanoja tai luottamuksellista aineistoa.",
+    formAiAdd: "Lisää merkintä",
+    formAiAdded: "Merkintä lisätty. Kopioi se tiedostoon.",
+    formAiEntries: (w) => `Viikon ${w} merkinnät tässä selaimessa`,
+    formAiEmpty: "Tällä viikolla ei ole vielä merkintöjä tässä selaimessa.",
+    formAiDelete: "Poista merkintä",
+    formAiDeleteConfirm: "Poistetaanko merkintä tästä selaimesta? Tiedostoon liitetty merkintä ei poistu.",
+    formMissing: (label) => `Täytä kohta: ${label}`
   };
   /* v2.7: yhtenäisissä viikko-ohjeissa sivun tehtävä on työvaihe (GitHub-issue tai muu
      toteutustehtävä on eri asia). Projekti voi korvata nämäkin tekstit-objektilla. */
@@ -517,6 +555,22 @@
   const basicsById = new Map(basics.map((o) => [String(o.tunnus), o]));
   const docCards = P.tiedostokortit && typeof P.tiedostokortit === "object" ? P.tiedostokortit : {};
   const docsInRepo = Boolean(P.dokumentitRepossa);
+  /* v2.8.4 (opt-in): P.linkitUuteenValilehteen avaa sisällön linkit uuteen välilehteen, jolloin
+     opiskelijan paikka säilyy alkuperäisessä välilehdessä. P.sykliLinkit tekee työvaiheiden
+     viittauksista työsykliin ("Työsykli, askel 3", "askeleen 4") linkkejä kyseiseen askeleeseen. */
+  const NEW_TAB = linksOn && Boolean(P.linkitUuteenValilehteen);
+  /* v2.8.4 (opt-in): P.kuvaNumerotReunassa → numerot kuvan vasemmassa reunassa, ks. kuvaMarks. */
+  const BADGES_EDGE = Boolean(P.kuvaNumerotReunassa);
+  if (BADGES_EDGE) document.documentElement.dataset.kuvanumerot = "reuna";
+  const CYCLE_LINKS = linksOn && Boolean(P.sykliLinkit);
+  /* v2.8.1: viikon lomakkeet (P.lomakkeet), ks. journalFormHtml. */
+  const FORMS = (docsInRepo && P.lomakkeet) || {};
+  const FORM_KEY = `${SLUG}-lomakkeet-v1`;
+  const formState = (() => {
+    const s = readStorage(FORM_KEY, {});
+    const o = s && typeof s === "object" ? s : {};
+    return { paivakirja: o.paivakirja && typeof o.paivakirja === "object" ? o.paivakirja : {}, ailoki: Array.isArray(o.ailoki) ? o.ailoki : [] };
+  })();
   const templateIndex = new Map(); // pohjan tunnus → { viikko, pohja }
   Object.entries(weekGuidance).forEach(([w, g]) => (g && Array.isArray(g.pohjat) ? g.pohjat : []).forEach((p) => {
     if (p && p.tunnus) templateIndex.set(String(p.tunnus), { viikko: Number(w), pohja: p });
@@ -547,6 +601,11 @@
       if (kind === "tiedosto") return docCards[id] ? { kind, id, hash: `tiedosto-${id}`, label: docName(id) } : null;
       if (kind === "pohja") return templateIndex.has(id) ? { kind, id, hash: `pohja-${id}`, label: templateIndex.get(id).pohja.otsikko || id } : null;
       if (kind === "kuvaohje") return id ? { kind, id, hash: `kuvaohje-${id}`, label: "" } : null;
+      if (kind === "sykli") {
+        const [w, n] = id.split("-").map(Number);
+        const step = cycleStepInfo(w, n);
+        return step ? { kind, id, hash: `sykli-${id}`, label: t("cycleLinkLabel", n, step.nimi) } : null;
+      }
       if (kind === "github") {
         if (OWN_REPO) return { kind, id, own: true, url: repoBase ? `${repoBase}/${id.replace(/^\/+/, "")}` : "", label: t("linkGithub", id) };
         return repoBase ? { kind, id, url: `${repoBase}/${id.replace(/^\/+/, "")}`, label: t("linkGithub", id) } : null;
@@ -574,7 +633,8 @@
     if (r.url) return externalLinkHtml(r.url, label || r.label);
     const text = label || r.label;
     const auto = r.kind === "kuvaohje" && !label ? " data-np-autolabel" : "";
-    return `<a class="np-link" href="#${escapeText(r.hash)}" data-np-link="${r.kind}" data-np-target="${escapeText(r.kind === "view" ? `${r.id}${r.anchor ? `#${r.anchor}` : ""}` : r.id)}"${auto}>${codeText(text || t("linkKuvaohje"))}</a>`;
+    const tab = NEW_TAB && r.kind !== "kuvaohje";
+    return `<a class="np-link${tab ? " np-link-tab" : ""}" href="#${escapeText(r.hash)}" data-np-link="${r.kind}" data-np-target="${escapeText(r.kind === "view" ? `${r.id}${r.anchor ? `#${r.anchor}` : ""}` : r.id)}"${auto}${tab ? ' target="_blank" rel="noopener"' : ""}>${codeText(text || t("linkKuvaohje"))}${tab ? `<span class="np-link-mark" aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (${escapeText(t("linkNewTab"))})</span>` : ""}</a>`;
   }
 
   /* Linkkimerkinnät pelkäksi tekstiksi (aria-label, ilmoitukset). */
@@ -754,6 +814,26 @@
       + (v.koodi ? copyBlockHtml({ otsikko: v.koodiOtsikko || t("substepCode"), teksti: v.koodi }, (x) => String(x ?? "")) : "");
   }
 
+  /* v2.8.4: työsykliviittaukset linkeiksi ([[sykli:viikko-askel|teksti]]). Olemassa olevat
+     linkkimerkinnät jätetään ennalleen; askelpalkkiin ja issuen kohtiin (kohta 3a) viittaavia ei linkitetä. */
+  const CYCLE_REF_RE = /Työsykli, askel(?:eet)? (\d)[ab]?(?:–\d[ab]?)?(?: (?:Suunnittele|Siirrä|Rakenna|Tarkista|Raportoi|Kirjaa))?(?:, kohta \d[ab])?|(?:[Tt]yösyklin )?[Aa]skel(?:een|eessa|eeseen|eet|eiden|ta)? (\d)[ab]?(?:–\d[ab]?)?(?: (?:Suunnittele|Siirrä|Rakenna|Tarkista|Raportoi|Kirjaa))?/g;
+  /* Työsyklin askel viikolle: käytettävissä jo ennen kuin työsykli on rakennettu (cycleFor). */
+  function cycleStepInfo(w, n) {
+    const steps = P.sykli && Array.isArray(P.sykli.askeleet) ? P.sykli.askeleet : [];
+    return (weekGuidance[w] || {}).sykli && n >= 1 && n <= steps.length ? steps[n - 1] : null;
+  }
+  function cycleRefLinks(text, week) {
+    if (!CYCLE_LINKS || !text || !(weekGuidance[week] || {}).sykli) return text;
+    let out = "";
+    String(text).replace(new RegExp(LINK_RE.source, "g"), "\u0000$&\u0000").split("\u0000").forEach((seg, i) => {
+      out += i % 2 === 1 ? seg : seg.replace(CYCLE_REF_RE, (m, a, b) => {
+        const n = Number(a || b);
+        return resolveLink(`sykli:${week}-${n}`) ? `[[sykli:${week}-${n}|${m}]]` : m;
+      });
+    });
+    return out;
+  }
+
   function substepHtml(id, o, j) {
     if (!o.rich) {
       return `
@@ -764,7 +844,7 @@
           <li class="substep-item"><div class="substep-row substep-row-rich">
             <input type="checkbox" id="${base}" data-substep="${escapeText(id)}" data-substep-n="${j}" aria-describedby="${base}-ohje">
             <label class="substep-label" for="${base}"><span class="task-box" aria-hidden="true"></span><span class="substep-n" aria-hidden="true">${j + 1}</span><strong class="substep-title">${codeText(plainLinks(o.otsikko))}</strong></label>
-            <div class="substep-body" id="${base}-ohje">${stepLinesHtml(o)}</div>
+            <div class="substep-body" id="${base}-ohje">${stepLinesHtml(CYCLE_LINKS ? { ...o, missa: cycleRefLinks(o.missa, Number(String(id).split("-")[0])), tee: cycleRefLinks(o.tee, Number(String(id).split("-")[0])), naet: cycleRefLinks(o.naet, Number(String(id).split("-")[0])) } : o)}</div>
           </div></li>`;
   }
 
@@ -850,7 +930,33 @@
     }
     return out.join("\n");
   }
+  /* v2.8.4: P.pitkatViikot = { 43: 2 } → jakso kestää kaksi kalenteriviikkoa; näkyvä numero "43–44". */
+  function weekNum(w) {
+    const n = Number((P.pitkatViikot || {})[w]) || 1;
+    return n > 1 ? `${w}–${Number(w) + n - 1}` : String(w);
+  }
   function weekTitleLite(w) { return (P.viikkoNimet || {})[w] || t("weekFallback", w); }
+  /* v2.8.5: yhteinen teksti voi riippua viikosta. Merkkijono näkyy sellaisenaan, ja lista yhdistetään
+     välilyönnein. Osa { teksti, vainTyosykli | ilmanTyosyklia | vainPitka | vainLyhyt } näkyy vain, kun
+     ehto täyttyy. { tyosykli, ilmanTyosyklia }, { pitka, lyhyt } ja { lisatehtava, eiLisatehtavaa }
+     valitsevat version. Samat ehdot rajaavat viikkorutiinin kohtia. */
+  const weekSpan = (w) => Number((P.pitkatViikot || {})[w]) || 1;
+  const weekHasCycle = (w) => Object.values((weekGuidance[w] || {}).tehtavat || {}).some((d) => d && d.tyosykli);
+  function weekShows(item, week) {
+    if (!item || typeof item !== "object") return true;
+    const cycle = weekHasCycle(week);
+    const long = weekSpan(week) > 1;
+    return !(item.vainTyosykli && !cycle) && !(item.ilmanTyosyklia && cycle) && !(item.vainPitka && !long) && !(item.vainLyhyt && long);
+  }
+  function weekText(value, week) {
+    if (value == null || typeof value !== "object") return value;
+    if (Array.isArray(value)) return value.map((v) => weekText(v, week)).filter(Boolean).join(" ");
+    if ("teksti" in value) return weekShows(value, week) ? weekText(value.teksti, week) : "";
+    if ("tyosykli" in value || "ilmanTyosyklia" in value) return weekText(weekHasCycle(week) ? value.tyosykli : value.ilmanTyosyklia, week);
+    if ("pitka" in value || "lyhyt" in value) return weekText(weekSpan(week) > 1 ? value.pitka : value.lyhyt, week);
+    if ("lisatehtava" in value || "eiLisatehtavaa" in value) return weekText(((weekGuidance[week] || {}).lisatehtavat || []).length ? value.lisatehtava : value.eiLisatehtavaa, week);
+    return "";
+  }
   const migrationFile = () => (P.siirtyma && P.siirtyma.tiedosto) || `${SLUG}-selaimen-tekstit.md`;
 
   function migrationBoxHtml(inTask, partial) {
@@ -964,7 +1070,7 @@
     if (section && !section.querySelector(".tasks-lead")) {
       const lead = document.createElement("p");
       lead.className = "tasks-lead";
-      lead.textContent = t("tasksLead");
+      lead.textContent = weekText(t("tasksLead"), Number(card.dataset.week));
       section.querySelector(".section-heading-row")?.insertAdjacentElement("afterend", lead);
       const toggle = document.createElement("button");
       toggle.type = "button";
@@ -1201,7 +1307,7 @@
     if (checkpoint) checkpoint.innerHTML = richText(guide.done || "");
 
     const record = card.querySelector("[data-journal-record]");
-    if (record) record.innerHTML = `<strong>${escapeText(t("journalRecordPrefix"))}</strong> ${richText(guide.record || "")}`;
+    if (record) record.innerHTML = `<strong>${escapeText(t("journalRecordPrefix"))}</strong> ${richText(guide.record || "").replace(/\n/g, "<br>")}`;
 
     /* v2.5: tehtäväkortit. Osatehtävät korvaavat Näin etenet -listan, jos viikolla ei ole
        steps-listaa; resurssilinkit ja viestipohjat siirtyvät silloin tehtävien yhteyteen. */
@@ -1228,8 +1334,8 @@
     const prevWeek = idx > 0 ? weekList[idx - 1] : null;
     const nextWeek = idx >= 0 && idx < weekList.length - 1 ? weekList[idx + 1] : null;
     const names = P.viikkoNimet || {};
-    const prevLabel = prevWeek ? t("prevWeek", prevWeek, names[prevWeek] || t("weekFallback", prevWeek)) : `← ${t("prevStart")}`;
-    const nextLabel = nextWeek ? t("nextWeek", nextWeek, names[nextWeek] || t("weekFallback", nextWeek)) : `${t("nextEnd")} →`;
+    const prevLabel = prevWeek ? t("prevWeek", weekNum(prevWeek), names[prevWeek] || t("weekFallback", weekNum(prevWeek))) : `← ${t("prevStart")}`;
+    const nextLabel = nextWeek ? t("nextWeek", weekNum(nextWeek), names[nextWeek] || t("weekFallback", weekNum(nextWeek))) : `${t("nextEnd")} →`;
     pager.innerHTML = `
       <button type="button" class="button button-secondary" data-week-nav="prev" ${prevWeek ? "" : "disabled"}>${escapeText(prevLabel)}</button>
       <button type="button" class="button button-secondary" data-week-nav="next" ${nextWeek ? "" : "disabled"}>${escapeText(nextLabel)}</button>`;
@@ -1279,9 +1385,14 @@
   function kuvaStageHtml(k, full) {
     const w = Number(k.leveys) || 1600;
     const h = Number(k.korkeus) || 900;
-    const marks = (k.kohdat || []).filter((c) => Array.isArray(c.alue) && c.alue.length === 4).map((c) => {
+    let previousBadgeTop = "-24px";
+    const kohdat = (k.kohdat || []).filter((c) => Array.isArray(c.alue) && c.alue.length === 4);
+    const marks = (BADGES_EDGE ? [...kohdat].sort((a, b) => Number(a.alue[1]) - Number(b.alue[1])) : kohdat).map((c) => {
       const [x, y, cw, ch] = c.alue.map(Number);
-      return `<span class="kuvaohje-mark" style="left:${x}%;top:${y}%;width:${cw}%;height:${ch}%" aria-hidden="true"><span class="kuvaohje-mark-n">${escapeText(c.n)}</span></span>`;
+      if (!BADGES_EDGE) return `<span class="kuvaohje-mark" style="left:${x}%;top:${y}%;width:${cw}%;height:${ch}%" aria-hidden="true"><span class="kuvaohje-mark-n">${escapeText(c.n)}</span></span>`;
+      const badgeTop = `max(${y}%, calc(${previousBadgeTop} + 24px))`;
+      previousBadgeTop = badgeTop;
+      return `<span class="kuvaohje-mark" style="left:${x}%;top:${y}%;width:${cw}%;height:${ch}%" aria-hidden="true"></span><span class="kuvaohje-mark-n" style="top:${badgeTop};" aria-hidden="true">${escapeText(c.n)}</span>`;
     }).join("");
     const picture = k.tiedosto
       ? `<img src="${escapeText(k.tiedosto)}" alt="${escapeText(k.alt || "")}" width="${w}" height="${h}"${full ? "" : " loading=\"lazy\""}>`
@@ -1687,20 +1798,194 @@
          { funktio, eiFunktiota } ja pohja { vainFunktio: true }: näkyy vain, kun viikolla on funktio. */
       const funktio = (weekGuidance[week] || {}).funktio || "";
       const fill = (s) => String(s ?? "").replace(/\{viikko\}/g, String(week)).replace(/\{nimi\}/g, weekTitleLite(week))
-        .replace(/\{funktio\}/g, funktio)
+        .replace(/\{funktio\}/g, funktio).replace(/\{toinenViikko\}/g, String(week + weekSpan(week) - 1))
         .replace(/\{pvm\}/g, journal.closest("[data-week]")?.querySelector("[data-week-label]")?.dataset.weekLabel || "");
-      const vaiheet = (cfg.vaiheet || []).map((v) => (v && typeof v === "object" ? (funktio ? v.funktio : v.eiFunktiota) : v)).filter(Boolean);
+      const vaiheet = (cfg.vaiheet || []).map((v) => weekText(v && typeof v === "object" && ("funktio" in v || "eiFunktiota" in v) ? (funktio ? v.funktio : v.eiFunktiota) : v, week)).filter(Boolean);
       const pohjat = (cfg.pohjat || []).filter((p) => !p.vainFunktio || funktio);
       journal.querySelectorAll(".journal-fields, .journal-lead, [data-journal-status], .journal-actions-top").forEach((x) => x.remove());
       let box = journal.querySelector("[data-journal-repo]");
       if (!box) { box = document.createElement("div"); box.setAttribute("data-journal-repo", ""); journal.appendChild(box); }
       box.className = "journal-repo";
-      box.innerHTML = `${cfg.johdanto ? `<p>${richText(fill(cfg.johdanto))}</p>` : ""}
-        ${cfg.otsikko ? copyBlockHtml({ otsikko: t("journalRepoCopy"), teksti: fill(cfg.otsikko) }, (x) => String(x ?? "")) : ""}
-        ${vaiheet.length ? `<ol class="journal-repo-steps">${vaiheet.map((v) => `<li>${richText(fill(v))}</li>`).join("")}</ol>` : ""}
-        ${pohjat.map((p) => copyBlockHtml({ otsikko: fill(p.otsikko), teksti: fill(p.teksti) }, (x) => String(x ?? ""))).join("")}`;
+      const headingCopy = cfg.otsikko ? copyBlockHtml({ otsikko: t("journalRepoCopy"), teksti: fill(cfg.otsikko) }, (x) => String(x ?? "")) : "";
+      const steps = vaiheet.length ? `<ol class="journal-repo-steps">${vaiheet.map((v) => `<li>${richText(fill(v))}</li>`).join("")}</ol>` : "";
+      const blocks = (list) => list.map((p) => copyBlockHtml({ otsikko: fill(p.otsikko), teksti: fill(p.teksti) }, (x) => String(x ?? ""))).join("");
+      /* Lomakkeen kanssa järjestys seuraa vaiheita: ohje, pohjat, lomake, viikon tiedoston lataus
+         ja lopuksi pohjat, joilla on lopuksi: true (esimerkiksi commit-viesti). */
+      box.innerHTML = `${cfg.johdanto ? `<p>${richText(fill(weekText(cfg.johdanto, week)))}</p>` : ""}
+        ${FORMS.paivakirja
+          ? `${steps}${blocks(pohjat.filter((p) => !p.lopuksi))}${journalFormHtml(week)}${journalCopyHtml(week)}${blocks(pohjat.filter((p) => p.lopuksi))}`
+          : `${headingCopy}${steps}${blocks(pohjat)}`}`;
+      if (FORMS.ailoki) box.insertAdjacentHTML("afterend", aiFormHtml(week));
     });
+    if (FORMS.ailoki) document.querySelectorAll("[data-week-ai]").forEach((el) => renderAiEntries(Number(el.dataset.weekAi)));
   }
+
+  /* ---------- v2.8.1: viikon lomakkeet (P.lomakkeet, opt-in, vain kun P.dokumentitRepossa) ----------
+   * P.lomakkeet = { paivakirja: { kentat: [{ avain, otsikko, rivit }] }, ailoki: { johdanto, vaiheet } }.
+   * Viikon kirjausosioon tulee lomake, joka tallentuu selaimeen (FORM_KEY). Latauspainike tekee viikon
+   * oman tiedoston: projektipaivakirja-vko-N.md (sama muoto kuin vanha viikkolataus) ja ai-loki-vko-N.md
+   * (merkinnät tiedoston merkinnän pohjan muodossa). Olemassa olevia tiedostoja ei muuteta.
+   * Muissa projekteissa ei muutosta.
+   */
+  function journalFormFields() {
+    const kentat = (FORMS.paivakirja && FORMS.paivakirja.kentat) || [];
+    return kentat.length ? kentat : [{ avain: "work", otsikko: "Mitä tein ja miten?", rivit: 6 },
+      { avain: "reason", otsikko: "Miksi tein näin?", rivit: 4 }, { avain: "evidence", otsikko: "Missä työnäyte on?", rivit: 4 }];
+  }
+  function journalFormHtml(week) {
+    const saved = formState.paivakirja[week] || {};
+    const id = `lomake-${week}`;
+    return `<form class="week-form" data-week-form="${week}" novalidate>
+        <h3 class="week-form-title">${escapeText(t("formJournalTitle"))}</h3>
+        <p class="week-form-lead">${escapeText(t("formJournalLead"))}</p>
+        ${journalFormFields().map((f) => `<label class="week-form-field" for="${id}-${escapeText(f.avain)}">${escapeText(f.otsikko)}</label>
+        <textarea id="${id}-${escapeText(f.avain)}" rows="${Number(f.rivit) || 4}" data-week-form-field="${escapeText(f.avain)}">${escapeText(saved[f.avain] || "")}</textarea>`).join("")}
+      </form>`;
+  }
+  function journalFileMarkdown(week) {
+    const saved = formState.paivakirja[week] || {};
+    return [t("mdWeekFileTitle", P.nimi, week), "", t("mdWeekHeading", week, weekTitle(week)), "",
+      ...journalFormFields().flatMap((f) => [`### ${f.otsikko}`, String(saved[f.avain] || "").trim() || t("mdNotRecorded"), ""])].join("\n");
+  }
+  function journalHasText(week) {
+    const saved = formState.paivakirja[week] || {};
+    return journalFormFields().some((f) => String(saved[f.avain] || "").trim());
+  }
+  function journalCopyHtml(week) {
+    const id = `lomake-${week}`;
+    const file = t("mdWeekFile", week);
+    return `<div class="copy-block week-form-copy">
+        <p class="copy-title" id="${id}-kirjaus-otsikko">${escapeText(t("formJournalFileTitle", file))}</p>
+        <pre class="copy-text" id="${id}-kirjaus" tabindex="0" aria-labelledby="${id}-kirjaus-otsikko" data-week-form-preview="${week}">${escapeText(journalFileMarkdown(week))}</pre>
+        <button type="button" class="button button-primary" data-form-download="paivakirja" data-week-download="${week}">${escapeText(t("formDownloadJournal"))}</button>
+        <p class="week-form-status" data-form-download-status="paivakirja-${week}" aria-live="polite"></p>
+      </div>`;
+  }
+  function todayFi() {
+    const d = new Date();
+    return `${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()}`;
+  }
+  function aiMarkdown(e) {
+    return [`### ${e.pvm} · ${e.tyokalut}`, `- ${t("formAiQuestion")}: ${e.apu}`, `- ${t("formAiDecision")}: ${e.paatos}`,
+      `- ${t("formAiReason")}: ${e.peruste}`, `- ${t("formAiRef")}: ${e.viite}`, `- ${t("formAiPrivacyLine")}: ${t("formAiPrivacy")}`].join("\n") + "\n";
+  }
+  function aiFileMarkdown(week) {
+    const entries = formState.ailoki.filter((e) => Number(e.viikko) === week);
+    return [t("aiWeekFileTitle", P.nimi, week), "", "## Merkinnät", "", ...entries.map((e) => aiMarkdown(e))].join("\n");
+  }
+  function aiFormHtml(week) {
+    const a = FORMS.ailoki || {};
+    const id = `ailoki-${week}`;
+    const field = (name, label, type) => type === "area"
+      ? `<label class="week-form-field" for="${id}-${name}">${escapeText(label)}</label><textarea id="${id}-${name}" name="${name}" rows="3" required></textarea>`
+      : `<label class="week-form-field" for="${id}-${name}">${escapeText(label)}</label><input id="${id}-${name}" name="${name}" type="text" required${name === "pvm" ? ` value="${escapeText(todayFi())}"` : ""}>`;
+    const wk = (v) => String(v ?? "").replace(/\{viikko\}/g, String(week));
+    const vaiheet = (a.vaiheet || []).map((v) => `<li>${richText(wk(weekText(v, week)))}</li>`).join("");
+    return `<section class="week-ai" data-week-ai="${week}" aria-labelledby="${id}-otsikko">
+        <h3 class="week-form-title" id="${id}-otsikko">${escapeText(t("formAiTitle"))}</h3>
+        ${a.johdanto ? `<p>${richText(wk(weekText(a.johdanto, week)))}</p>` : ""}
+        ${vaiheet ? `<ol class="journal-repo-steps">${vaiheet}</ol>` : ""}
+        <form class="week-form" data-week-ai-form="${week}" novalidate>
+          <p class="week-form-lead">${escapeText(t("formAiLead"))}</p>
+          ${field("pvm", t("formAiDate"))}
+          ${field("tyokalut", t("formAiTools"))}
+          ${field("apu", t("formAiQuestion"), "area")}
+          <fieldset class="week-form-choice"><legend>${escapeText(t("formAiDecision"))}</legend>
+            ${t("formAiDecisions").map((d, i) => `<label><input type="radio" name="paatos" value="${escapeText(d)}"${i === 0 ? " required" : ""}> ${escapeText(d)}</label>`).join("")}
+          </fieldset>
+          ${field("peruste", t("formAiReason"), "area")}
+          ${field("viite", `${t("formAiRef")}, ${t("formAiRefHint")}`)}
+          <label class="week-form-check"><input type="checkbox" name="tietosuoja" required> ${escapeText(t("formAiPrivacy"))}</label>
+          <p class="week-form-error" data-week-ai-error hidden></p>
+          <button class="button button-primary" type="submit">${escapeText(t("formAiAdd"))}</button>
+        </form>
+        <h4 class="week-form-title">${escapeText(t("formAiEntries", week))}</h4>
+        <div class="week-ai-entries" data-week-ai-entries="${week}" aria-live="polite"></div>
+        <button type="button" class="button button-primary" data-form-download="ailoki" data-week-download="${week}">${escapeText(t("formDownloadAi"))}</button>
+        <p class="week-form-status" data-form-download-status="ailoki-${week}" aria-live="polite"></p>
+      </section>`;
+  }
+  function renderAiEntries(week) {
+    const holder = document.querySelector(`[data-week-ai-entries="${week}"]`);
+    if (!holder) return;
+    const entries = formState.ailoki.filter((e) => Number(e.viikko) === week);
+    holder.innerHTML = entries.length ? entries.map((e) => `<div class="copy-block" data-ai-entry="${escapeText(e.id)}">
+        <p class="copy-title" id="ai-${escapeText(e.id)}-otsikko">${escapeText(`${e.pvm} · ${e.tyokalut}`)}</p>
+        <pre class="copy-text" tabindex="0" aria-labelledby="ai-${escapeText(e.id)}-otsikko">${escapeText(aiMarkdown(e))}</pre>
+        <button type="button" class="button button-secondary" data-ai-delete="${escapeText(e.id)}">${escapeText(t("formAiDelete"))}</button>
+      </div>`).join("") : `<p class="empty-state">${escapeText(t("formAiEmpty"))}</p>`;
+  }
+  function saveForms() { writeStorage(FORM_KEY, formState); }
+  document.addEventListener("input", (event) => {
+    const field = event.target.closest?.("[data-week-form-field]");
+    if (!field) return;
+    const week = Number(field.closest("[data-week-form]").dataset.weekForm);
+    formState.paivakirja[week] = { ...(formState.paivakirja[week] || {}), [field.dataset.weekFormField]: field.value };
+    saveForms();
+    const preview = document.querySelector(`[data-week-form-preview="${week}"]`);
+    if (preview) preview.textContent = journalFileMarkdown(week);
+  });
+  document.addEventListener("submit", (event) => {
+    const form = event.target.closest?.("[data-week-ai-form]");
+    if (!form) return;
+    event.preventDefault();
+    const week = Number(form.dataset.weekAiForm);
+    const error = form.querySelector("[data-week-ai-error]");
+    const missing = [...form.querySelectorAll("[required]")].find((x) => (x.type === "radio" ? !form.querySelector(`[name="${x.name}"]:checked`) : x.type === "checkbox" ? !x.checked : !x.value.trim()));
+    if (missing) {
+      const label = missing.type === "radio" ? t("formAiDecision") : missing.type === "checkbox" ? t("formAiPrivacyLine") : (form.querySelector(`label[for="${missing.id}"]`)?.textContent || "");
+      error.textContent = t("formMissing", label);
+      error.hidden = false;
+      missing.focus();
+      return;
+    }
+    error.hidden = true;
+    const v = (name) => String(new FormData(form).get(name) || "").trim().replace(/\s*\n\s*/g, " ");
+    const entry = { id: `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`, viikko: week,
+      pvm: v("pvm"), tyokalut: v("tyokalut"), apu: v("apu"), paatos: v("paatos"), peruste: v("peruste"), viite: v("viite") };
+    formState.ailoki.push(entry);
+    saveForms();
+    ["apu", "peruste", "viite"].forEach((name) => { form.elements[name].value = ""; });
+    form.querySelectorAll('[name="paatos"], [name="tietosuoja"]').forEach((x) => { x.checked = false; });
+    renderAiEntries(week);
+    announce(t("formAiAdded"));
+    form.closest("[data-week-ai]")?.querySelector("[data-form-download]")?.focus();
+  });
+  document.addEventListener("click", async (event) => {
+    const del = event.target.closest?.("[data-ai-delete]");
+    if (del) {
+      if (!window.confirm(t("formAiDeleteConfirm"))) return;
+      const entry = formState.ailoki.find((e) => e.id === del.dataset.aiDelete);
+      formState.ailoki = formState.ailoki.filter((e) => e.id !== del.dataset.aiDelete);
+      saveForms();
+      if (entry) renderAiEntries(Number(entry.viikko));
+      return;
+    }
+    const button = event.target.closest?.("[data-form-download]");
+    if (!button) return;
+    const week = Number(button.dataset.weekDownload);
+    const journal = button.dataset.formDownload === "paivakirja";
+    const status = document.querySelector(`[data-form-download-status="${button.dataset.formDownload}-${week}"]`);
+    const say = (msg) => { if (status) status.textContent = msg; announce(msg); };
+    if (journal ? !journalHasText(week) : !formState.ailoki.some((e) => Number(e.viikko) === week)) { say(t("formDownloadEmpty")); return; }
+    const file = journal ? t("mdWeekFile", week) : t("aiWeekFile", week);
+    const text = journal ? journalFileMarkdown(week) : aiFileMarkdown(week);
+    /* Tallennusikkuna (Edge, Chrome): opiskelija tallentaa suoraan repositoryn kansioon. Muuten lataus. */
+    if (window.showSaveFilePicker) {
+      try {
+        const handle = await window.showSaveFilePicker({ suggestedName: file, types: [{ description: "Markdown", accept: { "text/markdown": [".md"] } }] });
+        const writable = await handle.createWritable();
+        await writable.write(text);
+        await writable.close();
+        say(t("formDownloadSaved", handle.name || file));
+        return;
+      } catch (error) {
+        if (error && error.name === "AbortError") { say(t("formDownloadCancelled")); return; }
+      }
+    }
+    downloadMarkdown(file, text);
+    say(t("formDownloadDownloaded", file));
+  });
 
   /* ---------- v2.8: linkkien navigointi ja paluu ---------- */
   let linkOrigin = null;
@@ -1734,6 +2019,17 @@
     if (kind === "ohje") return document.getElementById(`ohje-${id}`);
     if (kind === "tiedosto") return document.getElementById(`tiedosto-${id}`);
     if (kind === "pohja") return document.getElementById(`pohja-${id}`);
+    if (kind === "sykli") {
+      const [w, n] = id.split("-").map(Number);
+      const card = document.querySelector(`.week-card[data-week="${w}"]`);
+      const workflow = card?.querySelector(".week-workflow");
+      if (!card || !workflow || !cycleFor(w)) return null;
+      /* Näytetään pyydetty askel tallentamatta sitä: opiskelijan oma eteneminen ei muutu. */
+      cycleState[w] = { ...(cycleState[w] || {}), step: n, round: (cycleState[w] || {}).round || 1 };
+      renderCycle(card, false);
+      workflow.open = true;
+      return card.querySelector("[data-week-cycle] .cycle-now") || workflow;
+    }
     return null;
   }
   /* Palauttaa true, jos kohde löytyi. */
@@ -1749,6 +2045,7 @@
     }
     if (kind === "ohje" || kind === "tiedosto") setView("tyotapa");
     if (kind === "pohja" && templateIndex.has(id)) setView("viikko", templateIndex.get(id).viikko);
+    if (kind === "sykli") setView("viikko", Number(id.split("-")[0]));
     const el = linkTargetElement(kind, id);
     if (!el) return false;
     focusTarget(el);
@@ -1759,6 +2056,7 @@
   document.addEventListener("click", (event) => {
     const a = event.target.closest?.("a[data-np-link]");
     if (!a || event.ctrlKey || event.metaKey || event.shiftKey) return;
+    if (a.target === "_blank") return;
     event.preventDefault();
     const kind = a.dataset.npLink;
     const id = a.dataset.npTarget;
@@ -1959,8 +2257,9 @@
     const g = weekGuidance[week] || {};
     const prev = previousWorkWeek(week);
     const prevF = prev ? String((weekGuidance[prev] || {}).funktio || "") : "";
-    return (value) => String(value ?? "").replace(/\{(viikko|nimi|feature|deliverable|done|edellinenViikko|edellinenFunktio)\}/g, (_, key) =>
+    return (value) => String(value ?? "").replace(/\{(viikko|nimi|feature|deliverable|done|edellinenViikko|edellinenFunktio|toinenViikko)\}/g, (_, key) =>
       key === "viikko" ? String(week) : key === "nimi" ? weekTitle(week) : key === "edellinenViikko" ? String(prev || "")
+        : key === "toinenViikko" ? String(week + weekSpan(week) - 1)
         : key === "edellinenFunktio" ? prevF : String(g[key] || ""));
   }
   /* Rutiinikohdan teksti voi olla { funktio, eiFunktiota }: valinta edellisen työviikon funktion mukaan. */
@@ -1983,9 +2282,10 @@
     }
     box.className = "week-lost";
     const fill = weekFill(week);
+    const forWeek = (list) => list.map((k) => ({ ...k, kysymys: weekText(k.kysymys, week), ohje: weekText(k.ohje, week), jatko: k.jatko && forWeek(k.jatko) }));
     box.innerHTML = `<summary>${escapeText(lostTree.otsikko || t("lostHeading"))}</summary>
-      ${lostTree.johdanto ? `<p class="week-lost-lead">${richText(fill(lostTree.johdanto))}</p>` : ""}
-      ${stuckTreeHtml(lostTree.kohdat, fill)}`;
+      ${lostTree.johdanto ? `<p class="week-lost-lead">${richText(fill(weekText(lostTree.johdanto, week)))}</p>` : ""}
+      ${stuckTreeHtml(forWeek(lostTree.kohdat), fill)}`;
   }
 
   function renderRoutine(card) {
@@ -2003,15 +2303,18 @@
     }
     box.className = "view-section week-routine";
     const saved = routineState[week] || {};
-    /* v2.8: kohta.vainTyosykli = true → kohta näkyy vain viikoilla, joilla on työsyklitehtävä. */
-    const hasCycle = Object.values(g.tehtavat || {}).some((d) => d && d.tyosykli);
-    const shown = routine.kohdat.map((k, i) => [k, i]).filter(([k]) => !k.vainTyosykli || hasCycle);
+    /* v2.8: kohta.vainTyosykli = true → kohta näkyy vain viikoilla, joilla on työsyklitehtävä (v2.8.5: weekShows).
+       Rastit tallentuvat kohdan indeksillä, joten uusi kohta lisätään listan loppuun ja
+       kohta.jarjestys kertoo sen paikan näkymässä. */
+    const fill = weekFill(week);
+    const shown = routine.kohdat.map((k, i) => [k, i]).filter(([k]) => weekShows(k, week))
+      .sort((a, b) => (a[0].jarjestys ?? a[1]) - (b[0].jarjestys ?? b[1]));
     const done = shown.filter(([, i]) => saved[i]).length;
     box.innerHTML = (unifiedWeeks
       ? `<summary>${escapeText(routine.otsikko || t("routineSummary"))} <span class="week-status" data-routine-status>${done} / ${shown.length}</span></summary>`
       : `<div class="section-heading-row"><h2>${escapeText(routine.otsikko || t("routineHeading"))}</h2><span class="week-status" data-routine-status>${done} / ${shown.length}</span></div>`) + `
-      ${routine.johdanto ? `<p class="week-routine-lead">${richText(routine.johdanto)}</p>` : ""}
-      <div class="task-list">${shown.map(([k, i]) => `<label class="task-row routine-row"><input type="checkbox" data-routine="${week}-${i}"${saved[i] ? " checked" : ""}><span class="task-box" aria-hidden="true"></span><span class="task-text">${k.milloin ? `<strong>${escapeText(k.milloin)}:</strong> ` : ""}${richText(weekFill(week)(routineText(k, week)))}</span></label>`).join("")}</div>`;
+      ${routine.johdanto ? `<p class="week-routine-lead">${richText(fill(weekText(routine.johdanto, week)))}</p>` : ""}
+      <div class="task-list">${shown.map(([k, i]) => `<label class="task-row routine-row"><input type="checkbox" data-routine="${week}-${i}"${saved[i] ? " checked" : ""}><span class="task-box" aria-hidden="true"></span><span class="task-text">${k.milloin ? `<strong>${escapeText(fill(weekText(k.milloin, week)))}:</strong> ` : ""}${richText(fill(weekText(routineText(k, week), week)))}</span></label>`).join("")}</div>`;
     box.querySelectorAll("[data-routine]").forEach((input) => input.addEventListener("change", () => {
       const i = Number(input.dataset.routine.split("-").pop());
       routineState[week] = { ...(routineState[week] || {}), [i]: input.checked };
@@ -2060,6 +2363,8 @@
     if (!pendingLinkTarget) return;
     const [kind, id] = pendingLinkTarget;
     pendingLinkTarget = null;
+    /* Näkymä tulee näkyviin vasta piirron jälkeen: kohdistus seuraavalla kierroksella. */
+    if (kind === "ankkuri") { window.setTimeout(() => focusTarget(document.getElementById(id)), 60); return; }
     focusTarget(linkTargetElement(kind, id));
     history.replaceState(null, "", `#${kind}-${id}`);
   }
@@ -2078,6 +2383,21 @@
       return true;
     }
     /* v2.8: #ohje-x, #tiedosto-x ja #pohja-x avaavat kohteen näkymän; kohde kohdistetaan renderöinnin jälkeen. */
+    const cycleMatch = linksOn && hash.match(/^sykli-(\d+-\d+)$/);
+    if (cycleMatch && resolveLink(`sykli:${cycleMatch[1]}`)) {
+      state.view = "viikko";
+      state.week = Number(cycleMatch[1].split("-")[0]);
+      pendingLinkTarget = ["sykli", cycleMatch[1]];
+      return true;
+    }
+    /* v2.8.4: näkymän sisäinen ankkuri (linkki [[toimeksianto#x]] uudessa välilehdessä). */
+    const anchorEl = linksOn && /^[a-z][\w-]*$/i.test(hash) ? document.getElementById(hash) : null;
+    const anchorView = anchorEl?.closest(".view[data-view]")?.dataset.view;
+    if (anchorView && anchorView !== "viikko" && VALID_VIEWS.includes(anchorView)) {
+      state.view = anchorView;
+      pendingLinkTarget = ["ankkuri", hash];
+      return true;
+    }
     const linkMatch = linksOn && hash.match(/^(ohje|tiedosto|pohja)-(.+)$/);
     if (linkMatch && linkTargetElement(linkMatch[1], linkMatch[2])) {
       const [, kind, id] = linkMatch;
@@ -2170,6 +2490,7 @@
 
   document.querySelectorAll("[data-view-nav], [data-open-view]").forEach((el) => {
     el.addEventListener("click", (event) => {
+      if (el.target === "_blank") return;
       event.preventDefault();
       setView(el.dataset.viewNav || el.dataset.openView);
     });
@@ -2193,7 +2514,7 @@
   /* v2.7: [data-open-week] missä tahansa (vaihepolku, vaihekuvaus, aloitus) avaa viikon alusta. */
   document.addEventListener("click", (event) => {
     const link = event.target.closest?.("[data-open-week]");
-    if (!link || !weekList.includes(Number(link.dataset.openWeek))) return;
+    if (!link || link.target === "_blank" || !weekList.includes(Number(link.dataset.openWeek))) return;
     event.preventDefault();
     goToWeek(Number(link.dataset.openWeek));
     /* Linkki jäi piilotettuun näkymään: fokus uuden viikon otsikkoon myös ilman teemaa. */
@@ -2243,18 +2564,18 @@
         const kind = holiday ? "holiday" : (isDone ? "done" : (isCurrent ? "current" : "future"));
         rows.push(`<a class="${classes.join(" ")}" href="#week-${week}" data-week-link="${week}">
         <span class="week-row-title">${escapeText(names[week] || t("weekFallback", week))}</span>
-        <span class="week-row-n">${escapeText(t("weekNumberShort", week))}</span>
+        <span class="week-row-n">${escapeText(t("weekNumberShort", weekNum(week)))}</span>
         ${stateLabel(kind)}
       </a>`);
         return;
       }
       const ariaLabel = holiday
         ? t("weekAriaHoliday", week, (names[week] || t("holidayFallback")).toLowerCase())
-        : t("weekAria", week, phase ? phase.tunnus : "");
+        : t("weekAria", weekNum(week), phase ? phase.tunnus : "");
       rows.push(`<a class="${classes.join(" ")}" href="#week-${week}" data-week-link="${week}" aria-label="${escapeText(ariaLabel)}">
         <span class="week-dot" aria-hidden="true">${isDone ? "✓" : (isCurrent ? "●" : "")}</span>
         <span class="week-row-title">${escapeText(names[week] || t("weekFallback", week))}</span>
-        <span class="week-row-n">${week}</span>
+        <span class="week-row-n">${weekNum(week)}</span>
       </a>`);
     });
     holder.innerHTML = rows.join("\n");
@@ -2295,7 +2616,7 @@
     const curTask = curCards.findIndex((c) => !taskCardDone(c));
     const taskText = curTask >= 0 ? t("resumeTask", curTask + 1, curCards.length) : "";
     document.querySelectorAll("[data-continue-note]").forEach((el) => {
-      el.textContent = t("resumeNote", cur, weekTitle(cur)) + (cycleText ? ` · ${cycleText}` : "") + (taskText ? ` · ${taskText}` : "");
+      el.textContent = t("resumeNote", weekNum(cur), weekTitle(cur)) + (cycleText ? ` · ${cycleText}` : "") + (taskText ? ` · ${taskText}` : "");
     });
 
     buildWeekNavigation();
@@ -2592,6 +2913,52 @@
   renderBasicsAndDocs();
   renderDocsInRepo();
   linkifyStatic(document.querySelector(".view-main"));
+  /* v2.8.4: sisällön "Avaa viikko"- ja "Avaa näkymä" -linkit uuteen välilehteen. Navigaatio
+     (sivupalkki, vaihepolku, viikkojen selaus) vaihtaa näkymää samassa välilehdessä. */
+  if (NEW_TAB) document.querySelectorAll(".view-main a[data-open-week], .view-main a[data-open-view]").forEach((a) => {
+    if (a.closest("nav") || a.target === "_blank") return;
+    a.target = "_blank";
+    a.rel = "noopener";
+    a.insertAdjacentHTML("beforeend", `<span class="np-link-mark" aria-hidden="true">&nbsp;↗</span><span class="sr-only"> (${escapeText(t("linkNewTab"))})</span>`);
+  });
+  /* v2.8.4: kun linkit avautuvat uusiin välilehtiin, sama sivu on auki monessa välilehdessä.
+     Kun toinen välilehti tallentaa rasteja, työsyklin askeleen, rutiinin tai lomakkeen, tämä
+     välilehti lukee tilan uudelleen, ettei se kirjoita vanhaa tilaa toisen päälle. */
+  if (NEW_TAB) window.addEventListener("storage", (event) => {
+    if (event.key === SUBSTEP_KEY) {
+      substepState = readStorage(SUBSTEP_KEY, {}) || {};
+      taskCardEls.forEach((el) => {
+        const saved = substepState[el.dataset.taskCard];
+        if (!Array.isArray(saved)) return;
+        el.querySelectorAll("[data-substep]").forEach((b, j) => { b.checked = Boolean(saved[j]); });
+        syncTaskCard(el);
+      });
+      updateProgress();
+    } else if (event.key === STORAGE_KEY) {
+      const saved = readStorage(STORAGE_KEY, {}) || {};
+      taskBoxes.forEach((box) => { if (box.dataset.task in saved) box.checked = Boolean(saved[box.dataset.task]); });
+      updateProgress();
+    } else if (event.key === CYCLE_KEY) {
+      cycleState = readStorage(CYCLE_KEY, {}) || {};
+      taskWeekCards.forEach((card) => renderCycle(card, false));
+    } else if (event.key === ROUTINE_KEY) {
+      routineState = readStorage(ROUTINE_KEY, {}) || {};
+      taskWeekCards.forEach((card) => renderRoutine(card));
+    } else if (event.key === FORM_KEY) {
+      const fresh = readStorage(FORM_KEY, {}) || {};
+      formState.paivakirja = fresh.paivakirja && typeof fresh.paivakirja === "object" ? fresh.paivakirja : {};
+      formState.ailoki = Array.isArray(fresh.ailoki) ? fresh.ailoki : [];
+      document.querySelectorAll("[data-week-form-field]").forEach((field) => {
+        if (field === document.activeElement) return;
+        field.value = (formState.paivakirja[Number(field.closest("[data-week-form]").dataset.weekForm)] || {})[field.dataset.weekFormField] || "";
+      });
+      document.querySelectorAll("[data-week-form-preview]").forEach((pre) => { pre.textContent = journalFileMarkdown(Number(pre.dataset.weekFormPreview)); });
+      document.querySelectorAll("[data-week-ai]").forEach((el) => renderAiEntries(Number(el.dataset.weekAi)));
+    } else if (event.key === REPO_KEY && OWN_REPO) {
+      repoBase = String(readStorage(REPO_KEY, "") || "");
+      refreshRepoLinks();
+    }
+  });
   if (OWN_REPO) refreshRepoLinks();
   renderKuvaohjeet(document);
   labelKuvaLinks();
