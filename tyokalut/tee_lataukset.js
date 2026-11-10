@@ -83,6 +83,7 @@ const L_OLETUS = {
   aloitusHuomio: "",
   yhteysLabel: "Yhteys kokonaisprojektiin:",
   tavoiteLabel: "Viikon tavoite:",
+  paivamaaratLabel: "Päivämäärät:",
   lopputarkistusLabel: "Viikon lopputarkistus:",
   /* v2.8: selkeys */
   missaLabel: "Missä:",
@@ -347,6 +348,12 @@ tp.push(pageBreak());
     const g = P.viikkoOhjeet[num] || {};
     tp.push(h2(lt("viikkoOtsikko", wk.num, wk.dates, wk.title)));
     if (unified && g.connection) tp.push(p(`${lt("yhteysLabel")} ${plainTick(g.connection)}`, { size: 19, after: 60 }));
+    /* v2.8.8: päivämäärät listana omana kappaleenaan (viikkoOhjeet[w].paivamaarat). */
+    const dates = (Array.isArray(g.paivamaarat) ? g.paivamaarat : []).map((d) => (Array.isArray(d) ? `${plainTick(d[0])}: ${plainTick(d[1] ?? "")}` : plainTick(d)));
+    if (unified && dates.length) {
+      tp.push(p(lt("paivamaaratLabel"), { size: 19, bold: true, after: 20 }));
+      dates.forEach((d, i) => tp.push(p(`• ${d}`, { size: 19, indent: 240, after: i === dates.length - 1 ? 60 : 0 })));
+    }
     if (unified && g.feature) tp.push(p(`${lt("tavoiteLabel")} ${plainTick(g.feature)}`, { size: 19, bold: true, after: 80 }));
     else if (g.feature) tp.push(p(g.feature, { italics: true, color: GREY }));
     weekResources(g).forEach(([label, href]) => tp.push(new Paragraph({
@@ -624,6 +631,7 @@ th { background: #${TINT}; }
 .muted { color: #555; }
 .item { font-size: 9pt; margin: 2pt 0; }
 .conn { font-size: 9pt; margin: 0 0 3pt; }
+.dates { font-size: 9pt; margin: 0 0 3pt; padding-left: 14pt; }
 code { font-family: Menlo, Consolas, monospace; font-size: 8.5pt; }
 .wk.u { page-break-inside: auto; }
 .wkdone { margin-top: 8pt; padding-top: 4pt; border-top: 0.5pt solid #bbb; }
@@ -664,6 +672,7 @@ th { font-weight: 700; }
 .muted, .item { }
 strong { font-weight: 700; }
 .conn, .goal { margin: 0 0 .4em; }
+.dates { margin: 0 0 .4em; padding-left: 1.4em; }
 img.figure { display: block; max-width: 100%; margin: .5em 0 1em; }
 code { font-family: Consolas, "Courier New", monospace; font-size: 1em; }`;
 }
@@ -711,6 +720,9 @@ ${printCss(style)}
       const g = P.viikkoOhjeet[num] || {};
       H.push(`<div class="wk${unified ? " u" : ""}"><h2>${esc(lt("viikkoOtsikko", wk.num, wk.dates, wk.title))}</h2>`);
       if (unified && g.connection) H.push(`<p class="conn"><strong>${esc(lt("yhteysLabel"))}</strong> ${esc(g.connection)}</p>`);
+      const pvm = (Array.isArray(g.paivamaarat) ? g.paivamaarat : []).map((d) => (Array.isArray(d)
+        ? `<li><strong>${esc(d[0])}:</strong> ${esc(d[1] ?? "")}</li>` : `<li>${esc(d)}</li>`)).join("");
+      if (unified && pvm) H.push(`<p class="conn"><strong>${esc(lt("paivamaaratLabel"))}</strong></p><ul class="dates">${pvm}</ul>`);
       if (unified && g.feature) H.push(`<p class="goal"><strong>${esc(lt("tavoiteLabel"))}</strong> ${esc(g.feature)}</p>`);
       else if (g.feature) H.push(`<p class="feature">${esc(g.feature)}</p>`);
       weekResources(g).forEach(([label, href]) => H.push(`<p class="ev"><a href="${esc(href)}">${esc(label)}</a></p>`));

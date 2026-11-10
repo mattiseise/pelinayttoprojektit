@@ -9,6 +9,15 @@
  * Rakenne, jota tämä moottori odottaa index.html:ltä, on kuvattu tarkasti
  * tiedostossa skillin references/layout-rakenne.md.
  *
+ * v2.8.8: viikon esittelykortissa ("Miten tämän viikon asiat liittyvät kokonaisprojektiin") kuvaus on
+ *   omana kappaleenaan ja päivämäärät listana: viikkoOhjeet[w].paivamaarat = [["Viikkopalaveri",
+ *   "ma–ti 16.–17.11."], …] tai merkkijonoja. Ilman kenttää kortti on ennallaan.
+ *   P.sanaselitteet (opt-in): termisto-sanat, joilla on `selko`, saavat tekstissä selitteen, joka aukeaa
+ *   hiiren kohdalle tai näppäimistöllä sanan viereen. termi.muodot = sanan alkuosat (taivutukset),
+ *   termi.selitetaan === false jättää sanan pois, termi.eiViikoilla = [3, 10] viikoilta, joilla sana
+ *   tarkoittaa muuta, ja termi.vainViikoilla = [43, 45] rajaa sen näille viikoille. termi.eiEdella =
+ *   ["tiedoston "] ohittaa esiintymän, jota edeltää jokin näistä. Iso kirjain muodossa = tarkka kirjainkoko; pieni muoto osuu isolla alkukirjaimella
+ *   vain virkkeen alussa. Vain ensimmäinen esiintymä osiota kohden.
  * v2.8.4 (opt-in, Vektoripaja): P.linkitUuteenValilehteen avaa sisällön linkit (ohjeet, dokumentit,
  *   pohjat, näkymät, viikot) uuteen välilehteen; kuvaohjeet aukeavat yhä ikkunaan ja navigaatio samaan
  *   välilehteen. Välilehdet synkronoivat tallennetun tilan (storage-tapahtuma). P.sykliLinkit tekee
@@ -285,6 +294,7 @@
     phaseLink: (n, name) => `${n}. ${name}`,
     projectConnectionHeading: "Miten tämän viikon asiat liittyvät kokonaisprojektiin",
     weekGoalHeading: "Viikon tavoite",
+    weekDatesHeading: "Päivämäärät",
     weekFinishHeading: "Viikon lopputarkistus",
     weekFinishCheck: "Toiminta on tarkistettu, kun",
     weekFinishEvidence: "Työnäyte talteen",
@@ -1576,8 +1586,13 @@
     const box = document.createElement("section");
     box.className = "card project-connection";
     box.setAttribute("aria-labelledby", headId);
+    /* v2.8.8: päivämäärät listana omana kappaleenaan: [nimi, aika] tai merkkijono. */
+    const dateItems = (Array.isArray(guide.paivamaarat) ? guide.paivamaarat : []).map((d) => Array.isArray(d)
+      ? `<li><strong>${escapeText(d[0])}:</strong> ${richText(d[1] ?? "")}</li>`
+      : `<li>${richText(d)}</li>`).join("");
     box.innerHTML = `<h2 class="section-label" id="${headId}">${escapeText(t("projectConnectionHeading"))}</h2>
-      ${guide.connection ? `<p>${richText(guide.connection)}</p>` : ""}
+      ${guide.connection ? `<p>${richText(guide.connection)}</p>` : ""}${dateItems ? `
+      <h2 class="section-label project-dates-heading">${escapeText(t("weekDatesHeading"))}</h2><ul class="project-dates">${dateItems}</ul>` : ""}
       <h2 class="section-label project-week-goal">${escapeText(t("weekGoalHeading"))}</h2>
       <p class="project-week-goal-text">${richText(guide.feature || "")}</p>`;
     anchor.insertAdjacentElement("afterend", box);
@@ -2906,6 +2921,130 @@
     updateEvidence();
   });
 
+  /* ---------- v2.8.8: sanaselitteet (opt-in, P.sanaselitteet) ----------
+   * termisto-sana, jolla on `selko`, merkitään tekstissä (ensimmäinen esiintymä osiota kohden).
+   * Selitys aukeaa hiiren kohdalle, näppäimistöllä sanan viereen ja kosketuksella napautuksesta.
+   * Koodi, linkit, painikkeet, otsikot, rastien selitteet ja sanastolaatikot jätetään rauhaan.
+   * eiViikoilla rajaa pois viikot, joilla sana tarkoittaa muuta, ja vainViikoilla rajaa selitteen
+   * näille viikoille (esim. polku = piirroksen viiva vain mallinnusviikoilla, muualla tiedostopolku).
+   */
+  const TERM_TIPS = Boolean(P.sanaselitteet) && Array.isArray(P.termisto);
+  const TERM_SKIP = "a, button, code, pre, kbd, label, summary, h1, h2, h3, h4, input, textarea, select, nav, .copy-text, .copy-block, .sr-only, .np-link-mark, .glossary, [data-termisto], [data-week-terms], .task-card-words, .sanaselite, .sanaselite-vihje, [data-no-sanaselite]";
+  function setupTermTips(root) {
+    const terms = P.termisto.filter((x) => x && x.termi && x.selko && x.selitetaan !== false);
+    if (!root || !terms.length) return;
+    /* Muoto, jossa on iso kirjain (MVP, Scene, Plain SVG), osuu vain samalla kirjainkoolla. Pienellä
+       kirjoitettu muoto osuu isolla alkukirjaimella vain virkkeen alussa: keskellä virkettä isolla
+       alkava sana on yleensä käyttöliittymän nimi (Layer, Layers and Objects). */
+    const forms = [];
+    terms.forEach((x, i) => (Array.isArray(x.muodot) && x.muodot.length ? x.muodot : [x.termi])
+      .forEach((f) => {
+        const form = String(f).trim();
+        if (form) forms.push([form.toLowerCase(), i, form !== form.toLowerCase() ? form : null]);
+      }));
+    forms.sort((p, q) => q[0].length - p[0].length);
+    const weekSet = (list) => (Array.isArray(list) ? new Set(list.map(String)) : null);
+    const skipWeeks = terms.map((x) => weekSet(x.eiViikoilla));
+    const onlyWeeks = terms.map((x) => weekSet(x.vainViikoilla));
+    /* eiViikoilla: ei näillä viikoilla. vainViikoilla: vain näillä viikoilla, ei yleisohjeissa. */
+    const allowed = (i, week) => !(week && skipWeeks[i]?.has(week)) && !(onlyWeeks[i] && !(week && onlyWeeks[i].has(week)));
+    /* eiEdella: sana ei saa selitettä, jos sitä edeltää jokin näistä (esim. "tiedoston " polku). */
+    const notAfter = terms.map((x) => (Array.isArray(x.eiEdella) ? x.eiEdella.map((w) => String(w).toLowerCase()) : []));
+    const afterBlocked = (i, before) => notAfter[i].some((w) => before.toLowerCase().endsWith(w));
+    const sentenceStart = (before) => /(?:^\s*|[.!?:…]\s+|^\s*[-–•]\s*)["“(]?$/u.test(before);
+    const lower = (ch) => ch === ch.toLowerCase();
+    const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const re = new RegExp(`(?<![\\p{L}\\p{N}_-])(?:${forms.map(([f]) => esc(f)).join("|")})[\\p{L}\\p{N}]*`, "giu");
+    const tip = document.createElement("div");
+    tip.id = "sanaselite-vihje";
+    tip.className = "sanaselite-vihje";
+    tip.setAttribute("role", "tooltip");
+    tip.hidden = true;
+    document.body.appendChild(tip);
+    const used = new WeakMap();
+    const scopeOf = (el) => el.closest(".task-card, .project-connection, .week-routine, details, section, article, li, p") || root;
+    function mark(container) {
+      const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, {
+        acceptNode: (n) => (!n.nodeValue.trim() || !n.parentElement || n.parentElement.closest(TERM_SKIP)) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT
+      });
+      const nodes = [];
+      while (walker.nextNode()) nodes.push(walker.currentNode);
+      nodes.forEach((node) => {
+        const text = node.nodeValue;
+        const week = node.parentElement.closest(".week-card[data-week]")?.dataset.week;
+        const scope = scopeOf(node.parentElement);
+        const seen = used.get(scope) || new Set();
+        used.set(scope, seen);
+        let frag = null, last = 0, m;
+        re.lastIndex = 0;
+        while ((m = re.exec(text))) {
+          const low = m[0].toLowerCase();
+          const hit = forms.find(([f, i, exact]) => (exact ? m[0].startsWith(exact) : low.startsWith(f)
+            && (lower(m[0][0]) || sentenceStart(text.slice(0, m.index)))) && allowed(i, week)
+            && !afterBlocked(i, text.slice(0, m.index)));
+          if (!hit || seen.has(hit[1])) continue;
+          seen.add(hit[1]);
+          frag = frag || document.createDocumentFragment();
+          frag.append(text.slice(last, m.index));
+          const span = document.createElement("span");
+          span.className = "sanaselite";
+          span.tabIndex = 0;
+          span.dataset.termi = String(hit[1]);
+          span.textContent = m[0];
+          frag.append(span);
+          last = m.index + m[0].length;
+        }
+        if (frag) { frag.append(text.slice(last)); node.replaceWith(frag); }
+      });
+    }
+    let current = null;
+    function show(el, x, y) {
+      const term = terms[Number(el.dataset.termi)];
+      if (!term) return;
+      tip.innerHTML = `<strong>${escapeText(term.termi)}</strong> ${escapeText(term.selko)}`;
+      tip.hidden = false;
+      if (current && current !== el) current.removeAttribute("aria-describedby");
+      el.setAttribute("aria-describedby", tip.id);
+      current = el;
+      const r = el.getBoundingClientRect();
+      const px = x ?? r.left, below = y ?? r.bottom, above = y ?? r.top;
+      const w = tip.offsetWidth, h = tip.offsetHeight;
+      const left = Math.min(Math.max(8, px + 12), window.innerWidth - w - 8);
+      const top = below + 18 + h > window.innerHeight - 8 ? Math.max(8, above - h - 12) : below + 18;
+      tip.style.left = `${left}px`;
+      tip.style.top = `${top}px`;
+    }
+    function hide() {
+      if (current) current.removeAttribute("aria-describedby");
+      current = null;
+      tip.hidden = true;
+    }
+    document.addEventListener("mouseover", (e) => { const el = e.target.closest?.(".sanaselite"); if (el && el !== current) show(el, e.clientX, e.clientY); });
+    document.addEventListener("mouseout", (e) => { const el = e.target.closest?.(".sanaselite"); if (el && el === current && !el.contains(e.relatedTarget)) hide(); });
+    document.addEventListener("focusin", (e) => { const el = e.target.closest?.(".sanaselite"); if (el) show(el); });
+    document.addEventListener("focusout", (e) => { if (e.target.closest?.(".sanaselite") === current) hide(); });
+    document.addEventListener("click", (e) => { const el = e.target.closest?.(".sanaselite"); if (!el) return; if (current === el && tip.dataset.napautus) { delete tip.dataset.napautus; hide(); } else { show(el, e.clientX, e.clientY); tip.dataset.napautus = "1"; } });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && current) hide(); });
+    window.addEventListener("scroll", () => { if (current) hide(); }, { passive: true });
+    mark(root);
+    /* Osa sisällöstä piirretään uudelleen (rutiini, työsykli, lomakkeet): merkitään uudet osat. */
+    const opts = { childList: true, subtree: true };
+    const pending = new Set();
+    let frame = 0;
+    const observer = new MutationObserver((list) => {
+      list.forEach((rec) => rec.addedNodes.forEach((n) => { if (n.nodeType === 1 && !n.closest(".sanaselite, .sanaselite-vihje")) pending.add(n); }));
+      if (!pending.size || frame) return;
+      frame = window.requestAnimationFrame(() => {
+        frame = 0;
+        observer.disconnect();
+        pending.forEach((n) => { if (n.isConnected) mark(n); });
+        pending.clear();
+        observer.observe(root, opts);
+      });
+    });
+    observer.observe(root, opts);
+  }
+
   /* ---------- käynnistys ---------- */
 
   taskWeekCards.forEach((card) => { renderCycle(card, false); renderLostTree(card); renderRoutine(card); });
@@ -2913,6 +3052,7 @@
   renderBasicsAndDocs();
   renderDocsInRepo();
   linkifyStatic(document.querySelector(".view-main"));
+  if (TERM_TIPS) setupTermTips(document.querySelector(".view-main"));
   /* v2.8.4: sisällön "Avaa viikko"- ja "Avaa näkymä" -linkit uuteen välilehteen. Navigaatio
      (sivupalkki, vaihepolku, viikkojen selaus) vaihtaa näkymää samassa välilehdessä. */
   if (NEW_TAB) document.querySelectorAll(".view-main a[data-open-week], .view-main a[data-open-view]").forEach((a) => {
