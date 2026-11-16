@@ -107,7 +107,9 @@ window.NAYTTOPROJEKTI = {
   tekstit: {
     goalListLabel: "Pelaajan työnkulku",
     goalNote: "Havainnekuva näyttää pelaajan työnkulun. Se ei ole kuvakaappaus valmiista pelistä.",
-    tasksLead: "Tee työvaiheet järjestyksessä. Ensimmäinen keskeneräinen vaihe on auki. Kun teet muutoksen peliin, kirjaa se GitHub-issueksi ja tee se Työtapa-sivun kuudella askeleella."
+    tasksLead: "Tee työvaiheet järjestyksessä. Ensimmäinen keskeneräinen vaihe on auki. Kun teet muutoksen peliin, kirjaa se GitHub-issueksi ja tee se Työtapa-sivun kuudella askeleella.",
+    /* Moottorin oletuksesta puuttuu pilkku sivulauseen edestä. Korjaus kuuluu myös runkoon. */
+    resumeLabel: "Jatka siitä, mihin jäit"
   },
 
   /* ---- viikkonavigaation lyhyet nimet (vanhasta app.js:n weekNames) ---- */
@@ -187,7 +189,7 @@ window.NAYTTOPROJEKTI = {
     { termi: "vertainen", nimi: "Toinen opiskelija", selite: "Vertainen on toinen opiskelija, joka keskustelee kanssasi, testaa peliäsi tai lukee koodiasi. Hän ei ole projektin asiakas.", viikko: 2 },
     { termi: "PlayerPrefs", nimi: "Unityn pieni tallennuspaikka", selite: "PlayerPrefs tallentaa pieniä tietoja avain–arvo-pareina. Selainversiossa tieto säilyy selaimen muistissa, kunnes pelaaja tyhjentää sen.", viikko: 53 },
     { termi: "katselmointi", nimi: "Työn yhteinen tarkastus", selite: "Katselmoinnissa toinen ihminen kokeilee peliä tai lukee koodia ja antaa palautetta. Viikolla 2 asiakas katselmoi pelin, ja ohjaaja tai vertainen katselmoi koodin pull requestissa.", viikko: 2 },
-    { termi: "branch", nimi: "Git-haara", selite: "Branch eli haara on rinnakkainen kehityslinja: teet muutoksen omassa haarassasi, jolloin toimiva main-haara pysyy ehjänä. Valmis haara yhdistetään takaisin main-haaraan.", viikko: 2 },
+    { termi: "branch", nimi: "Git-haara", selite: "Branch eli haara on rinnakkainen kehityslinja: teet muutoksen omassa haarassasi, jolloin toimiva main-haara pysyy ehjänä. Valmis haara yhdistetään (englanniksi merge) takaisin main-haaraan.", viikko: 2 },
     { termi: "pull request", nimi: "PR, pyyntö yhdistää haara pääversioon", selite: "Pull request eli PR on GitHubissa tehtävä pyyntö yhdistää oma haara main-haaraan. Se antaa katselmoinnille oman paikan ennen yhdistämistä. Pienen muutoksen voi myös yhdistää suoraan ilman PR:ää.", viikko: 2 },
     { termi: "T01", nimi: "Testitapauksen tunnus", selite: "Testitapaukset numeroidaan juoksevasti: T01 on ensimmäinen testitapaus, T02 toinen. Odotettu tulos kirjataan ennen ajoa, ja tunnuksella viitataan testiin päiväkirjassa ja näyttömatriisissa.", viikko: 1 },
     { termi: "refaktorointi", nimi: "Koodin rakenteen selkeyttäminen", selite: "Refaktoroinnissa koodia muutetaan selkeämmäksi niin, että peli toimii täsmälleen kuten ennen. Sama testitapaus ajetaan ennen ja jälkeen muutoksen.", viikko: 2 },
@@ -239,7 +241,8 @@ window.NAYTTOPROJEKTI = {
   /* ---- projektipäiväkirja ---- */
   /* ---- opettajan aineisto: vain dokumentointipohjien mitoitus ---- */
   opettaja: {
-    pohjat: { aloitusVko: 48, kysymyksia: 5, vertailuVko: 53, katselmointiVkot: "2 ja 3", testiVko: 1, testeja: 9, ketjuja: 2, lisenssiVko: 3 }
+    pohjat: { aloitusVko: 48, kysymyksia: 5, vertailuVko: 53, katselmointiVkot: "2 ja 3", testiVko: 1, testeja: 9, ketjuja: 2, lisenssiVko: 3,
+      testiLuokat: "Merkitse jokaiselle testitapaukselle luokka: normaali käyttö, rajatilanne tai virhetilanne. Kirjoita odotus ennen testiajoa." }
   },
 
   paivakirja: {
@@ -492,7 +495,7 @@ window.NAYTTOPROJEKTI = {
             { otsikko: "Piirrä valikko", missa: "Paperi, Valikko-ruutu", tee: "Piirrä pelin nimi ja Aloita-painike.", naet: "Valikko-ruudussa on nimi ja yksi painike." },
             { otsikko: "Piirrä peliruutu", missa: "Paperi, Peli-ruutu", tee: "Piirrä asiakkaan tilaus, tuotepainikkeet Kahvi, Tee ja Sämpylä, Toimita-painike, aika, pisteet ja kohta, jossa peli kertoo, menikö toimitus oikein.", naet: "Peli-ruudussa on kuusi asiaa." },
             { otsikko: "Piirrä tulosruutu", missa: "Paperi, Tulos-ruutu", tee: "Piirrä loppupisteet, viiden parhaan tuloksen lista ja Pelaa uudelleen -painike.", naet: "Tulos-ruudussa on kolme asiaa." },
-            { otsikko: "Piirrä nuolet", missa: "Paperi", tee: "Piirrä nuoli Aloita-painikkeesta peliruutuun, peliruudusta tulosruutuun ja Pelaa uudelleen -painikkeesta peliruutuun. Kirjoita peliruudun nuolen viereen: aika loppuu.", naet: "Kolme nuolta näyttävät, miten ruudusta siirrytään toiseen." },
+            { otsikko: "Piirrä nuolet", missa: "Paperi", tee: "Piirrä nuoli Aloita-painikkeesta peliruutuun, peliruudusta tulosruutuun ja Pelaa uudelleen -painikkeesta peliruutuun. Kirjoita peliruudun nuolen viereen: aika loppuu.", naet: "Kolme nuolta näyttää, miten ruudusta siirrytään toiseen." },
             { otsikko: "Tallenna kuva", missa: "Puhelin ja GitHub Desktop", tee: "Kuvaa paperi ja tallenna kuva polkuun project-docs/evidence/week-49/mockup.png. Tee commit ja push.", naet: "Kuva näkyy GitHubissa." }
           ],
           valmis: "Kuvassa on kolme ruutua, ja nuolet näyttävät, mihin Aloita ja Pelaa uudelleen vievät ja milloin peli siirtyy tulosruutuun.",

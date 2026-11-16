@@ -59,7 +59,7 @@ function weeksLabel(phase) {
   const work = weekList.filter((w) => (phase.viikot || []).map(Number).includes(w) && !holidays.has(w));
   if (!work.length) return "";
   const a = work[0], b = work[work.length - 1];
-  return `${a === b ? (P.paivaton ? "Työviikko" : VT.viikko) : (P.paivaton ? VT.tyoviikot : VT.viikot)} ${a === b ? a : `${a}–${b}`}`;
+  return `${P.paivaton ? VT.tyoviikot : VT.viikot} ${a === b ? a : `${a}–${b}`}`;
 }
 
 function holidayLine(phase) {

@@ -6,8 +6,8 @@
   "paivaton": false,
   "generoitu": "2026-11-16",
   "lahde": {
-    "sisalto.js": "09c2a20e2e348631",
-    "index.html": "1110711df728c266"
+    "sisalto.js": "fc1c32a47505af00",
+    "index.html": "0c4fdd696cd0e70f"
   },
   "viikot": [
     48,
@@ -452,7 +452,7 @@
           "tallenna": "Tiedon kulku viikon 50 päiväkirjaan. Commit ja push."
         }
       ],
-      "nayta": "products.json, ProductDatabase- ja OrderManager-skriptit committeina sekä tiedon kulku päiväkirjassa.",
+      "nayta": "products.json, ProductDatabase- ja OrderManager-skriptit commiteina sekä tiedon kulku päiväkirjassa.",
       "tuotos": "products.json, ProductDatabase- ja OrderManager-skriptit sekä kolme tuotepainiketta.",
       "valmis": "Tilaus vaihtuu joka pelissä, ja siinä on 1–3 tuotetta. Oikea toimitus antaa tuotteiden pisteet yhteensä, ja väärä toimitus antaa 0 pistettä.",
       "tarkistukset": [

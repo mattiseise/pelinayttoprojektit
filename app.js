@@ -25,7 +25,7 @@
  *   näkymän ankkuriin (#tekninen-ehdotus) avaa näkymän ja kohdistaa ankkurin.
  *   P.kuvaNumerotReunassa (opt-in) siirtää kuvaohjeiden ja tavoitekuvan numerot kuvan vasempaan reunaan
  *   ja porrastaa päällekkäiset; kehykset näkyvät kulmamerkkeinä (<html data-kuvanumerot="reuna">).
- * v2.8.3: "Jatka siitä, mihin jäit" vierittää nykyisen tehtävän viimeksi rastittuun osaan ja siirtää
+ * v2.8.3: "Jatka siitä mihin jäit" vierittää nykyisen tehtävän viimeksi rastittuun osaan ja siirtää
  *   fokuksen sen ruutuun (ennen tehtävän alkuun). styles.css: työsyklin nykyinen askelkortti
  *   käännetyin värein saavutettavassa teemassa.
  * v2.8: selkeys (opt-in, oletuksena pois päältä; muiden projektien ulkoasu ei muutu):
@@ -150,7 +150,7 @@
     weekAriaHoliday: (w, name) => `Viikko ${w}, ${name}`,
     holidayFallback: "loma",
     progressCopy: (done, total) => `${done} / ${total} tehtävää`,
-    resumeLabel: "Jatka siitä, mihin jäit",
+    resumeLabel: "Jatka siitä mihin jäit",
     resumeDone: "Kaikki tehtävät valmiina",
     resumeNote: (w, title) => `${/–/.test(String(w)) ? "Viikot" : "Viikko"} ${w} · ${title}`,
     planNotStarted: "Ei vielä aloitettu",
