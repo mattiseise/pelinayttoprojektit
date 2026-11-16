@@ -25,8 +25,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Instrument+Serif:ital@0;1&display=swap">
   <link rel="stylesheet" href="styles.css?v2.8.8-20261110">
-  <script src="sisalto.js?v2.8.8-20261116" defer></script>
-  <script src="app.js?v2.8.8-20261110" defer></script>
+  <script src="sisalto.js?v2.8.8-20261116-kieli" defer></script>
+  <script src="app.js?v2.8.8-20261116-kieli" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#sisalto">Siirry sisältöön</a>
@@ -48,7 +48,7 @@
           <span class="progress-copy" data-progress-copy>0 / 0 työvaihetta</span>
         </div>
         <div class="progress-bar" aria-hidden="true"><span data-progress-bar></span></div>
-        <button class="resume-button" type="button" data-continue><span>Jatka siitä mihin jäit</span><span aria-hidden="true">→</span></button>
+        <button class="resume-button" type="button" data-continue><span>Jatka siitä, mihin jäit</span><span aria-hidden="true">→</span></button>
         <p class="resume-note" data-continue-note>Viikko 48</p>
       </div>
 
@@ -81,7 +81,7 @@
         <p class="view-eyebrow">Aloita tästä · kokonaiskuva ennen viikkoa 48</p>
         <h1 class="view-title">KahvilaKoodi: mitä rakennat ja miten etenet</h1>
         <p class="view-lead">Rakennat Unityllä koulun kahvilapelin, jota pelataan selaimessa ilman asennusta. Pelaaja palvelee tiskille saapuvia asiakkaita: hän toimittaa 1–3 tuotteen tilauksia kellon käydessä, kiire kasvaa pisteiden mukana, ja parhaat tulokset jäävät top 5 -listalle.</p>
-        <p>Sinä päätät pelin säännöt, kirjoitat C#-koodin täydennettävät kohdat itse ja testaat pelin selainversiolla. Asiakkaan omistamat asiat sovit asiakkaan kanssa, ja asiakas kokeilee peliä viikolla 2. Julkaisuehdokkaan testaa viikolla 3 uusi pelaaja.</p>
+        <p>Sinä päätät pelin säännöt, kirjoitat C#-koodin täydennettävät kohdat itse ja testaat pelin selainversiolla. Asiakkaan päätettävät asiat sovit hänen kanssaan, ja asiakas kokeilee peliä viikolla 2. Julkaisuehdokkaan testaa viikolla 3 uusi pelaaja.</p>
         <section data-goal></section>
 
         <section data-roadmap></section>
@@ -89,11 +89,11 @@
         <section class="card card-tint view-section">
           <h2>Näin käytät viikko-ohjetta</h2>
           <ol>
-            <li>Lue viikon alusta, miten viikon asiat liittyvät kokonaisprojektiin, ja viikon tavoite.</li>
+            <li>Lue viikon alusta viikon tavoite ja se, miten viikon asiat liittyvät kokonaisprojektiin.</li>
             <li>Tee viikon 2–4 työvaihetta järjestyksessä. Ensimmäinen keskeneräinen työvaihe on auki. Rastita osatehtävä heti, kun olet tehnyt sen. Jos jäät jumiin, avaa työvaiheen kohta <strong>Tarvitsen apua tähän työvaiheeseen</strong>. Kokeile ensin itse.</li>
             <li>Kun teet muutoksen peliin, kirjaa se GitHub-issueksi ja tee se Työtapa-sivun kuudella askeleella. Kun issue on valmis, lisää siihen kommentti ja linkki commitiin eli versionhallintaan tallennettuun muutokseen.</li>
             <li>Tarkista työvaiheen <strong>Valmis kun</strong> ja <strong>Tallenna työnäyte</strong> ennen seuraavaa työvaihetta. Tee viikon lopussa viikon lopputarkistus.</li>
-            <li>Kirjoita projektipäiväkirjan kolme kenttää. Paina <strong>Lataa koko projektipäiväkirja</strong>, korvaa Git-repositoryn eli projektin koodivaraston tiedosto <code>project-docs/projektipaivakirja.md</code> ja tee commit ja push.</li>
+            <li>Täytä projektipäiväkirjan kolme kenttää. Paina <strong>Lataa koko projektipäiväkirja</strong>, korvaa Git-repositoryn eli projektin koodivaraston tiedosto <code>project-docs/projektipaivakirja.md</code> ja tee commit ja push.</li>
           </ol>
           <p><strong>Työvaihe</strong> on tämän sivun viikko-ohjeen kohta, esimerkiksi ”Työvaihe 2 / 5”. <strong>GitHub-issue</strong> on yksi rajattu muutos peliin: tavoite, arvio ja Valmis kun -ehto. Issue on yleensä puolen tai yhden päivän työ, ja yksi työvaihe voi sisältää useita issueita. <strong>Työtapa</strong> on Työtapa-sivun kuusi askelta, joilla teet yhden issuen: valitse, suunnittele, toteuta, testaa, tallenna ja kirjaa.</p>
           <a class="button button-primary" href="#week-48" data-open-week="48">Aloita viikosta 48 →</a>
@@ -114,7 +114,7 @@
             <dt>Git, GitHub Desktop ja GitHub</dt><dd>Repositoryssa ovat kansiot <code>Assets</code>, <code>Packages</code>, <code>ProjectSettings</code> ja <code>project-docs</code>. GitHubissa ovat myös issuet ja niiden labelit, haara ja pull request (viikko 2), tagit RC1 ja v1.0 sekä julkaisu. GitHub Desktopin asennus, kirjautuminen, kloonaus, commit ja push kuvineen: <a href="https://mattiseise.github.io/projektikoontisivu/ohjeet/github-desktop/?projekti=kahvilakoodi#asennus" target="_blank" rel="noreferrer">GitHub Desktop -kuvaohje</a>.</dd>
             <dt>Julkaisu: WebGL ja GitHub Pages</dt><dd>WebGL on Unityn julkaisumuoto, joka toimii selaimessa ilman asennusta. Viikolla 3 teet WebGL-buildin repositoryn <code>docs</code>-kansioon, ja GitHub Pages julkaisee sen linkkinä, jonka asiakas voi avata. Älä luo <code>docs</code>-kansiota ennen sitä.</dd>
             <dt>VS Code ja grafiikkapaketit</dt><dd>VS Codella muokkaat <code>products.json</code>- ja README-tiedostoja. Väliaikainen grafiikka riittää pitkälle. Käytetyt grafiikkapaketit ja niiden lisenssit kirjataan README:hen.</dd>
-            <dt>Tekoäly</dt><dd>Saa selittää, ehdottaa ja auttaa virheiden etsinnässä. Pelin säännöt, omat päätökset, testit ja itsearvioinnin teet itse. Merkittävä käyttö kirjataan AI-lokiin.</dd>
+            <dt>Tekoäly</dt><dd>Saa selittää, ehdottaa ja auttaa virheiden etsinnässä. Päätät pelin säännöistä, teet omat ratkaisusi, testaat pelin ja kirjoitat itsearvioinnin itse. Merkittävä käyttö kirjataan AI-lokiin.</dd>
           </dl>
         </details>
 
@@ -138,7 +138,7 @@
         <details class="view-section project-reference">
           <summary>Vaatimus, ehdotus vai oma päätös?</summary>
           <p><strong>Vaatimus</strong> tulee asiakkaan toimeksiannosta, ja se toteutetaan aina: aloitusvalikko, itse peli, pistelasku ja päättymisnäkymä, 1–3 tuotteen tilaus, kasvava vaikeus, parhaiden tulosten tallennus, tuotteet erillisessä tietolähteessä, toimiva väliversio asiakkaalle ja julkaistu peli, jota asiakas voi itse kokeilla. Yhdessä ne ovat pakollinen perusversio (P0). Tärkeä jatko (P1) tehdään vasta, kun koko P0 toimii, ja valinnainen lisä (P2) saa jäädä pois.</p>
-          <p><strong>Sovittu toteutustapa</strong> on toimeksiannon ja GDD:n teknologiaosion tekniikka: Unity 2D ja C#, yksi CafeGame-scene, tuotteet <code>products.json</code>-tiedostossa, tulokset PlayerPrefsillä ja julkaisu WebGL-buildina GitHub Pagesiin. Tietovarasto on sovittu toteutustapa: tuotteet luetaan <code>products.json</code>-tiedostosta JsonUtilityllä ja tulokset tallennetaan PlayerPrefsillä, koska myöhemmät viikot rakentuvat niiden varaan. Viikolla 53 perustelet PlayerPrefsin vertaamalla sitä vähintään yhteen vaihtoehtoon. Jos vertailu puoltaa selvästi muuta, poikkeamasta sovitaan ohjaajan kanssa tiistaina 12.1., ja siihen asti pidät PlayerPrefsin. <strong>Ehdotus</strong> on esimerkki tai oletusarvo, jonka voit vaihtaa perustellusti, esimerkiksi 10 pistettä oikeasta toimituksesta, vaikeustasojen rajat 0, 31 ja 61 pistettä tai nimimerkin 12 merkin enimmäispituus. Toteutusavun työpohjat ovat valmis runko: täydennät kohdat itse ja osaat selittää jokaisen rivin.</p>
+          <p><strong>Sovittu toteutustapa</strong> on toimeksiannon ja GDD:n teknologiaosion tekniikka: Unity 2D ja C#, yksi CafeGame-scene, tuotteet <code>products.json</code>-tiedostossa, tulokset PlayerPrefsillä ja julkaisu WebGL-buildina GitHub Pagesiin. Tietovarasto on sovittu toteutustapa: tuotteet luetaan <code>products.json</code>-tiedostosta JsonUtilityllä ja tulokset tallennetaan PlayerPrefsillä, koska myöhemmät viikot rakentuvat niiden varaan. Viikolla 53 perustelet PlayerPrefsin valinnan vertaamalla sitä vähintään yhteen vaihtoehtoon. Jos vertailu puoltaa selvästi muuta, poikkeamasta sovitaan ohjaajan kanssa tiistaina 12.1., ja siihen asti pidät PlayerPrefsin. <strong>Ehdotus</strong> on esimerkki tai oletusarvo, jonka voit vaihtaa perustellusti, esimerkiksi 10 pistettä oikeasta toimituksesta, vaikeustasojen rajat 0, 31 ja 61 pistettä tai nimimerkin 12 merkin enimmäispituus. Toteutusavun työpohjat ovat valmis runko: täydennät kohdat itse ja osaat selittää jokaisen rivin.</p>
           <p><strong>Oma päätös</strong> perustellaan GDD:ssä tai päiväkirjassa: pelin nimi, tyyli, grafiikka ja pisteytys (GDD), pelisäännöt (viikko 51), vaikeutustapa ja tasojen arvot (viikko 52), nimimerkin enimmäispituus (viikko 53) ja se, mitkä testaajan havainnot korjataan ennen julkaisua (viikko 3).</p>
           <p><strong>Asiakkaan kanssa sovittavat asiat</strong> ovat toimeksiannon Sovi asiakkaan kanssa -laatikossa ja GDD:n ASIAKAS-kentissä: kierroksen pituus, testiselaimet ja -laitteet, kohderyhmä, top 5 -listan tasatilanteet ja se, kuka hyväksyy rajauksen ja väliversion. <strong>Ohjaajan kanssa:</strong> Kunnes asiakkaan ulkopuolinen edustaja on nimetty, ohjaava opettaja toimii asiakkaan sijaisena ja vastaanottaa kysymyslistat ja tilannekatsaukset. Katselmoinnissa (viikko 2) asiakasta esittää nimetty edustaja. Ohjaaja hyväksyy rajauksen viikolla 48. Ohjaaja ja asiakas eivät ole tavoitettavissa 18.12.2026–11.1.2027. Älä keksi vastausta itse tai tekoälyllä: tyhjä kenttä on oikea tulos, kunnes asia on sovittu.</p>
           <a href="#view-toimeksianto" data-open-view="toimeksianto">Avaa toimeksianto →</a>
@@ -190,7 +190,7 @@
         <div class="brief-text">
           <p>Haluan pienen PC:llä tai selaimessa toimivan pelin, jossa pelaaja työskentelee koulun kahvilassa. Asiakkaita saapuu tiskille ja he tilaavat 1–3 tuotetta. Pelaajan tehtävänä on toimittaa oikea tilaus mahdollisimman nopeasti.</p>
           <p>Pelissä pitää olla aloitusvalikko, itse peli, pistelasku ja pelin päättymisnäkymä. Vaikeustason pitää kasvaa pelin edetessä. Pelaajan parhaat tulokset pitää tallentaa.</p>
-          <p>Tuotteiden tiedot eivät saa olla kovakoodattuna pelilogiikkaan, vaan niiden pitää tulla erillisestä tietolähteestä. Haluan myös nähdä pelistä toimivan version vähintään kerran ennen lopullista versiota, jotta voin pyytää muutoksia.</p>
+          <p>Tuotteiden tiedot eivät saa olla kovakoodattuina pelilogiikkaan, vaan niiden pitää tulla erillisestä tietolähteestä. Haluan myös nähdä pelistä toimivan version vähintään kerran ennen lopullista versiota, jotta voin pyytää muutoksia.</p>
           <p>Lopullinen peli pitää julkaista niin, että voin itse kokeilla sitä.</p>
         </div>
 
@@ -223,8 +223,8 @@
               <li>lopuksi Unity WebGL -build GitHub Pagesiin eli GitHubin ilmaiseen sivustojulkaisuun</li>
             </ul>
             <p style="margin-top:8px">WebGL on Unityn julkaisumuoto, joka toimii selaimessa ilman asennusta, ja build on Unityn tekemä ajettava versio pelistä. WebGL-build on siis selaimessa pelattava julkaisuversio.</p>
-            <p style="margin-top:8px">Toimeksiannon PC/selaimessa-vaihtoehdosta tässä polussa on valittu selain. Käytä oppilaitoksen määrittämää Unity-versiota koko projektin ajan.</p>
-            <p style="margin-top:8px">Tietovarasto on sovittu toteutustapa: tuotteet luetaan <code>products.json</code>-tiedostosta JsonUtilityllä ja tulokset tallennetaan PlayerPrefsillä, koska myöhemmät viikot rakentuvat niiden varaan. Viikolla 53 perustelet PlayerPrefsin vertaamalla sitä vähintään yhteen vaihtoehtoon. Jos vertailu puoltaa selvästi muuta, poikkeamasta sovitaan ohjaajan kanssa tiistaina 12.1., ja siihen asti pidät PlayerPrefsin.</p>
+            <p style="margin-top:8px">Toimeksianto sallii PC-pelin tai selainpelin. Tässä polussa toteutetaan selainpeli. Käytä oppilaitoksen määrittämää Unity-versiota koko projektin ajan.</p>
+            <p style="margin-top:8px">Tietovarasto on sovittu toteutustapa: tuotteet luetaan <code>products.json</code>-tiedostosta JsonUtilityllä ja tulokset tallennetaan PlayerPrefsillä, koska myöhemmät viikot rakentuvat niiden varaan. Viikolla 53 perustelet PlayerPrefsin valinnan vertaamalla sitä vähintään yhteen vaihtoehtoon. Jos vertailu puoltaa selvästi muuta, poikkeamasta sovitaan ohjaajan kanssa tiistaina 12.1., ja siihen asti pidät PlayerPrefsin.</p>
           </div>
           <div class="card">
             <p class="section-label">Pidä rajaus · sovittu, ei toteuteta</p>
@@ -362,7 +362,7 @@
             <div class="task-list">
               <label class="task-row"><input type="checkbox" data-task="48-1"><span class="task-box" aria-hidden="true"></span><span class="task-text">Luo Unity-projekti ja kokeile, aukeaako se selaimessa.</span></label>
               <label class="task-row"><input type="checkbox" data-task="48-2"><span class="task-box" aria-hidden="true"></span><span class="task-text">Siirrä Unity-projekti repositoryyn ja vie se GitHubiin.</span></label>
-              <label class="task-row"><input type="checkbox" data-task="48-3"><span class="task-box" aria-hidden="true"></span><span class="task-text">Kysy asiakkaalta pelin avoimet asiat ja päivitä GDD.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="48-3"><span class="task-box" aria-hidden="true"></span><span class="task-text">Selvitä pelin avoimet asiat asiakkaan kanssa ja päivitä GDD.</span></label>
               <label class="task-row"><input type="checkbox" data-task="48-4"><span class="task-box" aria-hidden="true"></span><span class="task-text">Pilko ensimmäinen feature GitHub-issueiksi ja merkitse niiden tärkeys.</span></label>
             </div>
           </section>
@@ -373,7 +373,7 @@
             <ol data-lesson-list><li><span class="step-n">1</span><span><strong>Askel.</strong> Ohje.</span></li></ol>
           </section>
 
-          <details class="impl-help" data-week-help hidden><summary><span data-help-title>Tarvitsen toteutusapua</span><small>avaa vain jos jäät jumiin – kokeile ensin itse</small></summary><div class="impl-help-content" data-help-content></div></details>
+          <details class="impl-help" data-week-help hidden><summary><span data-help-title>Tarvitsen toteutusapua</span><small>avaa vain, jos jäät jumiin – kokeile ensin itse</small></summary><div class="impl-help-content" data-help-content></div></details>
           <div class="day-rhythm" data-week-days hidden><p class="section-label">Viikon päivärytmi</p><div class="day-grid" data-day-grid></div></div>
 
           <div class="outcome-grid">
@@ -427,7 +427,7 @@
             <ol data-lesson-list><li><span class="step-n">1</span><span><strong>Askel.</strong> Ohje.</span></li></ol>
           </section>
 
-          <details class="impl-help" data-week-help hidden><summary><span data-help-title>Tarvitsen toteutusapua</span><small>avaa vain jos jäät jumiin – kokeile ensin itse</small></summary><div class="impl-help-content" data-help-content></div></details>
+          <details class="impl-help" data-week-help hidden><summary><span data-help-title>Tarvitsen toteutusapua</span><small>avaa vain, jos jäät jumiin – kokeile ensin itse</small></summary><div class="impl-help-content" data-help-content></div></details>
           <div class="day-rhythm" data-week-days hidden><p class="section-label">Viikon päivärytmi</p><div class="day-grid" data-day-grid></div></div>
 
           <div class="outcome-grid">
@@ -475,7 +475,7 @@
             <ol data-lesson-list><li><span class="step-n">1</span><span><strong>Askel.</strong> Ohje.</span></li></ol>
           </section>
 
-          <details class="impl-help" data-week-help hidden><summary><span data-help-title>Tarvitsen toteutusapua</span><small>avaa vain jos jäät jumiin – kokeile ensin itse</small></summary><div class="impl-help-content" data-help-content></div></details>
+          <details class="impl-help" data-week-help hidden><summary><span data-help-title>Tarvitsen toteutusapua</span><small>avaa vain, jos jäät jumiin – kokeile ensin itse</small></summary><div class="impl-help-content" data-help-content></div></details>
           <div class="day-rhythm" data-week-days hidden><p class="section-label">Viikon päivärytmi</p><div class="day-grid" data-day-grid></div></div>
 
           <div class="outcome-grid">
@@ -522,7 +522,7 @@
             <ol data-lesson-list><li><span class="step-n">1</span><span><strong>Askel.</strong> Ohje.</span></li></ol>
           </section>
 
-          <details class="impl-help" data-week-help hidden><summary><span data-help-title>Tarvitsen toteutusapua</span><small>avaa vain jos jäät jumiin – kokeile ensin itse</small></summary><div class="impl-help-content" data-help-content></div></details>
+          <details class="impl-help" data-week-help hidden><summary><span data-help-title>Tarvitsen toteutusapua</span><small>avaa vain, jos jäät jumiin – kokeile ensin itse</small></summary><div class="impl-help-content" data-help-content></div></details>
           <div class="day-rhythm" data-week-days hidden><p class="section-label">Viikon päivärytmi</p><div class="day-grid" data-day-grid></div></div>
 
           <div class="outcome-grid">
@@ -568,7 +568,7 @@
             <ol data-lesson-list><li><span class="step-n">1</span><span><strong>Askel.</strong> Ohje.</span></li></ol>
           </section>
 
-          <details class="impl-help" data-week-help hidden><summary><span data-help-title>Tarvitsen toteutusapua</span><small>avaa vain jos jäät jumiin – kokeile ensin itse</small></summary><div class="impl-help-content" data-help-content></div></details>
+          <details class="impl-help" data-week-help hidden><summary><span data-help-title>Tarvitsen toteutusapua</span><small>avaa vain, jos jäät jumiin – kokeile ensin itse</small></summary><div class="impl-help-content" data-help-content></div></details>
           <div class="day-rhythm" data-week-days hidden><p class="section-label">Viikon päivärytmi</p><div class="day-grid" data-day-grid></div></div>
 
           <div class="outcome-grid">
@@ -616,7 +616,7 @@
             <ol data-lesson-list><li><span class="step-n">1</span><span><strong>Askel.</strong> Ohje.</span></li></ol>
           </section>
 
-          <details class="impl-help" data-week-help hidden><summary><span data-help-title>Tarvitsen toteutusapua</span><small>avaa vain jos jäät jumiin – kokeile ensin itse</small></summary><div class="impl-help-content" data-help-content></div></details>
+          <details class="impl-help" data-week-help hidden><summary><span data-help-title>Tarvitsen toteutusapua</span><small>avaa vain, jos jäät jumiin – kokeile ensin itse</small></summary><div class="impl-help-content" data-help-content></div></details>
           <div class="day-rhythm" data-week-days hidden><p class="section-label">Viikon päivärytmi</p><div class="day-grid" data-day-grid></div></div>
 
           <div class="outcome-grid">
@@ -663,7 +663,7 @@
             <ol data-lesson-list><li><span class="step-n">1</span><span><strong>Askel.</strong> Ohje.</span></li></ol>
           </section>
 
-          <details class="impl-help" data-week-help hidden><summary><span data-help-title>Tarvitsen toteutusapua</span><small>avaa vain jos jäät jumiin – kokeile ensin itse</small></summary><div class="impl-help-content" data-help-content></div></details>
+          <details class="impl-help" data-week-help hidden><summary><span data-help-title>Tarvitsen toteutusapua</span><small>avaa vain, jos jäät jumiin – kokeile ensin itse</small></summary><div class="impl-help-content" data-help-content></div></details>
           <div class="day-rhythm" data-week-days hidden><p class="section-label">Viikon päivärytmi</p><div class="day-grid" data-day-grid></div></div>
 
           <div class="outcome-grid">
@@ -700,7 +700,7 @@
             <div class="task-list">
               <label class="task-row"><input type="checkbox" data-task="2-1"><span class="task-box" aria-hidden="true"></span><span class="task-text">Anna asiakkaan pelata peliä ja kirjaa palaute.</span></label>
               <label class="task-row"><input type="checkbox" data-task="2-2"><span class="task-box" aria-hidden="true"></span><span class="task-text">Sovi asiakkaan kanssa yksi muutos ja tee siitä issue.</span></label>
-              <label class="task-row"><input type="checkbox" data-task="2-3"><span class="task-box" aria-hidden="true"></span><span class="task-text">Tee muutos omassa Git-haarassa.</span></label>
+              <label class="task-row"><input type="checkbox" data-task="2-3"><span class="task-box" aria-hidden="true"></span><span class="task-text">Tee muutos omassa Git-haarassasi.</span></label>
               <label class="task-row"><input type="checkbox" data-task="2-4"><span class="task-box" aria-hidden="true"></span><span class="task-text">Pyydä katselmointi pull requestilla ja yhdistä muutos.</span></label>
             </div>
           </section>
@@ -711,7 +711,7 @@
             <ol data-lesson-list><li><span class="step-n">1</span><span><strong>Askel.</strong> Ohje.</span></li></ol>
           </section>
 
-          <details class="impl-help" data-week-help hidden><summary><span data-help-title>Tarvitsen toteutusapua</span><small>avaa vain jos jäät jumiin – kokeile ensin itse</small></summary><div class="impl-help-content" data-help-content></div></details>
+          <details class="impl-help" data-week-help hidden><summary><span data-help-title>Tarvitsen toteutusapua</span><small>avaa vain, jos jäät jumiin – kokeile ensin itse</small></summary><div class="impl-help-content" data-help-content></div></details>
           <div class="day-rhythm" data-week-days hidden><p class="section-label">Viikon päivärytmi</p><div class="day-grid" data-day-grid></div></div>
 
           <div class="outcome-grid">
@@ -759,7 +759,7 @@
             <ol data-lesson-list><li><span class="step-n">1</span><span><strong>Askel.</strong> Ohje.</span></li></ol>
           </section>
 
-          <details class="impl-help" data-week-help hidden><summary><span data-help-title>Tarvitsen toteutusapua</span><small>avaa vain jos jäät jumiin – kokeile ensin itse</small></summary><div class="impl-help-content" data-help-content></div></details>
+          <details class="impl-help" data-week-help hidden><summary><span data-help-title>Tarvitsen toteutusapua</span><small>avaa vain, jos jäät jumiin – kokeile ensin itse</small></summary><div class="impl-help-content" data-help-content></div></details>
           <div class="day-rhythm" data-week-days hidden><p class="section-label">Viikon päivärytmi</p><div class="day-grid" data-day-grid></div></div>
 
           <div class="outcome-grid">
@@ -807,7 +807,7 @@
             <ol data-lesson-list><li><span class="step-n">1</span><span><strong>Askel.</strong> Ohje.</span></li></ol>
           </section>
 
-          <details class="impl-help" data-week-help hidden><summary><span data-help-title>Tarvitsen toteutusapua</span><small>avaa vain jos jäät jumiin – kokeile ensin itse</small></summary><div class="impl-help-content" data-help-content></div></details>
+          <details class="impl-help" data-week-help hidden><summary><span data-help-title>Tarvitsen toteutusapua</span><small>avaa vain, jos jäät jumiin – kokeile ensin itse</small></summary><div class="impl-help-content" data-help-content></div></details>
           <div class="day-rhythm" data-week-days hidden><p class="section-label">Viikon päivärytmi</p><div class="day-grid" data-day-grid></div></div>
 
           <div class="outcome-grid">
@@ -862,7 +862,7 @@
           <article><h3>4. Teknologia · sovittu toteutustapa</h3><p>Unity 2D + C#, tuotteet erillisessä products.json-tiedostossa (TextAsset + JsonUtility), tallennus PlayerPrefsillä, julkaisu Unity WebGL -buildina GitHub Pagesiin.</p></article>
           <article><h3>5. Rajaus — mitä ei tehdä · sovittu rajaus</h3><p>Ei verkkomoninpeliä, käyttäjätilejä, oikeita maksuja eikä laajaa 3D-maailmaa. Ensin toimiva P0-versio.</p></article>
           <article>
-            <h3>6. Avoimet asiat — asiakas omistaa · ASIAKAS</h3>
+            <h3>6. Avoimet asiat — asiakas päättää · ASIAKAS</h3>
             <ul>
               <li>Millä selaimilla ja laitteilla WebGL-versio testataan?</li>
               <li>Kenelle peli tehdään ja kuinka pitkä yksi kierros on?</li>
@@ -903,7 +903,7 @@
             <button class="button button-primary" type="button" data-plan-export>Lataa gdd.md</button>
             <small>Tallenna tiedosto polkuun <code>project-docs/gdd.md</code> ja tee commit. Päivitä, kun asiakas vastaa avoimiin asioihin.</small>
           </div>
-          <p class="plan-ai-note"><strong>Muista:</strong> älä anna tekoälyn päättää puolestasi. Asiakkaan omistamia asioita ei päätetä itse eikä tekoälyllä. Jos käytit tekoälyä ideointiin, kirjaa se AI-lokiin.</p>
+          <p class="plan-ai-note"><strong>Muista:</strong> älä anna tekoälyn päättää puolestasi. Asiakkaan päätettäviä asioita ei päätetä itse eikä tekoälyllä. Jos käytit tekoälyä ideointiin, kirjaa se AI-lokiin.</p>
         </form>
       </section>
 
@@ -911,7 +911,7 @@
       <section class="view" data-view="paivakirja" id="view-paivakirja">
         <p class="view-eyebrow">Yksi kirjoituspaikka · viedään Gitiin joka viikko</p>
         <h1 class="view-title">Projektipäiväkirja</h1>
-        <p class="view-lead">Viikon merkintä kirjoitetaan viikkonäkymässä työvaiheiden alla. Tämä näkymä on arkisto: näet mitkä viikot on kirjattu ja lataat koko päiväkirjan tiedostona.</p>
+        <p class="view-lead">Viikon merkintä kirjoitetaan viikkonäkymässä työvaiheiden alla. Tämä näkymä on arkisto: näet, mitkä viikot on kirjattu ja lataat koko päiväkirjan tiedostona.</p>
 
         <div class="card card-tint journal-summary-card">
           <div><span class="big" data-journal-count>0 / 10 viikkoa kirjattu</span><p>Tiedosto: <code>project-docs/projektipaivakirja.md</code></p></div>
