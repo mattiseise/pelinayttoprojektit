@@ -6,8 +6,8 @@
   "paivaton": false,
   "generoitu": "2026-11-16",
   "lahde": {
-    "sisalto.js": "ee5a1edb182d0c0d",
-    "index.html": "27a7e5585d126078"
+    "sisalto.js": "fc1c32a47505af00",
+    "index.html": "0c4fdd696cd0e70f"
   },
   "viikot": [
     48,
@@ -70,7 +70,7 @@
         {
           "id": "1-2",
           "teksti": "Aja testitapaukset selaimessa ja kirjaa tulokset.",
-          "valmis": "Jokaisella testitapauksella T01–T09 on todellinen tulos ja merkintä siitä, läpäisikö se.",
+          "valmis": "Jokaisella testitapauksella T01–T09 on todellinen tulos ja merkintä siitä, menikö testi läpi.",
           "tallenna": "project-docs/testaus.md, commit ja push. Läpäisemättömien testitapausten tunnukset viikon 1 päiväkirjaan."
         },
         {
@@ -136,8 +136,8 @@
         },
         {
           "id": "2-3",
-          "teksti": "Tee muutos omassa Git-haarassa.",
-          "valmis": "Haara näkyy GitHubissa, ja siinä on vähintään kaksi pientä committia.",
+          "teksti": "Tee muutos omassa Git-haarassasi.",
+          "valmis": "Haara näkyy GitHubissa, ja siinä on vähintään kaksi pientä commitia.",
           "tallenna": "Haaran nimi viikon 2 päiväkirjaan."
         },
         {
@@ -148,7 +148,7 @@
         }
       ],
       "nayta": "Katselmointimuistio, hyväksytty muutosissue ja yhdistetty pull request kommentteineen.",
-      "tuotos": "Katselmointimuistio, hyväksytty muutosissue, muutos omassa haarassa ja yhdistetty pull request kommentteineen.",
+      "tuotos": "Katselmointimuistio, hyväksytty muutosissue, muutos omassa haarassasi ja yhdistetty pull request kommentteineen.",
       "valmis": "Katselmointimuistiossa näkyvät asiakkaan palaute, omat havaintosi ja sovittu muutos. Muutos on yhdistetty main-haaraan pull requestilla, kommentteihin on vastattu ja peli toimii yhä alusta loppuun kuten ennen.",
       "tarkistukset": [
         {
@@ -186,7 +186,7 @@
         {
           "id": "3-1",
           "teksti": "Merkitse julkaisuehdokas RC1 ja anna uuden pelaajan testata se.",
-          "valmis": "Ensimmäisen julkaisuehdokkaan (RC1) tagi näkyy GitHubissa, ja testaajan havainnoilla on päätökset.",
+          "valmis": "Ensimmäisen julkaisuehdokkaan (RC1) tagi näkyy GitHubissa, ja jokaisen testaajan havainnon yhteyteen on kirjattu päätös.",
           "tallenna": "RC1-tagi, testaajan rooli ja havainnot päätöksineen viikon 3 päiväkirjaan."
         },
         {
@@ -198,7 +198,7 @@
         {
           "id": "3-3",
           "teksti": "Julkaise peli GitHub Pagesiin ja merkitse se versioksi v1.0.",
-          "valmis": "Peli aukeaa julkaisulinkistä, ja tagi v1.0 osoittaa samaan committiin kuin julkaisu.",
+          "valmis": "Peli aukeaa julkaisulinkistä, ja tagi v1.0 osoittaa samaan commitiin kuin julkaisu.",
           "tallenna": "Julkaisulinkki ja v1.0-tagi viikon 3 päiväkirjaan."
         },
         {
@@ -210,7 +210,7 @@
       ],
       "nayta": "RC1- ja v1.0-tagit, kaksi korjausketjua, julkaisulinkki ja README:n käyttöohje.",
       "tuotos": "RC1-tagi, testaajan havainnot päätöksineen, kaksi korjausketjua, v1.0-julkaisu GitHub Pagesissa ja README:n käyttöohje.",
-      "valmis": "Tagi v1.0 osoittaa samaan committiin kuin julkaistu versio. Toinen ihminen avaa linkin toisella selaimella tai laitteella ja pelaa kierroksen README:n ohjeen avulla.",
+      "valmis": "Tagi v1.0 osoittaa samaan commitiin kuin julkaistu versio. Toinen ihminen avaa linkin toisella selaimella tai laitteella ja pelaa kierroksen README:n ohjeen avulla.",
       "tarkistukset": [
         {
           "id": "tiedosto:README.md",
@@ -259,7 +259,7 @@
         {
           "id": "4-2",
           "teksti": "Liitä jokaiseen näyttömatriisin kohtaan tarkka linkki.",
-          "valmis": "Tiedostossa project-docs/nayttomatriisi.md on rivi jokaiselle 32 vaatimukselle, ja jokaisen rivin tarkka linkki aukeaa.",
+          "valmis": "Tiedostossa project-docs/nayttomatriisi.md on oma rivi kaikille 32 vaatimukselle, ja jokaisen rivin tarkka linkki aukeaa.",
           "tallenna": "project-docs/nayttomatriisi.md, commit ja push."
         },
         {
@@ -325,7 +325,7 @@
         },
         {
           "id": "48-3",
-          "teksti": "Kysy asiakkaalta pelin avoimet asiat ja päivitä GDD.",
+          "teksti": "Selvitä pelin avoimet asiat asiakkaan kanssa ja päivitä GDD.",
           "valmis": "Päiväkirjassa on viisi kysymystä, ja jokaisen perässä on asiakkaan vastaus tai merkintä avoin. Päivitetty gdd.md on GitHubissa.",
           "tallenna": "Kysymykset, vastaukset, keskustelun päivä ja osallistujien roolit viikon 48 päiväkirjaan. Älä kirjoita muiden ihmisten nimiä."
         },
@@ -452,7 +452,7 @@
           "tallenna": "Tiedon kulku viikon 50 päiväkirjaan. Commit ja push."
         }
       ],
-      "nayta": "products.json, ProductDatabase- ja OrderManager-skriptit committeina sekä tiedon kulku päiväkirjassa.",
+      "nayta": "products.json, ProductDatabase- ja OrderManager-skriptit commiteina sekä tiedon kulku päiväkirjassa.",
       "tuotos": "products.json, ProductDatabase- ja OrderManager-skriptit sekä kolme tuotepainiketta.",
       "valmis": "Tilaus vaihtuu joka pelissä, ja siinä on 1–3 tuotetta. Oikea toimitus antaa tuotteiden pisteet yhteensä, ja väärä toimitus antaa 0 pistettä.",
       "tarkistukset": [
@@ -546,7 +546,7 @@
         {
           "id": "52-1",
           "teksti": "Valitse, miten peli vaikeutuu, ja perustele valinta.",
-          "valmis": "Päiväkirjassa ovat molemmat tavat, kolmen kysymyksen vastaukset, valinta ja kaksi perustelua.",
+          "valmis": "Päiväkirjassa ovat molemmat tavat, vastaukset kolmeen kysymykseen, valinta ja kaksi perustelua.",
           "tallenna": "Valinta ja perustelut viikon 52 päiväkirjaan."
         },
         {

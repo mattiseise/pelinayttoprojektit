@@ -1,8 +1,8 @@
 # KahvilaKoodi – ohjattu näyttöprojekti
 
-Selainpohjainen pelipolku koulun kahvilapelin toteuttamiseen näyttöprojektina. Viikot etenevät **pelifeature edellä**: jokainen viikko tuottaa peliin näkyvän ominaisuuden tai muun konkreettisen tuloksen. Featuren tekniikka (Unity, C#, JSON, PlayerPrefs, Git, WebGL) arvioidaan näytössä.
+Selainpohjainen pelipolku koulun kahvilapelin toteuttamiseen näyttöprojektina. Viikot etenevät **pelin ominaisuus kerrallaan**: jokainen viikko tuottaa peliin näkyvän ominaisuuden tai muun konkreettisen tuloksen. Ominaisuuden toteutuksessa käytetty tekniikka (Unity, C#, JSON, PlayerPrefs, Git, WebGL) arvioidaan näytössä.
 
-Sivusto sisältää viikot 48–53/2026 ja 1–4/2027, 29.1.2027 päättyvän aikataulun, GDD-generaattorin (esitäytetty Game Design Document, jonka omat päätökset opiskelija tekee itse ja lataa gdd.md-tiedostona), vastuullisen tekoälyn käyttöohjeet, AI-lokin, testauksen vähimmäistavoitteet, näyttöaineiston tarkistuslistat kolmesta tutkinnon osasta ja suositukset ilmaisiin grafiikkalähteisiin (spritet ja taustat).
+Sivusto sisältää viikot 48–53/2026 ja 1–4/2027, 29.1.2027 päättyvän aikataulun, GDD-generaattorin (esitäytetty Game Design Document, johon opiskelija kirjaa omat päätöksensä ja jonka hän lataa gdd.md-tiedostona), vastuullisen tekoälyn käyttöohjeet, AI-lokin, testauksen vähimmäistavoitteet, näyttöaineiston tarkistuslistat kolmesta tutkinnon osasta ja suositukset ilmaisiin grafiikkalähteisiin (spritet ja taustat).
 
 Pedagoginen runko on tarkastettu pedagogia-agenttiputken Linnea-portilla (hyväksytty 17.8.2026).
 
@@ -16,7 +16,7 @@ Pedagoginen runko on tarkastettu pedagogia-agenttiputken Linnea-portilla (hyväk
 
 ## GitHub Pages
 
-Sivusto on täysin staattinen. Julkaise repositoryn juuresta `main`-branchista GitHub Pagesiin.
+Sivusto on täysin staattinen. Julkaise sivusto GitHub Pagesiin repositoryn `main`-haaran juuresta.
 
 ## Paikallinen esikatselu
 
