@@ -9,6 +9,9 @@
  * Rakenne, jota tämä moottori odottaa index.html:ltä, on kuvattu tarkasti
  * tiedostossa skillin references/layout-rakenne.md.
  *
+ * v2.8.9: kielikorjaukset. "Jatka siitä, mihin jäit" (pilkku), ja yhden viikon vaihe on vaihekuvauksessa
+ *   "viikko 48" / "työviikko 3" (ennen "viikot 48"). Sama korjaus työkaluihin tee_lataukset.js ja
+ *   tee_vaihekuva.js. Projekti, joka ohittaa tekstin (tekstit.resumeLabel, tekstit.roadmapWeeks), ei muutu.
  * v2.8.8: viikon esittelykortissa ("Miten tämän viikon asiat liittyvät kokonaisprojektiin") kuvaus on
  *   omana kappaleenaan ja päivämäärät listana: viikkoOhjeet[w].paivamaarat = [["Viikkopalaveri",
  *   "ma–ti 16.–17.11."], …] tai merkkijonoja. Ilman kenttää kortti on ennallaan.
@@ -25,7 +28,7 @@
  *   näkymän ankkuriin (#tekninen-ehdotus) avaa näkymän ja kohdistaa ankkurin.
  *   P.kuvaNumerotReunassa (opt-in) siirtää kuvaohjeiden ja tavoitekuvan numerot kuvan vasempaan reunaan
  *   ja porrastaa päällekkäiset; kehykset näkyvät kulmamerkkeinä (<html data-kuvanumerot="reuna">).
- * v2.8.3: "Jatka siitä mihin jäit" vierittää nykyisen tehtävän viimeksi rastittuun osaan ja siirtää
+ * v2.8.3: "Jatka siitä, mihin jäit" vierittää nykyisen tehtävän viimeksi rastittuun osaan ja siirtää
  *   fokuksen sen ruutuun (ennen tehtävän alkuun). styles.css: työsyklin nykyinen askelkortti
  *   käännetyin värein saavutettavassa teemassa.
  * v2.8: selkeys (opt-in, oletuksena pois päältä; muiden projektien ulkoasu ei muutu):
@@ -150,7 +153,7 @@
     weekAriaHoliday: (w, name) => `Viikko ${w}, ${name}`,
     holidayFallback: "loma",
     progressCopy: (done, total) => `${done} / ${total} tehtävää`,
-    resumeLabel: "Jatka siitä mihin jäit",
+    resumeLabel: "Jatka siitä, mihin jäit",
     resumeDone: "Kaikki tehtävät valmiina",
     resumeNote: (w, title) => `${/–/.test(String(w)) ? "Viikot" : "Viikko"} ${w} · ${title}`,
     planNotStarted: "Ei vielä aloitettu",
@@ -306,7 +309,7 @@
     cycleSummary: "Työsykli · yksi toteutusmuutos kerrallaan",
     tasksHeading: "",
     roadmapHeading: (n) => `Projektin ${n} vaihetta`,
-    roadmapWeeks: (first, last, dateless) => `${dateless ? "työviikot" : "viikot"} ${first === last ? first : `${first}–${last}`}`,
+    roadmapWeeks: (first, last, dateless) => first === last ? `${dateless ? "työviikko" : "viikko"} ${first}` : `${dateless ? "työviikot" : "viikot"} ${first}–${last}`,
     roadmapOpen: "Avaa vaiheen ensimmäinen viikko →",
     roadmapFigureCaption: "Havainnekuva: vaiheet ja niiden tulokset. Tarkat työvaiheet ovat viikkosivuilla.",
     /* v2.8: selkeys (P.selkeys, P.perusohjeet, P.tiedostokortit, P.dokumentitRepossa). */
