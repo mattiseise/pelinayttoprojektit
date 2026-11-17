@@ -24,6 +24,11 @@
  * ("Commit ja push (Vektoripaja-sivusto: Työtapa → Näin teet)") ja verkko-osoite kokonaan.
  * Objektimuotoinen osatehtävä tulostuu riveinä Missä / Tee / Näet nyt. Ajo pysähtyy, jos
  * tulosteeseen jää raaka [[-merkintä.
+ *
+ * v2.8.9: kielikorjaukset. Yhden viikon vaihe on työpaketin vaiheluettelossa "viikko 48" /
+ * "työviikko 3" (ennen "viikot 48"), testiluokat "normaali käyttö, rajatilanne tai virhetilanne"
+ * ja lisenssisarake "Lisenssi ja lupa uudelleenjulkaisuun". Projektin omat ohitukset
+ * (lataukset.aloitusVaiheViikot, opettaja.pohjat.testiLuokat) ovat yhä etusijalla.
  */
 const fs = require("fs");
 const path = require("path");
@@ -79,7 +84,7 @@ const L_OLETUS = {
   /* v2.7: yhtenäiset viikko-ohjeet */
   aloitusOtsikko: "Mitä rakennat ja miten etenet",
   aloitusVaiheetOtsikko: (n) => `Projektin ${n} vaihetta`,
-  aloitusVaiheViikot: (first, last, dateless) => `${dateless ? "työviikot" : "viikot"} ${first === last ? first : `${first}–${last}`}`,
+  aloitusVaiheViikot: (first, last, dateless) => first === last ? `${dateless ? "työviikko" : "viikko"} ${first}` : `${dateless ? "työviikot" : "viikot"} ${first}–${last}`,
   aloitusHuomio: "",
   yhteysLabel: "Yhteys kokonaisprojektiin:",
   tavoiteLabel: "Viikon tavoite:",
@@ -474,7 +479,7 @@ for (let i = 1; i <= testCount; i++) {
 }
 dp.push(table(tw, tRows));
 /* v2.7: luokka kirjataan tapauskohtaisesti; kolmannesjako ei vastannut projektien omaa numerointia. */
-dp.push(p(T.testiLuokat || "Merkitse jokaiselle testitapaukselle luokka: normaali käyttö, raja tai virhetilanne. Kirjoita odotus ennen testiajoa.", { before: 120, italics: true, color: GREY }));
+dp.push(p(T.testiLuokat || "Merkitse jokaiselle testitapaukselle luokka: normaali käyttö, rajatilanne tai virhetilanne. Kirjoita odotus ennen testiajoa.", { before: 120, italics: true, color: GREY }));
 dp.push(pageBreak());
 
 dp.push(h1(`5 · Virheenkorjausketju (vko ${T.testiVko ?? ""}, ${T.ketjuja || 3} kpl)`));
@@ -484,7 +489,7 @@ dp.push(pageBreak());
 dp.push(h1(`6 · Lisenssi- ja CREDITS-kirjaus (vko ${T.lisenssiVko ?? ""})`));
 dp.push(p("Työn oma lisenssi: ____________________  ·  sovittu ohjaajan kanssa (pvm): ____________", { after: 160 }));
 const cw = widths([31, 35, 34]);
-const cRows = [headerRow([["Tiedosto tai aineisto", cw[0]], ["Lähde: itse tehty vai mistä?", cw[1]], ["Lisenssi ja salliiko uudelleenjulkaisun", cw[2]]])];
+const cRows = [headerRow([["Tiedosto tai aineisto", cw[0]], ["Lähde: itse tehty vai mistä?", cw[1]], ["Lisenssi ja lupa uudelleenjulkaisuun", cw[2]]])];
 for (let i = 0; i < 8; i++) cRows.push(new TableRow({ children: [cell("", { w: cw[0] }), cell("", { w: cw[1] }), cell("", { w: cw[2] })] }));
 dp.push(table(cw, cRows));
 dp.push(p("Siirrä tämän taulukon sisältö CREDITS-tiedostoon repositoryyn. Jos kaikki on itse tehtyä, kirjaa se yhdellä rivillä.", { before: 120, italics: true, color: GREY }));

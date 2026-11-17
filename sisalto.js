@@ -107,9 +107,7 @@ window.NAYTTOPROJEKTI = {
   tekstit: {
     goalListLabel: "Pelaajan työnkulku",
     goalNote: "Havainnekuva näyttää pelaajan työnkulun. Se ei ole kuvakaappaus valmiista pelistä.",
-    tasksLead: "Tee työvaiheet järjestyksessä. Ensimmäinen keskeneräinen vaihe on auki. Kun teet muutoksen peliin, kirjaa se GitHub-issueksi ja tee se Työtapa-sivun kuudella askeleella.",
-    /* Moottorin oletuksesta puuttuu pilkku sivulauseen edestä. Korjaus kuuluu myös runkoon. */
-    resumeLabel: "Jatka siitä, mihin jäit"
+    tasksLead: "Tee työvaiheet järjestyksessä. Ensimmäinen keskeneräinen vaihe on auki. Kun teet muutoksen peliin, kirjaa se GitHub-issueksi ja tee se Työtapa-sivun kuudella askeleella."
   },
 
   /* ---- viikkonavigaation lyhyet nimet (vanhasta app.js:n weekNames) ---- */
@@ -241,8 +239,7 @@ window.NAYTTOPROJEKTI = {
   /* ---- projektipäiväkirja ---- */
   /* ---- opettajan aineisto: vain dokumentointipohjien mitoitus ---- */
   opettaja: {
-    pohjat: { aloitusVko: 48, kysymyksia: 5, vertailuVko: 53, katselmointiVkot: "2 ja 3", testiVko: 1, testeja: 9, ketjuja: 2, lisenssiVko: 3,
-      testiLuokat: "Merkitse jokaiselle testitapaukselle luokka: normaali käyttö, rajatilanne tai virhetilanne. Kirjoita odotus ennen testiajoa." }
+    pohjat: { aloitusVko: 48, kysymyksia: 5, vertailuVko: 53, katselmointiVkot: "2 ja 3", testiVko: 1, testeja: 9, ketjuja: 2, lisenssiVko: 3 }
   },
 
   paivakirja: {

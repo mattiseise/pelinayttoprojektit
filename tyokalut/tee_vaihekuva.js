@@ -11,7 +11,10 @@
  * P.vaihekuva = { kuva, leveys, korkeus, alt, otsikko? } — leveys ja korkeus päivitetään
  * tämän skriptin tulosteesta, jos ne eroavat.
  * Lomat: lomaViikot, jotka kuuluvat vaiheeseen, näkyvät vaiheen alarivillä viikkoNimet-nimellä.
- * Muunkielinen sivusto: P.vaihekuva.tekstit = { kuvaotsikko, viikot, tyoviikot, viikko, viikotLyhyt, loma }.
+ * Muunkielinen sivusto: P.vaihekuva.tekstit = { kuvaotsikko, viikot, tyoviikot, viikko, viikotLyhyt, loma,
+ *   viikkoIso, tyoviikko }.
+ * v2.8.9: yhden viikon vaihe on "Viikko 48" / "Työviikko 3" (ennen "Viikot 48"). viikkoIso ja tyoviikko
+ *   ovat uusia avaimia; ilman niitä muunkielinen sivusto saa oman viikot- tai tyoviikot-tekstinsä.
  */
 const fs = require("fs");
 const path = require("path");
@@ -47,10 +50,14 @@ function wrap(text, max) {
   return lines;
 }
 
+const VT_OMA = (P.vaihekuva && P.vaihekuva.tekstit) || {};
 const VT = Object.assign({
   kuvaotsikko: "Mitä syntyy missäkin vaiheessa?",
-  viikot: "Viikot", tyoviikot: "Työviikot", viikko: "viikko", viikotLyhyt: "viikot", loma: "Loma"
-}, (P.vaihekuva && P.vaihekuva.tekstit) || {});
+  viikot: "Viikot", tyoviikot: "Työviikot", viikko: "viikko", viikotLyhyt: "viikot", loma: "Loma",
+  /* v2.8.9: yhden viikon vaihe ("Viikko 48", "Työviikko 3"). Jos projekti antaa omat viikot-tekstit
+     mutta ei näitä (muunkielinen sivusto), käytetään sen omaa monikkoa kuten ennen, ei suomea. */
+  viikkoIso: VT_OMA.viikot || "Viikko", tyoviikko: VT_OMA.tyoviikot || "Työviikko"
+}, VT_OMA);
 const weekList = (P.viikot || []).map(Number);
 const holidays = new Set((P.lomaViikot || []).map(Number));
 const names = P.viikkoNimet || {};
@@ -59,7 +66,8 @@ function weeksLabel(phase) {
   const work = weekList.filter((w) => (phase.viikot || []).map(Number).includes(w) && !holidays.has(w));
   if (!work.length) return "";
   const a = work[0], b = work[work.length - 1];
-  return `${P.paivaton ? VT.tyoviikot : VT.viikot} ${a === b ? a : `${a}–${b}`}`;
+  if (a === b) return `${P.paivaton ? VT.tyoviikko : VT.viikkoIso} ${a}`;
+  return `${P.paivaton ? VT.tyoviikot : VT.viikot} ${a}–${b}`;
 }
 
 function holidayLine(phase) {
